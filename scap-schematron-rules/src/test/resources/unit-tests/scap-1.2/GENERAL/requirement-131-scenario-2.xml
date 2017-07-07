@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>131</requirement>
+  <description>XCCDF test results SHALL be documented as the contents of an xccdf:TestResult element.
+               The TestResult element is removed.</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/result-base.xml">
+    
+    <replace xpath="//xccdf:TestResult">
+      <xccdf:Benchmark />
+    </replace>
+  
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-131-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

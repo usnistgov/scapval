@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>306</requirement>
+  <description></description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ai="http://scap.nist.gov/schema/asset-identification/1.1"
+  xmlns:arf="http://scap.nist.gov/schema/asset-reporting-format/1.1"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/result-base.xml">
+    <modify-attribute value="asset" xpath="//arf:object-ref/@ref-id" />
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      
+    </schematron-assessment>
+    
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-306-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

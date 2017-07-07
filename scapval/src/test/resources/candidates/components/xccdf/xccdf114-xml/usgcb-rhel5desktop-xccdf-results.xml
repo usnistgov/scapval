@@ -1,0 +1,1905 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:TestResult xmlns:ns="http://checklists.nist.gov/xccdf/1.1"
+  id="xccdf_scan_testresult_15-03-2017"
+  version="1.2.5.0" 
+  start-time="2017-03-15T15:02:31.850-04:00"
+  test-system="SCAP Reference Implementation 1.2"
+  end-time="2017-03-15T16:19:47.778-04:00">
+  <ns:benchmark href="file:/scap-tools/scap-interpreter_bin_1.2.5_build_54/USGCB-rhel5desktop-1.2.5.0/usgcb-rhel5desktop-xccdf.xml"/>
+  <ns:title xml:lang="en-US">SCAP automated assessment for checklist USGCB-RHEL-5-Desktop using profile united_states_government_configuration_baseline performed at Wednesday, March 15, 2017</ns:title>
+  <ns:identity privileged="false" authenticated="true">root</ns:identity>
+  <ns:profile idref="united_states_government_configuration_baseline"/>
+  <ns:target>192.168.100.193</ns:target>
+  <ns:target>localhost6.localdomain6</ns:target>
+  <ns:target>localhost.localdomain</ns:target>
+  <ns:target-address>192.168.100.193</ns:target-address>
+  <ns:target-address>0:0:0:0:0:0:0:1%lo</ns:target-address>
+  <ns:target-address>127.0.0.1</ns:target-address>
+  <ns:target-facts>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">192.168.100.193</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">192.168.100.193</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:ipv4" type="string">192.168.100.193</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:mac" type="string">00:0c:29:1f:ca:d1</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">localhost6.localdomain6</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">localhost6.localdomain6</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:ipv6" type="string">0:0:0:0:0:0:0:1%lo</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">localhost.localdomain</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">localhost.localdomain</ns:fact>
+    <ns:fact name="urn:xccdf:fact:asset:identifier:ipv4" type="string">127.0.0.1</ns:fact>
+  </ns:target-facts>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.2.4.1.a">027</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.1.7.a">12</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.1.1.retry">3</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.1.1.dcredit">-1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.1.1.ucredit">-1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.1.1.ocredit">-1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.1.1.lcredit">-1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.1.1.difok">3</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.5.a">sha512</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.3.6.a">24</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.4.4">077</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.4.4">077</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.4.4">077</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.4.4">077</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.5.2.a">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.5.2.b">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.5.5">15</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.7">-- WARNING --
+This system is for the use of authorized users only. Individuals
+using this computer system without authority or in excess of their
+authority are subject to having all their activities on this system
+monitored and recorded by system personnel. Anyone using this
+system expressly consents to such monitoring and is advised that
+if such monitoring reveals possible evidence of criminal activity
+system personal may provide the evidence of such monitoring to law
+enforcement officials.</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.3.7">-- WARNING --
+This system is for the use of authorized users only. Individuals
+using this computer system without authority or in excess of their
+authority are subject to having all their activities on this system
+monitored and recorded by system personnel. Anyone using this
+system expressly consents to such monitoring and is advised that
+if such monitoring reveals possible evidence of criminal activity
+system personal may provide the evidence of such monitoring to law
+enforcement officials.</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.4.2.c">enforcing</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.4.2.d">targeted</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.a">0</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.b">0</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.c">0</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.d">1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.e">0</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.f">0</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.g">0</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.h">1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.i">1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.j">1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.k">1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.1.2.l">1</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.3.2.1.b">no</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.5.3.2.1.c">disabled</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.6.1.2.a">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-2.6.1.2.b">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.primary.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.primary.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.anacrontab.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.anacrontab.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.group">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.4.2.system.crontab.directories.user">root</ns:set-value>
+  <ns:set-value idref="usgcb-rhel5desktop-var-3.5.2.3.a">900</ns:set-value>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.1.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:47.872-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14161-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20000" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.1.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:47.876-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14777-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20002" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.1.1.3.a" role="full" severity="unknown" time="2017-03-15T16:19:47.876-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14011-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20004" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.1.1.4.a" role="full" severity="unknown" time="2017-03-15T16:19:47.877-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14171-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20005" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.1.1.5.a" role="full" severity="unknown" time="2017-03-15T16:19:47.877-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14559-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20006" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.2.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:47.877-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14440-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200065" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.2.2.a" role="full" severity="unknown" time="2017-03-15T16:19:47.878-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3416-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20007" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="security_patches_up_to_date" role="full" severity="unknown" time="2017-03-15T16:19:47.878-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:com.redhat.rhsa:def:20080209" href="usgcb-rhel5desktop-2017-03-15_15-02-30-patches-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="security_patches_up_to_date" role="full" severity="unknown" time="2017-03-15T16:19:47.878-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:com.redhat.rhsa:def:20080208" href="usgcb-rhel5desktop-2017-03-15_15-02-30-patches-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.2.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.429-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4218-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20008" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.2.3.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.429-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14914-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20010" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.2.3.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.429-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14813-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20011" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.3.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.429-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4209-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20014" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.1.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.430-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14931-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200155" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.430-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4249-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20016" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.430-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3522-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20017" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.1.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.430-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4275-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20018" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.1.2.c" role="full" severity="unknown" time="2017-03-15T16:19:48.431-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4042-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20019" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.431-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14089-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20027" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.b" role="full" severity="unknown" time="2017-03-15T16:19:48.431-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14457-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20028" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.c" role="full" severity="unknown" time="2017-03-15T16:19:48.431-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14853-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20029" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.d" role="full" severity="unknown" time="2017-03-15T16:19:48.431-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15087-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20030" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.e" role="full" severity="unknown" time="2017-03-15T16:19:48.431-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14093-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20031" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.f" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14118-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20032" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.2.5.g" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14871-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20033" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3918-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20034" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3988-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20035" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3276-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20036" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.d" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3883-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20037" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.e" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4210-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20038" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.f" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4064-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20039" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.g" role="full" severity="unknown" time="2017-03-15T16:19:48.432-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3958-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20040" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.h" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3495-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20041" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.i" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4130-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20042" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.j" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3967-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20043" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.k" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3932-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20044" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.1.l" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3566-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20045" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3399-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20046" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3795-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20047" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14970-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20048" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.4.b" role="full" severity="unknown" time="2017-03-15T16:19:48.433-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14340-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20049" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.434-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4223-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20050" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.5.b" role="full" severity="unknown" time="2017-03-15T16:19:48.434-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3573-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20051" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.3.6.a" role="full" severity="unknown" time="2017-03-15T16:19:48.434-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14794-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20052" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.4.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.434-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4220-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20053" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.4.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4225-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20055" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.4.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4247-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20056" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.4.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4168-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20057" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.4.3.b" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4146-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20058" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.2.4.4.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4172-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20059" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3485-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20063" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.1.d" role="full" severity="unknown" time="2017-03-15T16:19:48.435-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4256-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20064" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14088-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20065" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15047-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20066" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3987-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20068" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.5.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4238-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20069" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.5.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14300-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200695" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.6.a" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4009-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20070" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.7.a" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4154-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20071" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.7.b" role="full" severity="unknown" time="2017-03-15T16:19:48.436-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4180-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20072" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.7.c" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4092-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20073" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.7.d" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4097-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20074" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.8.a" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14071-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20075" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.8.b" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14675-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20076" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.8.c" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4114-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20077" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.1.9.a" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18412-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:99900" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15054-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200781" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.1.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.437-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14113-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:141130" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.1.1.d" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14672-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200784" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.1.1.e" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14122-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200785" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.1.1.f" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14712-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200786" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.1.1.g" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14701-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200787" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3410-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200801" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14063-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20083" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.3.6.a" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14939-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20084" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.438-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3301-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20085" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14957-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:200855" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>error</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4090-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20086" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3844-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20087" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.4.b" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4227-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20088" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.4.c" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14107-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20089" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.4.4.d" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14847-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20090" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4144-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20092" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.439-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4197-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20093" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.2.c" role="full" severity="unknown" time="2017-03-15T16:19:48.440-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3923-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20094" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.2.d" role="full" severity="unknown" time="2017-03-15T16:19:48.440-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3818-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20095" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.440-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4241-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20096" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.440-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4245-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20097" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.6.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.440-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3315-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20100" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.6.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.440-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14604-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201005" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.6.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14023-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201006" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.6.1.d" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14735-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201007" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.5.6.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3910-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20101" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.7.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4060-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20102" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.3.7.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4188-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20103" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.4.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3977-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20104" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.4.2.c" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3999-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20106" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.4.2.d" role="full" severity="unknown" time="2017-03-15T16:19:48.441-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3624-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20107" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.4.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3668-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20110" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.4.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14991-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201115" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4151-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20112" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4155-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20113" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3561-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20114" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4236-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20115" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4217-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20116" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.c" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3472-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20117" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.d" role="full" severity="unknown" time="2017-03-15T16:19:48.442-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4320-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20118" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.e" role="full" severity="unknown" time="2017-03-15T16:19:48.443-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4091-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20119" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.f" role="full" severity="unknown" time="2017-03-15T16:19:48.443-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4186-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20120" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.g" role="full" severity="unknown" time="2017-03-15T16:19:48.443-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3339-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20121" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.h" role="full" severity="unknown" time="2017-03-15T16:19:48.443-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3644-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20122" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.i" role="full" severity="unknown" time="2017-03-15T16:19:48.443-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4133-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20123" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.j" role="full" severity="unknown" time="2017-03-15T16:19:48.443-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4265-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20124" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.k" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4080-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20125" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.1.2.l" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3840-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20126" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.2.2.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4276-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20128" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.3.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18455-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20130" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.3.2.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4269-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20135" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.3.2.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4313-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20136" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.5.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4167-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20146" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.5.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.444-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4189-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20147" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.5.3.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14264-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201474" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.7.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14268-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201476" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.7.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14132-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201477" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.7.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14027-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201478" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.5.7.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14911-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201479" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.0" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17742-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201480" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17698-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20148" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.445-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17857-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20149" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18240-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20150" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.2.c" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18095-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20151" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17248-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20152" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17639-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20153" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.1.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4182-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20154" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4292-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20156" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15026-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20157" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.446-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14051-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201575" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14829-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20158" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14816-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20159" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14821-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20160" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.7.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14058-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20163" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.8.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14917-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20164" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.9.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14296-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20165" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.10.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14569-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20166" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.11.a" role="full" severity="unknown" time="2017-03-15T16:19:48.447-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14820-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20167" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.12.a" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14824-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20168" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.13.a" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14688-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201685" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-2.6.2.4.14.a" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14692-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20169" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4234-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20170" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4252-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20171" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4023-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20172" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.1.d" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4164-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20173" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4330-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20174" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.448-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3390-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201745" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.3.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4308-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20177" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.3.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3974-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201774" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.3.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4141-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201775" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.3.1.d" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3537-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201776" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4348-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20180" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.4.b" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3705-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20181" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3916-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20182" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.2.5.b" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4273-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:201825" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.449-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4286-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20186" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3425-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20187" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.9.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14054-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20193" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.12.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4421-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20196" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.12.b" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4302-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20197" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.14.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4355-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20200" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.3.14.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4377-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20201" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4324-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20205" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.450-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3626-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20208" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3851-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20209" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4388-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20210" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3604-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20211" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4379-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20212" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.2.c" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4304-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20213" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4054-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20214" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.b" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3481-9</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20215" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.c" role="full" severity="unknown" time="2017-03-15T16:19:48.451-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4331-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20216" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.d" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4322-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20217" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.e" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4212-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20218" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.f" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3983-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20219" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.g" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4022-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20220" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.h" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3833-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20221" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.i" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4441-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20222" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.j" role="full" severity="unknown" time="2017-03-15T16:19:48.452-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4380-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20223" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.k" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4106-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20224" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.l" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4450-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20225" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.m" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4203-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20226" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.n" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4251-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20227" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.2.3.o" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4250-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20228" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.4.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14466-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:202052" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4325-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20238" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3845-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20239" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.3.b" role="full" severity="unknown" time="2017-03-15T16:19:48.453-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14061-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20240" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.4.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4475-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20241" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.5.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4370-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20242" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.6.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4387-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20243" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.7.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3660-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20244" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.8.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4431-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20245" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.9.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4422-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:202455" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.5.2.10.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14491-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:202456" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.6.1.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4074-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20248" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.6.2.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.454-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3717-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20249" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.7.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4365-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20250" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.8.4.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4425-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20266" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.9.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>notselected</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4336-4</ns:ident>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.9.3.b" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>notselected</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4464-4</ns:ident>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.10.2.2.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4376-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20281" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.10.2.2.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4385-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20283" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.12.2.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14894-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:202885" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.12.3.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3501-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20289" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.1.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4396-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20292" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.1.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.455-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3535-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20293" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.1.1.c" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3568-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20294" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.1.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4533-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20295" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.1.3.a" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4550-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20296" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.3.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4473-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20303" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.3.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4491-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20304" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.3.2.a" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4368-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:43680" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.13.3.2.b" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4024-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20306" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.14.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.456-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3578-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20311" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.14.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4219-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20312" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.15.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3919-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20317" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.15.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14881-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:203175" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.16.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4338-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20322" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.16.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4514-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20323" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.17.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3847-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20331" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.17.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4239-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20332" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.18.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4551-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20340" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.18.2.10.a" role="full" severity="unknown" time="2017-03-15T16:19:48.457-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14075-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:2034010" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.18.2.11.a" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15029-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:2034011" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.19.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4556-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20341" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.19.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4076-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20342" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.20.1.a" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3765-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20365" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-3.20.1.b" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14081-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:20366" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="nodev_option_on_tmp" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14412-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:144120" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="nosuid_option_on_tmp" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14940-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500112" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="nodev_option_on_dev_shm" role="full" severity="unknown" time="2017-03-15T16:19:48.458-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15007-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500113" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="nosuid_option_on_dev_shm" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14306-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500114" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="noexec_option_on_dev_shm" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14703-3</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500115" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="noexec_option_on_tmp" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14927-8</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500116" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="bind_mount_var_tmp_to_tmp" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14584-7</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500117" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="network_sniffer" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15013-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500118" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="isdn4k_utils_package" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14825-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573893" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="ipsec_tools_package" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18031-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573894" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="sendmail_package_installation" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14495-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573892" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="postfix_package_installation" role="full" severity="unknown" time="2017-03-15T16:19:48.459-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-14068-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573891" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="postfix_network_listening" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-15018-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:500119" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="pam_ccreds_package" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17250-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573895" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="talk_server_package" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18151-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573896" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="talk_package" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18200-6</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573897" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="irda_tools_package" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17504-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:573898" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-CCE-18244-4" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18244-4</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:182444" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-CCE-3649-1" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-3649-1</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:36491" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-CCE-18037-2" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>fail</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18037-2</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:180372" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-CCE-4072-5" role="full" severity="unknown" time="2017-03-15T16:19:48.460-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-4072-5</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:40725" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-CCE-18156-0" role="full" severity="unknown" time="2017-03-15T16:19:48.461-04:00" version="" weight="10.0">
+    <ns:result>unknown</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-18156-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:181560" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:rule-result idref="usgcb-rhel5desktop-rule-CCE-17816-0" role="full" severity="unknown" time="2017-03-15T16:19:48.461-04:00" version="" weight="10.0">
+    <ns:result>pass</ns:result>
+    <ns:ident system="http://cce.mitre.org">CCE-17816-0</ns:ident>
+    <ns:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <ns:check-content-ref name="oval:gov.nist.usgcb.rhel:def:178160" href="usgcb-rhel5desktop-2017-03-15_15-02-30-oval-res.xml"/>
+    </ns:check>
+  </ns:rule-result>
+  <ns:score system="urn:xccdf:scoring:flat" maximum="2560.0">1050.00</ns:score>
+  <ns:score system="urn:xccdf:scoring:default" maximum="100.0">29.51863430</ns:score>
+</ns:TestResult>

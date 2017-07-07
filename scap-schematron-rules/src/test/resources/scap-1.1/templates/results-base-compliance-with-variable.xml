@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template template="results-base-compliance.xml" xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2"
+    xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1"
+    xsi:schemaLocation="http://csrc.nist.gov/ns/decima/template/1.0 http://csrc.nist.gov/schema/decima/template/decima-template-1.0.xsd">
+    
+  <insert-sibling xpath="//*:xccdf-content//*:Rule[@id='test_rule1']">
+      <Value id="test_rule1_var" operator="equals" type="number" xmlns="http://checklists.nist.gov/xccdf/1.1">
+        <title>Test Title for Value 1</title>
+        <description>Test Description for Value 1.</description>
+        <value>1</value>
+        <value selector="none">0</value>
+      </Value>
+  </insert-sibling>
+    
+  <insert-sibling xpath="//*:check-content-ref[@name='oval:gov.nist.test.compliance:def:1']">
+    <xccdf:check-export export-name="oval:gov.nist.test.compliance:var:1" value-id="test_rule1_var" />
+  </insert-sibling>
+    
+  <insert-sibling xpath="//*:check-system-content[@content-type='OVAL_COMPLIANCE']//*:oval_definitions">
+    <variables xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <external_variable comment="test variable" datatype="int" id="oval:gov.nist.test.compliance:var:1" version="1" />
+    </variables>
+  </insert-sibling>
+  
+  <insert-child xpath="//*:result//*:Benchmark">
+    <Value id="test_rule1_var" operator="equals" type="number" xmlns="http://checklists.nist.gov/xccdf/1.1">
+      <title>Test Title for Value 1</title>
+      <description>Test Description for Value 1.</description>
+      <value>1</value>
+      <value selector="none">0</value>
+    </Value>
+  </insert-child>
+    
+  <replace xpath="//*:result//*:Benchmark//*:Rule[@id='test_rule1']">
+    <Rule id="test_rule1" selected="true" weight="10.0" xmlns="http://checklists.nist.gov/xccdf/1.1">
+      <title>Test Title for Rule 1</title>
+      <description>Test Description for Rule 1</description>
+      <ident system="http://cce.mitre.org">CCE-2466-1</ident>
+      <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <check-export export-name="oval:gov.nist.test.compliance:var:1" value-id="test_rule1_var" />
+        <check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1" />
+      </check>
+    </Rule>
+  </replace>
+  
+  <insert-sibling xpath="//*:target-facts">
+    <xccdf:set-value idref="test_rule1_var">0</xccdf:set-value>
+  </insert-sibling>
+  
+</template>

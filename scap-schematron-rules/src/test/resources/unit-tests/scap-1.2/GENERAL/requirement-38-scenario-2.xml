@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>38</requirement>
+  <description>Changed the XCCDF value datatype to 'boolean'and left the OVAL variables value a number</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
+    <modify-attribute value="boolean" xpath="//xccdf:Value[@id = 'xccdf_gov.nist.scap_value_DisableConfiguringHistory_LocalComputer_1_var']/@type" />
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2_1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="SRC-38-2" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

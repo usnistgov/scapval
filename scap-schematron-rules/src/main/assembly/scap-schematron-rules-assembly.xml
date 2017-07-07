@@ -1,0 +1,72 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1 http://maven.apache.org/xsd/assembly-1.1.1.xsd">
+	<baseDirectory></baseDirectory>
+	<id>scap-schematron</id>
+	<formats>
+		<format>zip</format>
+		<format>dir</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<directory>${project.basedir}/src/main/resources/requirements</directory>
+			<outputDirectory>requirements</outputDirectory>
+			<filtered>false</filtered>
+			<includes>
+			    <include>*.xml</include>
+			</includes>
+		</fileSet>
+		<!--scap schematon rules-->
+		<fileSet>
+			<directory>${project.basedir}/src/main/resources/rules/scap</directory>
+			<outputDirectory>schematron/scap</outputDirectory>
+			<filtered>true</filtered>
+			<includes>
+			    <include>*.sch</include>
+			</includes>
+			<excludes>
+				<exclude>converted.sch</exclude>
+			</excludes>
+		</fileSet>
+		<!--component schematron rules-->
+			<fileSet>
+				<directory>${project.basedir}/src/main/resources/rules/other</directory>
+				<outputDirectory>schematron/other</outputDirectory>
+				<filtered>true</filtered>
+				<includes>
+					<include>*.sch</include>
+				</includes>
+			</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/install</directory>
+			<outputDirectory></outputDirectory>
+			<filtered>false</filtered>
+			<includes>
+				<include>README.md</include>
+			    <include>scap-rules-readme.txt</include>
+				<include>oval-rules-readme.txt</include>
+			</includes>
+		</fileSet>
+		<!--other schematron rules-->
+		<fileSet>
+			<directory>${project.basedir}/src/main/resources/data_feeds</directory>
+			<outputDirectory>datafiles</outputDirectory>
+			<filtered>false</filtered>
+			<includes>
+				<include>nvdcce-0.1-feed.xml</include>
+				<include>official-cpe-dictionary_v2.2.xml</include>
+			    <include>validation_program_oval_test_types.xml</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+	    <dependencySet>
+	      <outputDirectory>lib</outputDirectory>
+	      <includes>
+		<include>org.mitre.cpe:cpe:jar:2.3.1</include>
+		<include>${project.groupId}:${project.artifactId}:jar:${project.version}</include>
+	      </includes>
+	    </dependencySet>
+	</dependencySets>
+</assembly>

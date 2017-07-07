@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<asset-report-collection 
+    xmlns:ai="http://scap.nist.gov/schema/asset-identification/1.1" 
+    xmlns="http://scap.nist.gov/schema/asset-reporting-format/1.1" 
+    xmlns:rc="http://scap.nist.gov/schema/reporting-core/1.1" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
+    xmlns:scap-con="http://scap.nist.gov/schema/scap/constructs/1.2"
+    xmlns:arf="http://scap.nist.gov/schema/asset-reporting-format/1.1"
+    xmlns:arf-rel="http://scap.nist.gov/specifications/arf/vocabulary/relationships/1.0#"
+    xmlns:scap-rel="http://scap.nist.gov/vocabulary/scap/relationships/1.0#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://scap.nist.gov/schema/asset-reporting-format/1.1 http://scap.nist.gov/schema/asset-reporting-format/1.1/asset-reporting-format_1.1.0.xsd
+    http://checklists.nist.gov/xccdf/1.2 http://scap.nist.gov/schema/xccdf/1.2/xccdf_1.2.xsd">
+    <rc:relationships>
+        <rc:relationship type="arf-rel:isAbout" subject="oval-res1">
+            <rc:ref>asset1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:isAbout" subject="oval-patches-res1"> 
+            <rc:ref>asset1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:isAbout" subject="ocil-res1">
+            <rc:ref>asset1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:isAbout" subject="cpe-oval-res1">
+            <rc:ref>asset1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:isAbout" subject="xccdf1">
+            <rc:ref>asset1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="scap-rel:checkContext" subject="oval-res1">
+            <rc:ref>xccdf1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="scap-rel:checkContext" subject="oval-patches-res1">
+            <rc:ref>xccdf1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="scap-rel:checkContext" subject="ocil-res1">
+            <rc:ref>xccdf1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="scap-rel:checkContext" subject="cpe-oval-res1">
+            <rc:ref>xccdf1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:fromSource" subject="oval-res1">
+            <rc:ref>report-request1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:fromSource" subject="oval-patches-res1">
+            <rc:ref>report-request1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:fromSource" subject="ocil-res1">
+            <rc:ref>report-request1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:fromSource" subject="cpe-oval-res1">
+            <rc:ref>report-request1</rc:ref>
+        </rc:relationship>
+        <rc:relationship type="arf-rel:fromSource" subject="xccdf1">
+            <rc:ref>report-request1</rc:ref>
+        </rc:relationship>
+    </rc:relationships>
+    <report-requests>
+        <report-request id="report-request1">
+            <content>
+                <data-stream-collection xmlns="http://scap.nist.gov/schema/scap/source/1.2"
+                    xmlns:cat="urn:oasis:names:tc:entity:xmlns:xml:catalog" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+                    xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"
+                    xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                    xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
+                    xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2" id="scap_gov.nist_collection_minimal.zip"
+                    schematron-version="1.0"
+                    xsi:schemaLocation="http://scap.nist.gov/schema/scap/source/1.2 http://scap.nist.gov/schema/scap/1.2/scap-source-data-stream_1.2.xsd 
+                                        http://checklists.nist.gov/xccdf/1.2 http://scap.nist.gov/schema/xccdf/1.2/xccdf_1.2.xsd http://cpe.mitre.org/dictionary/2.0 
+                                        http://scap.nist.gov/schema/cpe/2.3/cpe-dictionary_2.3.xsd
+                                        http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/version5.10/ovaldefinition/complete/windows-definitions-schema.xsd       
+                                        http://oval.mitre.org/XMLSchema/oval-definitions-5#independent http://oval.mitre.org/language/version5.10/ovaldefinition/complete/independent-definitions-schema.xsd       
+                                        http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-definitions-schema.xsd       
+                                        http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-common-schema.xsd">
+                    <data-stream id="scap_gov.nist_datastream_minimal.zip" scap-version="1.2" timestamp="2011-09-26T04:36:47" use-case="CONFIGURATION">
+                        <dictionaries>
+                            <component-ref id="scap_gov.nist_cref_minimal-cpe-dictionary.xml" xlink:href="#scap_gov.nist_comp_minimal-cpe-dictionary.xml">
+                                <cat:catalog>
+                                    <cat:uri name="minimal-cpe-oval.xml" uri="#scap_gov.nist_cref_minimal-cpe-oval.xml"/>
+                                </cat:catalog>
+                            </component-ref>
+                        </dictionaries>
+                        <checklists>
+                            <component-ref id="scap_gov.nist_cref_minimal-xccdf.xml" xlink:href="#scap_gov.nist_comp_minimal-xccdf.xml">
+                                <cat:catalog>
+                                    <cat:uri name="minimal-oval.xml" uri="#scap_gov.nist_cref_minimal-oval.xml"/>
+                                    <cat:uri name="minimal-OCIL.xml" uri="#scap_gov.nist_cref_minimal-OCIL.xml"/>
+                                    <cat:uri name="minimal-oval-patches.xml" uri="#scap_gov.nist_cref_minimal-oval-patches.xml"/>
+                                </cat:catalog>
+                            </component-ref>
+                        </checklists>
+                        <checks>
+                            <component-ref id="scap_gov.nist_cref_minimal-OCIL.xml" xlink:href="#scap_gov.nist_comp_minimal-OCIL.xml"/>
+                            <component-ref id="scap_gov.nist_cref_minimal-oval.xml" xlink:href="#scap_gov.nist_comp_minimal-oval.xml"/>
+                            <component-ref id="scap_gov.nist_cref_minimal-cpe-oval.xml" xlink:href="#scap_gov.nist_comp_minimal-cpe-oval.xml"/>
+                            <component-ref id="scap_gov.nist_cref_minimal-oval-patches.xml" xlink:href="#scap_gov.nist_comp_minimal-oval-patches.xml"/>
+                        </checks>
+                    </data-stream>
+                    <component id="scap_gov.nist_comp_minimal-xccdf.xml" timestamp="2011-09-26T04:36:47">
+                        <xccdf:Benchmark id="xccdf_gov.nist_benchmark_minimal-xccdf" style="SCAP_1.2" xml:lang="en-US">
+                            <xccdf:status date="2009-12-01">draft</xccdf:status>
+                            <xccdf:title>Test Title</xccdf:title>
+                            <xccdf:description>
+                                <xhtml:strong xmlns:xhtml="http://www.w3.org/1999/xhtml">Test Description</xhtml:strong>
+                            </xccdf:description>
+                            <xccdf:notice id="test-notice">Test Notice</xccdf:notice>
+                            <xccdf:reference href="http://testreference1">
+                                <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Test Publisher1</dc:publisher>
+                                <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">Test Identifier1</dc:identifier>
+                            </xccdf:reference>
+                            <xccdf:platform idref="cpe:/o:microsoft:windows_vista"/>
+                            <xccdf:version time="2011-02-24T10:38:46" update="http://tempuri.org">Test Version</xccdf:version>
+                            <xccdf:metadata>
+                                <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Test Creator</dc:creator>
+                                <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Test Publisher</dc:publisher>
+                                <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">Test Contributor</dc:contributor>
+                                <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">http://scap.nist.gov/</dc:source>
+                            </xccdf:metadata>
+                            <xccdf:Profile id="xccdf_gov.nist_profile_test_profile1">
+                                <xccdf:title>Test Title for Profile 1</xccdf:title>
+                                <xccdf:description>Test Description for Profile 1</xccdf:description>
+                                <xccdf:select idref="xccdf_gov.nist_rule_test_rule1" selected="true"/>
+                                <xccdf:select idref="xccdf_gov.nist_rule_test_rule2" selected="true"/>
+                                <xccdf:select idref="xccdf_gov.nist_rule_test_rule3" selected="false"/>
+                                <xccdf:select idref="xccdf_gov.nist_rule_test_rule4" selected="true"/>
+                                <xccdf:select idref="xccdf_gov.nist_rule_test_rule5" selected="true"/>
+                                <xccdf:select idref="xccdf_gov.nist_rule_test_rule6" selected="false"/>
+                                <xccdf:select idref="xccdf_gov.nist_rule_security_patches_up_to_date" selected="true"/>
+                            </xccdf:Profile>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_test_rule1" selected="true" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 1</xccdf:title>
+                                <xccdf:description>Test Description for Rule 1</xccdf:description>
+                                <xccdf:ident system="http://cce.mitre.org">CCE-2466-1</xccdf:ident>
+                                <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                                    <xccdf:check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1"/>
+                                </xccdf:check>
+                            </xccdf:Rule>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_test_rule2" selected="true" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 2</xccdf:title>
+                                <xccdf:description>Test Description for Rule 2</xccdf:description>
+                                <xccdf:ident system="http://cce.mitre.org">CCE-9991-1</xccdf:ident>
+                            </xccdf:Rule>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_test_rule3" selected="false" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 3</xccdf:title>
+                                <xccdf:description>Test Description for Rule 3</xccdf:description>
+                                <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                                    <xccdf:check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1"/>
+                                </xccdf:check>
+                            </xccdf:Rule>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_test_rule4" selected="true" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 4</xccdf:title>
+                                <xccdf:description>Test Description for Rule 4</xccdf:description>
+                                <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                                    <xccdf:check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:2"/>
+                                </xccdf:check>
+                            </xccdf:Rule>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_test_rule5" selected="true" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 5</xccdf:title>
+                                <xccdf:description>Test Description for Rule 5</xccdf:description>
+                                <xccdf:check system="http://scap.nist.gov/schema/ocil/2">
+                                    <xccdf:check-content-ref href="minimal-OCIL.xml" name="ocil:validation_program_minimal:questionnaire:1"/>
+                                </xccdf:check>
+                            </xccdf:Rule>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_test_rule6" selected="false" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 6</xccdf:title>
+                                <xccdf:description>Test Description for Rule 6</xccdf:description>
+                                <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                                    <xccdf:check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1"/>
+                                </xccdf:check>
+                            </xccdf:Rule>
+                            <xccdf:Rule id="xccdf_gov.nist_rule_security_patches_up_to_date" selected="false" weight="10.0" severity="unknown" role="full">
+                                <xccdf:title>Test Title for Rule 7 - Security Patches Up-To-Date</xccdf:title>
+                                <xccdf:description>Test Description for Rule 7 - Security Patches Up-To-Date</xccdf:description>
+                                <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" multi-check="true">
+                                    <xccdf:check-content-ref href="minimal-oval-patches.xml"/>
+                                </xccdf:check>
+                            </xccdf:Rule>
+                        </xccdf:Benchmark>
+                    </component>
+                    <component id="scap_gov.nist_comp_minimal-oval.xml" timestamp="2011-09-26T04:36:47">
+                        <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <generator>
+                                <oval:schema_version>5.10</oval:schema_version>
+                                <oval:timestamp>2009-12-01T00:00:00</oval:timestamp>
+                            </generator>
+                            <definitions>
+                                <definition class="compliance" id="oval:gov.nist.test.compliance:def:1" version="1">
+                                    <metadata>
+                                        <title>Test Title</title>
+                                        <affected family="windows">
+                                            <platform>Microsoft Windows Vista</platform>
+                                        </affected>
+                                        <description>Test Description</description>
+                                        <reference ref_id="CCE-2466-1" source="http://cce.mitre.org"/>
+                                    </metadata>
+                                    <criteria>
+                                        <criterion test_ref="oval:gov.nist.test.compliance:tst:1"/>
+                                    </criteria>
+                                </definition>
+                                <definition class="compliance" id="oval:gov.nist.test.compliance:def:2" version="1">
+                                    <metadata>
+                                        <title>Test the product_version entity with the less than or equal operation</title>
+                                        <description>Make sure the product_version entity properly supports the less than or equal operation.</description>
+                                        <expected_results>
+                                            <result configuration="1">FAIL</result>
+                                        </expected_results>
+                                    </metadata>
+                                    <criteria>
+                                        <criterion comment="Test to see that the product_version is less than or equal to 0.9.9.9.9." negate="false" test_ref="oval:gov.nist.test.compliance:tst:2"/>
+                                    </criteria>
+                                </definition>
+                            </definitions>
+                            <tests>
+                                <family_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" check="only one" check_existence="at_least_one_exists" comment="the installed operating system is part of the Microsoft Windows family" id="oval:gov.nist.test.compliance:tst:1" version="1">
+                                    <object object_ref="oval:gov.nist.test.compliance:obj:1"/>
+                                    <state state_ref="oval:gov.nist.test.compliance:ste:1"/>
+                                </family_test>
+                                <file_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" check="all" check_existence="at_least_one_exists" comment="Test to see that the product_version is less than or equal to 0.9.9.9.9." id="oval:gov.nist.test.compliance:tst:2" version="1">
+                                    <object object_ref="oval:gov.nist.test.compliance:obj:2"/>
+                                </file_test>
+                            </tests>
+                            <objects>
+                                <family_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" id="oval:gov.nist.test.compliance:obj:1" version="1"/>
+                                <file_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.test.compliance:obj:2" version="1">
+                                    <filepath operation="equals">C:\scap_validation_content\win_file\e\Skeleton.exe</filepath>
+                                </file_object>
+                            </objects>
+                            <states>
+                                <family_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                    id="oval:gov.nist.test.compliance:ste:1" version="1">
+                                    <family>windows</family>
+                                </family_state>
+                            </states>
+                        </oval_definitions>
+                    </component>
+                    <component id="scap_gov.nist_comp_minimal-cpe-oval.xml" timestamp="2011-09-26T04:36:47">
+                        <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <generator>
+                                <oval:schema_version>5.10</oval:schema_version>
+                                <oval:timestamp>2009-12-01T00:00:00</oval:timestamp>
+                            </generator>
+                            <definitions>
+                                <definition class="inventory" id="oval:gov.nist.test.inventory:def:1" version="1">
+                                    <metadata>
+                                        <title>Test Title</title>
+                                        <affected family="windows">
+                                            <platform>Microsoft Windows Vista</platform>
+                                        </affected>
+                                        <reference ref_id="cpe:/o:microsoft:windows_xp" source="http://cpe.mitre.org"/>
+                                        <description>Test Description</description>
+                                    </metadata>
+                                    <criteria>
+                                        <criterion test_ref="oval:gov.nist.test.inventory:tst:1"/>
+                                    </criteria>
+                                </definition>
+                            </definitions>
+                            <tests>
+                                <family_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                    check="only one" check_existence="at_least_one_exists"
+                                    comment="the installed operating system is part of the Microsoft Windows family"
+                                    id="oval:gov.nist.test.inventory:tst:1" version="1">
+                                    <object object_ref="oval:gov.nist.test.inventory:obj:1"/>
+                                    <state state_ref="oval:gov.nist.test.inventory:ste:1"/>
+                                </family_test>
+                            </tests>
+                            <objects>
+                                <family_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                    id="oval:gov.nist.test.inventory:obj:1" version="1"/>
+                            </objects>
+                            <states>
+                                <family_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                    id="oval:gov.nist.test.inventory:ste:1" version="1">
+                                    <family>windows</family>
+                                </family_state>
+                            </states>
+                        </oval_definitions>
+                    </component>
+                    <component id="scap_gov.nist_comp_minimal-cpe-dictionary.xml" timestamp="2011-09-26T04:36:47">
+                        <cpe-list xmlns="http://cpe.mitre.org/dictionary/2.0"
+                            xsi:schemaLocation="http://cpe.mitre.org/dictionary/2.0 http://cpe.mitre.org/files/cpe-dictionary_2.2.xsd">
+                            <cpe-item name="cpe:/o:microsoft:windows_vista">
+                                <title>Microsoft Windows Vista</title>
+                                <check href="minimal-cpe-oval.xml" system="http://oval.mitre.org/XMLSchema/oval-definitions-5">oval:gov.nist.test.inventory:def:1</check>
+                            </cpe-item>
+                        </cpe-list>
+                    </component>
+                    <component id="scap_gov.nist_comp_minimal-OCIL.xml" timestamp="2013-05-22T10:00:00">
+                        <ocil xmlns="http://scap.nist.gov/schema/ocil/2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" xsi:schemaLocation="http://scap.nist.gov/schema/ocil/2.0 http://scap.nist.gov/schema/ocil/2.0/ocil-2.0.xsd">
+                            <generator>
+                                <schema_version>2.0</schema_version>
+                                <timestamp>2013-05-22T10:00:00</timestamp>
+                            </generator>
+                            <document>
+                                <title>Minimal Checklist</title>
+                            </document>
+                            <questionnaires>
+                                <questionnaire id="ocil:validation_program_minimal:questionnaire:1">
+                                    <title>OCIL Validation Checklist - Minimal</title>
+                                    <actions>
+                                        <test_action_ref>ocil:validation_program_minimal:testaction:1</test_action_ref>
+                                    </actions>
+                                </questionnaire>
+                            </questionnaires>
+                            <test_actions>
+                                <choice_question_test_action id="ocil:validation_program_minimal:testaction:1" question_ref="ocil:validation_program_minimal:question:1">
+                                    <when_choice>
+                                        <result>PASS</result>
+                                        <choice_ref>ocil:validation_program_minimal:choice:1</choice_ref>
+                                    </when_choice>
+                                    <when_choice>
+                                        <result>FAIL</result>
+                                        <choice_ref>ocil:validation_program_minimal:choice:2</choice_ref>
+                                    </when_choice>
+                                    <when_choice>
+                                        <result>NOT_APPLICABLE</result>
+                                        <choice_ref>ocil:validation_program_minimal:choice:3</choice_ref>
+                                    </when_choice>
+                                    <when_choice>
+                                        <result>NOT_TESTED</result>
+                                        <choice_ref>ocil:validation_program_minimal:choice:4</choice_ref>
+                                    </when_choice>
+                                </choice_question_test_action>
+                            </test_actions>
+                            <questions>
+                                <choice_question id="ocil:validation_program_minimal:question:1" default_answer_ref="ocil:validation_program_minimal:choice:4">
+                                    <notes>An optional set of notes to describe additional information</notes>
+                                    <question_text>Please select 'Not Answered' or do not answer</question_text>
+                                    <instructions>
+                                        <title>The title element contains a descriptive heading for the instructions.</title>
+                                        <step>
+                                            <description>The description for Step 1</description>
+                                            <reference>External references related to Step 1.</reference>
+                                        </step>
+                                        <step>
+                                            <description>The description for Step 2</description>
+                                            <reference>External references related to Step 2.</reference>
+                                        </step>
+                                    </instructions>
+                                    <choice_group_ref>ocil:validation_program_minimal:choicegroup:1</choice_group_ref>
+                                </choice_question>
+                                <choice_group id="ocil:validation_program_minimal:choicegroup:1">
+                                    <choice id="ocil:validation_program_minimal:choice:1">Pass</choice>
+                                    <choice id="ocil:validation_program_minimal:choice:2">Fail</choice>
+                                    <choice id="ocil:validation_program_minimal:choice:3">Not Applicable</choice>
+                                    <choice id="ocil:validation_program_minimal:choice:4">Not Answered</choice>
+                                </choice_group>
+                            </questions>
+                        </ocil>
+                    </component>
+                    <component id="scap_gov.nist_comp_minimal-oval-patches.xml" timestamp="2012-02-24T10:00:00">
+                        <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-common-schema.xsd    http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-definitions-schema.xsd    http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/version5.10/ovaldefinition/complete/windows-definitions-schema.xsd    http://oval.mitre.org/XMLSchema/oval-definitions-5#independent http://oval.mitre.org/language/version5.10/ovaldefinition/complete/independent-definitions-schema.xsd">
+                            <generator>
+                                <oval:product_name>National Institute of Standards and Technology</oval:product_name>
+                                <oval:schema_version>5.6</oval:schema_version>
+                                <oval:timestamp>2012-02-24T10:00:00.000-04:00</oval:timestamp>
+                            </generator>
+                            <definitions>
+                                <definition id="oval:gov.nist.fdcc.patch:def:10000" version="1" class="patch">
+                                    <metadata>
+                                        <title>Use the Wndows Update Agent (WUA) to check for installed updates</title>
+                                        <affected family="windows">
+                                            <platform>Microsoft Windows XP</platform>
+                                            <platform>Microsoft Windows Server 2003</platform>
+                                            <platform>Microsoft Windows Vista</platform>
+                                            <platform>Microsoft Windows Server 2008</platform>
+                                            <platform>Microsoft Windows 7</platform>
+                                            <platform>Microsoft Windows Server 2008 R2</platform>
+                                        </affected>
+                                        <description>Use the Wndows Update Agent (WUA) to check for installed updates</description>
+                                    </metadata>
+                                    <criteria operator="AND">
+                                        <criterion comment="Use the Wndows Update Agent (WUA) to check for installed updates" test_ref="oval:gov.nist.fdcc.patch:tst:10000"/>
+                                    </criteria>
+                                </definition>
+                                <definition id="oval:gov.nist.fdcc.patch:def:20000" version="1" class="patch">
+                                    <metadata>
+                                        <title>Use the Wndows Update Agent (WUA) to check for installed updates</title>
+                                        <affected family="windows">
+                                            <platform>Microsoft Windows XP</platform>
+                                            <platform>Microsoft Windows Server 2003</platform>
+                                            <platform>Microsoft Windows Vista</platform>
+                                            <platform>Microsoft Windows Server 2008</platform>
+                                            <platform>Microsoft Windows 7</platform>
+                                            <platform>Microsoft Windows Server 2008 R2</platform>
+                                        </affected>
+                                        <description>Use the Wndows Update Agent (WUA) to check for installed updates</description>
+                                    </metadata>
+                                    <criteria operator="AND">
+                                        <criterion negate="true" comment="Use the Wndows Update Agent (WUA) to check for installed updates" test_ref="oval:gov.nist.fdcc.patch:tst:10000"/>
+                                    </criteria>
+                                </definition>
+                            </definitions>
+                            <tests>
+                                <wuaupdatesearcher_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.fdcc.patch:tst:10000" version="2" comment="Checks to see if updates are installed via WUA" check_existence="at_least_one_exists" check="at least one">
+                                    <object object_ref="oval:gov.nist.fdcc.patch:obj:10000"/>
+                                    <state state_ref="oval:gov.nist.fdcc.patch:ste:10000"/>
+                                </wuaupdatesearcher_test>
+                            </tests>
+                            <objects>
+                                <wuaupdatesearcher_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.fdcc.patch:obj:10000" version="1" comment="This object checks for installed updates via  WUA">
+                                    <search_criteria>(IsInstalled=0 and IsHidden=0)</search_criteria>
+                                </wuaupdatesearcher_object>
+                            </objects>
+                            <states>
+                                <wuaupdatesearcher_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.fdcc.patch:ste:10000" version="1" comment="This state will search for all updates">
+                                    <update_id entity_check="at least one" operation="pattern match">.*</update_id>
+                                </wuaupdatesearcher_state>
+                            </states>
+                        </oval_definitions>
+                    </component>
+                </data-stream-collection>
+            </content>
+        </report-request>
+    </report-requests>
+    <assets>
+        <asset id="asset1">
+            <ai:computing-device>
+                <ai:connections>
+                    <ai:connection>
+                        <ai:ip-address>
+                            <ai:ip-v4>255.255.255.255</ai:ip-v4>
+                        </ai:ip-address>
+                        <ai:mac-address>00:50:56:c0:00:01</ai:mac-address>
+                    </ai:connection>
+                </ai:connections>
+                <ai:fqdn>host.domain.tld</ai:fqdn>
+                <ai:hostname>host.domain.tld</ai:hostname>
+            </ai:computing-device>
+        </asset>
+    </assets>
+    <reports>
+        <report id="xccdf1">
+            <content>
+                <TestResult xmlns="http://checklists.nist.gov/xccdf/1.2" id="xccdf_gov.nist_testresult_testresult1"
+                    version="Test Version" test-system="cpe:/a:nist:scap_scanner:1.0"
+                    start-time="2010-08-03T13:44:07.657-04:00" end-time="2010-08-03T13:49:07.657-04:00">
+                    <benchmark id="abc123" href="xccdf_gov.nist_benchmark_benchmark1"/>
+                    <title xml:lang="en-US">SCAP automated assessment for checklist minimal-xccdf performed at
+                            Tuesday, August 3, 2010</title>
+                    <organization>National Institute of Standards and Technology</organization>
+                    <identity authenticated="1" privileged="1">administrator</identity>
+                    <profile idref="xccdf_gov.nist_profile_test_profile1"/>
+                    <target>0:0:0:0:0:0:0:1</target>
+                    <target>127.0.0.1</target>
+                    <target>host.domain.tld</target>
+                    <target-address>0:0:0:0:0:0:0:1</target-address>
+                    <target-address>127.0.0.1</target-address>
+                    <target-address>192.168.222.1</target-address>
+                    <target-facts>
+                        <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">0:0:0:0:0:0:0:1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">0:0:0:0:0:0:0:1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:ipv6" type="string">0:0:0:0:0:0:0:1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">127.0.0.1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">127.0.0.1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:ipv4" type="string">127.0.0.1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:mac" type="string"/>
+                        <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">host.domain.tld</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">host.domain.tld</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:ipv4" type="string">192.168.222.1</fact>
+                        <fact name="urn:xccdf:fact:asset:identifier:mac" type="string">00:50:56:c0:00:01</fact>
+                    </target-facts>
+                    <target-id-ref system="http://scap.nist.gov/schema/asset-identification/1.1" href="" name="asset1"/>
+                    <rule-result idref="xccdf_gov.nist_rule_test_rule1" time="2010-08-03T13:49:07.650-04:00" role="full" severity="high" weight="10.0">
+                        <result>pass</result>
+                        <ident system="http://cce.mitre.org">CCE-2466-1</ident>
+                        <instance>host.domain.tld</instance>
+                        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <check-content-ref href="#oval-res1" name="oval:gov.nist.test.compliance:def:1"/>
+                        </check>
+                    </rule-result>
+                    <rule-result idref="xccdf_gov.nist_rule_test_rule2" time="2010-08-03T13:49:07.650-04:00" role="full" severity="high" weight="10.0">
+                        <result>notchecked</result>
+                        <ident system="http://cce.mitre.org">CCE-9991-1</ident>
+                    </rule-result>
+                    <!-- xccdf_gov.nist_rule_test_rule3 is not selected, so it does not have a result -->
+                    <rule-result idref="xccdf_gov.nist_rule_test_rule4" time="2013-11-22T18:05:18.983-05:00" role="full" severity="high" weight="10.0">
+                        <result>notchecked</result>
+                        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <check-content-ref href="#oval-res1" name="oval:gov.nist.test.compliance:def:2"/>
+                        </check>
+                    </rule-result>
+                    <rule-result idref="xccdf_gov.nist_rule_test_rule5" time="2013-11-22T18:05:18.983-05:00" role="full" severity="high"  weight="10.0">
+                        <result>notchecked</result>
+                        <check system="http://scap.nist.gov/schema/ocil/2">
+                            <check-content-ref href="#ocil-res1" name="ocil:validation_program_minimal:questionnaire:1"/>
+                        </check>
+                    </rule-result>
+                    <rule-result idref="xccdf_gov.nist_rule_test_rule6" time="2010-08-03T13:49:07.650-04:00" role="full" severity="high"  weight="10.0">
+                        <result>notselected</result>
+                        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <check-content-ref href="#oval-res1" name="oval:gov.nist.test.compliance:def:1"/>
+                        </check>
+                    </rule-result>
+                    <rule-result idref="xccdf_gov.nist_rule_security_patches_up_to_date" role="full" severity="unknown" time="2014-05-05T12:26:19.515-04:00" weight="10.0">
+                        <result>pass</result>
+                        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <check-content-ref name="oval:gov.nist.fdcc.patch:def:20000" href="#oval-patches-res1"/>
+                        </check>
+                    </rule-result>
+                    <rule-result idref="xccdf_gov.nist_rule_security_patches_up_to_date" role="full" severity="unknown" time="2014-05-05T12:26:19.515-04:00" weight="10.0">
+                        <result>fail</result>
+                        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                            <check-content-ref name="oval:gov.nist.fdcc.patch:def:10000" href="#oval-patches-res1"/>
+                        </check>
+                    </rule-result>
+                    <score maximum="1" system="urn:xccdf:scoring:flat-unweighted">1</score>
+                    <score maximum="10" system="urn:xccdf:scoring:flat">10</score>
+                </TestResult>
+            </content>
+        </report>
+        <report id="oval-res1">
+            <content>
+                <oval_results xmlns="http://oval.mitre.org/XMLSchema/oval-results-5">
+                    <generator>
+                        <oval:product_name>OVAL Definition Interpreter</oval:product_name>
+                        <oval:product_version>5.10 Build</oval:product_version>
+                        <oval:schema_version>5.10</oval:schema_version>
+                        <oval:timestamp>2010-08-03T13:49:07</oval:timestamp>
+                        <vendor>The MITRE Corporation</vendor>
+                    </generator>
+
+                    <directives>
+                        <definition_true content="full" reported="true"/>
+                        <definition_false content="full" reported="true"/>
+                        <definition_unknown content="full" reported="true"/>
+                        <definition_error content="full" reported="true"/>
+                        <definition_not_evaluated content="full" reported="true"/>
+                        <definition_not_applicable content="full" reported="true"/>
+                    </directives>
+
+                    <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                        <generator>
+                            <oval:schema_version>5.10</oval:schema_version>
+                            <oval:timestamp>2009-12-01T00:00:00</oval:timestamp>
+                        </generator>
+                        <definitions>
+                            <definition class="compliance" id="oval:gov.nist.test.compliance:def:1" version="1">
+                                <metadata>
+                                    <title>Test Title</title>
+                                    <affected family="windows">
+                                        <platform>Microsoft Windows Vista</platform>
+                                    </affected>
+                                    <description>Test Description</description>
+                                    <reference ref_id="CCE-2466-1" source="http://cce.mitre.org"/>
+                                </metadata>
+                                <criteria>
+                                    <criterion test_ref="oval:gov.nist.test.compliance:tst:1"/>
+                                </criteria>
+                            </definition>
+                            
+                        </definitions>
+                        <tests>
+                            <family_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                check="only one" check_existence="at_least_one_exists"
+                                comment="the installed operating system is part of the Microsoft Windows family"
+                                id="oval:gov.nist.test.compliance:tst:1" version="1">
+                                <object object_ref="oval:gov.nist.test.compliance:obj:1"/>
+                                <state state_ref="oval:gov.nist.test.compliance:ste:1"/>
+                            </family_test>
+                        </tests>
+                        <objects>
+                            <family_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                id="oval:gov.nist.test.compliance:obj:1" version="1"/>
+                        </objects>
+                        <states>
+                            <family_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+                                id="oval:gov.nist.test.compliance:ste:1" version="1">
+                                <family>windows</family>
+                            </family_state>
+                        </states>
+                    </oval_definitions>
+                    <results>
+                        <system>
+                            <definitions>
+                                <definition class="compliance" definition_id="oval:gov.nist.test.compliance:def:1" result="true"
+                                    version="1" variable_instance="1">
+                                    <criteria operator="AND" result="true">
+                                        <criterion result="true" test_ref="oval:gov.nist.test.compliance:tst:1" version="1"/>
+                                    </criteria>
+                                </definition>
+                                <definition class="compliance" definition_id="oval:gov.nist.test.compliance:def:2" result="not evaluated" version="1">
+                                    <criteria operator="AND" result="not evaluated">
+                                        <criterion result="not evaluated" test_ref="oval:gov.nist.test.compliance:tst:2" version="1"/>
+                                    </criteria>
+                                </definition>
+                            </definitions>
+                            <tests>
+                                <test check="only one" check_existence="at_least_one_exists" result="true"
+                                    state_operator="AND" test_id="oval:gov.nist.test.compliance:tst:1" version="1">
+                                    <tested_item item_id="1" result="true"/>
+                                </test>
+                            </tests>
+                            <oval_system_characteristics xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5">
+                                <generator>
+                                    <oval:product_name>OVAL Definition Interpreter</oval:product_name>
+                                    <oval:product_version>5.6 Build: 3</oval:product_version>
+                                    <oval:schema_version>5.6</oval:schema_version>
+                                    <oval:timestamp>2010-08-03T13:49:07</oval:timestamp>
+                                    <vendor>The MITRE Corporation</vendor>
+                                </generator>
+                                <system_info>
+                                    <os_name>unknown Professional Service Pack 2</os_name>
+                                    <os_version>6.0.6002</os_version>
+                                    <architecture>INTEL32</architecture>
+                                    <primary_host_name>host.domain.tld</primary_host_name>
+                                    <interfaces>
+                                        <interface>
+                                            <interface_name>VMware Virtual Ethernet Adapter for VMnet1</interface_name>
+                                            <ip_address>192.168.222.1</ip_address>
+                                            <mac_address>00-50-56-C0-00-01</mac_address>
+                                        </interface>
+                                    </interfaces>
+                                    <scap-con:asset-identification>
+                                        <arf:object-ref ref-id="asset1"/>
+                                    </scap-con:asset-identification>
+                                </system_info>
+                                <collected_objects>
+                                    <object flag="complete" id="oval:gov.nist.test.compliance:obj:1" version="1">
+                                        <reference item_ref="1"/>
+                                    </object>
+                                </collected_objects>
+                                <system_data>
+                                    <family_item xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent" id="1">
+                                        <family>windows</family>
+                                    </family_item>
+                                </system_data>
+                            </oval_system_characteristics>
+                        </system>
+                    </results>
+
+                </oval_results>
+            </content>
+        </report>
+        <report id="oval-patches-res1">
+            <content>
+                <oval_results xmlns="http://oval.mitre.org/XMLSchema/oval-results-5" 
+                    xmlns:cat="urn:oasis:names:tc:entity:xmlns:xml:catalog" 
+                    xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" 
+                    xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" 
+                    xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" 
+                    xmlns:oval-res="http://oval.mitre.org/XMLSchema/oval-results-5" 
+                    xmlns:oval-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5"
+                    xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" 
+                    xmlns:win-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#windows"
+                    xmlns:ind-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="
+                    http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-common-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-system-characteristics-5 http://oval.mitre.org/language/version5.10/ovalsc/complete/oval-system-characteristics-schema.xsd
+                    http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-definitions-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-results-5 http://oval.mitre.org/language/version5.10/ovalresults/complete/oval-results-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-common-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-definitions-schema.xsd http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/version5.10/ovaldefinition/complete/windows-definitions-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-definitions-5#independent http://oval.mitre.org/language/version5.10/ovaldefinition/complete/independent-definitions-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#windows http://oval.mitre.org/language/version5.10/ovalsc/complete/windows-system-characteristics-schema.xsd
+                    http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent http://oval.mitre.org/language/version5.10/ovalsc/complete/independent-system-characteristics-schema.xsd">
+                    <generator>
+                        <oval:product_name>cpe:/a:mitre:ovaldi:5.10.1.7</oval:product_name>
+                        <oval:product_version>5.10.1 Build: 7</oval:product_version>
+                        <oval:schema_version>5.10</oval:schema_version>
+                        <oval:timestamp>2014-05-05T12:25:44</oval:timestamp>
+                        <vendor xmlns="">The MITRE Corporation</vendor>
+                    </generator>
+                    <directives>
+                        <definition_true content="full" reported="true"/>
+                        <definition_false content="full" reported="true"/>
+                        <definition_unknown content="full" reported="true"/>
+                        <definition_error content="full" reported="true"/>
+                        <definition_not_evaluated content="full" reported="true"/>
+                        <definition_not_applicable content="full" reported="true"/>
+                    </directives>
+                    <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                        <generator>
+                            <oval:product_name>National Institute of Standards and Technology</oval:product_name>
+                            <oval:schema_version>5.10</oval:schema_version>
+                            <oval:timestamp>2012-02-24T10:00:00.000-04:00</oval:timestamp>
+                        </generator>
+                        <definitions>
+                            <definition id="oval:gov.nist.fdcc.patch:def:10000" version="1" class="patch">
+                                <metadata>
+                                    <title>Use the Wndows Update Agent (WUA) to check for installed updates</title>
+                                    <affected family="windows">
+                                        <platform>Microsoft Windows XP</platform>
+                                        <platform>Microsoft Windows Server 2003</platform>
+                                        <platform>Microsoft Windows Vista</platform>
+                                        <platform>Microsoft Windows Server 2008</platform>
+                                        <platform>Microsoft Windows 7</platform>
+                                        <platform>Microsoft Windows Server 2008 R2</platform>
+                                    </affected>
+                                    <description>Use the Wndows Update Agent (WUA) to check for installed updates</description>
+                                </metadata>
+                                <criteria operator="AND">
+                                    <criterion comment="Use the Wndows Update Agent (WUA) to check for installed updates" test_ref="oval:gov.nist.fdcc.patch:tst:10000"/>
+                                </criteria>
+                            </definition>
+                            <definition id="oval:gov.nist.fdcc.patch:def:20000" version="1" class="patch">
+                                <metadata>
+                                    <title>Use the Wndows Update Agent (WUA) to check for installed updates</title>
+                                    <affected family="windows">
+                                        <platform>Microsoft Windows XP</platform>
+                                        <platform>Microsoft Windows Server 2003</platform>
+                                        <platform>Microsoft Windows Vista</platform>
+                                        <platform>Microsoft Windows Server 2008</platform>
+                                        <platform>Microsoft Windows 7</platform>
+                                        <platform>Microsoft Windows Server 2008 R2</platform>
+                                    </affected>
+                                    <description>Use the Wndows Update Agent (WUA) to check for installed updates</description>
+                                </metadata>
+                                <criteria operator="AND">
+                                    <criterion negate="true" comment="Use the Wndows Update Agent (WUA) to check for installed updates" test_ref="oval:gov.nist.fdcc.patch:tst:10000"/>
+                                </criteria>
+                            </definition>
+                        </definitions>
+                        <tests>
+                            <wuaupdatesearcher_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.fdcc.patch:tst:10000" version="2" comment="Checks to see if updates are installed via WUA" check_existence="at_least_one_exists" check="at least one">
+                                <object object_ref="oval:gov.nist.fdcc.patch:obj:10000"/>
+                                <state state_ref="oval:gov.nist.fdcc.patch:ste:10000"/>
+                            </wuaupdatesearcher_test>
+                        </tests>
+                        <objects>
+                            <wuaupdatesearcher_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.fdcc.patch:obj:10000" version="1" comment="This object checks for installed updates via  WUA">
+                                <!-- Note that the search critieria must be enclosed in paranthesis if you wish to include more than 1 parameter. Examples on MSDN show use of single quotes inside and outside of the paranthesis however this is the format that OVALdi will process-->
+                                <search_criteria>(IsInstalled=0 and IsHidden=0)</search_criteria>
+                            </wuaupdatesearcher_object>
+                        </objects>
+                        <states>
+                            <wuaupdatesearcher_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" id="oval:gov.nist.fdcc.patch:ste:10000" version="1" comment="This state will search for all updates">
+                                <update_id entity_check="at least one" operation="pattern match">.*</update_id>
+                            </wuaupdatesearcher_state>
+                        </states>
+                    </oval_definitions>
+                    <results>
+                        <system>
+                            <definitions>
+                                <definition class="patch" definition_id="oval:gov.nist.fdcc.patch:def:10000" result="true" version="1">
+                                    <criteria operator="AND" result="true">
+                                        <criterion result="true" test_ref="oval:gov.nist.fdcc.patch:tst:10000" version="2"/>
+                                    </criteria>
+                                </definition>
+                                <definition class="patch" definition_id="oval:gov.nist.fdcc.patch:def:20000" result="false" version="1">
+                                    <criteria operator="AND" result="false">
+                                        <criterion negate="true" result="false" test_ref="oval:gov.nist.fdcc.patch:tst:10000" version="2"/>
+                                    </criteria>
+                                </definition>
+                            </definitions>
+                            <tests>
+                                <test check="at least one" check_existence="at_least_one_exists" result="true" state_operator="AND" test_id="oval:gov.nist.fdcc.patch:tst:10000" version="2">
+                                    <tested_item item_id="1" result="true"/>
+                                </test>
+                            </tests>
+                            <oval_system_characteristics xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5">
+                                <generator>
+                                    <oval:product_name>cpe:/a:mitre:ovaldi:5.10.1.7</oval:product_name>
+                                    <oval:product_version>5.10.1 Build: 7</oval:product_version>
+                                    <oval:schema_version>5.10</oval:schema_version>
+                                    <oval:timestamp>2014-05-05T12:25:36</oval:timestamp>
+                                    <vendor xmlns="">The MITRE Corporation</vendor>
+                                </generator>
+                                <system_info>
+                                    <os_name>Microsoft Windows 7 Professional</os_name>
+                                    <os_version>6.1.7601 Service Pack 1</os_version>
+                                    <architecture>AMD64</architecture>
+                                    <primary_host_name>host.domain.tld</primary_host_name>
+                                    <interfaces>
+                                        <interface>
+                                            <interface_name>Intel(R) 82579LM Gigabit Network Connection</interface_name>
+                                            <ip_address>192.168.222.1</ip_address>
+                                            <mac_address>00-50-56-C0-00-01</mac_address>
+                                        </interface>
+                                    </interfaces>
+                                    <scap-con:asset-identification>
+                                        <arf:object-ref ref-id="asset1"/>
+                                    </scap-con:asset-identification>
+                                </system_info>
+                                <collected_objects>
+                                    <object comment="This object checks for installed updates via  WUA" flag="complete" id="oval:gov.nist.fdcc.patch:obj:10000" version="1">
+                                        <reference item_ref="1"/>
+                                    </object>
+                                </collected_objects>
+                                <system_data>
+                                    <wuaupdatesearcher_item xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#windows" id="1">
+                                        <search_criteria>(IsInstalled=0 and IsHidden=0)</search_criteria>
+                                        <update_id>ea248f4f-1741-40c4-aca5-64aab37d2de1</update_id>
+                                        <update_id>b932d155-4c7f-4cbc-8527-d5df17b0a220</update_id>
+                                        <update_id>400d135f-03e5-45b5-a44b-16ef70722c4f</update_id>
+                                        <update_id>ff434e78-8b6a-4860-bd0f-4ac472e29063</update_id>
+                                        <update_id>78018f84-e383-4500-84e0-b294604554c7</update_id>
+                                        <update_id>a9ec16aa-04e5-4d92-bec5-67c836f7d8f0</update_id>
+                                        <update_id>b6c0f3c6-c368-4a76-a3bf-be068c7358f0</update_id>
+                                        <update_id>aae5e2c7-3498-4f43-af66-aec06a59713f</update_id>
+                                        <update_id>566b95d4-66f6-47ba-8953-02caea29022c</update_id>
+                                        <update_id>07bc32f0-b4f0-4d75-a1e4-976de631e4cf</update_id>
+                                        <update_id>1df6b4f8-3279-48d8-a283-7312711baf2c</update_id>
+                                    </wuaupdatesearcher_item>
+                                </system_data>
+                            </oval_system_characteristics>
+                                                    
+                        </system>
+                    </results>
+                </oval_results>
+            </content>
+        </report>
+        <report id="ocil-res1">
+            <content>
+                <ocil xmlns="http://scap.nist.gov/schema/ocil/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:cat="urn:oasis:names:tc:entity:xmlns:xml:catalog" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://scap.nist.gov/schema/ocil/2.0 http://scap.nist.gov/schema/ocil/2.0/ocil-2.0.xsd">
+                    <generator>
+                        <schema_version>2.0</schema_version>
+                        <timestamp>2012-02-24T10:00:00</timestamp>
+                    </generator>
+                    <questionnaires>
+                        <questionnaire id="ocil:validation_program_minimal:questionnaire:1">
+                            <title>test title</title>
+                            <description>test description</description>
+                            <references>
+                                <reference href="http://cce.mitre.org">CCE-10051-1</reference>
+                            </references>
+                            <actions>
+                                <test_action_ref>ocil:usgcb.win7.checklist:testaction:1</test_action_ref>
+                            </actions>
+                        </questionnaire>
+                    </questionnaires>
+                    <test_actions>
+                        <boolean_question_test_action id="ocil:usgcb.win7.checklist:testaction:1" question_ref="ocil:usgcb.win7.checklist:question:1">
+                            <when_true>
+                                <result>PASS</result>
+                            </when_true>
+                            <when_false>
+                                <result>FAIL</result>
+                            </when_false>
+                        </boolean_question_test_action>
+                    </test_actions>
+                    <questions>
+                        <boolean_question default_answer="false" id="ocil:usgcb.win7.checklist:question:1" model="MODEL_TRUE_FALSE">
+                            <notes/>
+                            <question_text>Does the Windows setting "Enable screen saver" located at "User Configuration\Administrative Templates\Control Panel\Personalization" have the value Enabled?</question_text>
+                        </boolean_question>
+                    </questions>
+                    <results>
+                        <questionnaire_results>
+                            <questionnaire_result questionnaire_ref="ocil:validation_program_minimal:questionnaire:1" result="NOT_TESTED"/>
+                        </questionnaire_results>
+                    </results>
+                </ocil>
+            </content>
+        </report>
+        <report id="cpe-oval-res1">
+            <content>
+                <oval_results xmlns="http://oval.mitre.org/XMLSchema/oval-results-5" 
+                    xmlns:cat="urn:oasis:names:tc:entity:xmlns:xml:catalog" 
+                    xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" 
+                    xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" 
+                    xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" 
+                    xmlns:oval-res="http://oval.mitre.org/XMLSchema/oval-results-5" 
+                    xmlns:oval-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5"
+                    xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" 
+                    xmlns:win-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#windows"
+                    xmlns:ind-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="
+                    http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-common-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-system-characteristics-5 http://oval.mitre.org/language/version5.10/ovalsc/complete/oval-system-characteristics-schema.xsd
+                    http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-definitions-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-results-5 http://oval.mitre.org/language/version5.10/ovalresults/complete/oval-results-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-common-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/version5.10/ovaldefinition/complete/oval-definitions-schema.xsd http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/version5.10/ovaldefinition/complete/windows-definitions-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-definitions-5#independent http://oval.mitre.org/language/version5.10/ovaldefinition/complete/independent-definitions-schema.xsd 
+                    http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#windows http://oval.mitre.org/language/version5.10/ovalsc/complete/windows-system-characteristics-schema.xsd
+                    http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent http://oval.mitre.org/language/version5.10/ovalsc/complete/independent-system-characteristics-schema.xsd">
+                <!-- <oval_results xmlns="http://oval.mitre.org/XMLSchema/oval-results-5"> -->
+                    
+                    
+                    <generator>
+                        <oval:product_name>OVAL Definition Interpreter</oval:product_name>
+                        <oval:product_version>5.10 Build</oval:product_version>
+                        <oval:schema_version>5.10</oval:schema_version>
+                        <oval:timestamp>2010-08-03T13:49:07</oval:timestamp>
+                        <vendor>The MITRE Corporation</vendor>
+                    </generator>
+
+                    <directives>
+                        <definition_true content="full" reported="true"/>
+                        <definition_false content="full" reported="true"/>
+                        <definition_unknown content="full" reported="true"/>
+                        <definition_error content="full" reported="true"/>
+                        <definition_not_evaluated content="full" reported="true"/>
+                        <definition_not_applicable content="full" reported="true"/>
+                    </directives>
+
+                    <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                        <generator>
+                            <oval:schema_version>5.10</oval:schema_version>
+                            <oval:timestamp>2009-12-01T00:00:00</oval:timestamp>
+                        </generator>
+                        <definitions>
+                            <definition class="inventory" id="oval:gov.nist.test.inventory:def:1" version="1">
+                                <metadata>
+                                    <title>Test Title</title>
+                                    <affected family="windows">
+                                        <platform>Microsoft Windows Vista</platform>
+                                    </affected>
+                                    <description>Test Description</description>
+                                </metadata>
+                                <criteria>
+                                    <criterion test_ref="oval:gov.nist.test.inventory:tst:1"/>
+                                </criteria>
+                            </definition>
+                        </definitions>
+                        <tests>
+                            <family_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" check="only one" check_existence="at_least_one_exists" comment="the installed operating system is part of the Microsoft Windows family" id="oval:gov.nist.test.inventory:tst:1" version="1">
+                                <object object_ref="oval:gov.nist.test.inventory:obj:1"/>
+                                <state state_ref="oval:gov.nist.test.inventory:ste:1"/>
+                            </family_test>
+                        </tests>
+                        <objects>
+                            <family_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" id="oval:gov.nist.test.inventory:obj:1" version="1"/>
+                        </objects>
+                        <states>
+                            <family_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" id="oval:gov.nist.test.inventory:ste:1" version="1">
+                                <family>windows</family>
+                            </family_state>
+                        </states>
+                    </oval_definitions>
+                    <results>
+                        <system>
+                            <definitions>
+                                <definition class="inventory" definition_id="oval:gov.nist.test.inventory:def:1" result="true" version="1" variable_instance="1">
+                                    <criteria operator="AND" result="true">
+                                        <criterion result="true" test_ref="oval:gov.nist.test.inventory:tst:1" version="1"/>
+                                    </criteria>
+                                </definition>
+                            </definitions>
+                            <tests>
+                                <test check="only one" check_existence="at_least_one_exists" result="true" state_operator="AND" test_id="oval:gov.nist.test.inventory:tst:1" version="1">
+                                    <tested_item item_id="1" result="true"/>
+                                </test>
+                            </tests>
+                            <oval_system_characteristics xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5">
+                                <generator>
+                                    <oval:product_name>OVAL Definition Interpreter</oval:product_name>
+                                    <oval:product_version>5.10 Build: 3</oval:product_version>
+                                    <oval:schema_version>5.10</oval:schema_version>
+                                    <oval:timestamp>2010-08-03T13:49:07</oval:timestamp>
+                                    <vendor>The MITRE Corporation</vendor>
+                                </generator>
+                                <system_info>
+                                    <os_name>unknown Professional Service Pack 2</os_name>
+                                    <os_version>6.0.6002</os_version>
+                                    <architecture>INTEL32</architecture>
+                                    <primary_host_name>host.domain.tld</primary_host_name>
+                                    <interfaces>
+                                        <interface>
+                                            <interface_name>VMware Virtual Ethernet Adapter for VMnet1</interface_name>
+                                            <ip_address>192.168.222.1</ip_address>
+                                            <mac_address>00-50-56-C0-00-01</mac_address>
+                                        </interface>
+                                    </interfaces>
+                                    <scap-con:asset-identification>
+                                        <arf:object-ref ref-id="asset1"/>
+                                    </scap-con:asset-identification>
+                                </system_info>
+                                <collected_objects>
+                                    <object flag="complete" id="oval:gov.nist.test.inventory:obj:1" version="1">
+                                        <reference item_ref="1"/>
+                                    </object>
+                                </collected_objects>
+                                <system_data>
+                                    <family_item xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent" id="1">
+                                        <family>windows</family>
+                                    </family_item>
+                                </system_data>
+                            </oval_system_characteristics>
+                        </system>
+                    </results>
+
+                </oval_results>
+            </content>
+        </report>
+    </reports>
+    <extended-infos>
+        <extended-info id="sig1">
+            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="dsig-20110817120935685-78"
+                xmlns:dsig-xpath="http://www.w3.org/2002/06/xmldsig-filter2">
+                <SignedInfo>
+                    <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+                    <Reference URI="">
+                        <Transforms>
+                            <Transform Algorithm="http://www.w3.org/2002/06/xmldsig-filter2">
+                                <dsig-xpath:XPath Filter="subtract"
+                                    >/arf:asset-report-collection/arf:extended-infos[count(arf:extended-info[dsig:Signature])
+                                    = count(*)]</dsig-xpath:XPath>
+                            </Transform>
+                            <Transform Algorithm="http://www.w3.org/2002/06/xmldsig-filter2">
+                                <dsig-xpath:XPath Filter="subtract"
+                                    >/arf:asset-report-collection/arf:extended-infos/arf:extended-info[dsig:Signature]</dsig-xpath:XPath>
+                            </Transform>
+                            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                        </Transforms>
+                        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                        <DigestValue>Gl3ybBF1J8mKTRO66aflmIb11ggaEvM1Nj58ZqAnj0w=</DigestValue>
+                    </Reference>
+                    <Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties"
+                        URI="#sig-prop-20110817120935686-15">
+                        <Transforms>
+                            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                        </Transforms>
+                        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                        <DigestValue>IV94nOLwNb+yzQRtQCD2QYNbglIC8++cuzSmxfmKZxg=</DigestValue>
+                    </Reference>
+                </SignedInfo>
+                <SignatureValue>AliN47lR89wtSBIOfVb5mIMsMVN+oqi/uhmbp27JrknkO9esUkTPMzPV1qOqEYn2z3GWqJnG2ron
+                    f61VGMFVJR7+H/il6J6paAFm9oTHLuah48qag/7cexV3o7LpNGvdC3cTIQQJ34skyc5/wascdFmk
+                    l7tkCIymABz/m7ElGjmkXgUxB4ctyqUHs5JYksp2vWjBY2bdSaq0FGviQKBzTlBMdLKoXDnvze/f
+                    /h+BIVIatSgdrSqdCrbSqF3UXd2w2ubnGK3JXBkGuiPqTccRLrl1GsNWtObADh8Mk/pL65wpp6Tk
+                    xm/BagJXVNXaW3xe0SHbX8XTMIVqvNeofFZNQg==</SignatureValue>
+                <KeyInfo>
+                    <KeyValue>
+                        <RSAKeyValue>
+                            <Modulus>z8adrX9m0S8OxIxN+fui33wiz4ZYgb4xPbR9MS5pOp1A8kVpH5Ew3N6O3/dMs2a4diIxyGLVh0r8
+                                6QXWH/W6T2IC2ny+hi+jWRwXrvgTY3ZAFgePvz2OdRhVN/cUbOto4Pa4I2mVZWW+/Q0Fn7YpqPBD
+                                DxlGq/xyFPuYq/4y7Y+Ah+vHO2ZSaiQjbj8F38XrGhwlcbFVyK8AmxK3z0zWwX86uMEqVCjW6s6j
+                                2KAWdbAjEpgZHlJY87i/DqnFgxfmdg3oru+YeiEPVRY8hyQpYbtgryveZOHTgnCHmS/53U9jSS0c
+                                yb/ADuj1upfyNoOiMMgQr7Olhc5pTvuWAl4Fnw==</Modulus>
+                            <Exponent>AQAB</Exponent>
+                        </RSAKeyValue>
+                    </KeyValue>
+                    <X509Data>
+                        <X509SubjectName>CN=VeriSign Class 1 Public Primary Certification Authority - G3,OU=(c) 1999 VeriSign\,
+                            Inc. - For authorized use only,OU=VeriSign Trust Network,O=VeriSign\, Inc.,C=US</X509SubjectName>
+                        <X509Certificate>MIIEGjCCAwICEQCLW3VWhFSFCwDPrzhIzrGkMA0GCSqGSIb3DQEBBQUAMIHKMQswCQYDVQQGEwJV
+                            UzEXMBUGA1UEChMOVmVyaVNpZ24sIEluYy4xHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5ldHdv
+                            cmsxOjA4BgNVBAsTMShjKSAxOTk5IFZlcmlTaWduLCBJbmMuIC0gRm9yIGF1dGhvcml6ZWQgdXNl
+                            IG9ubHkxRTBDBgNVBAMTPFZlcmlTaWduIENsYXNzIDEgUHVibGljIFByaW1hcnkgQ2VydGlmaWNh
+                            dGlvbiBBdXRob3JpdHkgLSBHMzAeFw05OTEwMDEwMDAwMDBaFw0zNjA3MTYyMzU5NTlaMIHKMQsw
+                            CQYDVQQGEwJVUzEXMBUGA1UEChMOVmVyaVNpZ24sIEluYy4xHzAdBgNVBAsTFlZlcmlTaWduIFRy
+                            dXN0IE5ldHdvcmsxOjA4BgNVBAsTMShjKSAxOTk5IFZlcmlTaWduLCBJbmMuIC0gRm9yIGF1dGhv
+                            cml6ZWQgdXNlIG9ubHkxRTBDBgNVBAMTPFZlcmlTaWduIENsYXNzIDEgUHVibGljIFByaW1hcnkg
+                            Q2VydGlmaWNhdGlvbiBBdXRob3JpdHkgLSBHMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+                            ggEBAN2E1Lm0+afY8wR4nN493GwTFtl63SRRZsDHJlkNrAYIwpTRMx/wgzUfbhvI3qpuFU5UJ+/E
+                            bRrsC+MO8ESlV8dAWB6jRx9x7GD2bZTIGDnt/kIYVt/kTEkQeE4BdjVjEjbdZrwBBDajVWjVojYJ
+                            rKshJlQGrT/KFOCsyq0GHZXi+J3x4GD/wn91K0zM2v6HmSHquv4+VNfSWXjbPG7PoBMAGrgnoeS+
+                            Z5bKoMWznN3JdZ7rMJpfo83ZrngZPyPpXNspva1VyBtUjGP26KbqxzcSXKMpHgLZ2x87tNcPVkeB
+                            FQRKr4Mn0cVYiMHd9qqnoxjaaKptEVHhv2Vrn5Z20T0CAwEAATANBgkqhkiG9w0BAQUFAAOCAQEA
+                            q2aN17O6x5q25lXQBfGfMY1aqtmqRiYPce2lrVNWYgFHKkTp/j90CxObufRNG7LRX7K20ohcs5/N
+                            y9Sn2WCVhDr4wTcdYcrnsMXlkdpUpqwxga6X3s0IrLjAl4B/bnKk52kTlWUfxJM8/XmPBNQ+T+r3
+                            ns7NZ3xPZQL/kYVUc8f/NveGLezQXk//EZ9yBta4GvFMDSZl4kSAHsef493oCtrspSCAaWihT37h
+                            a88HQfqDjrw43bAuEbFrskLMmrz5SCJ5ShkPshw+IHTZasO+8ih4E1Z5T21Q6huwtVexN2ZYI/Pc
+                            D98Kh8TvhgXVOBRgmaNL3gaWcSzy27YfpO8/7g==</X509Certificate>
+                    </X509Data>
+                </KeyInfo>
+                <Object>
+                    <SignatureProperties Id="sig-prop-20110817120935686-15">
+                        <SignatureProperty Target="#dsig-20110817120935685-78">
+                            <dsig:signature-info xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                xmlns:dsig="http://scap.nist.gov/schema/xml-dsig/1.0">
+                                <dc:author>John Smith</dc:author>
+                                <dc:author>ACME Inc</dc:author>
+                                <dc:date>2011-08-17T12:09:35-0700</dc:date>
+                                <dsig:nonce>C848AFC234BDD6F3</dsig:nonce>
+                            </dsig:signature-info>
+                        </SignatureProperty>
+                    </SignatureProperties>
+                </Object>
+            </Signature>
+
+        </extended-info>
+    </extended-infos>
+</asset-report-collection>

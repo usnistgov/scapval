@@ -1,0 +1,101 @@
+<assembly
+		xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>scapval</id>
+	<formats>
+		<format>dir</format>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<!--For the actual scapval .jar executable file-->
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<unpack>false</unpack>
+			<includes>
+				<include>${artifact}</include>
+			</includes>
+		</dependencySet>
+		<!--For required dependencies-->
+		<dependencySet>
+			<outputDirectory>/lib</outputDirectory>
+			<unpack>false</unpack>
+			<excludes>
+				<exclude>${artifact}</exclude>
+			</excludes>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<!--For HTML report functionality and styling-->
+		<fileSet>
+			<!-- This dir should have already been unpacked from decima-core and placed in ${project.basedir} -->
+			<!-- Currently this is accomplished with an execution in the .pom "unpack-bootstrap" -->
+			<directory>${project.basedir}/bootstrap</directory>
+			<outputDirectory>bootstrap</outputDirectory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+			<excludes>
+				<exclude>**/META-INF/**</exclude>
+			</excludes>
+		</fileSet>
+
+		<!--For XSL file for HTML validation report customizing -->
+		<fileSet>
+			<directory>${project.build.outputDirectory}/xsl/</directory>
+			<outputDirectory>xsl</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+
+		<!--For requirement files -->
+		<fileSet>
+			<directory>${project.build.outputDirectory}/requirements</directory>
+			<outputDirectory>requirements</outputDirectory>
+			<includes>
+				<include>*-requirements.xml</include>
+			</includes>
+		</fileSet>
+
+		<!--For included .bat lanuch file and license info-->
+		<!--todo move license to root of github dir or into README.md?-->
+		<fileSet>
+			<directory>${project.build.directory}/generated-distro</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+
+		<!--For NVD files and oval test type-->
+		<fileSet>
+			<directory>${project.build.outputDirectory}/data_feeds</directory>
+			<outputDirectory>data_feeds</outputDirectory>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+	<containerDescriptorHandlers>
+		<containerDescriptorHandler>
+			<handlerName>swid-generator</handlerName>
+			<configuration>
+				<excludes>
+					<exclude>${artifact}</exclude>
+				</excludes>
+				<entities>
+					<entity>
+						<name>National Institute of Standards and Technology</name>
+						<regid>nist.gov</regid>
+						<roles>
+							<role>tagCreator</role>
+							<role>softwareCreator</role>
+						</roles>
+					</entity>
+				</entities>
+			</configuration>
+		</containerDescriptorHandler>
+	</containerDescriptorHandlers>
+</assembly>

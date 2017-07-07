@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-stream xmlns="http://scap.nist.gov/schema/data-stream/0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scap.nist.gov/schema/data-stream/0.2 http://scap.nist.gov/schema/data-stream/0.2/scap-data-stream_0.2.xsd   http://checklists.nist.gov/xccdf/1.1 http://nvd.nist.gov/schema/xccdf-1.1.4.xsd   http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/oval-definitions-schema.xsd   http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/windows-definitions-schema.xsd   http://cpe.mitre.org/dictionary/2.0 http://cpe.mitre.org/files/cpe-dictionary_2.2.xsd   http://scap.nist.gov/schema/ocil/2.0 ocil-2.0.xsd" use-case="CONFIGURATION" scap-version="1.1" timestamp="2009-12-01T00:00:00">
+  <!-- ================================================================================ -->
+  <!-- ==============================  XCCDF Benchmark  =============================== -->
+  <!-- ================================================================================ -->
+  <xccdf-content content-type="XCCDF_BENCHMARK" id="minimal-xccdf.xml">
+    <Benchmark xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:cpe="http://cpe.mitre.org/dictionary/2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xhtml="http://www.w3.org/1999/xhtml" id="minimal-xccdf" xml:lang="en-US" style="SCAP_1.1" xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.1 http://nvd.nist.gov/schema/xccdf-1.1.4.xsd       http://cpe.mitre.org/dictionary/2.0 http://cpe.mitre.org/files/cpe-dictionary_2.2.xsd">
+      <status date="2009-12-01">draft</status>
+      <title xml:lang="en-US">Test Title1</title>
+      <title xml:lang="en-US">Test Title2</title>
+      <description xml:lang="en-US">
+        <xhtml:strong>Test Description1</xhtml:strong>
+      </description>
+      <description xml:lang="en-US">
+        <xhtml:strong>Test Description2</xhtml:strong>
+      </description>
+      <notice id="test-notice">Test Notice</notice>
+      <front-matter>
+        <xhtml:strong>Test Front-Matter1</xhtml:strong>
+      </front-matter>
+      <front-matter>
+        <xhtml:strong>Test Front-Matter2</xhtml:strong>
+      </front-matter>
+      <rear-matter>
+        <xhtml:strong>Test Rear-Matter1</xhtml:strong>
+      </rear-matter>
+      <rear-matter>
+        <xhtml:strong>Test Rear-Matter2</xhtml:strong>
+      </rear-matter>
+      <reference href="http://testreference1">
+        <dc:publisher>Test Publisher1</dc:publisher>
+        <dc:identifier>Test Identifier1</dc:identifier>
+      </reference>
+      <reference href="http://testreference2">
+        <dc:publisher>Test Publisher2</dc:publisher>
+        <dc:identifier>Test Identifier2</dc:identifier>
+      </reference>
+      <plain-text id="plain-text1">Test Plain-Text1</plain-text>
+      <plain-text id="plain-text2">Test Plain-Text2</plain-text>
+      <platform idref="cpe:/o:microsoft:windows_xp" />
+      <version update="http://tempuri.org" time="2011-02-24T10:38:46">Test Version</version>
+      <metadata>
+        <dc:creator>Test Creator</dc:creator>
+        <dc:publisher>Test Publisher</dc:publisher>
+        <dc:contributor>Test Contributor</dc:contributor>
+        <dc:source>http://scap.nist.gov/</dc:source>
+      </metadata>
+      <model system="urn:xccdf:scoring:default" />
+      <model system="urn:xccdf:scoring:flat" />
+      <Profile id="test-profile-1">
+        <title>Test Profile 1</title>
+        <description>Test Profile 1 Description</description>
+        <select idref="test_rule1" selected="true" />
+      </Profile>
+      <Value id="test_rule1_int_var" type="number">
+        <title>Number var</title>
+        <description>hello</description>
+        <value>1</value>
+      </Value>
+      <Value id="test_rule1_boolean_var" type="boolean">
+        <title>Boolean var</title>
+        <description>hello</description>
+        <value>true</value>
+      </Value>
+      <Value id="test_rule1_string_var" type="string">
+        <title>String var</title>
+        <description>hello</description>
+        <value>string</value>
+      </Value>
+      <Group id="testGroup1">
+        <title>Test Title for Group 1</title>
+        <description>Test description for Group 1</description>
+        <Rule id="test_rule1" selected="false" weight="10.0">
+          <title>Test Title for Rule 1</title>
+          <description>Test Description for Rule 1</description>
+          <ident system="http://cce.mitre.org">CCE-2466-1</ident>
+          <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1" />
+          </check>
+          <check system="http://scap.nist.gov/schema/ocil/2">
+            <check-export value-id="test_rule1_int_var" export-name="ocil:gov.nist.test:variable:1" />
+            <check-export value-id="test_rule1_boolean_var" export-name="ocil:gov.nist.test:variable:2" />
+            <check-export value-id="test_rule1_string_var" export-name="ocil:gov.nist.test:variable:3" />
+            <check-content-ref href="minimal-ocil.xml" name="ocil:gov.nist.ocil:questionnaire:1" />
+          </check>
+        </Rule>
+      </Group>
+    </Benchmark>
+  </xccdf-content>
+  <!-- ================================================================================ -->
+  <!-- ============================  OCIL QUESTIONNAIRE  ============================== -->
+  <!-- ================================================================================ -->
+  <check-system-content content-type="OCIL_QUESTIONNAIRE" id="minimal-ocil.xml">
+    <ocil xmlns="http://scap.nist.gov/schema/ocil/2.0" xsi:schemaLocation="http://scap.nist.gov/schema/ocil/2.0 ocil-2.0.xsd">
+      <generator>
+        <schema_version>2.0</schema_version>
+        <timestamp>2010-07-20T12:00:00</timestamp>
+      </generator>
+      <questionnaires>
+        <questionnaire id="ocil:gov.nist.ocil:questionnaire:1">
+          <actions>
+            <test_action_ref>ocil:gov.nist.ocil:testaction:1</test_action_ref>
+            <test_action_ref>ocil:gov.nist.ocil:testaction:2</test_action_ref>
+          </actions>
+        </questionnaire>
+      </questionnaires>
+      <test_actions>
+        <boolean_question_test_action question_ref="ocil:gov.nist.ocil:question:1" id="ocil:gov.nist.ocil:testaction:1">
+          <when_true>
+            <result>PASS</result>
+          </when_true>
+          <when_false>
+            <result>FAIL</result>
+          </when_false>
+        </boolean_question_test_action>
+        <choice_question_test_action question_ref="ocil:gov.nist.ocil:question:2" id="ocil:gov.nist.ocil:testaction:2">
+          <notes>notes</notes>
+          <title>title</title>
+          <when_unknown>
+            <result>FAIL</result>
+          </when_unknown>
+          <when_not_tested>
+            <result>FAIL</result>
+          </when_not_tested>
+          <when_not_applicable>
+            <result>PASS</result>
+          </when_not_applicable>
+          <when_error>
+            <result>FAIL</result>
+          </when_error>
+          <when_choice>
+            <result>PASS</result>
+            <choice_ref>ocil:gov.nist.test:choice:1</choice_ref>
+          </when_choice>
+        </choice_question_test_action>
+      </test_actions>
+      <questions>
+        <boolean_question id="ocil:gov.nist.ocil:question:1" model="MODEL_YES_NO">
+          <notes>Sample notes for question 1</notes>
+          <question_text>This is sample question 1?</question_text>
+        </boolean_question>
+        <choice_question id="ocil:gov.nist.ocil:question:2">
+          <notes>Sample notes for question 2</notes>
+          <question_text>This is sample question 2?</question_text>
+          <instructions>
+            <title>instructions title</title>
+            <step />
+          </instructions>
+          <choice id="ocil:gov.nist.test:choice:1" var_ref="ocil:gov.nist.test:variable:3" />
+          <choice id="ocil:gov.nist.test:choice:2" var_ref="ocil:gov.nist.test:variable:2" />
+        </choice_question>
+      </questions>
+      <variables>
+        <external_variable id="ocil:gov.nist.test:variable:1" datatype="NUMERIC" />
+        <external_variable id="ocil:gov.nist.test:variable:2" datatype="TEXT" />
+        <external_variable id="ocil:gov.nist.test:variable:3" datatype="TEXT" />
+      </variables>
+    </ocil>
+  </check-system-content>
+  <!-- ================================================================================ -->
+  <!-- ==============================  OVAL COMPLIANCE  =============================== -->
+  <!-- ================================================================================ -->
+  <check-system-content content-type="OVAL_COMPLIANCE" id="minimal-oval.xml">
+    <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/windows-definitions-schema.xsd       http://oval.mitre.org/XMLSchema/oval-definitions-5#independent http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/independent-definitions-schema.xsd       http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/oval-definitions-schema.xsd       http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/oval-common-schema.xsd">
+      <generator>
+        <oval:schema_version>5.3</oval:schema_version>
+        <oval:timestamp>2009-12-01T00:00:00</oval:timestamp>
+      </generator>
+      <definitions>
+        <definition id="oval:gov.nist.test.compliance:def:1" version="1" class="compliance">
+          <metadata>
+            <title>Test Title</title>
+            <affected family="windows">
+              <platform>Microsoft Windows XP</platform>
+            </affected>
+            <description>Test Description</description>
+            <reference source="http://cce.mitre.org" ref_id="CCE-2466-1" />
+          </metadata>
+        </definition>
+      </definitions>
+    </oval_definitions>
+  </check-system-content>
+  <!-- ================================================================================ -->
+  <!-- ===============================  CPE INVENTORY  ================================ -->
+  <!-- ================================================================================ -->
+  <check-system-content content-type="CPE_INVENTORY" id="minimal-cpe-oval.xml">
+    <oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/windows-definitions-schema.xsd       http://oval.mitre.org/XMLSchema/oval-definitions-5#independent http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/independent-definitions-schema.xsd       http://oval.mitre.org/XMLSchema/oval-definitions-5 http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/oval-definitions-schema.xsd       http://oval.mitre.org/XMLSchema/oval-common-5 http://oval.mitre.org/language/download/schema/version5.3/ovaldefinition/complete/oval-common-schema.xsd">
+      <generator>
+        <oval:schema_version>5.3</oval:schema_version>
+        <oval:timestamp>2009-12-01T00:00:00</oval:timestamp>
+      </generator>
+      <definitions>
+        <definition id="oval:gov.nist.test.inventory:def:1" version="1" class="inventory">
+          <metadata>
+            <title>Test Title</title>
+            <affected family="windows">
+              <platform>Microsoft Windows XP</platform>
+            </affected>
+            <description>Test Description</description>
+            <reference source="http://cpe.mitre.org" ref_id="cpe:/o:microsoft:windows_xp" />
+          </metadata>
+        </definition>
+      </definitions>
+    </oval_definitions>
+  </check-system-content>
+  <!-- ================================================================================ -->
+  <!-- ===============================  CPE DICTIONARY  =============================== -->
+  <!-- ================================================================================ -->
+  <cpe-dictionary-content content-type="CPE_DICTIONARY" id="minimal-cpe-dictionary.xml">
+    <cpe-list xmlns="http://cpe.mitre.org/dictionary/2.0" xsi:schemaLocation="http://cpe.mitre.org/dictionary/2.0 http://cpe.mitre.org/files/cpe-dictionary_2.2.xsd">
+      <cpe-item name="cpe:/o:microsoft:windows_xp">
+        <title>Microsoft Windows XP</title>
+        <check href="minimal-cpe-oval.xml" system="http://oval.mitre.org/XMLSchema/oval-definitions-5">oval:gov.nist.test.inventory:def:1</check>
+      </cpe-item>
+    </cpe-list>
+  </cpe-dictionary-content>
+</data-stream>

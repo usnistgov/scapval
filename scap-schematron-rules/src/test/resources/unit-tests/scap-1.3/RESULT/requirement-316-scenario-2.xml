@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>316</requirement>
+  <description>In situations where it is desirable to countersign a result data stream, 
+  the following requirements apply.~The original signature SHALL be captured as a dsig:Object element on the new dsig:Signature.
+  In this case we are entering an incomplete, duplicate Signature</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ai="http://scap.nist.gov/schema/asset-identification/1.1"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/result-base.xml">
+  
+    <insert-sibling xpath="//dsig:Signature">
+      <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="dsig-20110817120935685-78" />
+    </insert-sibling>
+    
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      
+    </schematron-assessment>
+    
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-316-1" result="FAIL" />
+    <!-- Also expect quite a few others to fail due to the simple modification 
+         of testing by entering an incomplete, duplicate Signature --> 
+    <assert-derived-requirement requirement-id="RES-311-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="RES-313-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="RES-312-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="RES-315-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="RES-314-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

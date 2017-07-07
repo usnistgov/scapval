@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:meta-core="http://scap.nist.gov/schema/metadata-core/1.0"
+    xmlns:scap-core="http://scap.nist.gov/schema/scap-core/1.0"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    targetNamespace="http://scap.nist.gov/schema/metadata-core/1.0"
+    elementFormDefault="qualified" attributeFormDefault="unqualified"
+    version="0.9">
+    <xs:annotation>
+        <xs:documentation xml:lang="en-US">This schema provides basic SCAP metadata structures.</xs:documentation>
+        <xs:appinfo>
+            <schema>SCAP Metadata</schema>
+            <author>David Waltermire</author>
+            <version>0.9</version>
+            <date>5/25/2010 10:00:00 AM</date>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <!-- ================================================== -->
+    <!-- =====  Schema imports  -->
+    <!-- ================================================== -->
+
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="https://www.w3.org/2009/01/xml.xsd">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">The XML schema is used for xml:lang.</xs:documentation>
+        </xs:annotation>
+    </xs:import>
+
+    <xs:import namespace="http://scap.nist.gov/schema/scap-core/1.0" schemaLocation="https://scap.nist.gov/schema/scap-core/1.0/scap-core_0.9.xsd"/>
+
+    <!-- xhtml11.xsd -->
+    <xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="https://scap.nist.gov/schema/xhtml/2010/xhtml11.xsd">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">A simplified XHTML 1.1 modular schema driver that implements structural markup for embedding in XML data models.</xs:documentation>
+        </xs:annotation>
+    </xs:import>
+
+    <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">The Dublin Core Metadata Element Set, Version 1.1.</xs:documentation>
+        </xs:annotation>
+    </xs:import>
+
+    <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">The DCMI Metadata Terms.</xs:documentation>
+        </xs:annotation>
+    </xs:import>
+    
+    <!-- ================================================== -->
+    <!-- =====  Simple Type Definitions  -->
+    <!-- ================================================== -->
+    <xs:simpleType name="dottedVersionType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">A simple dotted version notation that allows one to 4 dotted version numbers</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:pattern value="(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*)){0,3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="recordStatusEnumType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">An enumeration of possible record statuses based on the CPE dictionary lifecycle process.</xs:documentation>
+            <xs:documentation xml:lang="en-US">Reference the CPE dictionary lifecycle process.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NEW">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">A newly created record that has not undergone moderation.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DRAFT">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">A record that has been reviewed by one or more moderators, but that has not completed the review process.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FINAL">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">A record that has completed the moderation process.  It is recommended that records with this status are the only records included in the data dictionary.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="REVISED">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">Indicates that a record that was once in the FINAL state has been updated.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RETIRED">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">Used when a record was once in the "FINAL" state, but has been removed from the data dictionary.  This is typical if the record is nolonger in general use.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="REJECTED">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">This state indicates that a record was rejected during the moderation process.  Records with this state will never be posted to the data dictionary and should not be used.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ================================================== -->
+    <!-- =====  Complex Type Definitions  -->
+    <!-- ================================================== -->
+    <xs:complexType name="statusHistoryType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">A list of date qualified status transitions.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="status" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="meta-core:recordStatusEnumType">
+                            <xs:attribute name="date" type="xs:dateTime" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="status-history" type="meta-core:statusHistoryType"/>
+
+    <xs:group name="recordGroup">
+        <xs:sequence>
+            <xs:element name="status-history" type="meta-core:statusHistoryType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">A date qualified list of status changes to a record.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:attributeGroup name="recordAttributeGroup">
+        <xs:attribute name="status" type="meta-core:recordStatusEnumType" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en-US">The status of a record.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:complexType name="recordType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">The base type to be used with any record that uses the CPE dictionary lifecycle.</xs:documentation>
+        </xs:annotation>
+        <xs:group ref="meta-core:recordGroup"/>
+        <xs:attributeGroup ref="meta-core:recordAttributeGroup"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="mutableRecordAttributeGroup">
+        <xs:attribute name="modification-date" type="xs:dateTime" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en-US">This date/time represents the last time that the record was modified.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="revision" type="meta-core:dottedVersionType">
+            <xs:annotation>
+                <xs:documentation xml:lang="en-US">The version of the record.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:complexType name="mutableRecordType" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="meta-core:recordType">
+                <xs:attributeGroup ref="meta-core:mutableRecordAttributeGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="xhtmlLocaleTextType">
+        <xs:complexContent>
+            <xs:extension base="xhtml:xhtml.body.type">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="localeTextType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">This type allows the xml:lang attribute to associate a specific language with an element's string content.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="localeNotesType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">This type defines an element that consists of one or more child note elements. It is assumed that each of these note elements are representative of the same language as defined by their parent.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="note" type="meta-core:localeTextType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="notes" type="meta-core:localeNotesType">
+        <xs:unique name="uniqueNoteLocale">
+            <xs:selector xpath="meta-core:note"/>
+            <xs:field xpath="@xml:lang"/>
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="referenceItemType" abstract="true">
+        <xs:sequence>
+            <xs:element name="ref-id" type="xs:anyURI" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The identifier of the object being referenced.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"></xs:any>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="item" type="meta-core:referenceItemType" abstract="true" />
+
+    <xs:complexType name="embeddedReferenceItemType">
+        <xs:complexContent>
+            <xs:extension base="meta-core:referenceItemType">
+                <xs:choice>
+                    <xs:element name="text" type="meta-core:xhtmlLocaleTextType"/>
+                    <xs:element name="binary" type="xs:base64Binary"/>
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="embedded-item" type="meta-core:embeddedReferenceItemType" substitutionGroup="meta-core:item"/>
+
+    <xs:complexType name="externalReferenceItemType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">Type for a reference with an optional URI reference.  This would normally be used to point to extra descriptive material, or the supplier's web site, or the platform documentation. It consists of a piece of text (intended to be human-readable) and a URI (intended to be a URL, and point to a real resource).</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="meta-core:referenceItemType">
+                <xs:attribute name="href" type="xs:anyURI" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="external-item" type="meta-core:externalReferenceItemType" substitutionGroup="meta-core:item"/>
+    
+    <xs:complexType name="referenceType">
+        <xs:sequence>
+            <xs:element ref="meta-core:item" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">A collection of one or more locale specific reference items.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="reference" type="meta-core:referenceType"/>
+
+    
+
+    <xs:complexType name="referencesType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">A collection of one or more references.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="meta-core:reference" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="references" type="meta-core:referencesType"/>
+    
+    <xs:complexType name="generatorType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">The GeneratorType complex type defines an element that is used to hold information about when a particular document was compiled, what version of the schema was used, what tool compiled the document, and what version of that tools was used.  Additional generator information is also allowed although it is not part of the official schema. Individual organizations can place generator information that they feel are important and these will be skipped during the validation. All that this schema really cares about is that the stated generator information is there.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="product" type="scap-core:cpeNamePatternType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">The CPE name of the tool used to generate the file.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="schema_version" type="meta-core:dottedVersionType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">The required schema_version element specifies the version of the schema that the document has been written against and that should be used for validation.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="timestamp" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en-US">The required timestamp element specifies when the particular document was compiled. The format for the timestamp is yyyy-mm-ddThh:mm:ss. Note that the timestamp element does not specify item in the document was created or modified but rather when the actual XML document that contains the items was created. For example, a document might pull a bunch of existing items together, each of which having been created at some point in the past. The timestamp in this case would be when this combined document was created.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="meta-core:application-info" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="generator" type="meta-core:generatorType"/>
+
+    <xs:element name="application-info">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any" processContents="lax"/>
+            </xs:sequence>
+            <xs:anyAttribute namespace="##other" processContents="lax"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="coreDCMetadata">
+    </xs:complexType>
+    <xs:complexType name="lifecycleEventType">
+        <xs:sequence>
+            <xs:element ref="dcterms:identifier" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:date" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:creator" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:contributor" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:publisher" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:description" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:subject" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="dcterms:source" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="extended-metadata" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any namespace="##any" processContents="lax" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="lifecycle" type="meta-core:lifecycleEventType"/>
+
+    <!-- ================================================== -->
+    <!-- =====  Change History  -->
+    <!-- ================================================== -->
+    <!--
+        v0.1 - Initial working version
+    -->
+</xs:schema>

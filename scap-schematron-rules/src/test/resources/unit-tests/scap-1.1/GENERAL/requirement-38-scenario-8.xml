@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>38</requirement>
+  <description>This is a comprehensively valid xccdf for the Configuration use case.
+               XCCDF datatype number maps to oval type ios_version</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1"
+  xmlns:cpe="http://cpe.mitre.org/dictionary/2.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.1/templates/configuration-use-case-complete.xml">
+    <replace xpath="//*:Group[@id='testGroup1']">
+      <Group id="testGroup1" xmlns="http://checklists.nist.gov/xccdf/1.1">
+        <title>Test Title for Group 1</title>
+        <description>Test description for Group 1</description>
+        <Value id="test_rule1_int_var" type="number" operator="equals">
+          <title>Test Rule 1 Int Variable</title>
+          <description>Test Rule 1 Int Variable.</description>
+          <value>1</value>
+        </Value>
+        <Value id="test_rule1_float_var" type="number" operator="equals">
+          <title>Test Rule 1 Float Variable</title>
+          <description>Test Rule 1 Float Variable.</description>
+          <value>1.0</value>
+        </Value>
+        <Value id="test_rule1_boolean_var" type="boolean" operator="equals">
+          <title>Test Rule 1 Boolean Variable</title>
+          <description>Test Rule 1 Boolean Variable.</description>
+          <value>1</value>
+        </Value>
+        <Value id="test_rule1_string_var" type="string" operator="equals">
+          <title>Test Rule 1 String Variable</title>
+          <description>Test Rule 1 String Variable.</description>
+          <value>one</value>
+        </Value>
+        <Value id="test_rule1_evr_string_var" type="string" operator="equals">
+          <title>Test Rule 1 EVR String Variable</title>
+          <description>Test Rule 1 EVR String Variable.</description>
+          <value>1:2.3.4-5.6</value>
+        </Value>
+        <Value id="test_rule1_version_var" type="number" operator="equals">
+          <title>Test Rule 1 Version Variable</title>
+          <description>Test Rule 1 Version Variable.</description>
+          <value>1.2.3</value>
+        </Value>
+        <Value id="test_rule1_ios_version_var" type="number" operator="equals">
+          <title>Test Rule 1 IOS Version Variable</title>
+          <description>Test Rule 1 IOS Version Variable.</description>
+          <value>12.2(3)T</value>
+        </Value>
+        <Value id="test_rule1_fileset_revision_var" type="string" operator="equals">
+          <title>Test Rule 1 Fileset Revision Variable</title>
+          <description>Test Rule 1 Fileset Revsiion Variable.</description>
+          <value>A.03.61.00</value>
+        </Value>
+        <Value id="test_rule1_binary_var" type="string" operator="equals">
+          <title>Test Rule 1 Binary Variable</title>
+          <description>Test Rule 1 Binary Variable.</description>
+          <value>0123456789ABCDEF</value>
+        </Value>
+        <Rule id="test_rule1" selected="false" weight="10.0">
+          <title>Test Title for Rule 1</title>
+          <description>Test Description for Rule 1</description>
+          <ident system="http://cce.mitre.org">CCE-2466-1</ident>
+          <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export value-id="test_rule1_int_var" export-name="oval:gov.nist.test.compliance:var:1" />
+            <check-export value-id="test_rule1_float_var" export-name="oval:gov.nist.test.compliance:var:2" />
+            <check-export value-id="test_rule1_boolean_var" export-name="oval:gov.nist.test.compliance:var:3" />
+            <check-export value-id="test_rule1_string_var" export-name="oval:gov.nist.test.compliance:var:4" />
+            <check-export value-id="test_rule1_evr_string_var" export-name="oval:gov.nist.test.compliance:var:5" />
+            <check-export value-id="test_rule1_version_var" export-name="oval:gov.nist.test.compliance:var:6" />
+            <check-export value-id="test_rule1_ios_version_var" export-name="oval:gov.nist.test.compliance:var:7" />
+            <check-export value-id="test_rule1_fileset_revision_var" export-name="oval:gov.nist.test.compliance:var:8" />
+            <check-export value-id="test_rule1_binary_var" export-name="oval:gov.nist.test.compliance:var:9" />
+            <check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1" />
+          </check>
+        </Rule>
+      </Group>
+    </replace>
+    <insert-child xpath="//*:check-system-content[@content-type='OVAL_COMPLIANCE']//*:oval_definitions">
+      <variables xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+        <external_variable id="oval:gov.nist.test.compliance:var:1" version="1" comment="XCCDF number datatype" datatype="int" />
+        <external_variable id="oval:gov.nist.test.compliance:var:2" version="1" comment="XCCDF number datatype" datatype="float" />
+        <external_variable id="oval:gov.nist.test.compliance:var:3" version="1" comment="XCCDF boolean datatype" datatype="boolean" />
+        <external_variable id="oval:gov.nist.test.compliance:var:4" version="1" comment="XCCDF string datatype" datatype="string" />
+        <external_variable id="oval:gov.nist.test.compliance:var:5" version="1" comment="XCCDF string datatype" datatype="evr_string" />
+        <external_variable id="oval:gov.nist.test.compliance:var:6" version="1" comment="XCCDF string datatype" datatype="version" />
+        <external_variable id="oval:gov.nist.test.compliance:var:7" version="1" comment="XCCDF string datatype" datatype="ios_version" />
+        <external_variable id="oval:gov.nist.test.compliance:var:8" version="1" comment="XCCDF string datatype" datatype="fileset_revision" />
+        <external_variable id="oval:gov.nist.test.compliance:var:9" version="1" comment="XCCDF string datatype" datatype="binary" />
+      </variables>
+    </insert-child>
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="SRC-38-1"
+      result="FAIL" />
+     <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

@@ -1,0 +1,2 @@
+#Used to register the scapval-catalog.xml XML Catalog with Decima's ResourceResolverExtension
+gov.nist.scap.validation.scapval.services.ResourceResolverExtension

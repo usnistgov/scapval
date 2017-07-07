@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:cpe-dict="http://cpe.mitre.org/dictionary/2.0"
+    xmlns:meta="http://scap.nist.gov/schema/cpe-dictionary-metadata/0.2"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    targetNamespace="http://cpe.mitre.org/dictionary/2.0" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="2.1">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en-US">This schema is a restriction of the MITRE CPE Dictionary Schema v2.1 that includes the Official CPE Dictionary metadata extensions v0.2.</xs:documentation>
+        <xs:appinfo>
+            <schema>CPE Dictionary v2.1 Restriction w/ Repository Metadata</schema>
+            <author>David Waltermire</author>
+            <version>0.1</version>
+            <date>10/24/2008 10:00:00 AM</date>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <xs:import namespace="http://scap.nist.gov/schema/cpe-dictionary-metadata/0.2" schemaLocation="cpe-dictionary-metadata_0.2.xsd"/>
+    <xs:redefine schemaLocation="https://scap.nist.gov/schema/cpe/2.1/cpe-dictionary_2.1.xsd">
+        <xs:annotation>
+            <xs:documentation xml:lang="en-US">Restrict the core types in the CPE dictionary to include the Official CPE Dictionaryt metadata extensions in place of the any elements.</xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType name="ListType">
+            <xs:complexContent>
+                <xs:restriction base="cpe-dict:ListType">
+                    <xs:sequence>
+                        <xs:element name="generator" type="cpe-dict:GeneratorType" maxOccurs="1"/>
+                        <xs:element name="cpe-item" type="cpe-dict:metadataItemType" minOccurs="1"
+                            maxOccurs="unbounded"/>
+                        <xs:element ref="meta:component-tree">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en-US">Provide legacy support for the component-tree usage as it was before tagging was added.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:restriction>
+            </xs:complexContent>
+        </xs:complexType>
+
+        <xs:complexType name="GeneratorType">
+            <xs:complexContent>
+                <xs:restriction base="cpe-dict:GeneratorType">
+                    <xs:sequence>
+                        <xs:element name="product_name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="product_version" type="xs:string" minOccurs="0"
+                            maxOccurs="1"/>
+                        <xs:element name="schema_version" type="xs:decimal" minOccurs="1"
+                            maxOccurs="1"/>
+                        <xs:element name="timestamp" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+                        <xs:element ref="meta:list-metadata" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="en-US">Additional metadata that describes the criteria used to generate this dictionary.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:restriction>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:redefine>
+
+    <xs:complexType name="metadataItemType">
+        <xs:complexContent>
+            <xs:restriction base="cpe-dict:ItemType">
+                <xs:sequence>
+                    <xs:element name="title" type="cpe-dict:TextType" minOccurs="1"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="notes" type="cpe-dict:NotesType" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="references" type="cpe-dict:ReferencesType" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="check" type="cpe-dict:CheckType" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element ref="meta:item-metadata">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="en-US">Include additional repository status metadata.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="name" type="cpe-dict:namePattern" use="required"/>
+                <xs:attribute name="deprecated" type="xs:boolean" use="optional" default="false"/>
+                <xs:attribute name="deprecated_by" type="cpe-dict:namePattern" use="optional"/>
+                <xs:attribute name="deprecation_date" type="xs:dateTime" use="optional"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <!-- ================================================== -->
+    <!-- =====  Change History  -->
+    <!-- ================================================== -->
+    <!--
+        v0.1 - Initial working version
+    -->
+</xs:schema>

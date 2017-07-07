@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ocil xmlns="http://scap.nist.gov/schema/ocil/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xsi:schemaLocation="http://scap.nist.gov/schema/ocil/2.0 http://scap.nist.gov/schema/ocil/2.0/ocil-2.0.xsd">
+  <eggerator>
+    <schema_version>2.0</schema_version>
+    <timestamp>2011-03-02T20:00:00</timestamp>
+  </eggerator>
+  <document>
+    <title>OCIL content validation program</title>
+  </document>
+  <!-- *********************************************************************
+    
+                        QUESTIONNAIRES
+            
+  *************************************************************************-->
+  <questionnaires>
+    <questionnaire id="ocil:validation_program:questionnaire:1">
+      <title>OCIL Validation Checklist</title>
+      <actions>
+        <test_action_ref>ocil:validation_program:testaction:1</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:2</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:3</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:4</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:5</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:6</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:7</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:8</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:9</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:10</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:11</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:12</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:13</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:14</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:15</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:16</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:17</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:18</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:19</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:20</test_action_ref>
+        <test_action_ref>ocil:validation_program:testaction:21</test_action_ref>
+        <test_action_ref>ocil:validation_program:questionnaire:2</test_action_ref>
+        <test_action_ref>ocil:validation_program:questionnaire:3</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ocil:validation_program:questionnaire:2" child_only="true">
+      <title>Should be nested</title>
+      <actions>
+        <test_action_ref>ocil:validation_program:testaction:22</test_action_ref>
+      </actions>
+    </questionnaire>
+    <questionnaire id="ocil:validation_program:questionnaire:3" child_only="true">
+      <actions>
+        <test_action_ref>ocil:validation_program:testaction:22</test_action_ref>
+      </actions>
+    </questionnaire>
+  </questionnaires>
+  <!-- *********************************************************************
+        
+                         TEST ACTIONS
+        
+        *************************************************************************-->
+  <!-- PASSING TEST ACTIONS -->
+  <test_actions>
+    <choice_question_test_action id="ocil:validation_program:testaction:1" question_ref="ocil:validation_program:question:1">
+      <when_choice>
+        <result>PASS</result>
+        <artifact_refs>
+          <artifact_ref idref="ocil:validation_program:artifact:1" />
+        </artifact_refs>
+        <choice_ref>ocil:validation_program:choice:1</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>FAIL</result>
+        <choice_ref>ocil:validation_program:choice:2</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_APPLICABLE</result>
+        <choice_ref>ocil:validation_program:choice:3</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_TESTED</result>
+        <choice_ref>ocil:validation_program:choice:4</choice_ref>
+      </when_choice>
+    </choice_question_test_action>
+    <string_question_test_action id="ocil:validation_program:testaction:2" question_ref="ocil:validation_program:question:2">
+      <when_pattern>
+        <result>PASS</result>
+        <pattern>pass</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>NOT_TESTED</result>
+        <pattern>^unanswered$</pattern>
+      </when_pattern>
+    </string_question_test_action>
+    <boolean_question_test_action question_ref="ocil:validation_program:question:3" id="ocil:validation_program:testaction:3">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <numeric_question_test_action question_ref="ocil:validation_program:question:4" id="ocil:validation_program:testaction:4">
+      <when_equals>
+        <result>PASS</result>
+        <value>42</value>
+      </when_equals>
+    </numeric_question_test_action>
+    <!-- FAILING TEST ACTIONS -->
+    <choice_question_test_action id="ocil:validation_program:testaction:5" question_ref="ocil:validation_program:question:5">
+      <when_choice>
+        <result>PASS</result>
+        <choice_ref>ocil:validation_program:choice:1</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>FAIL</result>
+        <choice_ref>ocil:validation_program:choice:2</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_APPLICABLE</result>
+        <choice_ref>ocil:validation_program:choice:3</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_TESTED</result>
+        <choice_ref>ocil:validation_program:choice:4</choice_ref>
+      </when_choice>
+    </choice_question_test_action>
+    <string_question_test_action id="ocil:validation_program:testaction:6" question_ref="ocil:validation_program:question:6">
+      <when_pattern>
+        <result>PASS</result>
+        <pattern>pass</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>NOT_TESTED</result>
+        <pattern>^unanswered$</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>FAIL</result>
+        <pattern>fail</pattern>
+      </when_pattern>
+    </string_question_test_action>
+    <boolean_question_test_action question_ref="ocil:validation_program:question:7" id="ocil:validation_program:testaction:7">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <numeric_question_test_action question_ref="ocil:validation_program:question:8" id="ocil:validation_program:testaction:8">
+      <when_equals>
+        <result>FAIL</result>
+        <value>13</value>
+      </when_equals>
+    </numeric_question_test_action>
+    <!-- Step  -->
+    <boolean_question_test_action question_ref="ocil:validation_program:question:9" id="ocil:validation_program:testaction:9">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <!-- Passing branching -->
+    <string_question_test_action id="ocil:validation_program:testaction:10" question_ref="ocil:validation_program:question:10">
+      <when_pattern>
+        <test_action_ref>ocil:validation_program:testaction:11</test_action_ref>
+        <pattern>pass</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>NOT_TESTED</result>
+        <pattern>^unanswered$</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>FAIL</result>
+        <pattern>fail</pattern>
+      </when_pattern>
+    </string_question_test_action>
+    <numeric_question_test_action question_ref="ocil:validation_program:question:11" id="ocil:validation_program:testaction:11">
+      <when_equals>
+        <test_action_ref>ocil:validation_program:testaction:12</test_action_ref>
+        <value>1</value>
+      </when_equals>
+    </numeric_question_test_action>
+    <boolean_question_test_action question_ref="ocil:validation_program:question:12" id="ocil:validation_program:testaction:12">
+      <when_true>
+        <test_action_ref>ocil:validation_program:testaction:13</test_action_ref>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+    <choice_question_test_action id="ocil:validation_program:testaction:13" question_ref="ocil:validation_program:question:13">
+      <when_choice>
+        <result>PASS</result>
+        <choice_ref>ocil:validation_program:choice:1</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>FAIL</result>
+        <choice_ref>ocil:validation_program:choice:2</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_APPLICABLE</result>
+        <choice_ref>ocil:validation_program:choice:3</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_TESTED</result>
+        <choice_ref>ocil:validation_program:choice:4</choice_ref>
+      </when_choice>
+    </choice_question_test_action>
+    <!-- Failing branching -->
+    <string_question_test_action id="ocil:validation_program:testaction:14" question_ref="ocil:validation_program:question:14">
+      <when_pattern>
+        <result>PASS</result>
+        <pattern>pass</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>NOT_TESTED</result>
+        <pattern>^unanswered$</pattern>
+      </when_pattern>
+      <when_pattern>
+        <test_action_ref>ocil:validation_program:testaction:15</test_action_ref>
+        <pattern>fail</pattern>
+      </when_pattern>
+    </string_question_test_action>
+    <numeric_question_test_action question_ref="ocil:validation_program:question:15" id="ocil:validation_program:testaction:15">
+      <when_unknown>
+        <test_action_ref>ocil:validation_program:testaction:16</test_action_ref>
+      </when_unknown>
+      <when_equals>
+        <result>PASS</result>
+        <value>1</value>
+      </when_equals>
+    </numeric_question_test_action>
+    <boolean_question_test_action question_ref="ocil:validation_program:question:16" id="ocil:validation_program:testaction:16">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <test_action_ref>ocil:validation_program:testaction:17</test_action_ref>
+      </when_false>
+    </boolean_question_test_action>
+    <choice_question_test_action id="ocil:validation_program:testaction:17" question_ref="ocil:validation_program:question:17">
+      <when_choice>
+        <result>PASS</result>
+        <choice_ref>ocil:validation_program:choice:1</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>FAIL</result>
+        <choice_ref>ocil:validation_program:choice:2</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_APPLICABLE</result>
+        <choice_ref>ocil:validation_program:choice:3</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_TESTED</result>
+        <choice_ref>ocil:validation_program:choice:4</choice_ref>
+      </when_choice>
+    </choice_question_test_action>
+    <!-- Multiple when patterns -->
+    <string_question_test_action id="ocil:validation_program:testaction:18" question_ref="ocil:validation_program:question:18">
+      <when_pattern>
+        <result>PASS</result>
+        <pattern>[A-Z]</pattern>
+      </when_pattern>
+      <when_pattern>
+        <result>PASS</result>
+        <pattern>[A-N]</pattern>
+      </when_pattern>
+    </string_question_test_action>
+    <!-- Exceptional Values -->
+    <choice_question_test_action id="ocil:validation_program:testaction:19" question_ref="ocil:validation_program:question:19">
+      <when_choice>
+        <result>PASS</result>
+        <choice_ref>ocil:validation_program:choice:1</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>FAIL</result>
+        <choice_ref>ocil:validation_program:choice:2</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_APPLICABLE</result>
+        <choice_ref>ocil:validation_program:choice:3</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_TESTED</result>
+        <choice_ref>ocil:validation_program:choice:4</choice_ref>
+      </when_choice>
+    </choice_question_test_action>
+    <numeric_question_test_action question_ref="ocil:validation_program:question:20" id="ocil:validation_program:testaction:20">
+      <when_error>
+        <result>FAIL</result>
+      </when_error>
+      <when_equals>
+        <result>PASS</result>
+        <value>1</value>
+      </when_equals>
+    </numeric_question_test_action>
+    <!-- Substitution -->
+    <choice_question_test_action id="ocil:validation_program:testaction:21" question_ref="ocil:validation_program:question:21">
+      <when_choice>
+        <result>PASS</result>
+        <choice_ref>ocil:validation_program:choice:1</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>FAIL</result>
+        <choice_ref>ocil:validation_program:choice:2</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_APPLICABLE</result>
+        <choice_ref>ocil:validation_program:choice:3</choice_ref>
+      </when_choice>
+      <when_choice>
+        <result>NOT_TESTED</result>
+        <choice_ref>ocil:validation_program:choice:4</choice_ref>
+      </when_choice>
+    </choice_question_test_action>
+    <!-- Nesting    -->
+    <boolean_question_test_action question_ref="ocil:validation_program:question:22" id="ocil:validation_program:testaction:22">
+      <when_true>
+        <result>PASS</result>
+      </when_true>
+      <when_false>
+        <result>FAIL</result>
+      </when_false>
+    </boolean_question_test_action>
+  </test_actions>
+  <!-- *********************************************************************
+        
+                            QUESTIONS
+        
+ *************************************************************************-->
+  <questions>
+    <!-- Passing Questions -->
+    <choice_question id="ocil:validation_program:question:1" default_answer_ref="ocil:validation_program:choice:4">
+      <question_text>Answer Yes below.</question_text>
+      <choice_group_ref>ocil:validation_program:choicegroup:1</choice_group_ref>
+    </choice_question>
+    <string_question id="ocil:validation_program:question:2" default_answer="unanswered">
+      <question_text>Type the word "pass" (without quotation marks) below.</question_text>
+    </string_question>
+    <boolean_question id="ocil:validation_program:question:3" default_answer="false" model="MODEL_TRUE_FALSE">
+      <question_text>Answer True below</question_text>
+    </boolean_question>
+    <numeric_question id="ocil:validation_program:question:4">
+      <question_text>Type 42 below.</question_text>
+    </numeric_question>
+    <!-- Failing Questions -->
+    <choice_question id="ocil:validation_program:question:5" default_answer_ref="ocil:validation_program:choice:4">
+      <question_text>Answer No below.</question_text>
+      <choice_group_ref>ocil:validation_program:choicegroup:1</choice_group_ref>
+    </choice_question>
+    <string_question id="ocil:validation_program:question:6" default_answer="unanswered">
+      <question_text>Type the word "fail" (without quotation marks) below.</question_text>
+    </string_question>
+    <boolean_question id="ocil:validation_program:question:7" default_answer="false" model="MODEL_TRUE_FALSE">
+      <question_text>Answer False below</question_text>
+    </boolean_question>
+    <numeric_question id="ocil:validation_program:question:8">
+      <question_text>Type 13 below.</question_text>
+    </numeric_question>
+    <!-- Step  -->
+    <boolean_question id="ocil:validation_program:question:9" model="MODEL_YES_NO">
+      <question_text>Do you see the steps below?</question_text>
+      <instructions>
+        <title>You should see me!</title>
+        <step>
+          <description>This is step 1</description>
+        </step>
+        <step>
+          <description>This is step 2</description>
+        </step>
+      </instructions>
+    </boolean_question>
+    <!-- Passing branching -->
+    <string_question id="ocil:validation_program:question:10">
+      <question_text>Enter "pass" with no quotation marks</question_text>
+    </string_question>
+    <numeric_question id="ocil:validation_program:question:11">
+      <question_text>Enter 1</question_text>
+    </numeric_question>
+    <boolean_question id="ocil:validation_program:question:12" model="MODEL_YES_NO">
+      <question_text>Select Yes</question_text>
+    </boolean_question>
+    <choice_question id="ocil:validation_program:question:13">
+      <question_text>Select Yes</question_text>
+      <choice_group_ref>ocil:validation_program:choicegroup:1</choice_group_ref>
+    </choice_question>
+    <!-- Failing branching -->
+    <string_question id="ocil:validation_program:question:14">
+      <question_text>Enter "fail" with no quotation marks</question_text>
+    </string_question>
+    <numeric_question id="ocil:validation_program:question:15">
+      <question_text>Enter 2</question_text>
+    </numeric_question>
+    <boolean_question id="ocil:validation_program:question:16" model="MODEL_YES_NO">
+      <question_text>Select No</question_text>
+    </boolean_question>
+    <choice_question id="ocil:validation_program:question:17">
+      <question_text>Select No</question_text>
+      <choice_group_ref>ocil:validation_program:choicegroup:1</choice_group_ref>
+    </choice_question>
+    <!-- Multiple when patterns -->
+    <string_question id="ocil:validation_program:question:18">
+      <question_text>Enter "A" without the quotation marks.</question_text>
+    </string_question>
+    <!-- Exceptional Values -->
+    <choice_question id="ocil:validation_program:question:19">
+      <question_text>Select Not Applicable</question_text>
+      <choice_group_ref>ocil:validation_program:choicegroup:1</choice_group_ref>
+    </choice_question>
+    <numeric_question id="ocil:validation_program:question:20">
+      <question_text>Enter "fail" with no quotation marks</question_text>
+      <!-- this should generate an error -->
+    </numeric_question>
+    <!-- Substitution -->
+    <choice_question id="ocil:validation_program:question:21">
+      <question_text>
+        #
+        <sub var_ref="ocil:validation_program:variable:1" />
+        # Is the text between the pound sign "apple"? If yes, select yes.
+      </question_text>
+      <choice_group_ref>ocil:validation_program:choicegroup:1</choice_group_ref>
+    </choice_question>
+    <!-- Nesting -->
+    <boolean_question id="ocil:validation_program:question:22" model="MODEL_TRUE_FALSE">
+      <question_text>Select True</question_text>
+    </boolean_question>
+    <!-- choice group(s) -->
+    <choice_group id="ocil:validation_program:choicegroup:1">
+      <choice id="ocil:validation_program:choice:1">Yes</choice>
+      <choice id="ocil:validation_program:choice:2">No</choice>
+      <choice id="ocil:validation_program:choice:3">Not Applicable</choice>
+      <choice id="ocil:validation_program:choice:4">Not Answered</choice>
+    </choice_group>
+  </questions>
+  <!-- *********************************************************************
+        
+                            ARTIFACTS         
+*************************************************************************-->
+  <artifacts>
+    <artifact id="ocil:validation_program:artifact:1">
+      <title>Additional Infomation</title>
+      <description>Any additional comments go here.</description>
+    </artifact>
+  </artifacts>
+  <variables>
+    <constant_variable id="ocil:validation_program:variable:1" datatype="TEXT">
+      <value>apple</value>
+    </constant_variable>
+  </variables>
+  <results>
+    <questionnaire_results>
+      <questionnaire_result questionnaire_ref="ocil:validation_program:questionnaire:1" result="FAIL" />
+      <questionnaire_result questionnaire_ref="ocil:validation_program:questionnaire:2" result="PASS" />
+      <questionnaire_result questionnaire_ref="ocil:validation_program:questionnaire:3" result="PASS" />
+    </questionnaire_results>
+    <test_action_results>
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:1" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:2" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:3" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:4" />
+      <test_action_result result="FAIL" test_action_ref="ocil:validation_program:testaction:5" />
+      <test_action_result result="FAIL" test_action_ref="ocil:validation_program:testaction:6" />
+      <test_action_result result="FAIL" test_action_ref="ocil:validation_program:testaction:7" />
+      <test_action_result result="FAIL" test_action_ref="ocil:validation_program:testaction:8" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:9" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:10" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:11" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:12" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:13" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:14" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:15" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:16" />
+      <test_action_result result="FAIL" test_action_ref="ocil:validation_program:testaction:17" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:18" />
+      <test_action_result result="NOT_APPLICABLE" test_action_ref="ocil:validation_program:testaction:19" />
+      <test_action_result result="UNKNOWN" test_action_ref="ocil:validation_program:testaction:20" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:21" />
+      <test_action_result result="PASS" test_action_ref="ocil:validation_program:testaction:22" />
+    </test_action_results>
+    <question_results>
+      <choice_question_result response="ANSWERED" question_ref="ocil:validation_program:question:1">
+        <answer choice_ref="ocil:validation_program:choice:1" />
+      </choice_question_result>
+      <string_question_result response="ANSWERED" question_ref="ocil:validation_program:question:2">
+        <answer>pass</answer>
+      </string_question_result>
+      <boolean_question_result response="ANSWERED" question_ref="ocil:validation_program:question:3">
+        <answer>true</answer>
+      </boolean_question_result>
+      <numeric_question_result response="ANSWERED" question_ref="ocil:validation_program:question:4">
+        <answer>42</answer>
+      </numeric_question_result>
+      <choice_question_result response="ANSWERED" question_ref="ocil:validation_program:question:5">
+        <answer choice_ref="ocil:validation_program:choice:2" />
+      </choice_question_result>
+      <string_question_result response="ANSWERED" question_ref="ocil:validation_program:question:6">
+        <answer>fail</answer>
+      </string_question_result>
+      <boolean_question_result response="ANSWERED" question_ref="ocil:validation_program:question:7">
+        <answer>false</answer>
+      </boolean_question_result>
+      <numeric_question_result response="ANSWERED" question_ref="ocil:validation_program:question:8">
+        <answer>13</answer>
+      </numeric_question_result>
+      <boolean_question_result response="ANSWERED" question_ref="ocil:validation_program:question:9">
+        <answer>true</answer>
+      </boolean_question_result>
+      <string_question_result response="ANSWERED" question_ref="ocil:validation_program:question:10">
+        <answer>pass</answer>
+      </string_question_result>
+      <numeric_question_result response="ANSWERED" question_ref="ocil:validation_program:question:11">
+        <answer>1</answer>
+      </numeric_question_result>
+      <boolean_question_result response="ANSWERED" question_ref="ocil:validation_program:question:12">
+        <answer>true</answer>
+      </boolean_question_result>
+      <choice_question_result response="ANSWERED" question_ref="ocil:validation_program:question:13">
+        <answer choice_ref="ocil:validation_program:choice:1" />
+      </choice_question_result>
+      <string_question_result response="ANSWERED" question_ref="ocil:validation_program:question:14">
+        <answer>fail</answer>
+      </string_question_result>
+      <numeric_question_result response="ANSWERED" question_ref="ocil:validation_program:question:15">
+        <answer>2</answer>
+      </numeric_question_result>
+      <boolean_question_result response="ANSWERED" question_ref="ocil:validation_program:question:16">
+        <answer>false</answer>
+      </boolean_question_result>
+      <choice_question_result response="ANSWERED" question_ref="ocil:validation_program:question:17">
+        <answer choice_ref="ocil:validation_program:choice:2" />
+      </choice_question_result>
+      <string_question_result response="ANSWERED" question_ref="ocil:validation_program:question:18">
+        <answer>A</answer>
+      </string_question_result>
+      <choice_question_result response="ANSWERED" question_ref="ocil:validation_program:question:19">
+        <answer choice_ref="ocil:validation_program:choice:3" />
+      </choice_question_result>
+      <choice_question_result response="ANSWERED" question_ref="ocil:validation_program:question:21">
+        <answer choice_ref="ocil:validation_program:choice:1" />
+      </choice_question_result>
+      <boolean_question_result response="ANSWERED" question_ref="ocil:validation_program:question:22">
+        <answer>true</answer>
+      </boolean_question_result>
+    </question_results>
+  </results>
+</ocil>
+

@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xccdf:Benchmark xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 id="xccdf_gov.nist_benchmark_macos-filehash58"
+                 style="SCAP_1.2" xml:lang="en"
+                 xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.2 http://scap.nist.gov/schema/xccdf/1.2/xccdf_1.2.xsd
+      http://cpe.mitre.org/dictionary/2.0 http://scap.nist.gov/schema/cpe/2.3/cpe-dictionary_2.3.xsd">
+  <xccdf:status>draft</xccdf:status>
+  <xccdf:status >draft</xccdf:status>
+  <xccdf:status date="2016-05-25">draft2</xccdf:status>  
+  <xccdf:title>XCCDF Benchmark That References the Validation Content for the filehash58_test</xccdf:title>
+  <xccdf:description>This XCCDF Benchmark references the OVAL Definitions in the validation content for the filehash58_test.</xccdf:description>
+  <xccdf:platform idref="cpe:/o:apple:mac_os_x"/>
+  <xccdf:version time="2016-05-25T14:00:00" update="http://scap.nist.gov/validation/resources.html">1-2.1.1.0</xccdf:version>
+  <xccdf:metadata>
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">National Institute of Standards and Technology</dc:contributor>
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">National Institute of Standards and Technology</dc:publisher>
+    <dc:maker xmlns:dc="http://purl.org/dc/elements/1.1/">National Institute of Standards and Technology</dc:maker>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">http://scap.nist.gov</dc:source>
+  </xccdf:metadata>
+  <xccdf:ProfileID id="xccdf_gov.nist.validation.linux-filehash58_profile_1" prohibitChanges="1">
+    <xccdf:title>XCCDF Profile That References the Validation Content for the filehash58_test</xccdf:title>
+    <xccdf:description>This Profile allows for the tailoring of the validation content for the filehash58_test.</xccdf:description>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_199999" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_2" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_3" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_4" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_5" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_6" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_7" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_8" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_9" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_10" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_11" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_12" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_13" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_14" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_15" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_16" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_17" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_18" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_19" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_20" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_21" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_22" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_23" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_24" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_25" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_26" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_27" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_28" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_29" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_30" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_31" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_32" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_33" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_34" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_35" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_36" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_37" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_38" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_39" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_40" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_41" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_42" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_43" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_44" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_45" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_46" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_47" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_48" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_49" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_50" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_51" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_52" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_53" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_54" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_55" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_56" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_57" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_58" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_59" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_60" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_61" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_62" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_63" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_64" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_65" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_66" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_67" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_68" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_69" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_70" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_71" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_72" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_73" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_74" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_75" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_76" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_77" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_78" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_79" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_80" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_81" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_82" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_83" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_84" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_85" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_86" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_87" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_88" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_89" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_90" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_91" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_92" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_93" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_94" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_95" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_96" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_97" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_98" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_99" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_100" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_101" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_102" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_103" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_104" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_105" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_106" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_107" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_108" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_109" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_110" selected="true"/>
+
+  </xccdf:ProfileID>
+  <xccdf:Profile id="xccdf_gov.nist.validation.linux-filehash58_profile_2" prohibitChanges="1">
+    <xccdf:description>This Profile allows for the tailoring of the validation content for the filehash58_test.</xccdf:description>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_1" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_2" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_3" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_4" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_5" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_6" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_7" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_8" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_9" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_10" selected="true"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_11" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_12" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_13" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_14" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_15" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_16" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_17" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_18" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_19" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_20" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_21" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_22" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_23" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_24" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_25" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_26" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_27" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_28" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_29" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_30" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_31" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_32" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_33" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_34" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_35" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_36" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_37" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_38" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_39" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_40" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_41" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_42" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_43" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_44" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_45" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_46" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_47" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_48" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_49" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_50" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_51" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_52" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_53" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_54" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_55" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_56" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_57" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_58" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_59" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_60" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_61" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_62" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_63" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_64" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_65" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_66" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_67" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_68" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_69" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_70" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_71" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_72" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_73" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_74" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_75" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_76" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_77" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_78" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_79" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_80" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_81" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_82" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_83" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_84" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_85" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_86" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_87" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_88" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_89" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_90" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_91" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_92" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_93" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_94" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_95" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_96" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_97" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_98" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_99" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_100" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_101" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_102" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_103" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_104" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_105" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_106" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_107" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_108" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_109" selected="false"/>
+    <xccdf:select idref="xccdf_gov.nist.validation.linux-filehash58_rule_110" selected="false"/>
+  </xccdf:Profile>
+
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_1" selected="true">
+    <xccdf:title>Test that the check_existence property is properly supported using the specified value</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check_existence property, is properly supported for the ind-def:filehash58_test.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:1"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_2" selected="true">
+    <xccdf:title>Test that the check_existence property is properly supported using the specified value</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check_existence property, is properly supported for the ind-def:filehash58_test.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:2"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_3" selected="true">
+    <xccdf:title>Test that the check_existence property is properly supported using the specified value</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check_existence property, is properly supported for the ind-def:filehash58_test.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:3"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_4">
+    <xccdf:title>Test that the check_existence property is properly supported using the specified value</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check_existence property, is properly supported for the ind-def:filehash58_test.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:4"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_5" selected="true">
+    <xccdf:title>Test that the check_existence property is properly supported using the specified value</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check_existence property, is properly supported for the ind-def:filehash58_test.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:5"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_6" selected="true">
+    <xccdf:title>Test that the check property (value = all) is properly supported.</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check property, is properly supported for the filehash58_test</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:6"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_7" selected="true">
+    <xccdf:title>Test that the check property (value = at least one) is properly supported.</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check property, is properly supported for the filehash58_test</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:7"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_8" selected="true">
+    <xccdf:title>Test that the check property (value = none exist) is properly supported.</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check property, is properly supported for the filehash58_test</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:8"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_9" selected="true">
+    <xccdf:title>Test that the check property (value = none satisfy) is properly supported.</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check property, is properly supported for the filehash58_test</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:9"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_10" selected="true">
+    <xccdf:title>Test that the check property (value = only one) is properly supported.</xccdf:title>
+    <xccdf:description>Make sure that the value specified, for the check property, is properly supported for the filehash58_test</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:10"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_11" selected="true">
+    <xccdf:title>Test the filepath entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:11"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_12" selected="true">
+    <xccdf:title>Test the filepath entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:12"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_13" selected="true">
+    <xccdf:title>Test the filepath entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:13"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_14" selected="true">
+    <xccdf:title>Test the filepath entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:14"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_15" selected="true">
+    <xccdf:title>Test the filepath entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:15"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_16" selected="true">
+    <xccdf:title>Test the filepath entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:16"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_17" selected="true">
+    <xccdf:title>Test the filepath entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:17"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_18" selected="true">
+    <xccdf:title>Test the filepath entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:18"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_19" selected="true">
+    <xccdf:title>Test the filepath entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:19"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_20" selected="true">
+    <xccdf:title>Test the filepath entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the filepath entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:20"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_21" selected="true">
+    <xccdf:title>Test the path entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:21"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_22" selected="true">
+    <xccdf:title>Test the path entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:22"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_23" selected="true">
+    <xccdf:title>Test the path entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:23"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_24" selected="true">
+    <xccdf:title>Test the path entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:24"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_25" selected="true">
+    <xccdf:title>Test the path entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:25"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_26" selected="true">
+    <xccdf:title>Test the path entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:26"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_27" selected="true">
+    <xccdf:title>Test the path entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:27"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_28" selected="true">
+    <xccdf:title>Test the path entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:28"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_29" selected="true">
+    <xccdf:title>Test the path entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:29"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_30" selected="true">
+    <xccdf:title>Test the path entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the path entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:30"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_31" selected="true">
+    <xccdf:title>Test the filename entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:31"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_32" selected="true">
+    <xccdf:title>Test the filename entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:32"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_33" selected="true">
+    <xccdf:title>Test the filename entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:33"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_34" selected="true">
+    <xccdf:title>Test the filename entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:34"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_35" selected="true">
+    <xccdf:title>Test the filename entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:35"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_36" selected="true">
+    <xccdf:title>Test the filename entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:36"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_37" selected="true">
+    <xccdf:title>Test the filename entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:37"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_38" selected="true">
+    <xccdf:title>Test the filename entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:38"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_39" selected="true">
+    <xccdf:title>Test the filename entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:39"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_40" selected="true">
+    <xccdf:title>Test the filename entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the filename entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:40"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_41" selected="true">
+    <xccdf:title>Test the md5 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:41"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_42" selected="true">
+    <xccdf:title>Test the md5 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:42"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_43" selected="true">
+    <xccdf:title>Test the md5 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:43"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_44" selected="true">
+    <xccdf:title>Test the md5 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:44"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_45" selected="true">
+    <xccdf:title>Test the md5 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:45"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_46" selected="true">
+    <xccdf:title>Test the md5 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:46"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_47" selected="true">
+    <xccdf:title>Test the md5 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:47"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_48" selected="true">
+    <xccdf:title>Test the md5 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:48"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_49" selected="true">
+    <xccdf:title>Test the md5 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:49"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_50" selected="true">
+    <xccdf:title>Test the md5 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the md5 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:50"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_51" selected="true">
+    <xccdf:title>Test the sha1 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:51"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_52" selected="true">
+    <xccdf:title>Test the sha1 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:52"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_53" selected="true">
+    <xccdf:title>Test the sha1 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:53"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_54" selected="true">
+    <xccdf:title>Test the sha1 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:54"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_55" selected="true">
+    <xccdf:title>Test the sha1 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:55"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_56" selected="true">
+    <xccdf:title>Test the sha1 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:56"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_57" selected="true">
+    <xccdf:title>Test the sha1 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:57"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_58" selected="true">
+    <xccdf:title>Test the sha1 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:58"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_59" selected="true">
+    <xccdf:title>Test the sha1 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:59"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_60" selected="true">
+    <xccdf:title>Test the sha1 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the sha1 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:60"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_61" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:61"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_62" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:62"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_63" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:63"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_64" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:64"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_65" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:65"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_66" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:66"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_67" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:67"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_68" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:68"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_69" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:69"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_70" selected="true">
+    <xccdf:title>Test the SHA-224 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-224 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:70"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_71" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:71"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_72" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:72"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_73" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:73"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_74" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:74"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_75" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:750000"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_76" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:76"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_77" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:77"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_78" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:78"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_79" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:79"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_80" selected="true">
+    <xccdf:title>Test the SHA-256 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-256 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:80"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_81" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:81"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_82" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:82"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_83" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:83"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_84" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:84"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_85" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:85"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_86" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:86"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_87" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:87"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_88" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:88"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_89" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:89"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_90" selected="true">
+    <xccdf:title>Test the SHA-384 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-384 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:90"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_91" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:91"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_92" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:92"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_93" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:93"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_94" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:94"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_95" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:95"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_96" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:96"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_97" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:97"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_98" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:98"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_99" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:99"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_100" selected="true">
+    <xccdf:title>Test the SHA-512 entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the SHA-512 entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:100"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_101" selected="true">
+    <xccdf:title>Test the hash_type entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:101"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_102" selected="true">
+    <xccdf:title>Test the hash_type entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:102"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_103" selected="true">
+    <xccdf:title>Test the hash_type entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:103"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_104" selected="true">
+    <xccdf:title>Test the hash_type entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:104"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_105" selected="true">
+    <xccdf:title>Test the hash_type entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:105"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_106" selected="true">
+    <xccdf:title>Test the hash_type entity with the equals operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:106"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_107" selected="true">
+    <xccdf:title>Test the hash_type entity with the not equal operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:107"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_108" selected="true">
+    <xccdf:title>Test the hash_type entity with the case insensitive equals operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the case insensitive equals operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:108"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_109" selected="true">
+    <xccdf:title>Test the hash_type entity with the case insensitive not equal operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the case insensitive not equal operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:109"/>
+    </xccdf:check>
+  </xccdf:Rule>
+  <xccdf:Rule id="xccdf_gov.nist.validation.linux-filehash58_rule_110" selected="true">
+    <xccdf:title>Test the hash_type entity with the pattern match operation</xccdf:title>
+    <xccdf:description>Make sure the hash_type entity properly supports the pattern match operation.</xccdf:description>
+    <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+      <xccdf:check-content-ref href="linux_filehash58_test-oval.xml" name="oval:nist.validation.linux_filehash58:def:110"/>
+    </xccdf:check>
+  </xccdf:Rule>
+</xccdf:Benchmark>

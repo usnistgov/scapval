@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>260</requirement>
+  <description>Every xccdf:rule-result must have a xccdf:check/xccdf:check-content-ref that has attributes @href and @name
+               One exception is when the referenced &lt;xccdf:Rule&gt; contains @multi-check=false(the default) and has no @name.
+               Testing within a xccdf:complex-check element</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/result-base.xml">
+    
+    <replace xpath="//xccdf:rule-result[@idref='xccdf_gov.nist_rule_test_rule1']/xccdf:check">
+      <xccdf:complex-check negate="false" operator="AND">
+        <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf:check-content-ref href="#oval-res1" name="oval:gov.nist.test.compliance:def:1" />
+        </xccdf:check>
+        <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf:check-content-ref href="#oval-res1" name="oval:gov.nist.test.compliance:def:1" />
+        </xccdf:check>
+      </xccdf:complex-check>
+    </replace>
+    
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-260-1" result="PASS" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

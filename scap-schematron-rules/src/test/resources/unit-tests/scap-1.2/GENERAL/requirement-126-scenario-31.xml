@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>126</requirement>
+  <description> When rule-results is missing a @name, then the xccdf:Rule referenced must also
+    be missing @name and @multi-check cannot be true
+  </description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+            xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+            xmlns:oval-res="http://oval.mitre.org/XMLSchema/oval-results-5"
+            xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+            xmlns:arf="http://scap.nist.gov/schema/asset-reporting-format/1.1"
+            xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/result-base.xml">
+
+    <delete xpath="//xccdf:rule-result[@idref='xccdf_gov.nist_rule_test_rule1']/xccdf:check/xccdf:check-content-ref/@name" />
+    <delete xpath="//xccdf:Rule[@id='xccdf_gov.nist_rule_test_rule1']/xccdf:check/xccdf:check-content-ref/@name" />
+    <add-attribute xpath="//xccdf:Rule[@id='xccdf_gov.nist_rule_test_rule1']/xccdf:check" name="multi-check" value="true" />
+
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-126-5" result="FAIL" />
+    <!-- expect 260-1 to fail since it checks for @name as well -->
+    <assert-derived-requirement requirement-id="RES-260-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

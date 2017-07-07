@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cpe="http://cpe.mitre.org/language/2.0"
+  xmlns:ai="http://scap.nist.gov/schema/asset-identification/1.1" attributeFormDefault="unqualified"
+  elementFormDefault="qualified" targetNamespace="http://scap.nist.gov/schema/asset-summary-reporting/1.0/attr"
+  xmlns:asr-attr="http://scap.nist.gov/schema/asset-summary-reporting/1.0/attr"
+  xmlns:cpe-n="http://cpe.mitre.org/naming/2.0" xmlns:dc="http://purl.org/dc/elements/1.1" version="1.0-DRAFT">
+
+  <xsd:annotation>
+    <xsd:appinfo>
+      <dc:title>Asset Summary Reporting Core Attributes</dc:title>
+      <dc:creator>Mark Davidson</dc:creator>
+      <dc:creator>Adam Halbardier</dc:creator>
+      <dc:creator>David Waltermire</dc:creator>
+      <dc:identifier>gov:nist:scap:asr:attr:1.0</dc:identifier>
+      <dc:date>2012-05-07</dc:date>
+      <dc:description> A listing of standard attributes that can be leveraged on record-set-types defined for ASR. This
+        schema is associated with ASR 1.0.</dc:description>
+    </xsd:appinfo>
+  </xsd:annotation>
+
+  <!-- ************ -->
+  <!-- ************ -->
+  <!-- Begin ASR Predefined attributes -->
+  <!-- ************ -->
+  <!-- ************ -->
+
+  <!-- BEGIN SCAP STANDARDS -->
+
+  <xsd:import namespace="http://cpe.mitre.org/naming/2.0"
+    schemaLocation="https://scap.nist.gov/schema/cpe/2.3/cpe-naming_2.3.xsd"/>
+  <xsd:attribute name="cce-id" type="asr-attr:cce-id-type">
+    <xsd:annotation>
+      <xsd:documentation>A Common Configuration Enumeration (CCE) ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ccss-score" type="asr-attr:ccss-score-type">
+    <xsd:annotation>
+      <xsd:documentation>A Common Configuration Scoring System (CCSS) score.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="cpe-name">
+    <xsd:annotation>
+      <xsd:documentation>A Common Platform Enumeration (CPE) 2.2 name, or CPE 2.3 formatted string or
+        URI.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleType>
+      <xsd:union memberTypes="cpe-n:cpe22Type cpe-n:cpe23Type"/>
+    </xsd:simpleType>
+  </xsd:attribute>
+  <xsd:attribute name="cve-id" type="asr-attr:cve-id-type">
+    <xsd:annotation>
+      <xsd:documentation>A Common Vulnerabilities and Exposures (CVE) ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="cvss-score" type="asr-attr:cvss-score-type">
+    <xsd:annotation>
+      <xsd:documentation>A Common Vulnerability Scoring System (CVSS) score.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="cwe-id" type="asr-attr:cwe-id-type">
+    <xsd:annotation>
+      <xsd:documentation>A Common Weakness Enumeration (CWE) ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="cwss-score" type="asr-attr:cwss-score-type">
+    <xsd:annotation>
+      <xsd:documentation>A Common Weakness Scoring System (CWSS) score.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ocil-questionnaire-id" type="asr-attr:ocil-questionnaire-id-type">
+    <xsd:annotation>
+      <xsd:documentation>An Open Checklist Interactive Language (OCIL) questionnaire ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ocil-questionnaire-result" type="asr-attr:ocil-questionnaire-result-type">
+    <xsd:annotation>
+      <xsd:documentation>The result of an Open Checklist Interactive Language (OCIL) questionnaire
+        evaluation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ocil-question-id" type="asr-attr:ocil-question-id-type">
+    <xsd:annotation>
+      <xsd:documentation>An Open Checklist Interactive Language (OCIL) questionnaire ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ocil-question-result" type="asr-attr:ocil-question-result-type">
+    <xsd:annotation>
+      <xsd:documentation>The result of an Open Checklist Interactive Language (OCIL) questionnaire
+        evaluation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="oval-id" type="asr-attr:oval-id-type">
+    <xsd:annotation>
+      <xsd:documentation>An Open Vulnerability Assessment Language (OVAL) definition ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="oval-result" type="asr-attr:oval-result-type">
+    <xsd:annotation>
+      <xsd:documentation>The result of an Open Vulnerability Assessment Language (OVAL) definition
+        evaluation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="xccdf-benchmark" type="asr-attr:xccdf-benchmark-type">
+    <xsd:annotation>
+      <xsd:documentation>An Extensible Configuration Checklist Description Format (XCCDF) benchmark
+        ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="xccdf-profile" type="asr-attr:xccdf-profile-type">
+    <xsd:annotation>
+      <xsd:documentation>An Extensible Configuration Checklist Description Format (XCCDF) profile
+        ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="xccdf-rule" type="asr-attr:xccdf-rule-type">
+    <xsd:annotation>
+      <xsd:documentation>An Extensible Configuration Checklist Description Format (XCCDF) rule ID.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <!-- END SCAP STANDARDS -->
+
+  <!-- BEGIN finding attributes -->
+  <xsd:attribute name="compliance-finding" type="asr-attr:compliance-finding-type">
+    <xsd:annotation>
+      <xsd:documentation>The result of a compliance assessment against a target asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="inventory-finding" type="asr-attr:inventory-finding-type">
+    <xsd:annotation>
+      <xsd:documentation>The result of an inventory assessment against a target asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="boolean-finding" type="asr-attr:boolean-finding-type">
+    <xsd:annotation>
+      <xsd:documentation>The result of any boolean finding against a target asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <!-- End finding attributes -->
+
+  <!-- BEGIN Statistical Attributes -->
+  <xsd:attribute name="count" type="asr-attr:count-type">
+    <xsd:annotation>
+      <xsd:documentation>A count of assets.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="mean" type="asr-attr:mean-type">
+    <xsd:annotation>
+      <xsd:documentation>The mean (statistical average).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="median" type="asr-attr:median-type">
+    <xsd:annotation>
+      <xsd:documentation>The median (statistical average).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="mode" type="asr-attr:mode-type">
+    <xsd:annotation>
+      <xsd:documentation>The mode (statistical average).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="standard-deviation" type="asr-attr:standard-deviation-type">
+    <xsd:annotation>
+      <xsd:documentation>The statistical standard deviation.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="percent" type="asr-attr:percent-type">
+    <xsd:annotation>
+      <xsd:documentation>A percentage.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <!-- END Statistical Attributes -->
+
+  <!-- Begin Misc -->
+
+  <xsd:attribute name="ipv4-address" type="asr-attr:ipv4-address-type">
+    <xsd:annotation>
+      <xsd:documentation>An IP v4 address.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ipv4-cidr-block" type="asr-attr:ipv4-cidr-block-type">
+    <xsd:annotation>
+      <xsd:documentation>An IP v4 Classless Inter-Domain Routing (CIDR) block.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ipv6-address" type="asr-attr:ipv6-address-type">
+    <xsd:annotation>
+      <xsd:documentation>An IP v6 address.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="ipv6-cidr-block" type="asr-attr:ipv6-cidr-block-type">
+    <xsd:annotation>
+      <xsd:documentation>An IP v6 Classless Inter-Domain Routing (CIDR) block.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <xsd:attribute name="duration" type="asr-attr:duration-type">
+    <xsd:annotation>
+      <xsd:documentation>A time duration.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <xsd:attribute name="fips199-conf" type="asr-attr:fips-type">
+    <xsd:annotation>
+      <xsd:documentation>FIPS 199 confidentiality level</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="fips199-int" type="asr-attr:fips-type">
+    <xsd:annotation>
+      <xsd:documentation>FIPS 199 integrity level</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="fips199-avail" type="asr-attr:fips-type">
+    <xsd:annotation>
+      <xsd:documentation>FIPS 199 availability level</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="mac-level" type="asr-attr:mac-type">
+    <xsd:annotation>
+      <xsd:documentation>The Mission Assurance Category level.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="security-markings" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>Security markings for an asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="confidentiality_level" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The confidentiality level of an asset (e.g. sensitive, public)</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <!-- Begin RACI Types -->
+
+  <xsd:attribute name="raci-responsible" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The "responsible" value from the responsibility assignment matrix known as RACI (Responsible,
+        Accountable, Consult, Inform).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="raci-accountable" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The "accountable" value from the responsibility assignment matrix known as RACI (Responsible,
+        Accountable, Consult, Inform)</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="raci-consult" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The "consult" value from the responsibility assignment matrix known as RACI (Responsible,
+        Accountable, Consult, Inform)</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="raci-inform" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The "inform" value from the responsibility assignment matrix known as RACI (Responsible,
+        Accountable, Consult, Inform)</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <!-- End RACI Types -->
+
+  <xsd:attribute name="admin-org" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The administrating organization of an asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="admin-poc" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The administrative point-of-contact for an asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="cert" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The Computer Emergency Response Team responsible for an asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="circuit-id" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The circuit to which an asset is connected.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="function" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The function of an asset (e.g., workstation, server).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="location" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>A physical location.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="network" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>A named network.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="owning-org" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The organization that owns an asset</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="region" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>A geographic region</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <xsd:attribute name="role" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The role of an asset.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  <xsd:attribute name="sys-affiliation" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>The named system to which an asset belongs.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+
+  <!-- End Misc -->
+
+
+  <!-- ************ -->
+  <!-- ************ -->
+  <!-- End ASR Predefined attributes -->
+  <!-- ************ -->
+  <!-- ************ -->
+
+  <!-- ************ -->
+  <!-- ************ -->
+  <!-- Begin Base types. These may be used in the predefined ASR attributes, or extended by ASR implementers -->
+  <!-- ************ -->
+  <!-- ************ -->
+
+  <!-- Begin SCAP types -->
+
+  <xsd:simpleType name="cce-id-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[cC][cC][eE]-\d+-\d"/>
+      <xsd:pattern value=""/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ccss-score-type">
+    <xsd:restriction base="asr-attr:one-to-ten-score-type"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="cve-id-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[cC][vV][eE]-\d{4}-\d{4}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="cvss-score-type">
+    <xsd:restriction base="asr-attr:one-to-ten-score-type"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="cwe-id-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[cC][wW][eE]-\d{1,5}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="cwss-score-type">
+    <xsd:restriction base="xsd:decimal">
+      <xsd:fractionDigits value="1"/>
+      <xsd:maxInclusive value="100.0"/>
+      <xsd:minInclusive value="0.0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ocil-questionnaire-id-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="ocil-questionnaire-result-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ocil-question-id-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ocil-question-result-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="oval-id-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="oval-result-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="xccdf-benchmark-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="xccdf-profile-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="xccdf-rule-type">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+
+
+  <!-- End SCAP types -->
+
+  <!-- Begin finding types -->
+
+  <xsd:simpleType name="compliance-finding-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="PASS"/>
+      <xsd:enumeration value="FAIL"/>
+      <xsd:enumeration value="NOT_APPLICABLE"/>
+      <xsd:enumeration value="NOT_REPORTED"/>
+      <xsd:enumeration value="ERROR"/>
+      <xsd:enumeration value="UNKNOWN"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="inventory-finding-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="EXISTS"/>
+      <xsd:enumeration value="NOT_EXISTS"/>
+      <xsd:enumeration value="NOT_APPLICABLE"/>
+      <xsd:enumeration value="NOT_REPORTED"/>
+      <xsd:enumeration value="ERROR"/>
+      <xsd:enumeration value="UNKNOWN"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="boolean-finding-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="TRUE"/>
+      <xsd:enumeration value="FALSE"/>
+      <xsd:enumeration value="NOT_APPLICABLE"/>
+      <xsd:enumeration value="NOT_REPORTED"/>
+      <xsd:enumeration value="ERROR"/>
+      <xsd:enumeration value="UNKNOWN"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- End finding types -->
+
+  <!-- Begin Statistical Types -->
+
+  <xsd:simpleType name="count-type">
+    <xsd:restriction base="xsd:nonNegativeInteger"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="mean-type">
+    <xsd:restriction base="xsd:decimal"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="median-type">
+    <xsd:restriction base="xsd:decimal"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="mode-type">
+    <xsd:restriction base="xsd:decimal"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="standard-deviation-type">
+    <xsd:restriction base="xsd:decimal"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="percent-type">
+    <xsd:restriction base="xsd:decimal"/>
+  </xsd:simpleType>
+
+  <!-- End statistical Types -->
+
+  <!-- Begin Other Types -->
+
+  <xsd:simpleType name="ipv4-address-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern
+        value="([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])\.([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])"
+      />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ipv4-cidr-block-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern
+        value="([01][0-9]?[0-9]?|2[0-4][0-9]|25[0-5])\.([01][0-9]?[0-9]?|2[0-4][0-9]|25[0-5])\.([01][0-9]?[0-9]?|2[0-4][0-9]|25[0-5])\.([01][0-9]?[0-9]?|2[0-4][0-9]|25[0-5])/([0-9]|[12][0-9]|[3][0-2])"
+      />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ipv6-address-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern
+        value="\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*"
+      />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ipv6-cidr-block-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([0-9]|[A-F]|[a-f]|:){1,39}/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8])"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="duration-type">
+    <xsd:restriction base="xsd:duration"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="fips-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="HIGH"/>
+      <xsd:enumeration value="MODERATE"/>
+      <xsd:enumeration value="LOW"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="mac-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MAC 1"/>
+      <xsd:enumeration value="MAC II"/>
+      <xsd:enumeration value="MAC III"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="one-to-ten-score-type">
+    <xsd:restriction base="xsd:decimal">
+      <xsd:fractionDigits value="1"/>
+      <xsd:maxInclusive value="10.0"/>
+      <xsd:minInclusive value="0.0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- End Other Types -->
+
+
+  <!-- ************ -->
+  <!-- ************ -->
+  <!-- End Base types. These may be used in the predefined ASR attributes, or extended by ASR implementers -->
+  <!-- ************ -->
+  <!-- ************ -->
+</xsd:schema>

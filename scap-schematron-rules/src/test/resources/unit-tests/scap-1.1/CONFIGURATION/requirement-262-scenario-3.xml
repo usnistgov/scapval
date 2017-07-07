@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>262</requirement>
+  <description>This is a minimal valid schema for the Configuration use case. A Rule doesn't point to OVAL def.</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.1/templates/configuration-use-case-base.xml">
+    <delete xpath="/ds:data-stream//xccdf:check" />
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler" phase="CONFIGURATION">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
+    <!-- Also expect 236-2 and A15 to fail due to removal of the check element -->
+    <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
+    <assert-derived-requirement requirement-id="A-15-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

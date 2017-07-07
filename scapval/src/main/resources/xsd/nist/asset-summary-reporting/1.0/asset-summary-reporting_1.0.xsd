@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:cia-enum="http://scap.nist.gov/schema/cia_enums/0.1"
+  xmlns:asr="http://scap.nist.gov/schema/asset-summary-reporting/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:cpe="http://cpe.mitre.org/language/2.0"
+  xmlns:ai="http://scap.nist.gov/schema/asset-identification/1.1" xmlns:dc="http://purl.org/dc/elements/1.1"
+  attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://scap.nist.gov/schema/asset-summary-reporting/1.0"
+  version="1.0-DRAFT">
+
+  <xsd:annotation>
+    <xsd:appinfo>
+      <dc:title>Asset Summary Reporting</dc:title>
+      <dc:creator>Mark Davidson</dc:creator>
+      <dc:creator>Adam Halbardier</dc:creator>
+      <dc:creator>David Waltermire</dc:creator>
+      <dc:identifier>gov:nist:scap:asr:1.0</dc:identifier>
+      <dc:date>2012-05-07</dc:date>
+      <dc:description>The XML schema for the data model described in NIST IR 7848: Asset Summary Reporting</dc:description>
+    </xsd:appinfo>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://scap.nist.gov/schema/asset-identification/1.1"
+    schemaLocation="https://scap.nist.gov/schema/asset-identification/1.1/asset-identification_1.1.0.xsd"/>
+
+  <xsd:element name="summary-report" type="asr:summary-report-type">
+    <xsd:annotation>
+      <xsd:documentation>The summary-report element is the root element for a summary report. A summary-report may
+        consist of one or more pages of information. If a summary-report is only one page (that is, the summary-report
+        is contained entirely in one XML instance document), the page-number attribute should be set to 1 and the
+        last-page attribute should be set to true.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:key name="data-source-id">
+      <xsd:annotation>
+        <xsd:documentation>The id of the data source must exist and must be unique</xsd:documentation>
+      </xsd:annotation>
+      <xsd:selector xpath="./asr:data-source"/>
+      <xsd:field xpath="@id"/>
+    </xsd:key>
+    <xsd:key name="record-set-id">
+      <xsd:annotation>
+        <xsd:documentation>The id of the record-set must exist and must be unique</xsd:documentation>
+      </xsd:annotation>
+      <xsd:selector xpath="./asr:record-set"/>
+      <xsd:field xpath="@id"/>
+    </xsd:key>
+    <xsd:keyref refer="asr:data-source-id" name="data-source-reference">
+      <xsd:annotation>
+        <xsd:documentation>The record-set, when referencing a data-source-id, must reference a data-source-id that is
+          present in the instance document.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:selector xpath="./asr:record-set"/>
+      <xsd:field xpath="@data-source-ref"/>
+    </xsd:keyref>
+  </xsd:element>
+
+  <xsd:complexType name="summary-report-type">
+    <xsd:sequence>
+      <xsd:element name="metadata" type="asr:metadata-type" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The metadata element contains information about the creation of the ASR document. The
+            metadata element is required to occur once and only once. </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="record-set" type="asr:record-set-type" minOccurs="1" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>The record-set element contains a single summary report. It is required, and may occur one
+            or more times, depending on how many summary reports the author wishes to represent in a single ASR
+            document.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="data-source" type="asr:data-source-type" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation> The data-source element represents a single data-source. The data-source element is
+            optional, and may occur any number of times. It is reccomended that the resource be a meaningful URI, but it
+            is not required. The data-source element is a loose coupling, meaning that the resource does not have to be
+            anything more than a URI. However, individual reporting scenarios may require that the resource element take
+            a specific form that has meaning in that reporting scenario. </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="report-id" type="xsd:NCName" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The report-id is an identifier that uniquely identifies this report. If a summary-report
+          spans multiple pages (that is, more than one instance document is used to transport summary data), all pages
+          of the document must have the same report-id. The pages will be differentiated by the page-number attribute.
+          The combination of report-id and page-number should be unique.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="page-number" type="xsd:positiveInteger" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The page-number attribute indicates the current page of this summary-report. The combination
+          of report-id and page-number should be unique.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="last-page" type="xsd:boolean" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The last-page attribute indicates whether or not this instance document is the last page of
+          this summary-report.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="metadata-type">
+    <xsd:sequence maxOccurs="1" minOccurs="0">
+      <xsd:any processContents="lax" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Additional metadata may be supplied outside of the schema-defined
+            constructs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:any>
+    </xsd:sequence>
+    <xsd:attribute name="generator-name" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>This attribute represents the name of the generator of this report. It is recommended that
+          generator name be either a CPE 2.3 name or a SWID when the generator is a piece of software, but any name is
+          allowed. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="timestamp" type="xsd:dateTime" use="required">
+      <xsd:annotation>
+        <xsd:documentation>This attribute represents the date/time that this summary-report was created.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="data-source-type">
+    <xsd:sequence>
+      <xsd:sequence>
+        <xsd:element name="scan-info" minOccurs="0" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>If the data source is the results of a scan, then the scan details can be captured on
+              this element.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="scanner">
+                <xsd:annotation>
+                  <xsd:documentation>Details of the product that performed the scan.</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:attribute name="product-name" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation>The name of the product that performed the scan.</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:attribute>
+                  <xsd:attribute name="product-version" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation>The version of the product that performed the scan.</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:attribute>
+                  <xsd:attribute name="scanner-type" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation>The type of product used to perform the scan.</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:attribute>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="scan-id" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>The identifier of the scan.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="authenticated" type="xsd:boolean">
+              <xsd:annotation>
+                <xsd:documentation>If the scan was authenticated with the hosts that were scanned.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="execution-location">
+              <xsd:annotation>
+                <xsd:documentation>The general location of the scan relative to the scanned assets.</xsd:documentation>
+              </xsd:annotation>
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="host"/>
+                  <xsd:enumeration value="network-local"/>
+                  <xsd:enumeration value="network-remote"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="scan-start" type="xsd:dateTime">
+              <xsd:annotation>
+                <xsd:documentation>The start time of the scan.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="scan-end" type="xsd:dateTime">
+              <xsd:annotation>
+                <xsd:documentation>The end time of the scan.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="population-applies-to" type="xsd:nonNegativeInteger">
+              <xsd:annotation>
+                <xsd:documentation>How many assets within the scan target are applicable to the
+                  scan.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="population-assessed" type="xsd:nonNegativeInteger">
+              <xsd:annotation>
+                <xsd:documentation>The number of assets that were actually assessed.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="extended-info" type="asr:extended-info-type" minOccurs="0" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Allows for additional XML content to be captured, which is not explicitly defined in the
+              XML schema.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:choice minOccurs="0">
+        <xsd:element ref="ai:assets" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation> The assets element (from the Asset Identification specification) is the recommended
+              method of representing assets. See the Asset Identification specification for more information.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="asset-list" type="asr:asset-list-type" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Leverage the asset-list element only when Asset Identification is not optimal for a use
+              case.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:key name="asset-id-key">
+            <xsd:selector xpath="./asr:asset"/>
+            <xsd:field xpath="@id"/>
+          </xsd:key>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="asr:data-source-id-type" use="required">
+      <xsd:annotation>
+        <xsd:documentation> The id for data-source-type must match a specfic pattern:
+          asr:[A-Za-z0-9_\-\.]+:dsrc:[1-9][0-9]*. Example: asr:com.example:dsrc:1. It is recommended that the
+          [A-Za-z0-9_\-\.]+ portion of the ID be the reverse canonical name (CNAME) of the authoring organization.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="resource" type="xsd:anyURI" use="required">
+      <xsd:annotation>
+        <xsd:documentation>A URI that identifies the data source.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="population-size" type="xsd:nonNegativeInteger">
+      <xsd:annotation>
+        <xsd:documentation> The population-size attribute contains the size of the identified resource. This attribute
+          is optional. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="comment" type="xsd:string"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="record-set-type">
+    <xsd:sequence>
+      <xsd:element name="record" type="asr:record-type" minOccurs="1" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>A record of information. Attributes (as defined in the record-set-type) may be captured on
+            this element.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="asr:record-set-id-type" use="required">
+      <xsd:annotation>
+        <xsd:documentation> The ID is an identifier that is unique to this ASR instance. The ID uniquely identifies a
+          given summary report. If this summary report spans multiple pages of an ASR document, all components of must
+          have this ID. </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="data-source-ref" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation> The data-source-ref must reference a data-source-id that occurs in this ASR document.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="record-set-type" use="required">
+      <xsd:annotation>
+        <xsd:documentation> The record-set-type indicates what kind of summary report this record-set element
+          represents. The record-set-type must exist and must not be nil. </xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:QName">
+          <xsd:minLength value="1"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="comment" type="xsd:string"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="record-type">
+    <xsd:annotation>
+      <xsd:documentation> The record element contains individual data items, and is used to convey the summary data of a
+        summary report. The record element uses attributes to contain individual data items. The record element does not
+        require or prohibit any set of attributes. Any attribute is allowed to appear in the record element as long as
+        that attribute has a namespace. For convenience, ASR specifies a set of atttribues within the ASR namespace that
+        may be used in a record element. </xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice minOccurs="0">
+      <xsd:element maxOccurs="1" minOccurs="1" name="asset-references">
+        <xsd:complexType>
+          <xsd:attribute name="references">
+            <xsd:annotation>
+              <xsd:documentation> The asset-references attribute contains a space-separated list of asset IDs. Each
+                asset ID in the asset-references element must exist in the document as either the ID for
+                asset-list/asset or ai:assets/ai:asset. </xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+              <xsd:list itemType="xsd:NCName"/>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="1" name="identifier-list">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+          </xsd:sequence>
+          <xsd:attribute name="identifier-system" type="xsd:anyURI" use="required"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:choice>
+    <xsd:anyAttribute processContents="lax"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="asset-list-type">
+    <xsd:choice>
+      <xsd:element name="asset" type="asr:asset-type" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>An asset represented in an arbitrary format. The produce and consumer must both understand
+            the agreed upon identification format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:choice>
+  </xsd:complexType>
+
+  <xsd:complexType name="asset-type">
+    <xsd:sequence>
+      <xsd:any processContents="lax"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:NCName" use="required">
+      <xsd:annotation>
+        <xsd:documentation>An internal ID so that records can reference this asset.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="extended-info-type">
+    <xsd:sequence>
+      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="data-source-id-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="asr:[A-Za-z0-9_\-\.]+:dsrc:[1-9][0-9]*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="record-set-id-type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="asr:[A-Za-z0-9_\-\.]+:rset:[1-9][0-9]*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:attribute name="asset-references" type="asr:asset-references-type"/>
+
+  <xsd:simpleType name="asset-references-type">
+    <xsd:list itemType="xsd:NCName"/>
+  </xsd:simpleType>
+</xsd:schema>

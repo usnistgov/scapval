@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://scap.nist.gov/schema/asset-summary-reporting/1.0/record-set-type"
+  elementFormDefault="qualified" xmlns:rst="http://scap.nist.gov/schema/asset-summary-reporting/1.0/record-set-type"
+  xmlns:dc="http://purl.org/dc/elements/1.1" version="1.0-DRAFT">
+
+  <xs:annotation>
+    <xs:appinfo>
+      <dc:title>Asset Summary Reporting Record Set Type</dc:title>
+      <dc:creator>Mark Davidson</dc:creator>
+      <dc:creator>Adam Halbardier</dc:creator>
+      <dc:creator>David Waltermire</dc:creator>
+      <dc:identifier>gov:nist:scap:asr:record-set-type:1.0</dc:identifier>
+      <dc:date>2012-05-07</dc:date>
+      <dc:description>A format for describing record-set-types for ASR 1.0</dc:description>
+    </xs:appinfo>
+  </xs:annotation>
+
+  <xs:element name="record-set-types" type="rst:record-set-types-type"/>
+  <xs:complexType name="record-set-types-type">
+    <xs:sequence>
+      <xs:element name="record-set-type" type="rst:record-set-type-type" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A definition of an ASR record set.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="record-set-type-type">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A free-text description of the record set type. This should include the purpose of the
+            record set type and any relevant context information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="attributes" type="rst:attributes-type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="asset-listing" minOccurs="1" maxOccurs="1" type="rst:asset-listing-type"/>
+      <xs:element name="additional-guidance" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Any additional guidance for report creators.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="references" type="rst:references-type" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Any relevant reference for this record set type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="other-info" type="rst:other-info-type" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>An extension point if additional structured information needs to be
+            captured.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="record-set-type-qname" type="xs:QName" use="required">
+      <xs:annotation>
+        <xs:documentation>The qualified name for this record set type.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="schema-location" type="xs:anyURI" use="optional">
+      <xs:annotation>
+        <xs:documentation>The XML schema location that defines the attributes used in this record set type. If the
+          attributes are in multiple schemas, the schema at this URL should import all of the relevant
+          schemas.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="permit-additional-attributes" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Indicates if additional attributes are permitted on a record, beyond those attributes defined
+          in the record set type.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="attributes-type">
+    <xs:sequence>
+      <xs:element name="attribute" type="rst:attribute-type" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A possible attribute for records on a record set that implements this record set type. The
+            "use" attribute determine if an attribute should/should not be used on a record set.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="attribute-type">
+    <xs:attribute name="attribute-qname" type="xs:QName" use="required">
+      <xs:annotation>
+        <xs:documentation>The qualified name of the attribute.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="use" type="rst:rfc-2119-enumeration" use="required">
+      <xs:annotation>
+        <xs:documentation>Indicates if this attribute is required, permitted, suggested, prohibited,
+          etc.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="description" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>A description of the attribute. The semantics of the attribute should be well described,
+          including how to populate the attribute.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute default="false" name="count-for-asset-list" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Indicates if this attribute is associated with the asset listing. This may be true on only one
+          attribute. If this is true, then the "type" attribtue must be set to xs:nonNegativeInteger, or a restriction
+          of xs:nonNegativeInteger. This must be set to true on one attribute if either an identifier list of asset
+          reference is specified in a record set.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="type" type="xs:QName">
+      <xs:annotation>
+        <xs:documentation>A qualified name representing the type for the attribute value. The specified type must be a
+          simple type (e.g., xs:string, xs:dateTime, xs:positiveInteger)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="asset-listing-type">
+    <xs:attribute name="use-identifier-list" type="rst:rfc-2119-enumeration" use="required">
+      <xs:annotation>
+        <xs:documentation>Indicates the requirement relative to if an identifier list must be specified on each record
+          of the record set type.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="use-asset-references" type="rst:rfc-2119-enumeration" use="required">
+      <xs:annotation>
+        <xs:documentation>Indicates the requirement relative to if an asset reference list must be specified on each
+          record of the record set type.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="references-type">
+    <xs:sequence>
+      <xs:element name="reference" type="rst:reference-type" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reference-type">
+    <xs:attribute name="ref" type="xs:anyURI" use="required"/>
+    <xs:attribute name="title" type="xs:string" use="optional"/>
+    <xs:attribute name="description" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="other-info-type">
+    <xs:sequence>
+      <xs:any processContents="lax" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="rfc-2119-enumeration">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MUST"/>
+      <xs:enumeration value="MUST NOT"/>
+      <xs:enumeration value="SHOULD"/>
+      <xs:enumeration value="SHOULD NOT"/>
+      <xs:enumeration value="OPTIONAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

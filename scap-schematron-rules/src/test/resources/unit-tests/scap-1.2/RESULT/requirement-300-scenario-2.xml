@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>300</requirement>
+  <description>The source data stream collection that was used to generate the results against the target SHOULD be included in the ARF report as an arf:report-request.
+               The ARF report has been removed</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ai="http://scap.nist.gov/schema/asset-identification/1.1"
+  xmlns:arf="http://scap.nist.gov/schema/asset-reporting-format/1.1"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/result-base.xml">
+    
+    <delete xpath="//arf:report-request" />
+  
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      
+    </schematron-assessment>
+    
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-300-1" result="FAIL" />
+    <!-- Also expect a few other tests to fail since we're just removing the entire report-request for this test -->
+    <assert-derived-requirement requirement-id="A-24-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="RES-323-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

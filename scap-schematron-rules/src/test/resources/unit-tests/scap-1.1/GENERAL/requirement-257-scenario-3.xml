@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>257</requirement>
+  <description>This is a minimal valid schema for the Configuration use case
+              xccdf:ident referencing CVE, CCE, or CPE is ordered before xccdf:ident elements</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+            xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2"
+            xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1"
+            xmlns:cpe="http://cpe.mitre.org/dictionary/2.0"
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            template="classpath:scap-1.1/templates/configuration-use-case-base.xml">
+            
+    <replace xpath="//*:Rule[@id='test_rule1']">
+      <Rule id="test_rule1" selected="false" weight="10.0" xmlns="http://checklists.nist.gov/xccdf/1.1">
+        <title>Test Title for Rule 1</title>
+        <description>Test Description for Rule 1</description>
+        <ident system="http://cpe.mitre.org">cpe:/o:microsoft:windows_xp</ident>
+        <ident system="random">random</ident>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref href="minimal-cpe-oval.xml" name="oval:gov.nist.test.inventory:def:1" />
+        </check>
+      </Rule>
+    </replace>
+    <delete xpath="//*:check-system-content[@content-type='OVAL_COMPLIANCE']" />
+    
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="SRC-257-1" result="PASS" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

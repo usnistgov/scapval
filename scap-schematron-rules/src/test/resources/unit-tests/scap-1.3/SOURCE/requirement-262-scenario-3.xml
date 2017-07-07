@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>262</requirement>
+  <description>Each XCCDF Benchmark SHALL have at least one rule that references either an OVAL compliance class 
+                definition in an OVAL component or an OCIL questionnaire in an OCIL Questionnaire component.
+                This test generates a bad ocil:questionnaire reference but oval compliance classes remain </description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:ocil="http://scap.nist.gov/schema/ocil/2.0"
+  xmlns:oval-com="http://oval.mitre.org/XMLSchema/oval-common-5"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/configuration-single-data-stream-with-ocil-base.xml">
+    
+    <modify-attribute value="bad" xpath="//ocil:questionnaire/@id" />
+    
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="SRC-262-1" result="PASS" />
+    <!-- Also expect a few others to fail due to the simple modification of elements from the template for this test -->
+    <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-349-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>126</requirement>
+  <description>OVAL results should map to the proper XCCDF results (see Table 21 in 800-126r2).
+    This test checks for proper OR xccdf:complex-check functionality.
+    In this case an OVAL compliance result of true which maps to XCCDF True result and OVAL patch result of True both map to a XCCDF False result.
+    Requirement 126-1 should pass.</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/result-base.xml">
+
+    <replace xpath="//xccdf:rule-result[@idref='xccdf_gov.nist_rule_test_rule1']/xccdf:check">
+      <xccdf:complex-check operator="OR">
+        <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf:check-content-ref href="#oval-res1" name="oval:gov.nist.test.compliance:def:1" /> <!-- oval compliance true = xccdf Pass-->
+        </xccdf:check>
+        <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <xccdf:check-content-ref name="oval:gov.nist.fdcc.patch:def:10000" href="#oval-patches-res1" /> <!-- oval patch true = xccdf Fail-->
+        </xccdf:check>
+      </xccdf:complex-check>
+    </replace>
+
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-126-1" result="PASS" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

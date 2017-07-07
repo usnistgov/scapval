@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>A21</requirement>
+  <description>This requirement is intended to help the end-user, but it isn't required for content to pass validation.
+    The OVAL test type is not checked in the NIST SCAP Validation Program.
+    This test changes an OVAL test type that is not defined in validation_program_oval_test_types.xml and should result in a FAIL.
+  </description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+  xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+  xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+  xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
+          <insert-child xpath="//*:tests">
+              <fake_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" check="all"
+                           check_existence="at_least_one_exists" comment="Comments need to be added"
+                           id="oval:gov.nist.fdcc.ie7:tst:61101" version="1">
+              <object object_ref="oval:gov.nist.fdcc.ie7:obj:61101"/>
+              <state state_ref="oval:gov.nist.fdcc.ie7:ste:61101"/>
+            </fake_test>
+          </insert-child>
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2_1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="A-21-1" result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

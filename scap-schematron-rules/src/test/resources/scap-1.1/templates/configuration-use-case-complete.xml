@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template template="configuration-use-case-base.xml" xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+    xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2" xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1"
+    xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xsi:schemaLocation="http://csrc.nist.gov/ns/decima/template/1.0 http://csrc.nist.gov/schema/decima/template/decima-template-1.0.xsd">
+    <add-attribute name="lang" value="en-US" xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:title" ns="http://www.w3.org/XML/1998/namespace"/>
+    <insert-sibling xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:title[1]">
+        <xccdf:title xml:lang="en-US">Test Title2</xccdf:title>
+    </insert-sibling>
+    <add-attribute name="lang" value="en-US" xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:description" ns="http://www.w3.org/XML/1998/namespace"/>
+    <insert-sibling xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:description[1]">
+        <xccdf:description xml:lang="en-US">Test Description2</xccdf:description>
+    </insert-sibling>
+    <insert-sibling xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:notice">
+        <xccdf:front-matter>
+            <xhtml:strong>Test Front-Matter1</xhtml:strong>
+        </xccdf:front-matter>
+        <xccdf:front-matter>
+            <xhtml:strong>Test Front-Matter2</xhtml:strong>
+        </xccdf:front-matter>
+        <xccdf:rear-matter>
+            <xhtml:strong>Test Rear-Matter1</xhtml:strong>
+        </xccdf:rear-matter>
+        <xccdf:rear-matter>
+            <xhtml:strong>Test Rear-Matter2</xhtml:strong>
+        </xccdf:rear-matter>
+    </insert-sibling>
+    <insert-sibling xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:reference[1]">
+        <xccdf:reference href="http://testreference2">
+            <dc:publisher>Test Publisher2</dc:publisher>
+            <dc:identifier>Test Identifier2</dc:identifier>
+        </xccdf:reference>
+        <xccdf:plain-text id="plain-text1">Test Plain-Text1</xccdf:plain-text>
+        <xccdf:plain-text id="plain-text2">Test Plain-Text2</xccdf:plain-text>
+    </insert-sibling>
+    <delete xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark/xccdf:Rule"/>
+    <insert-child xpath="/ds:data-stream/ds:xccdf-content/xccdf:Benchmark">
+        <xccdf:model system="urn:xccdf:scoring:default"/>
+        <xccdf:model system="urn:xccdf:scoring:flat"/>
+        <xccdf:Profile id="test-profile-1">
+            <xccdf:title>Profile Title1</xccdf:title>
+            <xccdf:description>Profile Description1</xccdf:description>
+            <platform idref="cpe:/o:microsoft:windows_xp" />
+            <xccdf:select idref="account_lockout_duration" selected="true"/>
+            <xccdf:select idref="minimum_password_length" selected="true"/>
+            <xccdf:select idref="regedit.exePermissions" selected="true"/>
+            <xccdf:select idref="security_patches_up_to_date" selected="true"/>
+            <xccdf:refine-value idref="account_lockout_duration_var" selector="900_seconds"/>
+            <xccdf:refine-value idref="minimum_password_length_var" selector="12_characters"/>
+        </xccdf:Profile>
+        <xccdf:Profile id="test-profile-2">
+            <xccdf:title>Profile Title2</xccdf:title>
+            <xccdf:description>Profile Description2</xccdf:description>
+            <xccdf:select idref="account_lockout_duration" selected="true"/>
+            <xccdf:select idref="minimum_password_length" selected="true"/>
+            <xccdf:select idref="regedit.exePermissions" selected="true"/>
+            <xccdf:select idref="security_patches_up_to_date" selected="true"/>
+            <xccdf:refine-value idref="account_lockout_duration_var" selector="900_seconds"/>
+            <xccdf:refine-value idref="minimum_password_length_var" selector="14_characters"/>
+        </xccdf:Profile>
+        <xccdf:Value id="value1">
+            <xccdf:title>Value title1</xccdf:title>
+            <xccdf:description>Value description</xccdf:description>
+            <xccdf:value>Test Value</xccdf:value>
+        </xccdf:Value>
+        <xccdf:Group id="testGroup1">
+            <xccdf:title>Test Title for Group 1</xccdf:title>
+            <xccdf:description>Test description for Group 1</xccdf:description>
+            <platform idref="cpe:/o:microsoft:windows_xp" />
+            <xccdf:Rule id="testRule1ForGroup1" selected="false" weight="10.0">
+                <xccdf:title>Test Title for Rule 1 for Group 2</xccdf:title>
+                <xccdf:description>Test Description for Rule 1 for Group 2</xccdf:description>
+                <platform idref="cpe:/o:microsoft:windows_xp" />
+                <xccdf:requires idref="CM-6"/>
+                <xccdf:ident system="http://cce.mitre.org">CCE-2466-1</xccdf:ident>
+                <xccdf:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+                    <xccdf:check-content-ref href="minimal-oval.xml" name="oval:gov.nist.test.compliance:def:1"/>
+                </xccdf:check>
+            </xccdf:Rule>
+        </xccdf:Group>
+        <xccdf:Group id="testGroup2">
+            <xccdf:title>Test Title for Group 2</xccdf:title>
+            <xccdf:description>Test description for Group 2</xccdf:description>
+        </xccdf:Group>        
+    </insert-child>
+</template>

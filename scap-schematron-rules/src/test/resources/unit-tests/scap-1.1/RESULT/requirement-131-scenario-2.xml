@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+  <requirement>131</requirement>
+  <description>benchmark element not embedded in TestResult.</description>
+  <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0" 
+            xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2" 
+            xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" 
+            xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            template="classpath:scap-1.1/templates/results-base-compliance.xml">
+    <replace xpath="//*:result[@id='minimal-xccdf-res.xml']" >
+    
+  <ds:result id="minimal-xccdf-res.xml">
+    <TestResult xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:cpe="http://cpe.mitre.org/dictionary/2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" end-time="2010-08-03T13:49:07.657-04:00" id="minimal-xccdf-1280857747215" start-time="2010-08-03T13:44:07.657-04:00" test-system="cpe:/a:nist:scap_scanner:1.0" version="Test Version" xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.1 http://nvd.nist.gov/schema/xccdf-1.1.4.xsd      http://cpe.mitre.org/dictionary/2.0 http://cpe.mitre.org/files/cpe-dictionary_2.2.xsd">
+      <!-- <benchmark href="file:minimal-xccdf.xml" />-->
+      <title xml:lang="en-US">SCAP automated assessment for checklist minimal-xccdf performed at Tuesday, August 3, 2010</title>
+      <organization>National Institute of Standards and Technology</organization>
+      <identity authenticated="1" privileged="1">administrator</identity>
+      <profile idref="test_profile1" />
+      <target>0:0:0:0:0:0:0:1</target>
+      <target>127.0.0.1</target>
+      <target>host.domain.tld</target>
+      <target-address>0:0:0:0:0:0:0:1</target-address>
+      <target-address>127.0.0.1</target-address>
+      <target-address>192.168.222.1</target-address>
+      <target-facts>
+        <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">0:0:0:0:0:0:0:1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">0:0:0:0:0:0:0:1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:ipv6" type="string">0:0:0:0:0:0:0:1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">127.0.0.1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">127.0.0.1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:ipv4" type="string">127.0.0.1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:mac" type="string" />
+        <fact name="urn:xccdf:fact:asset:identifier:host_name" type="string">host.domain.tld</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:fqdn" type="string">host.domain.tld</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:ipv4" type="string">192.168.222.1</fact>
+        <fact name="urn:xccdf:fact:asset:identifier:mac" type="string">00:50:56:c0:00:01</fact>
+      </target-facts>
+      <rule-result idref="test_rule1" time="2010-08-03T13:49:07.650-04:00" weight="10.0">
+        <result>pass</result>
+        <ident system="http://cce.mitre.org">CCE-2466-1</ident>
+        <instance>host.domain.tld</instance>
+        <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+          <check-content-ref href="minimal-oval-res.xml" name="oval:gov.nist.test.compliance:def:1" />
+        </check>
+      </rule-result>
+      <score maximum="1" system="urn:xccdf:scoring:flat-unweighted">1</score>
+      <score maximum="10" system="urn:xccdf:scoring:flat">10</score>
+    </TestResult>
+  </ds:result>
+  
+    </replace>
+  </template>
+  <assessments>
+    <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+      <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+    </schematron-assessment>
+  </assessments>
+  <assertions>
+    <assert-derived-requirement requirement-id="RES-131-1"
+      result="FAIL" />
+    <assert-remaining quantifier="ALL" result="PASS" />
+  </assertions>
+</content-unit-test>

@@ -1,0 +1,1 @@
+This file acts like an extra file in the folder along side SCAP files.
