@@ -6,7 +6,7 @@
  * be in the public domain. Permission to freely use, copy, modify, and distribute
  * this software and its documentation without fee is hereby granted, provided that
  * this notice and disclaimer of warranty appears in all copies.
- * <p>
+ *
  * THE SOFTWARE IS PROVIDED 'AS IS' WITHOUT ANY WARRANTY OF ANY KIND, EITHER
  * EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY
  * THAT THE SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY IMPLIED WARRANTIES OF
@@ -20,7 +20,6 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
-
 package gov.nist.scap.validation;
 
 import gov.nist.decima.testing.PathRunner;
