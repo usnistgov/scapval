@@ -3,23 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>gov.nist.secauto</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>6</version>
+        <groupId>gov.nist.secauto</groupId>
+        <artifactId>scapval-parent</artifactId>
+		<version>1.3.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>scap-schematron-rules</artifactId>
-	<version>1.3.0-SNAPSHOT</version>
+
 	<name>SCAP Schematron Rules</name>
 	<packaging>jar</packaging>
-
-	<!--todo scm?-->
-	<!--<scm>-->
-	<!--</scm>-->
-
-	<properties>
-		<mitre-cpe.version>1.0.8-SNAPSHOT</mitre-cpe.version>
-	</properties>
 
 	<build>
 		<plugins>
@@ -104,32 +96,23 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>1.6</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist</groupId>
-			<artifactId>mitre-cpe</artifactId>
-			<version>${mitre-cpe.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist.decima</groupId>
-			<artifactId>decima-xml</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>gov.nist.decima</groupId>
-			<artifactId>decima-testing</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
+            <artifactId>decima-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>gov.nist.decima</groupId>
+            <artifactId>decima-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>gov.nist</groupId>
+            <artifactId>mitre-cpe</artifactId>
+        </dependency>
 	</dependencies>
 </project>

@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>gov.nist.nvd.mojo</groupId>
+  <artifactId>create-file-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Test Project for create file mojo</name>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>gov.nist.secauto.mojo</groupId>
+        <artifactId>create-file-list-mojo</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>create-list</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <resources>
+            <resource>
+              <directory>src/main/resources</directory>
+              <includes>
+                <include>xsd/**/*.xsd</include>
+              </includes>
+            </resource>
+          </resources>
+        </configuration>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>wsdl/*.wsdl</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>xsd/**/*</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+</project>
