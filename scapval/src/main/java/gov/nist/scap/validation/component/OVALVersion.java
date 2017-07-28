@@ -42,41 +42,41 @@ import java.util.Objects;
 public enum OVALVersion {
   // schema dir location, schematron definitions filename, schematron results filename
   V5_3(
-      new String[] { "xsd/mitre/oval/oval_5.3", "oval-definitions-schematron-5.3.sch",
-          "oval-results-schematron-5.8.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.3/", "oval-definitions-schematron-5.3.sch",
+                  "oval-results-schematron-5.8.sch" }),
   V5_4(
-      new String[] { "xsd/mitre/oval/oval_5.4", "oval-definitions-schematron-5.4.sch",
-          "oval-results-schematron-5.8.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.4/", "oval-definitions-schematron-5.4.sch",
+                  "oval-results-schematron-5.8.sch" }),
   V5_5(
-      new String[] { "xsd/mitre/oval/oval_5.5", "oval-definitions-schematron-5.5.sch",
-          "oval-results-schematron-5.8.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.5/", "oval-definitions-schematron-5.5.sch",
+                  "oval-results-schematron-5.8.sch" }),
   V5_6(
-      new String[] { "xsd/mitre/oval/oval_5.6", "oval-definitions-schematron-5.6.sch",
-          "oval-results-schematron-5.8.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.6/", "oval-definitions-schematron-5.6.sch",
+                  "oval-results-schematron-5.8.sch" }),
   V5_7(
-      new String[] { "xsd/mitre/oval/oval_5.7", "oval-definitions-schematron-5.7.sch",
-          "oval-results-schematron-5.8.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.7/", "oval-definitions-schematron-5.7.sch",
+                  "oval-results-schematron-5.8.sch" }),
   V5_8(
-      new String[] { "xsd/mitre/oval/oval_5.8", "oval-definitions-schematron-5.8.sch",
-          "oval-results-schematron-5.8.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.8/", "oval-definitions-schematron-5.8.sch",
+                  "oval-results-schematron-5.8.sch" }),
   V5_9(
-      new String[] { "xsd/mitre/oval/oval_5.9", "oval-definitions-schematron-5.9.sch",
-          "oval-results-schematron-5.10.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.9/", "oval-definitions-schematron-5.9.sch",
+                  "oval-results-schematron-5.10.sch" }),
   V5_10(
-      new String[] { "xsd/mitre/oval/oval_5.10", "oval-definitions-schematron-5.10.sch",
-          "oval-results-schematron-5.10.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.10/", "oval-definitions-schematron-5.10.sch",
+                  "oval-results-schematron-5.10.sch" }),
   V5_10_1(
-      new String[] { "xsd/mitre/oval/oval_5.10.1", "oval-definitions-schematron-5.10.1.sch",
-          "oval-results-schematron-5.10.1.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.10.1/", "oval-definitions-schematron-5.10.1.sch",
+                  "oval-results-schematron-5.10.1.sch" }),
   V5_11(
-      new String[] { "xsd/mitre/oval/oval_5.11", "oval-definitions-schematron-5.11.sch",
-          "oval-results-schematron-5.11.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.11/", "oval-definitions-schematron-5.11.sch",
+                  "oval-results-schematron-5.11.sch" }),
   V5_11_1( //5.11.1 schematrons are not available in github so using 5.11 version
-      new String[] { "xsd/mitre/oval/oval_5.11.1", "oval-definitions-schematron-5.11.sch",
-          "oval-results-schematron-5.11.sch" }),
+          new String[] { "xsd/mitre/oval/oval_5.11.1/", "oval-definitions-schematron-5.11.sch",
+                  "oval-results-schematron-5.11.sch" }),
   V5_11_2(
-      new String[] { "xsd/mitre/oval/oval_5.11.2", "oval-definitions-schematron-5.11.sch",
-          "oval-results-schematron-5.12.sch" });
+          new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.sch",
+                  "oval-results-schematron-5.12.sch" });
 
   private String[] validationFiles;
 
@@ -101,7 +101,7 @@ public enum OVALVersion {
     while (iterator.hasNext()) {
       Element decendantElement = iterator.next();
       if (decendantElement.getName().equals("schema_version") && decendantElement.getNamespace()
-          .equals(NamespaceConstants.NS_OVAL_COM_5.getNamespace())) {
+              .equals(NamespaceConstants.NS_OVAL_COM_5.getNamespace())) {
         ovalVersionString = decendantElement.getValue();
         break;
       }
@@ -146,8 +146,17 @@ public enum OVALVersion {
     return resSchematron;
   }
 
-  public LinkedList<StreamSource> getSCAPOVALSchemas(SCAPVersion scapVersion, Application
-      .ContentType contentType) {
+  /**
+   * Returns a list of applicable OVAL schemas based on provided SCAPVersion
+   * and ContentType
+   *
+   * @param scapVersion for SCAP validation the SCAP version, for Component file
+   *                   this should be null
+   * @param contentType the type of content under validation, not null
+   * @return a LinkedList of StreamSource with each applicable OVAL schema
+   */
+  public LinkedList<StreamSource> getOVALSchemas(SCAPVersion scapVersion, Application.ContentType contentType)
+          throws RuntimeException {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
 
     // this list will be populated with the applicable OVAL schema files

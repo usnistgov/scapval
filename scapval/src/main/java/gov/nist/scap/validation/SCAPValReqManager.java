@@ -30,7 +30,7 @@ import org.jdom2.JDOMException;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
@@ -40,6 +40,11 @@ import java.util.Collections;
  * Provides a RequirementMappings enum for clarification of certain requirements.
  */
 public class SCAPValReqManager {
+    private static final String REQUIREMENTS_SCHEMA = "classpath:scapval-xsd/scapval-requirements-ext.xsd";
+    private static final String COMPONENTS_REQUIREMENTS = "classpath:requirements/scapval-individual-component-requirements.xml";
+    private static final String SCAP11_REQUIREMENTS = "classpath:requirements/scapval-scap-1.1-requirements.xml";
+    private static final String SCAP12_REQUIREMENTS = "classpath:requirements/scapval-scap-1.2-requirements.xml";
+    private static final String SCAP13_REQUIREMENTS = "classpath:requirements/scapval-scap-1.3-requirements.xml";
     /**
      * Collects, parses, and provides the SCAPVal requirements defined in *requirements.xml files
      * Utilizes Decima's requirements features.
@@ -50,31 +55,26 @@ public class SCAPValReqManager {
         MutableRequirementsManager requirementsManager = new DefaultRequirementsManager();
         try {
             XMLRequirementsParser parser = new XMLRequirementsParser(Collections.singletonList
-                (new StreamSource("classpath:scapval-requirements-ext.xsd")));
+                (new StreamSource(REQUIREMENTS_SCHEMA)));
 
             if (scapVersion == null) {
                 //if scap verison is null, this must be a component file check
-                requirementsManager.load(new URL
-                    ("classpath:requirements/scapval-individual-component-requirements.xml"),
-                    parser);
+                requirementsManager.load(new URL(COMPONENTS_REQUIREMENTS), parser);
             } else {
                 switch (scapVersion) {
                     case V1_1:
-                        requirementsManager.load(new URL
-                            ("classpath:requirements/scapval-scap-1.1-requirements.xml"), parser);
+                        requirementsManager.load(new URL(SCAP11_REQUIREMENTS), parser);
                         break;
                     case V1_2:
-                        requirementsManager.load(new URL
-                            ("classpath:requirements/scapval-scap-1.2-requirements.xml"), parser);
+                        requirementsManager.load(new URL(SCAP12_REQUIREMENTS), parser);
                         break;
                     case V1_3:
-                        requirementsManager.load(new URL
-                            ("classpath:requirements/scapval-scap-1.3-requirements.xml"), parser);
+                        requirementsManager.load(new URL(SCAP13_REQUIREMENTS), parser);
                         break;
                 }
             }
 
-        } catch (MalformedURLException | RequirementsParserException | URISyntaxException |
+        } catch (IOException | RequirementsParserException | URISyntaxException |
             JDOMException | SAXException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +130,7 @@ public class SCAPValReqManager {
         public String getSCAPReqID(SCAPVersion scapversion, Application.ContentType contentType) {
             switch (scapversion) {
                 case V1_1:
-                    switch (contentType){
+                    switch (contentType) {
                         case COMPONENT:
                             return this.reqID[1];
                         case SOURCE:
@@ -139,7 +139,7 @@ public class SCAPValReqManager {
                             return this.reqID[3];
                     }
                 case V1_2:
-                    switch (contentType){
+                    switch (contentType) {
                         case COMPONENT:
                             return this.reqID[4];
                         case SOURCE:
@@ -148,7 +148,7 @@ public class SCAPValReqManager {
                             return this.reqID[6];
                     }
                 case V1_3:
-                    switch (contentType){
+                    switch (contentType) {
                         case COMPONENT:
                             return this.reqID[7];
                         case SOURCE:

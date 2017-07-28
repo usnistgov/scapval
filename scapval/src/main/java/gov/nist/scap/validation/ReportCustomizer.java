@@ -36,8 +36,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * This modifies the .XSL file used to create the HTML validation report.
- * Depending on the validation type, this modifies the .XSL for the desired appearance.
+ * This updates the .XSL file used to modify the HTML validation report for the desired appearance.
  */
 
 public class ReportCustomizer {

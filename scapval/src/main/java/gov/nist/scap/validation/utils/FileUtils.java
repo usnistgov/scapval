@@ -280,4 +280,33 @@ public class FileUtils {
     });
   }
 
+  public static File getTempFileFromResource(String resourcePath){
+    try {
+      URL resourceLocation = new URL(resourcePath);
+      InputStream in = resourceLocation.openConnection().getInputStream();
+      //could not acquire the resource so return null
+      if (in == null) {
+        return null;
+      }
+      //create the file in a temp location
+      File tempFile = new File(FileUtils.TMP_DIR + in.hashCode() + ".tmp");
+      tempFile.createNewFile();
+      //this temp file will be removed on exit of JVM
+      tempFile.deleteOnExit();
+
+      try (FileOutputStream out = new FileOutputStream(tempFile)) {
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = in.read(buffer)) != -1) {
+          out.write(buffer, 0, bytesRead);
+        }
+      }
+      return tempFile;
+    } catch (IOException e) {
+      log.error("Problem trying to load file from - " + resourcePath);
+      return null;
+    }
+
+  }
+
 }

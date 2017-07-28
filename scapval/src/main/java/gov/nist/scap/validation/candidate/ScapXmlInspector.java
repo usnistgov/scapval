@@ -139,7 +139,7 @@ public class ScapXmlInspector implements ICandidateFileCreator {
         if (useCaseName != null) {
 
             try {
-                if (scapVersion.isUseCaseValid(useCaseName)){
+                if (scapVersion.isUseCaseValid(useCaseName)) {
                     useCase = useCaseName;
                 }
 

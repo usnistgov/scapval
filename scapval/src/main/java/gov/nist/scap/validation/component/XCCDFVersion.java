@@ -28,9 +28,9 @@ import java.util.Objects;
 /** Valid XCCDF versions and their specifics. */
 public enum XCCDFVersion {
   V1_1_4(
-      new String[] { "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd", "", }), //no schematron available for this version
+      new String[] { "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd" }), //no schematron available for this version
   V1_2(
-      new String[] { "xsd/nist/xccdf/1.2/", "xccdf-1.2.sch"});
+      new String[] { "classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd", "classpath:rules/other/xccdf-1.2.sch"});
 
   private String[] validationFiles;
   private String namespace;
@@ -41,7 +41,7 @@ public enum XCCDFVersion {
 
   public static XCCDFVersion getByString(String version) {
     Objects.requireNonNull(version, "version cannot be null.");
-    switch (version){
+    switch (version) {
       case "1.1.4":
         return XCCDFVersion.V1_1_4;
       case "1.2":

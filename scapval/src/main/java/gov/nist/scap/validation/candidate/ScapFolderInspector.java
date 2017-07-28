@@ -110,8 +110,8 @@ public class ScapFolderInspector implements ICandidateFileCreator {
             final SCAP11Components type) {
 
         for (final String filename : filenames) {
-            for(final String nameSuffix : type.getFileNameSuffixes()){
-                if (filename.endsWith(nameSuffix)){
+            for(final String nameSuffix : type.getFileNameSuffixes()) {
+                if (filename.endsWith(nameSuffix)) {
                     return true;
                 }
             }

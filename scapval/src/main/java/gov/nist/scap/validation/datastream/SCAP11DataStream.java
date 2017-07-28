@@ -33,13 +33,13 @@ import gov.nist.scap.validation.component.OVALVersion;
 import gov.nist.scap.validation.requirements.decima.ComponentSchematronHandler;
 import gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler;
 
-import javax.xml.transform.stream.StreamSource;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
+import javax.xml.transform.stream.StreamSource;
 
 import static gov.nist.decima.xml.DecimaXML.newSchematron;
 
@@ -52,10 +52,15 @@ public class SCAP11DataStream implements ISCAPDataStream {
   private String useCase;
   private SCAPVersion scapVersion;
   private Application.ContentType contentType;
-  private static final String SOURCE_SCHEMATRON_LOCATION =
-      "classpath:rules/scap/source-data-stream-1.1.sch";
-  private static final String RESULT_SCHEMATRON_LOCATION =
-      "classpath:rules/scap/result-data-stream-1.1.sch";
+  private static final String SOURCE_SCHEMATRON_LOCATION = "classpath:rules/scap/source-data-stream-1.1.sch";
+  private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.1.sch";
+
+  private static final String[] Schemas = {
+          "classpath:xsd/nist/cpe/2.2/cpe-language_2.2a.xsd",
+          "classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd",
+          "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd",
+          "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd",
+          "classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd"};
 
   public SCAP11DataStream(String id, Application.ContentType contentType, String useCase) {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
@@ -135,16 +140,14 @@ public class SCAP11DataStream implements ISCAPDataStream {
   @Override
   public LinkedList<StreamSource> getSchemas() {
     LinkedList<StreamSource> schemaList = new LinkedList<>();
-    schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.2/cpe-language_2.2a.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd"));
+    for (String schema : Schemas) {
+      schemaList.add(new StreamSource(schema));
+    }
 
     //get and load all the appropriate OVAL schemas
     OVALVersion ovalVersion = OVALVersion.getByString(scapVersion.getOvalSupportedVersion()
         .getVersionString());
-    schemaList.addAll(ovalVersion.getSCAPOVALSchemas(scapVersion, contentType));
+    schemaList.addAll(ovalVersion.getOVALSchemas(scapVersion, contentType));
 
     return schemaList;
   }

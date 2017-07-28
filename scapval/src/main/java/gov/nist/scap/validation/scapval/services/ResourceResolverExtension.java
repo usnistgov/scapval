@@ -32,7 +32,7 @@ import org.xml.sax.ext.EntityResolver2;
 public class ResourceResolverExtension implements gov.nist.decima.xml.service
     .ResourceResolverExtension {
   private static final XMLCatalogResolver RESOLVER = new XMLCatalogResolver(new
-      String[]{"classpath:scapval-catalog.xml"});
+          String[]{"classpath:scapval-xsd/scapval-catalog.xml"});
 
   @Override
   public EntityResolver2 getEntityResolver() {

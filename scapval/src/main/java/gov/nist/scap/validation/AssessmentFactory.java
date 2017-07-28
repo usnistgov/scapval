@@ -401,7 +401,7 @@ public class AssessmentFactory {
       throw new SCAPException("Unable to locate a supported oval version via <schema_version> " +
           "element.");
     }
-    LinkedList<StreamSource> schemaList = ovalVersion.getSCAPOVALSchemas(scapVersion,
+    LinkedList<StreamSource> schemaList = ovalVersion.getOVALSchemas(scapVersion,
         contentToCheckType);
     schemaList.add(new StreamSource("classpath:xsd/w3c/TR/xmldsig-core/xmldsig-core-schema.xsd"));
     //provide the correct derivedRequirementID, this will vary based on SCAP version or

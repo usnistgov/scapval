@@ -51,11 +51,23 @@ public class SCAP12DataStream implements ISCAPDataStream {
   private String id;
   private SCAPVersion scapVersion;
   private Application.ContentType contentType;
-  private static final String SOURCE_SCHEMATRON_LOCATION =
-      "classpath:rules/scap/source-data-stream-1.2_1.2.sch";
-  private static final String RESULT_SCHEMATRON_LOCATION =
-      "classpath:rules/scap/result-data-stream-1.2.1.sch";
+  private static final String SOURCE_SCHEMATRON_LOCATION = "classpath:rules/scap/source-data-stream-1.2_1.2.sch";
+  private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.2.1.sch";
   private static final String TMSAD_SCHEMATRON_LOCATION = "classpath:rules/other/tmsad-1.0.sch";
+  private static final String[] Schemas = {
+          "classpath:xsd/nist/scap/1.2/scap-constructs_1.2.xsd",
+          "classpath:xsd/nist/cpe/2.3/cpe-language_2.3.xsd",
+          "classpath:xsd/nist/cpe/2.3/cpe-dictionary_2.3.xsd",
+          "classpath:xsd/nist/cpe/2.3/cpe-dictionary-extension_2.3.xsd",
+          "classpath:xsd/nist/cpe/2.3/cpe-naming_2.3.xsd",
+          "classpath:xsd/nist/scap/1.2/scap-source-data-stream_1.2.xsd",
+          "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd",
+          "classpath:xsd/nist/tmsad/1.0/tmsad_1.0.xsd",
+          "classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd"};
+    private static final String[] AdditionalResultSchemas = {
+          "classpath:xsd/nist/asset-identification/1.1/asset-identification_1.1.0.xsd",
+          "classpath:xsd/nist/asset-reporting-format/1.1/asset-reporting-format_1.1.0.xsd"
+    };
 
   public SCAP12DataStream(String id, Application.ContentType contentType) {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
@@ -138,26 +150,22 @@ public class SCAP12DataStream implements ISCAPDataStream {
   public LinkedList<StreamSource> getSchemas() {
 
     LinkedList<StreamSource> schemaList = new LinkedList<>();
-    schemaList.add(new StreamSource("classpath:xsd/nist/scap/1.2/scap-constructs_1.2.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.3/cpe-language_2.3.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.3/cpe-dictionary_2.3.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.3/cpe-dictionary-extension_2.3.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.3/cpe-naming_2.3.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/scap/1.2/scap-source-data-stream_1.2.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/tmsad/1.0/tmsad_1.0.xsd"));
-    schemaList.add(new StreamSource("classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd"));
+
+      for (String schema : Schemas) {
+        schemaList.add(new StreamSource(schema));
+      }
+
+      //add the additional required shemas for results
     if (contentType.equals(Application.ContentType.RESULT)) {
-      schemaList.add(new StreamSource
-          ("classpath:xsd/nist/asset-identification/1.1/asset-identification_1.1.0.xsd"));
-      schemaList.add(new StreamSource
-          ("classpath:xsd/nist/asset-reporting-format/1.1/asset-reporting-format_1.1.0.xsd"));
+        for (String schema : AdditionalResultSchemas) {
+          schemaList.add(new StreamSource(schema));
+        }
     }
 
     //get and load all the appropriate OVAL schemas
     OVALVersion ovalVersion = OVALVersion.getByString(scapVersion.getOvalSupportedVersion()
         .getVersionString());
-    schemaList.addAll(ovalVersion.getSCAPOVALSchemas(scapVersion, contentType));
+    schemaList.addAll(ovalVersion.getOVALSchemas(scapVersion, contentType));
 
     return schemaList;
   }

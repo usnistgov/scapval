@@ -159,7 +159,7 @@ public class ZipExpander {
                 "Creating folder %s",
                 newFolder.getAbsolutePath()));
         }
-        if (!newFolder.mkdirs()){
+        if (!newFolder.mkdirs()) {
             log.error("Unable to create folder: " + newFolder.getAbsolutePath());
         }
     }
