@@ -99,8 +99,8 @@ public class AssessmentFactoryTest {
     AssessmentFactory assessmentFactory = new AssessmentFactory(SCAPVersion.V1_2, null,
         Application.ContentType.RESULT, SCAP12Result);
     SchemaAssessment scapDocumentSchemaAssessment = assessmentFactory.createSCAPSchemaAssessment();
-    //currently expecting up to 80
-    Assert.assertTrue(scapDocumentSchemaAssessment.getSchemaSources().size() > 75);
+    //currently expecting up to 46
+    Assert.assertTrue(scapDocumentSchemaAssessment.getSchemaSources().size() > 45);
 
     Assessment<XMLDocument> scapDocumentSchematronAssessments = assessmentFactory
         .createSCAPSchematronAssessments();

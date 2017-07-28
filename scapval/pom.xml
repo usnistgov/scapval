@@ -341,17 +341,17 @@
 				<version>1.0.2-SNAPSHOT</version>
 				<executions>
 					<execution>
-						<id>oval-5.11.2</id>
+						<id>oval-schema-list</id>
 						<goals>
 							<goal>create-list</goal>
 						</goals>
 						<configuration>
-							<listFile>${project.build.directory}/classes/xsd/mitre/oval/oval_5.11.2/schema-list</listFile>
+							<listFile>${project.build.directory}/classes/xsd/oval-schema-list.txt</listFile>
 							<resources>
 								<resource>
-									<directory>${project.basedir}/src/main/resources/xsd/mitre/oval/oval_5.11.2</directory>
+									<directory>${project.basedir}/src/main/resources/xsd/</directory>
 									<includes>
-										<include>*.xsd</include>
+										<include>mitre/oval/**</include>
 									</includes>
 								</resource>
 							</resources>

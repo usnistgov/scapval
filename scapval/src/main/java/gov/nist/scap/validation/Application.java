@@ -990,7 +990,7 @@ public class Application {
     File scapvalXSLTemplateFile = new File(scapvalXSLTemplatePath);
 
     try {
-      reportGenerator.setBootstrapDir(bootsrapDirFile);
+      reportGenerator.setBootstrapPath(bootsrapDirFile);
       reportGenerator.setIgnoreNotTestedResults(false);
       reportGenerator.setIgnoreOutOfScopeResults(false);
       reportGenerator.setHtmlTitle("SCAPVal Validation Report");

@@ -30,16 +30,13 @@ import org.jdom2.Element;
 import org.jdom2.filter.Filters;
 
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Objects;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 /** Valid OVAL versions and their specifics. */
 public enum OVALVersion {
@@ -152,95 +149,51 @@ public enum OVALVersion {
   public LinkedList<StreamSource> getSCAPOVALSchemas(SCAPVersion scapVersion, Application
       .ContentType contentType) {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
+
+    // this list will be populated with the applicable OVAL schema files
     LinkedList<StreamSource> schemaList = new LinkedList<>();
-    // enumerate and load all the oval schema files per specified OVAL version.
-    // If we are running in production from a .jar file we'll load resources from the jar.
-    // Otherwise we'll just use listfiles() when running with Maven or within Dev Env
-    String ovalSchemaDirPath = this.getSchemaDir();
-    File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation()
-        .getPath());
+
+    // the OVAL schema directory will depend on the SCAP version/type
+    String ovalSchemaDir = null;
+
+    if(contentType.equals(Application.ContentType.RESULT)) {
+      //for SCAP Result content use the specified SCAP OVAL schema version per RES-202-1
+      ovalSchemaDir = OVALVersion.getByString(scapVersion.getOvalSupportedVersion().getVersionString()).getSchemaDir();
+    }else{
+      //otherwise use this specified OVALVersion (from oval:schema_version) to define the Schema Directory to pull from
+      ovalSchemaDir = this.getSchemaDir();
+    }
+
     try {
-      if (jarFile.isFile()) { // jar file detected, we'll load the resources
-        final JarFile jar;
-        jar = new JarFile(jarFile);
-        final Enumeration<JarEntry> entries = jar.entries();
-        // get all the jar entries and iterate for our specific oval version .xsd
-        while (entries.hasMoreElements()) {
-          String filename = entries.nextElement().getName();
-          if (scapVersion == null) {
-            //for individual oval component check, we'll use the specified oval:schema_version for
-            // all schemas
-            if (filename.startsWith(ovalSchemaDirPath + "/") && filename.endsWith(".xsd")) {
-              schemaList.add(new StreamSource("classpath:" + filename));
-            }
-          } else {
-            //this oval content is embedded in SCAP. we will use the specified schema_version for
-            // all schemas except for the
-            //SCAP results which will use the SCAP specified OVAL schema version
-            if (contentType.equals(Application.ContentType.RESULT)) {
-              //this should include OVAL results so only use the specified SCAP OVAL schema
-              // version per RES-202-1
-              if (filename.startsWith(OVALVersion.getByString(scapVersion.getOvalSupportedVersion
-                  ().getVersionString()).getSchemaDir() + "/") && filename.endsWith(".xsd")) {
-                schemaList.add(new StreamSource("classpath:" + filename));
-              }
-            }
-            //this is not result content, load the specified oval schemas minus oval-results-schema
-            else if (filename.startsWith(ovalSchemaDirPath + "/") && filename.endsWith(".xsd") &&
-                !filename.contains("oval-results-schema")) {
-              schemaList.add(new StreamSource("classpath:" + filename));
-            }
-          }
-        }
-        jar.close();
-      } else { // we are running outside the jar, we can load the schemas directly from the
-        // filesystem
-        URL url = this.getClass().getResource("/" + ovalSchemaDirPath);
-        if (url != null) {
-          try {
-            File ovalSchemaDirFile = new File(url.toURI());
-            if (contentType.equals(Application.ContentType.COMPONENT)) {
-              //for individual oval component check, we'll use the specified oval:schema_version
-              // for all schemas
-              for (File schema : ovalSchemaDirFile.listFiles()) {
-                schemaList.add(new StreamSource(schema.getAbsoluteFile()));
+      //this file is created when scapval is built with the create-file-list-mojo plugin
+      URL ovalSchemaListURL = new URL("classpath:xsd/oval-schema-list.txt");
+
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(ovalSchemaListURL.openStream()))) {
+        String line;
+        //each oval directory and files within will be iterated though
+        while ((line = reader.readLine()) != null) {
+          //prepend the required parent dir
+          line = "xsd/"+line;
+          //only load the applicable schemas
+          if (line.contains(ovalSchemaDir)){
+            if (contentType.equals(Application.ContentType.SOURCE)) {
+              //if this is a source check load everything except oval-results-schema
+              if (line.startsWith(ovalSchemaDir) && line.endsWith(".xsd") &&
+                      !line.contains("oval-results-schema")) {
+                schemaList.add(new StreamSource("classpath:" + line));
               }
             } else {
-              //this OVAL content is embedded in SCAP. We will use the specified schema_version
-              // for all schemas except for the
-              //SCAP results which will use the SCAP specified OVAL schema version
-              if (contentType.equals(Application.ContentType.RESULT)) {
-                url = this.getClass().getResource("/" + (OVALVersion.getByString(scapVersion
-                    .getOvalSupportedVersion().getVersionString()).getSchemaDir()));
-                ovalSchemaDirFile = new File(url.toURI());
-                //this should include OVAL results so only use the specified SCAP OVAL schema
-                // version per RES-202-1
-                for (File schema : ovalSchemaDirFile.listFiles()) {
-                  schemaList.add(new StreamSource(schema.getAbsoluteFile()));
-
-                }
-              }
-              for (File schema : ovalSchemaDirFile.listFiles()) {
-                //this is not result content, load the specified oval schemas minus
-                // oval-results-schema
-                if (!schema.getName().contains("oval-results-schema")) {
-                  schemaList.add(new StreamSource(schema.getAbsoluteFile()));
-                }
+              //otherwise load everything else contained in the specified ovalSchemaDir
+              if (line.startsWith(ovalSchemaDir) && line.endsWith(".xsd")) {
+                schemaList.add(new StreamSource("classpath:" + line));
               }
             }
-          } catch (URISyntaxException e) {
-            throw new RuntimeException("There was a problem loading a .xsd schema file in " + url
-                .getPath() + " : " + e.getMessage());
           }
-        } else {
-          //this shouldn't happen unless OVALVersion is incorrect or the xsds cannot be located
-          throw new RuntimeException("Unable to access required XSD schemas: " + "/" +
-              ovalSchemaDirPath);
         }
       }
+
     } catch (IOException e) {
-      throw new RuntimeException("There was a problem loading a .xsd schema file: " + e
-          .getMessage());
+      throw new RuntimeException("There was a problem loading required OVAL scheama files - " + e);
     }
 
     return schemaList;
