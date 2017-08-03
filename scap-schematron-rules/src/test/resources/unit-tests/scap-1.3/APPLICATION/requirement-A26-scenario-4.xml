@@ -17,6 +17,9 @@
   </assessments>
   <assertions>
     <assert-derived-requirement requirement-id="A-26-1" result="FAIL" />
+    <!--expect RES-258-1 and RES-366-1 to fail, resulting in a warning to end user -->
+    <assert-derived-requirement requirement-id="RES-258-1" result="FAIL"/>
+    <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

@@ -36,7 +36,7 @@ public class UnitIntegrationTest {
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/APPLICATION/requirement-A26-scenario-2.xml"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.2/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.2/GENERAL/requirement-262-scenario-1.xml"));
-				return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.2/GENERAL/requirement-304-scenario-3.xml"));
+		return Collections.singletonList(new File("src/test/resources/unit-tests/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.1/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.1-results/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/ocil-2.0/"));

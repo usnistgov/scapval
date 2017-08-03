@@ -225,7 +225,7 @@ public class FileUtils {
       try {
         os.close();
       } catch (IOException e) {
-        e.printStackTrace();
+        log.error("Unable to close stream: " + e);
       }
     }
 

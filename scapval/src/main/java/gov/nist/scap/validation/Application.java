@@ -133,8 +133,7 @@ public class Application {
         | URISyntaxException | IOException | RequirementsParserException | TransformerException |
         RuntimeException e) {
       log.error("SCAPVal has encountered a problem and cannot continue with this validation." +
-          "" + " - " + e.getMessage());
-      e.printStackTrace();
+          "" + " - " + e);
       result = -1;
     }
     System.exit(result);

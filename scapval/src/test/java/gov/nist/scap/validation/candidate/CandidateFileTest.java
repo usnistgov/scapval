@@ -61,6 +61,25 @@ public class CandidateFileTest {
     assertTrue(candidate.getScapContentTypes().isEmpty());
   }
 
+//  @Test
+//  public void testTypeEmbeddedXCCDF() {
+//
+//    final File file = new File("C:\\Users\\user\\Downloads\\U_Windows_2008_MS_V6R36_STIG.zip");
+//
+//
+//    final int BUFFER_SIZE = 2048;
+//
+//    final CanOpener opener = new CanOpener(BUFFER_SIZE);
+//
+//    final CandidateFileList result =
+//            opener.findCandidateFiles(file);
+//    final List<CandidateFile> candidates =
+//            result.getValidatableCandidates();
+//
+//      candidates.contains("s");
+//
+//  }
+
   @Test
   public void testTypeXccdf() {
 

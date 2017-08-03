@@ -34,8 +34,7 @@ public class ApplicationFunctionalTest {
       new Application().runCLI(new String[]{"-scapversion", "1.2", "-file",
           "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml"});
     } catch (Exception e) {
-      e.printStackTrace();
-      fail("Encountered an unexpected Exception.");
+      fail("Encountered an unexpected Exception: " + e);
     }
   }
 
@@ -50,8 +49,7 @@ public class ApplicationFunctionalTest {
       new Application().runCLI(new String[]{"-scapversion", "1.2", "-resultfile",
           "src/test/resources/candidates/scap-12/arf/ARF-results.xml"});
     } catch (Exception e) {
-      e.printStackTrace();
-      fail("Encountered an unexpected Exception.");
+      fail("Encountered an unexpected Exception: " + e);
     }
   }
 
@@ -62,8 +60,7 @@ public class ApplicationFunctionalTest {
           "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5" +
               "-10.xml"});
     } catch (Exception e) {
-      e.printStackTrace();
-      fail("Encountered an unexpected Exception.");
+      fail("Encountered an unexpected Exception: " + e);
     }
   }
 

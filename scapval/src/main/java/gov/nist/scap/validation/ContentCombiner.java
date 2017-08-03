@@ -639,7 +639,6 @@ public class ContentCombiner {
           //unable to download or merge with existing content, log and move on
           log.info("Unable to utilize the XCCDF remote check-component-ref reference with URL: "
               + e.getMessage());
-          //e.printStackTrace();
           continue;
         }
 

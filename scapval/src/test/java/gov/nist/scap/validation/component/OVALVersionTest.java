@@ -38,7 +38,7 @@ public class OVALVersionTest {
 
   @Test
   public void getSchemaDir() throws Exception {
-    Assert.assertEquals(OVALVersion.V5_11_1.getSchemaDir(), "xsd/mitre/oval/oval_5.11.1");
+    Assert.assertEquals(OVALVersion.V5_11_1.getSchemaDir(), "xsd/mitre/oval/oval_5.11.1/");
   }
 
   @Test

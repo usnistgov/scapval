@@ -42,10 +42,14 @@
       <sch:assert id="scap-result-optional-attributes-xccdf-rule-result-set" test="exists(@role) and exists(@severity) and exists(@weight)">A-26-1</sch:assert>
     </sch:rule>
     <sch:rule id="scap-result-xccdf-rule" context="arf:asset-report-collection//arf:report-requests//xccdf:Rule">
+      <!-- This requirement results is a warning to the end use for now -->
+      <sch:assert id="scap-result-xccdf-rule-multi-check" test=" if (current()/xccdf:check[1]/@multi-check eq 'true') then false() else true()">RES-258-1</sch:assert>
       <sch:assert id="scap-result-optional-attributes-xccdf-rule-exists" test="exists(@selected) and exists(@weight) and exists(@role) and exists(@severity)">A-26-1</sch:assert>
     </sch:rule>
     <sch:rule id="scap-result-general-report" context="arf:report">
       <sch:assert id="scap-result-general-report-xccdf-use-test-result" test="if( namespace-uri(arf:content/*[1]) eq 'http://checklists.nist.gov/xccdf/1.2' ) then exists(arf:content/xccdf:TestResult) else true()">RES-131-1|arf:report <sch:value-of select="@id"/></sch:assert>
+      <!-- This requirement results is a warning to the end use for now -->
+      <sch:assert id="scap-result-must-have-report-element" test="false()">RES-366-1</sch:assert>
     </sch:rule>
     <sch:rule id="scap-result-general-xccdf-test-result" context="xccdf:TestResult">
       <sch:assert id="scap-result-general-xccdf-test-result-start-end-time" test="exists(@start-time) and exists(@end-time)">RES-133-1</sch:assert>

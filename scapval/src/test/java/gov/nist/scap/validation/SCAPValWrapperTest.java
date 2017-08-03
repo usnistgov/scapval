@@ -24,11 +24,14 @@ package gov.nist.scap.validation;
 
 import gov.nist.decima.core.assessment.result.BaseRequirementResult;
 import gov.nist.decima.core.assessment.result.ResultStatus;
+import gov.nist.scap.validation.utils.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
+
+import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
 
 public class SCAPValWrapperTest {
   @Test
@@ -60,14 +63,34 @@ public class SCAPValWrapperTest {
   }
 
   @Test
-  public void runComponent() throws Exception {
-
+  public void runComponentWithReport() throws Exception {
     final String component = new File(new URL
         ("classpath:src/test/resources/candidates/components/oval/oval-vulnerability-remote-code" +
             "-exec-5-10.xml").getFile()).getAbsolutePath();
 
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(component).run();
+    SCAPValAssessmentResults assessmentResults;
+    File tmpTest = null;
+    try{
+      assessmentResults = new SCAPValWrapper.Builder()
+              .submissionType(Application.ContentType.COMPONENT)
+              .submissionFileLocation(component)
+              .reportOutputDirectory(FileUtils.TMP_DIR)
+              .run();
+
+      //confirm the html report was created
+      tmpTest = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_REPORT_FILE);
+      //and populated
+      Assert.assertTrue(tmpTest.length() > 1);
+    }
+    catch (Exception e) {
+      throw e;
+    }
+    finally {
+      //clean up the tmp file
+      if(tmpTest != null) {
+        tmpTest.deleteOnExit();
+      }
+    }
 
     //there should be at least one result
     Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
