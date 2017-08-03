@@ -12,6 +12,8 @@ Change Log:
 - All SCAP schematron assert content IDs are modified to include a RES, SRC-, A- prefix per Decima integration requirements.
 - Added application requirement A-26 to warn users when optional attributes are missing in some SCAP content.
 - Updated RES-260-1 for SCAP 1.1 results to account for 'notapplicable', 'notchecked', or 'notselected' results.
+- For SCAP 1.1 updated RES-126-1 to properly check for result of 'unknown' instead of 'errunknownr'
+- Added Warnings RES-258-1 and RES-366-1 for SCAP 1.2 and 1.3 checks.
 
 1.2.6     12/16/2016
 - Improved and updates to schematron rules 126-1, 126-2, 126-3, 126-4, and 260-1

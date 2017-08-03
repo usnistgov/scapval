@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.1" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+    xmlns:cpe-dict="http://cpe.mitre.org/dictionary/2.0" xmlns:ocil="http://scap.nist.gov/schema/ocil/2.0"
+    targetNamespace="http://scap.nist.gov/schema/data-stream/0.2" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="0.2">
+    <!-- TODO:
+    * Use XPATH for error messages in lieu of:
+      - File offsets
+      - Source URL
+    - Reference file by ID within data stream (add key/keyrefs)
+    
+  -->
+    <xs:import namespace="http://checklists.nist.gov/xccdf/1.1"
+        schemaLocation="http://nvd.nist.gov/schema/xccdf-1.1.4.xsd"/>
+    <xs:import namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+        schemaLocation="http://oval.mitre.org/language/download/schema/version5.8/ovaldefinition/complete/oval-definitions-schema.xsd"/>
+    <xs:import namespace="http://cpe.mitre.org/dictionary/2.0"
+        schemaLocation="http://cpe.mitre.org/files/cpe-dictionary_2.1.xsd"/>
+    <xs:import namespace="http://scap.nist.gov/schema/ocil/2.0" schemaLocation="../mitre/ocil-2.0.xsd"/>
+    <xs:element name="data-stream" type="ds:dataStreamType">
+        <xs:key name="contentIdKey">
+            <xs:selector xpath="ds:xccdf-content|ds:check-system-content|ds:cpe-dictionary-content"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:keyref name="cpeDictCheckKeyRef" refer="ds:contentIdKey">
+            <xs:selector xpath=".//cpe-dict:check"/>
+            <xs:field xpath="@href"/>
+        </xs:keyref>
+        <xs:keyref name="xccdfCheckContentKeyRef" refer="ds:contentIdKey">
+            <xs:selector xpath=".//cdf:check-content-ref"/>
+            <xs:field xpath="@href"/>
+        </xs:keyref>
+        <!--
+    <xs:key name="checkIdKey">
+      <xs:selector xpath=".//ds:check-system-content"/> [@content-type = 'OVAL_COMPLIANCE' or @content-type = 'OVAL_VULNERABILITY']
+      <xs:field xpath="@id"/>
+      <xs:field xpath="oval:oval_definitions/oval:definitions/oval:definition/@id"/>
+    </xs:key> 
+    <xs:keyref refer="ds:checkIdKey" name="checkIdKeyRef">
+      <xs:selector xpath=".//cdf:check/cdf:check-content-ref"/>
+      <xs:field xpath="@href"/>
+      <xs:field xpath="@name"/>
+    </xs:keyref>
+-->
+        <xs:key name="cpeDictionaryKey">
+            <xs:selector xpath="ds:cpe-dictionary-content/cpe-dict:cpe-list/cpe-dict:cpe-item"/>
+            <xs:field xpath="@name"/>
+        </xs:key>
+    </xs:element>
+    <xs:complexType name="dataStreamType">
+        <xs:sequence>
+            <xs:element name="xccdf-content" type="ds:xccdfComponentContent" minOccurs="0"/>
+            <xs:element name="check-system-content" type="ds:checkSystemComponentContent" maxOccurs="5"/>
+            <xs:element name="cpe-dictionary-content" type="ds:cpeDictionaryComponentContent" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="use-case" type="ds:useCaseType" use="required"/>
+        <xs:attribute name="scap-version" type="ds:scapVersionType" use="required"/>
+        <xs:attribute name="timestamp" type="xs:dateTime" use="required"/>
+    </xs:complexType>
+    <xs:simpleType name="useCaseType">
+        <xs:restriction base="xs:NCName">
+            <xs:enumeration value="CONFIGURATION"/>
+            <xs:enumeration value="VULNERABILITY_XCCDF_OVAL"/>
+            <xs:enumeration value="OVAL_ONLY"/>
+            <xs:enumeration value="SYSTEM_INVENTORY"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="scapVersionType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="1.0"/>
+            <xs:enumeration value="1.1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="componentContentType">
+        <xs:sequence>
+            <xs:element name="source" type="ds:contentSourceType" minOccurs="0"/>
+            <xs:any namespace="##other"/>
+            <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:anyURI" use="required"/>
+        <xs:attribute name="content-type" type="ds:contentTypeType" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="contentSourceType">
+        <xs:attribute name="href" type="xs:anyURI" use="required"/>
+        <xs:attribute name="timestamp" type="xs:dateTime" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="xccdfComponentContent">
+        <xs:complexContent>
+            <xs:restriction base="ds:componentContentType">
+                <xs:sequence>
+                    <xs:element name="source" type="ds:contentSourceType" minOccurs="0"/>
+                    <xs:element ref="cdf:Benchmark"/>
+                    <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:anyURI" use="required"/>
+                <xs:attribute name="content-type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="ds:contentTypeType">
+                            <xs:enumeration value="XCCDF_BENCHMARK"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="checkSystemComponentContent">
+        <xs:complexContent>
+            <xs:restriction base="ds:componentContentType">
+                <xs:sequence>
+                    <xs:element name="source" type="ds:contentSourceType" minOccurs="0"/>
+                    <xs:choice>
+                        <xs:element ref="oval:oval_definitions"/>
+                        <xs:element ref="ocil:ocil"/>
+                    </xs:choice>
+                    <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="content-type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="ds:contentTypeType">
+                            <xs:enumeration value="OVAL_COMPLIANCE"/>
+                            <xs:enumeration value="OVAL_PATCH"/>
+                            <xs:enumeration value="CPE_INVENTORY"/>
+                            <xs:enumeration value="OVAL_VULNERABILITY"/>
+                            <xs:enumeration value="OCIL_QUESTIONNAIRE"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="cpeDictionaryComponentContent">
+        <xs:complexContent>
+            <xs:restriction base="ds:componentContentType">
+                <xs:sequence>
+                    <xs:element name="source" type="ds:contentSourceType" minOccurs="0"/>
+                    <xs:element ref="cpe-dict:cpe-list"/>
+                    <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:anyURI" use="required"/>
+                <xs:attribute name="content-type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="ds:contentTypeType">
+                            <xs:enumeration value="CPE_DICTIONARY"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="contentTypeType">
+        <xs:restriction base="xs:NCName">
+            <xs:enumeration value="XCCDF_BENCHMARK"/>
+            <xs:enumeration value="OVAL_COMPLIANCE"/>
+            <xs:enumeration value="OVAL_PATCH"/>
+            <xs:enumeration value="CPE_DICTIONARY"/>
+            <xs:enumeration value="CPE_INVENTORY"/>
+            <xs:enumeration value="OVAL_VULNERABILITY"/>
+            <xs:enumeration value="OCIL_QUESTIONNAIRE"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
