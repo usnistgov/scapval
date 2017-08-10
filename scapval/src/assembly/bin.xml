@@ -41,15 +41,6 @@
 			</excludes>
 		</fileSet>
 
-		<!--For XSL file for HTML validation report customizing -->
-		<fileSet>
-			<directory>${project.build.outputDirectory}/xsl/</directory>
-			<outputDirectory>xsl</outputDirectory>
-			<includes>
-				<include>*</include>
-			</includes>
-		</fileSet>
-
 		<!--For requirement files -->
 		<fileSet>
 			<directory>${project.build.outputDirectory}/requirements</directory>

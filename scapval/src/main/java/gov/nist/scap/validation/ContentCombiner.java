@@ -35,10 +35,7 @@ import gov.nist.scap.validation.utils.FileUtils;
 import gov.nist.scap.validation.utils.XMLUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jdom2.Attribute;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
+import org.jdom2.*;
 import org.jdom2.transform.JDOMSource;
 
 import javax.xml.transform.Result;
@@ -145,7 +142,8 @@ public class ContentCombiner {
     // now we have a list of all component XML documents, build an xml template dynamically
     // utilizing <sub> elements.
     URL baseTemplateURL;
-    String baseTemplateRoot;
+    String baseTemplateRootXPATH;
+    Namespace baseTemplateNamespace;
     SaxonXPathFactory xpathFactory = new SaxonXPathFactory();
     MutableXMLDocument template = null;
     List<Action> actions = new LinkedList<>();
@@ -154,11 +152,11 @@ public class ContentCombiner {
     //source specific template processing
     if (sourceDS == null) {
       baseTemplateURL = (new URL(SOURCE_BASE_LOCATION));
-      baseTemplateRoot = "//*[local-name()='data-stream' and namespace-uri()='" +
+      baseTemplateRootXPATH = "//*[local-name()='data-stream' and namespace-uri()='" +
           NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString() + "']";
-      String xpathDataStreamUseCase = new StringBuilder(baseTemplateRoot).append("/@use-case")
+      String xpathDataStreamUseCase = new StringBuilder(baseTemplateRootXPATH).append("/@use-case")
           .toString();
-      String xpathDataStreamTimestamp = new StringBuilder(baseTemplateRoot).append("/@timestamp")
+      String xpathDataStreamTimestamp = new StringBuilder(baseTemplateRootXPATH).append("/@timestamp")
           .toString();
 
       // customize the template data-stream per user specified scap 1.1 use case and timestamp
@@ -173,12 +171,12 @@ public class ContentCombiner {
     else {
       //if sourceDS is provided, insert the source tag and included datastream within
       baseTemplateURL = (new URL(RESULT_BASE_LOCATION));
-      baseTemplateRoot = "/results";
+      baseTemplateRootXPATH = "/*:results";
 
       Element sourceElement = new Element("source");
       sourceElement = sourceElement.addContent(sourceDS.getJDOMDocument().getRootElement().detach
           ());
-      actions.add(new InsertChildAction(xpathFactory, baseTemplateRoot, Collections.singletonMap
+      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH, Collections.singletonMap
           (sourceElement.getNamespacePrefix(), sourceElement.getNamespaceURI()), Collections
           .singletonList(sourceElement), null));
 
@@ -190,7 +188,7 @@ public class ContentCombiner {
       String filename = pair.getKey();
       Element templateSubLocal = new Element("sub", COMPOSITE_NS_URI);
       templateSubLocal.setAttribute("name", filename);
-      actions.add(new InsertChildAction(xpathFactory, baseTemplateRoot, Collections.singletonMap
+      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH, Collections.singletonMap
           (templateSubLocal.getNamespacePrefix(), templateSubLocal.getNamespaceURI()),
           Collections.singletonList(templateSubLocal), null));
     }

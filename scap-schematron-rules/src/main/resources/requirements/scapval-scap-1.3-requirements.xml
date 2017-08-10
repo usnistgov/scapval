@@ -318,10 +318,8 @@
             separate &lt;xccdf:rule-result&gt; element.
         </statement>
         <derived-requirements>
-            <derived-requirement id="RES-258-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>If the &lt;xccdf:Rule&gt; element under evaluation has an &lt;xccdf:check-content-ref&gt; element with the @name attribute omitted
-                    and an &lt;xccdf:check&gt; element with its @multi-check attribute set to "true", then the result of each evaluated OVAL Definition SHALL be
-                    recorded as a separate &lt;xccdf:rule-result&gt; element.
+            <derived-requirement id="RES-258-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>This requirement was not tested but the user should check their content for adherence.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -714,10 +712,11 @@
             reporting on XCCDF, OVAL, or OCIL, each component report SHALL use the element specified in Table 19 as its root element.
         </statement>
         <derived-requirements>
-            <derived-requirement id="RES-366-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
-                <statement>Each component result MUST be captured as a separate &lt;arf:report&gt; element in the &lt;arf:asset-report-collection&gt; element,
-                    and when reporting on XCCDF, OVAL or OCIL, each component report SHALL use XCCDF: xccdf:TestResult, OVAL: oval-res:oval_results, OCIL:
-                    ocil:ocil
+            <derived-requirement id="RES-366-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>This requirement was not tested. The user should inspect SCAP results to verify that the ARF report contains a
+                    report object for each XCCDF, OVAL, and OCIL component executed when a source data stream is evaluated against a target.
+                    Each component result SHALL be captured as a separate &lt;arf:report&gt; element in the &lt;arf:asset-report-collection&gt; element.
+                    XCCDF: xccdf:TestResult, OVAL: oval-res:oval_results, OCIL:ocil:ocil
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>

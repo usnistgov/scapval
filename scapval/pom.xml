@@ -30,7 +30,6 @@
 			<artifactId>decima-xml-templating</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>gov.nist.secauto</groupId>
 			<artifactId>scap-schematron-rules</artifactId>

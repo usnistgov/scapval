@@ -1,6 +1,7 @@
+# SCAPVal
+> A command line tool to validate SCAP content.
 
-Overview:
----------
+## Overview:
 Security Content Automation Protocol Validator (SCAPVal) is a Java Command Line Application that provides information
 about whether SCAP content conforms to conventions and recommendations outlined in NIST Special Publication 800-126,
 The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.1, 1.2, and 1.3
@@ -18,8 +19,9 @@ For a listing of the SCAP requirements this tool adheres to, refer to the files 
 Requires Java Runtime Environment (JRE) 1.8 or higher.
 If the JAVA_HOME variable is set then the JRE which is at that location will be used. Otherwise the JRE available on the path is used.
 
-Example Usage:
---------------
+A .bat batch file is provided for usage in Windows
+
+## Example Usage:
 For a 1.3 Source Data Stream:
     "scapval.bat -scapversion 1.3 -file source_data_stream_collection_sample.xml"
 

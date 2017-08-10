@@ -33,13 +33,13 @@ import gov.nist.scap.validation.component.OVALVersion;
 import gov.nist.scap.validation.requirements.decima.ComponentSchematronHandler;
 import gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler;
 
+import javax.xml.transform.stream.StreamSource;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
-import javax.xml.transform.stream.StreamSource;
 
 import static gov.nist.decima.xml.DecimaXML.newSchematron;
 
@@ -60,7 +60,11 @@ public class SCAP11DataStream implements ISCAPDataStream {
           "classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd",
           "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd",
           "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd",
-          "classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd"};
+          "classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd"
+  };
+  private static final String[] AdditionalResultSchemas = {
+          "classpath:scapval-xsd/scap-result_1.1.xsd",
+  };
 
   public SCAP11DataStream(String id, Application.ContentType contentType, String useCase) {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
@@ -142,6 +146,13 @@ public class SCAP11DataStream implements ISCAPDataStream {
     LinkedList<StreamSource> schemaList = new LinkedList<>();
     for (String schema : Schemas) {
       schemaList.add(new StreamSource(schema));
+    }
+
+    //add the additional required shemas for results
+    if (contentType.equals(Application.ContentType.RESULT)) {
+      for (String schema : AdditionalResultSchemas) {
+        schemaList.add(new StreamSource(schema));
+      }
     }
 
     //get and load all the appropriate OVAL schemas
