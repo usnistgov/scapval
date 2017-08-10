@@ -26,3 +26,12 @@ hs_err_pid*
 # IDE specific files
 .idea/
 *.iml
+.project
+.settings
+.checkstyle
+.classpath
+target
+test-results
+bootstrap
+/scapval/validation-report.html
+/scapval/validation-result.xml

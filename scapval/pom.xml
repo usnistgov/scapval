@@ -11,6 +11,12 @@
 	<artifactId>scapval</artifactId>
 
 	<dependencies>
+        <!-- Unit Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 		<!-- Decima Validation Framework -->
 		<dependency>
 			<groupId>gov.nist.decima</groupId>
@@ -40,13 +46,6 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.9</version>
-		</dependency>
-		<!-- Unit Testing -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
