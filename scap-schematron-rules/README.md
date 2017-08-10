@@ -4,9 +4,13 @@
 ## Overview
 These files are used by SCAPVal 1.3 as part of its validation process.
 The .sch schematron files include SCAP 1.1, 1.2, and 1.3 support along with various required components OVAL, OCIL, XCCDF, and TMSAD.
+The schematron rules have SCAP rquirement IDs embedded
 
 ## Contents
-See `/schematron/scap` and `/schematron/other` for the .sch schematron files.
+Schematron files are found in
+`/schematron/scap` and `/schematron/other` for the .sch schematron files.
+
+SCAP requiremetns are here...
 
 These files may have been modified from their original source to suite validation of SCAP per 800-126r3
 See additional readmes for more information.
