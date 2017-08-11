@@ -291,11 +291,10 @@ public class Application {
         "" + "source data stream to include with results. " + "For SCAP 1.1 it will be included " +
         "in the" + " 1.1 Data Stream, for SCAP 1.2 and 1.3 it will included in ARF Report")
         .hasArg().build();
-    Option optionUseCase = Option.builder(OPTION_USECASE).desc("required for .ZIP files or " +
-        "-directory of individual component SCAP files. " + "One of -file or -dir is required " +
-        "option, the SCAP use case, one of " + "[[CONFIGURATION, VULNERABILITY_XCCDF_OVAL, " +
-        "VULNERABILITY_OVAL, VULNERABILITY, OVAL_ONLY, OTHER, SYSTEM_INVENTORY, INVENTORY]] " +
-        "" + "(use OVAL_ONLY for SCAP 1.1, and OTHER for SCAP 1.2/1.3)").hasArg().build();
+    Option optionUseCase = Option.builder(OPTION_USECASE).desc("The SCAP use case. " +
+            "For 1.1 content CONFIGURATION, VULNERABILITY_XCCDF_OVAL, SYSTEM_INVENTORY, OVAL_ONLY  " +
+            "For 1.2/1.3 content CONFIGURATION, VULNERABILITY, INVENTORY, OTHER " +
+            "This is required for validation of .zip files or a directory of component SCAP files. ").hasArg().build();
 
     cliParser.addOption(optionDatastreamOutput).addOption(optionOnline).addOption(optionMaxSize)
         .addOption(optionSourceDS).addOption(optionUseCase);

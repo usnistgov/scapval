@@ -30,6 +30,8 @@ hs_err_pid*
 .settings
 .checkstyle
 .classpath
+
+#SCAPVal output files
 target
 test-results
 bootstrap

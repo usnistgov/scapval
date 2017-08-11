@@ -28,7 +28,7 @@ import org.jdom2.Namespace;
 /** Enumerates the versions of SCAP, associated use Cases,
  * and version specific info (OVAL, OCIL, XCCDF, CPE, CCE, CVSS) */
 public enum SCAPVersion {
-  V1_1("1.1", new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OVAL_ONLY" },
+  V1_1("1.1", new String[] { "CONFIGURATION", "VULNERABILITY_XCCDF_OVAL", "SYSTEM_INVENTORY", "OVAL_ONLY" },
       OVALVersion.V5_8, OCILVersion.V2_0, XCCDFVersion.V1_1_4, CPEVersion.V2_2, CCEVersion.V5, CVSSVersion.V2_0),
   V1_2("1.2", new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
       OVALVersion.V5_10_1, OCILVersion.V2_0, XCCDFVersion.V1_2, CPEVersion.V2_3, CCEVersion.V5, CVSSVersion.V2_0),

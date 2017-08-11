@@ -10,6 +10,7 @@
 
 	<artifactId>scapval</artifactId>
 
+	<name>SCAP Validation Tool</name>
 	<dependencies>
         <!-- Unit Testing -->
         <dependency>
