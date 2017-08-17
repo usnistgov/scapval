@@ -874,19 +874,6 @@
             </derived-requirement>
         </derived-requirements>
     </requirement>
-    <requirement id="SRC-393">
-        <summary/>
-        <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>To ensure interoperability, SCAP has standardized on the use of the OVAL and OCIL check systems.
-            Content containing the use of check systems other than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.
-        </statement>
-        <derived-requirements>
-            <derived-requirement id="SRC-393-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>This check is covered by SRC-118-1
-                </statement>
-            </derived-requirement>
-        </derived-requirements>
-    </requirement>
     <requirement id="RES-42">
         <summary/>
         <reference ref="NIST800-126r3" section="4.5"/>
