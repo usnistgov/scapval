@@ -51,8 +51,8 @@ public class SCAP12DataStream implements ISCAPDataStream {
   private String id;
   private SCAPVersion scapVersion;
   private Application.ContentType contentType;
-  private static final String SOURCE_SCHEMATRON_LOCATION = "classpath:rules/scap/source-data-stream-1.2_1.2.sch";
-  private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.2.1.sch";
+  private static final String SOURCE_SCHEMATRON_LOCATION = "classpath:rules/scap/source-data-stream-1.2.sch";
+  private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.2.sch";
   private static final String TMSAD_SCHEMATRON_LOCATION = "classpath:rules/other/tmsad-1.0.sch";
   private static final String[] Schemas = {
           "classpath:xsd/nist/scap/1.2/scap-constructs_1.2.xsd",

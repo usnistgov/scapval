@@ -274,7 +274,7 @@ public class FileUtils {
       public void run() {
         zipExpander.deleteDirectory(dir);
         if (dir.exists()) {
-          System.out.print("Problem cleaning up the extracted content: " + dir.getAbsolutePath());
+          log.error("Problem cleaning up the extracted content: " + dir.getAbsolutePath());
         }
       }
     });

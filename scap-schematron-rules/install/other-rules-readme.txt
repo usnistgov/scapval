@@ -34,7 +34,7 @@ Version 1.3 Updates:
 - Schematron rules checking for @datatype = 'string' were modified to also account for @datatype optionally missing with default value "string".
 
 #########################
-Previous Version Updates:
+Previous Legacy Version Updates:
 To validate Windows content, the OVAL 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, and 5.9 schema/schematron were modified to allow the following oval-def:platforms (the versions where a platform was added because it does exist in the original Schematron is noted):
 oval-def:platform='Microsoft Windows Server 2008' (5.3, 5.4)
 oval-def:platform='Microsoft Windows 7' (5.3, 5.4, 5.5)

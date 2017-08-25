@@ -127,7 +127,7 @@ public class Application {
       result = new Application().runCLI(args);
     } catch (ParseException | ConfigurationException | SCAPException | DocumentException e) {
       // These exceptions are somewhat expected and a simple error message is sufficient
-      System.out.println(e.getMessage());
+      log.info(e.getMessage());
       result = 1;
     } catch (SchematronCompilationException | AssessmentException | JDOMException | SAXException
         | URISyntaxException | IOException | RequirementsParserException | TransformerException |

@@ -25,9 +25,6 @@
 			<includes>
 			    <include>*.sch</include>
 			</includes>
-			<excludes>
-				<exclude>converted.sch</exclude>
-			</excludes>
 		</fileSet>
 		<!--component schematron rules-->
 			<fileSet>

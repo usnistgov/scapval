@@ -16,7 +16,7 @@
         <add-attribute xpath="//xccdf:rule-result[@idref='xccdf_gov.nist_rule_test_rule1']/xccdf:check" name="negate" value="false"/>
     </template>
     <assessments>
-        <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.1.sch"
+        <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.sch"
                                handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
     </assessments>
     <assertions>

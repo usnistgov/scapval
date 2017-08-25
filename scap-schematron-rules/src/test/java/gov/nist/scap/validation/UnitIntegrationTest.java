@@ -32,11 +32,11 @@ import java.util.List;
 @RunWith(PathRunner.class)
 public class UnitIntegrationTest {
 	public static List<File> paths() {
-//		return Collections.singletonList(new File("src/test/resources/unit-tests/"));
+		return Collections.singletonList(new File("src/test/resources/unit-tests/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/APPLICATION/requirement-A26-scenario-2.xml"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.2/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.2/GENERAL/requirement-262-scenario-1.xml"));
-		return Collections.singletonList(new File("src/test/resources/unit-tests/"));
+//		return Collections.singletonList(new File("src/test/resources/unit-tests/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.1/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.1-results/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/ocil-2.0/"));
@@ -47,7 +47,7 @@ public class UnitIntegrationTest {
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/xccdf-1.2/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/"));
 //		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/SOURCE/requirement-216-scenario-8.xml"));
-//		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/RESULT/"));
-//		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/SOURCE/requirement-171-scenario-1.xml"));
+//		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/SOURCE/"));
+//		return Collections.singletonList(new File("src/test/resources/unit-tests/scap-1.3/SOURCE/requirement-169-scenario-3.xml"));
 	}
 }

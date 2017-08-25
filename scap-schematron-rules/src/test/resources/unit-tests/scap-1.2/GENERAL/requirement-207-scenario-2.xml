@@ -10,7 +10,7 @@
     <modify-attribute value="CCE" xpath="//oval-def:reference[@source = 'http://cce.mitre.org']/@source" />
   </template>
   <assessments>
-    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2_1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>

@@ -18,8 +18,6 @@
   </assessments>
   <assertions>
     <assert-derived-requirement requirement-id="SRC-215-1" result="FAIL" />
-    <!-- expect SRC-169-1 to fail since we're changing the expected class from patch (just for the sake of this test) -->
-    <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

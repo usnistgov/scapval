@@ -4,8 +4,6 @@ These schematron rules will not retrieve remote resources and assume a data-stre
 Each schematron assert includes an ID in its content with prefixes SRC-, RES-, and A-.
 These asserts correspond to specific SCAP requirements found in the requirements/ directory.
 
-For SCAP 1.2 source data stream validation source-data-stream-1.2_1.2.sch should be used. Both _1.0 and _1.1 are included for historical reasons.
-
 Change Log:
 1.3
 - Added SCAP 1.3 support with result-data-stream-1.3.sch and source-data-stream-1.3.sch schematron files.
@@ -14,7 +12,11 @@ Change Log:
 - Updated RES-260-1 for SCAP 1.1 results to account for 'notapplicable', 'notchecked', or 'notselected' results.
 - For SCAP 1.1 updated RES-126-1 to properly check for result of 'unknown' instead of 'errunknownr'
 - Added Warnings RES-258-1 and RES-366-1 for SCAP 1.2 and 1.3 checks.
+- Previous unused versions of source-data-stream-1.2_* have been removed
+- result-data-stream-1.2.1.sch renamed to result-data-stream-1.2.sch
 
+#########################
+Previous Legacy Version Updates:
 1.2.6     12/16/2016
 - Improved and updates to schematron rules 126-1, 126-2, 126-3, 126-4, and 260-1
 
