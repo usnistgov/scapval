@@ -20,14 +20,24 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
+
+import static gov.nist.decima.xml.document.CompositeXMLDocument.COMPOSITE_NS_URI;
+import static gov.nist.scap.validation.NamespaceConstants.NS_ARF_1_1;
+import static gov.nist.scap.validation.NamespaceConstants.NS_XLINK;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import gov.nist.decima.core.document.DocumentException;
 import gov.nist.decima.core.document.post.template.Action;
 import gov.nist.decima.core.document.post.template.DefaultTemplateProcessor;
 import gov.nist.decima.core.document.post.template.InsertChildAction;
 import gov.nist.decima.core.document.post.template.ModifyAttributeAction;
-import gov.nist.decima.xml.document.*;
+import gov.nist.decima.xml.document.CompositeXMLDocument;
+import gov.nist.decima.xml.document.JDOMDocument;
+import gov.nist.decima.xml.document.MutableXMLDocument;
+import gov.nist.decima.xml.document.SimpleXMLDocumentResolver;
+import gov.nist.decima.xml.document.XMLDocument;
 import gov.nist.decima.xml.jdom2.saxon.xpath.SaxonXPathFactory;
 import gov.nist.scap.validation.component.SCAP11Components;
 import gov.nist.scap.validation.exceptions.SCAPException;
@@ -35,27 +45,39 @@ import gov.nist.scap.validation.utils.FileUtils;
 import gov.nist.scap.validation.utils.XMLUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jdom2.*;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
 import org.jdom2.transform.JDOMSource;
 
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static gov.nist.decima.xml.document.CompositeXMLDocument.COMPOSITE_NS_URI;
-import static gov.nist.scap.validation.NamespaceConstants.NS_ARF_1_1;
-import static gov.nist.scap.validation.NamespaceConstants.NS_XLINK;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * Obtains and merges in remote resources in SCAP or component files and
@@ -64,10 +86,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class ContentCombiner {
   private static final Logger log = LogManager.getLogger(ContentCombiner.class);
-  private static final String SOURCE_BASE_LOCATION =
-      "classpath:templates/scap-11/source-combiner-base.xml";
-  private static final String RESULT_BASE_LOCATION =
-      "classpath:templates/scap-11/result-combiner-base.xml";
+  private static final String SOURCE_BASE_LOCATION = "classpath:templates/scap-11/source-combiner-base.xml";
+  private static final String RESULT_BASE_LOCATION = "classpath:templates/scap-11/result-combiner-base.xml";
 
   /**
    * Combines individual SCAP component files into a single data-stream file
@@ -83,14 +103,9 @@ public class ContentCombiner {
    *                        combined result
    *                        content. Can be null in the case of non result content validation.
    * @return The combined SCAP 11 XMLDocument
-   * @throws SCAPException
-   * @throws IOException
-   * @throws DocumentException
-   * @throws JDOMException
    */
-  public static XMLDocument combineSCAP11(File scapContentsDir, String scapUseCase, int
-      maxDownloadSize, boolean isOnline, XMLDocument sourceDS) throws SCAPException, IOException,
-      DocumentException, JDOMException {
+  public static XMLDocument combineSCAP11(File scapContentsDir, String scapUseCase, int maxDownloadSize, boolean
+      isOnline, XMLDocument sourceDS) throws SCAPException, IOException, DocumentException, JDOMException {
     Objects.requireNonNull(scapContentsDir, "scapContentsDir cannot be null.");
     Objects.requireNonNull(scapUseCase, "scapUseCase cannot be null.");
     Objects.requireNonNull(maxDownloadSize, "maxDownloadSize cannot be null.");
@@ -102,8 +117,7 @@ public class ContentCombiner {
     //find out exactly where the bundle is located, could be in the root or one level deep
     File SCAP11BundleDir = locateSCAP11Bundle(scapContentsDir.getAbsolutePath());
     if (SCAP11BundleDir == null) {
-      throw new SCAPException("Unable to find SCAP 1.1 content in: " + scapContentsDir
-          .getAbsolutePath());
+      throw new SCAPException("Unable to find SCAP 1.1 content in: " + scapContentsDir.getAbsolutePath());
     } else {
       log.debug("Found SCAP 1.1 bundle in: " + SCAP11BundleDir.getAbsolutePath());
     }
@@ -118,13 +132,11 @@ public class ContentCombiner {
           if (file.getName().contains("xccdf")) {
             //remote resources will attempt to be downloaded and if successful remoteURLandFilename
             //will contain the original URL and downloaded filename
-            remoteURLandFilenames = getXCCDF11RemoteResources(file, SCAP11BundleDir,
-                maxDownloadSize);
+            remoteURLandFilenames = getXCCDF11RemoteResources(file, SCAP11BundleDir, maxDownloadSize);
           }
         }
       } else {
-        throw new SCAPException("Unable to find SCAP 1.1 content in: " + scapContentsDir
-            .getAbsolutePath());
+        throw new SCAPException("Unable to find SCAP 1.1 content in: " + scapContentsDir.getAbsolutePath());
       }
     }
 
@@ -152,20 +164,17 @@ public class ContentCombiner {
     //source specific template processing
     if (sourceDS == null) {
       baseTemplateURL = (new URL(SOURCE_BASE_LOCATION));
-      baseTemplateRootXPATH = "//*[local-name()='data-stream' and namespace-uri()='" +
-          NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString() + "']";
-      String xpathDataStreamUseCase = new StringBuilder(baseTemplateRootXPATH).append("/@use-case")
-          .toString();
-      String xpathDataStreamTimestamp = new StringBuilder(baseTemplateRootXPATH).append("/@timestamp")
-          .toString();
+      baseTemplateRootXPATH = "//*[local-name()='data-stream' and namespace-uri()='" + NamespaceConstants
+          .NS_SOURCE_DS_1_1.getNamespaceString() + "']";
+      String xpathDataStreamUseCase = new StringBuilder(baseTemplateRootXPATH).append("/@use-case").toString();
+      String xpathDataStreamTimestamp = new StringBuilder(baseTemplateRootXPATH).append("/@timestamp").toString();
 
       // customize the template data-stream per user specified scap 1.1 use case and timestamp
-      actions.add(new ModifyAttributeAction(xpathFactory, xpathDataStreamUseCase, Collections
-          .singletonMap(templateSub.getNamespacePrefix(), templateSub.getNamespaceURI()),
-          scapUseCase));
-      actions.add(new ModifyAttributeAction(xpathFactory, xpathDataStreamTimestamp, Collections
-          .singletonMap(templateSub.getNamespacePrefix(), templateSub.getNamespaceURI()), new
-          SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())));
+      actions.add(new ModifyAttributeAction(xpathFactory, xpathDataStreamUseCase,
+          Collections.singletonMap(templateSub.getNamespacePrefix(), templateSub.getNamespaceURI()), scapUseCase));
+      actions.add(new ModifyAttributeAction(xpathFactory, xpathDataStreamTimestamp,
+          Collections.singletonMap(templateSub.getNamespacePrefix(), templateSub.getNamespaceURI()),
+          new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())));
     }
     //result specific template processing
     else {
@@ -174,11 +183,10 @@ public class ContentCombiner {
       baseTemplateRootXPATH = "/*:results";
 
       Element sourceElement = new Element("source");
-      sourceElement = sourceElement.addContent(sourceDS.getJDOMDocument().getRootElement().detach
-          ());
-      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH, Collections.singletonMap
-          (sourceElement.getNamespacePrefix(), sourceElement.getNamespaceURI()), Collections
-          .singletonList(sourceElement), null));
+      sourceElement = sourceElement.addContent(sourceDS.getJDOMDocument().getRootElement().detach());
+      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH,
+          Collections.singletonMap(sourceElement.getNamespacePrefix(), sourceElement.getNamespaceURI()),
+          Collections.singletonList(sourceElement), null));
 
     }
 
@@ -188,29 +196,28 @@ public class ContentCombiner {
       String filename = pair.getKey();
       Element templateSubLocal = new Element("sub", COMPOSITE_NS_URI);
       templateSubLocal.setAttribute("name", filename);
-      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH, Collections.singletonMap
-          (templateSubLocal.getNamespacePrefix(), templateSubLocal.getNamespaceURI()),
+      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH,
+          Collections.singletonMap(templateSubLocal.getNamespacePrefix(), templateSubLocal.getNamespaceURI()),
           Collections.singletonList(templateSubLocal), null));
     }
 
     URL contextSystemId = new File(SCAP11BundleDir.getAbsolutePath()).toURI().toURL();
-    DefaultTemplateProcessor defaultTemplateProcessor = new DefaultTemplateProcessor
-        (contextSystemId, baseTemplateURL, actions);
+    DefaultTemplateProcessor defaultTemplateProcessor = new DefaultTemplateProcessor(
+        contextSystemId, baseTemplateURL, actions);
     template = defaultTemplateProcessor.generate(new SimpleXMLDocumentResolver());
 
     // populate the template with map of name and content
     Map<String, JDOMDocument> compMap = new LinkedHashMap<>();
     for (Map.Entry<String, JDOMDocument> scapComponentDoc : scapComponentDocs.entrySet()) {
       String filename = scapComponentDoc.getKey();
-      SCAP11Components contentType = SCAP11Components.getByFileNameAndUseCase(filename,
-          scapUseCase);
+      SCAP11Components contentType = SCAP11Components.getByFileNameAndUseCase(filename, scapUseCase);
 
       Element dataStreamComponent;
 
       if (sourceDS == null) { //process into source ds components
-        dataStreamComponent = new Element(SCAP11Components.getByFileNameAndUseCase(filename,
-            scapUseCase).getCombinedDocLocalName(), NamespaceConstants
-            .NS_SOURCE_DS_1_1.getNamespace());
+        dataStreamComponent = new Element(
+            SCAP11Components.getByFileNameAndUseCase(filename, scapUseCase).getCombinedDocLocalName(),
+            NamespaceConstants.NS_SOURCE_DS_1_1.getNamespace());
         dataStreamComponent.setAttribute("id", filename);
         dataStreamComponent.setAttribute("content-type", contentType.toString());
       } else { //process into result components
@@ -218,8 +225,7 @@ public class ContentCombiner {
         dataStreamComponent.setAttribute("id", filename);
       }
 
-      Element clonedComponent = scapComponentDoc.getValue().getJDOMDocument().getRootElement()
-          .clone();
+      Element clonedComponent = scapComponentDoc.getValue().getJDOMDocument().getRootElement().clone();
 
       // in order to have a valid DS, if we downloaded a remote resource we must
       // use its original URL and not filename as the @id.
@@ -243,8 +249,8 @@ public class ContentCombiner {
       InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
 
       //create a valid system id for each component
-      String systemID = new File(SCAP11BundleDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR +
-          filename).toURI().toString();
+      String systemID = new File(
+          SCAP11BundleDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR + filename).toURI().toString();
 
       compMap.put(filename, new JDOMDocument(is, systemID));
     }
@@ -256,8 +262,9 @@ public class ContentCombiner {
 
     if (!SCAP11CombinedContent.exists()) {
       if (!SCAP11CombinedContent.createNewFile() || !SCAP11CombinedContent.canWrite()) {
-        throw new IOException("Problem processing the SCAP 1.1 components. Need write access to: " +
-            "" + "" + SCAP11CombinedContent.getAbsolutePath() + " in order to continue.");
+        throw new IOException(
+            "Problem processing the SCAP 1.1 components. Need write access to: " + "" + "" + SCAP11CombinedContent
+                .getAbsolutePath() + " in order to continue.");
       }
     }
 
@@ -325,11 +332,9 @@ public class ContentCombiner {
           return -1; //1st arg should be before the 2nd
         } else if (!f1.getName().contains("xccdf") && f2.getName().contains("xccdf")) {
           return 1; //2nd arg should be before the 1st
-        } else if (f1.getName().contains("cpe-dictionary") && !f2.getName().contains
-            ("cpe-dictionary")) {
+        } else if (f1.getName().contains("cpe-dictionary") && !f2.getName().contains("cpe-dictionary")) {
           return 1; //2nd arg should be before the 1st
-        } else if (!f1.getName().contains("cpe-dictionary") && f2.getName().contains
-            ("cpe-dictionary")) {
+        } else if (!f1.getName().contains("cpe-dictionary") && f2.getName().contains("cpe-dictionary")) {
           return -1; //1st arg should be before the 2nd
         }
         return 0; //leaves files in same order
@@ -343,13 +348,12 @@ public class ContentCombiner {
    * Includes a SCAP source data-stream into an ARF file using the
    * arf:report-requests element. This is used for SCAP 1.2 and 1.3 content only.
    *
-   * @param ARFFile an XMLDocument of SCAP 1.2+ result content, not null
-   * @param DSFile an XMLDocument of SCAP 1.2+ source content, not null
+   * @param ARFFile        an XMLDocument of SCAP 1.2+ result content, not null
+   * @param DSFile         an XMLDocument of SCAP 1.2+ source content, not null
    * @param combinedOutput a File where the merged content will be saved to, not null
-   * @throws IOException
    */
-  public static void mergeARFWithDS(XMLDocument ARFFile, XMLDocument DSFile, File combinedOutput)
-      throws IOException, SCAPException, URISyntaxException {
+  public static void mergeARFWithDS(XMLDocument ARFFile, XMLDocument DSFile, File combinedOutput) throws IOException,
+      SCAPException, URISyntaxException {
     Objects.requireNonNull(ARFFile, "ARFFile cannot be null.");
     Objects.requireNonNull(DSFile, "DSFile cannot be null.");
     Objects.requireNonNull(combinedOutput, "combinedOutput cannot be null.");
@@ -359,42 +363,39 @@ public class ContentCombiner {
     String ARFFilePath = Paths.get(ARFFile.getOriginalLocation().toURI()).toString();
     String combinedOutputPath = combinedOutput.getAbsolutePath();
 
-    log.info("Attempting to embed the source data-steam: " + DSFilePath + " into the ARF file: "
-        + ARFFilePath + " and creating file: " + combinedOutputPath);
+    log.info(
+        "Attempting to embed the source data-steam: " + DSFilePath + " into the ARF file: " + ARFFilePath + " and " +
+            "creating file: " + combinedOutputPath);
 
-    ValidationNotes.getInstance().createValidationNote("Validation included -sourceds content " +
-        "file: " + DSFilePath);
+    ValidationNotes.getInstance().createValidationNote(
+        "Validation included -sourceds content " + "file: " + DSFilePath);
 
     JDOMDocument newCombined = new JDOMDocument(ARFFile);
-    Element reportRequests = newCombined.getJDOMDocument(true).getRootElement().getChild
-        ("report-requests", NS_ARF_1_1.getNamespace());
+    Element reportRequests = newCombined.getJDOMDocument(true).getRootElement().getChild(
+        "report-requests", NS_ARF_1_1.getNamespace());
     if (reportRequests == null) {
       //couldn't find existing arf:report-requests element so we'll create a new one in position 2
-      reportRequests = newCombined.getJDOMDocument(true).getRootElement().addContent(2, new
-          Element("report-requests", NS_ARF_1_1.getNamespace())).getChild("report-requests",
+      reportRequests = newCombined.getJDOMDocument(true).getRootElement().addContent(
+          2, new Element("report-requests", NS_ARF_1_1.getNamespace())).getChild("report-requests",
           NS_ARF_1_1.getNamespace());
     }
     //add the user specified datastream to a new report request
-    Element newReportRequest = new Element("report-request", NS_ARF_1_1.getNamespace())
-        .setAttribute("id", DSFilePath).addContent(new Element("content", NS_ARF_1_1.getNamespace
-            ()));
+    Element newReportRequest = new Element("report-request", NS_ARF_1_1.getNamespace()).setAttribute(
+        "id", DSFilePath).addContent(new Element("content", NS_ARF_1_1.getNamespace()));
     reportRequests = reportRequests.addContent(newReportRequest);
     //get the appropriate report-request (the last one added)
-    Element reportRequestContent = reportRequests.getChildren().get(reportRequests.getChildren()
-        .size() - 1).getChild("content", NS_ARF_1_1.getNamespace());
+    Element reportRequestContent = reportRequests.getChildren().get(reportRequests.getChildren().size() - 1).getChild(
+        "content", NS_ARF_1_1.getNamespace());
     if (reportRequestContent == null) {
       throw new SCAPException("There was problem embedding " + DSFilePath + " into " + ARFFilePath);
     }
     //add the datastream
-    Document merged = reportRequestContent.addContent(DSFile.getJDOMDocument().getRootElement()
-        .detach()).getDocument();
+    Document merged = reportRequestContent.addContent(DSFile.getJDOMDocument().getRootElement().detach()).getDocument();
     //copy new content to the combined Document
-    org.jdom2.Document newCombinedDoc = newCombined.getJDOMDocument().setContent(merged
-        .getRootElement().detach());
+    org.jdom2.Document newCombinedDoc = newCombined.getJDOMDocument().setContent(merged.getRootElement().detach());
     try {
       //copy to result the combinedOutput
-      new JDOMDocument(newCombinedDoc, new URL("file:" + combinedOutput.getAbsolutePath()))
-          .copyTo(combinedOutput);
+      new JDOMDocument(newCombinedDoc, new URL("file:" + combinedOutput.getAbsolutePath())).copyTo(combinedOutput);
     } catch (DocumentException e) {
       throw new SCAPException("There was problem embedding " + DSFilePath + " into " + ARFFilePath);
     }
@@ -405,23 +406,21 @@ public class ContentCombiner {
    * component-ref
    * The remote resource is read and merged into the datastream being validated.
    *
-   * @param xmlDocument an XMLDocument containing remote resources to be gathered and merged in,
-   *                    not null
-   * @param scapVersion the SCAP version under assessment, not null
+   * @param xmlDocument     an XMLDocument containing remote resources to be gathered and merged in,
+   *                        not null
+   * @param scapVersion     the SCAP version under assessment, not null
    * @param maxDownloadSize an int (in MiB) of the maximum external file download size supported,
    *                        not null
    */
-  public static void mergeRemoteResourcesInDS(XMLDocument xmlDocument, SCAPVersion scapVersion,
-                                              int maxDownloadSize) {
+  public static void mergeRemoteResourcesInDS(XMLDocument xmlDocument, SCAPVersion scapVersion, int maxDownloadSize) {
     Objects.requireNonNull(xmlDocument, "xmlDocument cannot be null.");
     Objects.requireNonNull(scapVersion, "scapVersion cannot be null.");
     Objects.requireNonNull(maxDownloadSize, "maxDownloadSize cannot be null.");
 
-    String SCAPComponentRefsXPATH = "//*[namespace-uri()='" + scapVersion.getDSNamespace().getURI
-        () + "' and local-name()='component-ref']";
+    String SCAPComponentRefsXPATH = "//*[namespace-uri()='" + scapVersion.getDSNamespace().getURI() + "' and " +
+        "local-name()='component-ref']";
     //attempt to resolve any scap remote component resources
-    List<org.jdom2.Element> componentRemoteRefs = XMLUtils.getXpathElements(xmlDocument,
-        SCAPComponentRefsXPATH);
+    List<org.jdom2.Element> componentRemoteRefs = XMLUtils.getXpathElements(xmlDocument, SCAPComponentRefsXPATH);
     for (org.jdom2.Element component : componentRemoteRefs) {
       if (component.getAttribute("href", NS_XLINK.getNamespace()) != null) {
         Attribute idAttribute = component.getAttribute("id");
@@ -437,12 +436,12 @@ public class ContentCombiner {
             remoteComponentURL = new URL(xlinkHrefAttribute.getValue());
           } catch (MalformedURLException e) {
             //Invalid external reference URL, log and move on
-            log.info("Invalid http/https location for component-ref with id " + idAttribute
-                .getValue() + " and " + "URL " + xlinkHrefAttribute.getValue() + " Will not " +
-                "download the remote component." + e.getMessage());
-            ValidationNotes.getInstance().createValidationNote("Invalid http/https location for component-ref with id " + idAttribute
-                    .getValue() + " and " + "URL " + xlinkHrefAttribute.getValue() + " Will not " +
-                    "download the remote component.");
+            log.info(
+                "Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and " + "URL "
+                    + xlinkHrefAttribute.getValue() + " Will not " + "download the remote component." + e.getMessage());
+            ValidationNotes.getInstance().createValidationNote(
+                "Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and " + "URL "
+                    + xlinkHrefAttribute.getValue() + " Will not " + "download the remote component.");
             continue;
           }
         } else if (xlinkHrefAttribute.getValue().startsWith("file:")) {
@@ -451,137 +450,141 @@ public class ContentCombiner {
           String fileNameToMerge = null;
           try {
             //will look for the file reference relative to the directory of the validation target
-            relativeDir = new File(xmlDocument.getOriginalLocation().toURI()).getParent() + File
-                .separator;
+            relativeDir = new File(xmlDocument.getOriginalLocation().toURI()).getParent() + File.separator;
             fileNameToMerge = xlinkHrefAttribute.getValue().split("file:")[1];
             //need to prepend the file: protocol to beginning of path full
             remoteComponentURL = new URL("file:" + relativeDir + fileNameToMerge);
           } catch (URISyntaxException e) {
-            log.info("Cannot access the directory of the validation target: " + relativeDir + " "
-                + "and " + "URL " + xlinkHrefAttribute.getValue() + " Will not include this file " +
-                "in" + " validation." + e.getMessage());
-            ValidationNotes.getInstance().createValidationNote("Cannot access the directory of the validation target: " + relativeDir + " "
-                    + "and " + "URL " + xlinkHrefAttribute.getValue() + " Will not include this file " +
-                    "in" + " validation.");
+            log.info(
+                "Cannot access the directory of the validation target: " + relativeDir + " " + "and " + "URL " +
+                    xlinkHrefAttribute.getValue() + " Will not include this file " + "in" + " validation." + e
+                    .getMessage());
+            ValidationNotes.getInstance().createValidationNote(
+                "Cannot access the directory of the validation target: " + relativeDir + " " + "and " + "URL " +
+                    xlinkHrefAttribute.getValue() + " Will not include this file " + "in" + " validation.");
             continue;
           } catch (MalformedURLException e) {
-            log.info("Cannot read file at location specified for component-ref with id " +
-                idAttribute.getValue() + " and " + "URL " + "file:" + relativeDir +
-                fileNameToMerge + " Will not include this file in validation." + e.getMessage());
-            ValidationNotes.getInstance().createValidationNote("Cannot read file at location specified for component-ref with id " +
-                    idAttribute.getValue() + " and " + "URL " + "file:" + relativeDir +
-                    fileNameToMerge + " Will not include this file in validation.");
-            continue;
-          }
-        } else{
-          //no resolvable remote ref is found
-          continue;
-        }
-          try {
-            log.info("Found a remote component-ref with id " + idAttribute.getValue() + " and " +
-                "URL" + " " + xlinkHrefAttribute.getValue() + " will attempt to acquire and " +
-                "include in " + "validation.");
-
-            //make sure the component-ref ID is valid and use that for the remote resource
-            // component name
-            String newComponentID = null;
-            if (idAttribute.getValue().matches("scap_[^_]+_cref_.+")) {
-              newComponentID = idAttribute.getValue().replaceAll("cref", "comp");
-
-              // after speaking with Dragos P. we will append the original URL to help identify
-              // this as a remote resource
-              // the schema id restricts commas (,) and slashes (/) so we'll replace with
-              // underscore (_) */
-              String newxlinkHrefAttribute = new String("#" + newComponentID + "_" +
-                  remoteComponentURL).replace("/", "_").replace(":", "_");
-
-              //update the component-ref xlink:href to now look within the DS for the remote
-              // resource content
-              xlinkHrefAttribute.setValue(newxlinkHrefAttribute);
-
-            } else {
-              log.info("Invalid component-ref id " + idAttribute.getValue() + " detected for a "
-                  + "remote resource. The remote resource will not be used");
-              ValidationNotes.getInstance().createValidationNote("Invalid component-ref id " + idAttribute.getValue() + " detected for a "
-                      + "remote resource. The remote resource will not be used");
-              continue;
-            }
-
-            //read the from filesystem or download the remote component file
-            File remoteComponentFile = null;
-            if (remoteComponentURL.getProtocol().equals("file")) {
-              remoteComponentFile = new File(remoteComponentURL.getPath());
-            } else if (remoteComponentURL.getProtocol().startsWith("http")){
-              remoteComponentFile = FileUtils.downloadFile(remoteComponentURL, maxDownloadSize *
-                  1024 * 1024);
-            } else{
-              log.info("Invalid component-ref id " + idAttribute.getValue() + " detected for a "
-                      + "remote resource. The remote resource will not be used");
-              ValidationNotes.getInstance().createValidationNote("Invalid component-ref id " + idAttribute.getValue() + " detected for a "
-                      + "remote resource. The remote resource will not be used");
-              continue;
-            }
-
-            if (remoteComponentFile != null) {
-              //create the remote component DOM content
-              XMLDocument remoteComponentContentDoc = new JDOMDocument(remoteComponentFile);
-              Element remoteComponentContentElement = remoteComponentContentDoc.getJDOMDocument()
-                  .getRootElement();
-              //create the <component> element to place the external content
-              Element newComponent = new Element("component", scapVersion.getDSNamespace())
-                  .setAttribute("id", new String(newComponentID + "_" + remoteComponentURL)
-                      .replace("/", "_").replace(":", "_"))
-                  //timestamp="2016-01-22T14:00:00">
-                  .setAttribute("timestamp", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format
-                      (new java.util.Date()));
-              //add content the downloaded remote component
-              newComponent = newComponent.addContent(remoteComponentContentElement.clone());
-
-              //now add to original doc
-              xmlDocument.getJDOMDocument().getRootElement().addContent(newComponent);
-
-              //if there were no problems, the content was added, include as a report note
-              ValidationNotes.getInstance().createValidationNote("Validation included remote " +
-                  "component-ref with id " + idAttribute.getValue() + " and url " +
-                  remoteComponentURL);
-            } else {
-              //could not download the external reference, log and store as note
-              log.info("Unable to download component-ref with id " + idAttribute.getValue() + " "
-                  + "and url " + xlinkHrefAttribute.getValue());
-              ValidationNotes.getInstance().createValidationNote("Unable to download " +
-                  "component-ref with id " + idAttribute.getValue() + " and url " +
-                  xlinkHrefAttribute.getValue());
-              continue;
-            }
-          } catch (DocumentException | IOException e) {
-            //unable to download or merge with existing content, log and move on
-            log.info("Unable to utilize remote component-ref with id " + idAttribute.getValue() +
-                " and url " + remoteComponentURL + " - " + e.getMessage());
-            ValidationNotes.getInstance().createValidationNote("Unable to utilize remote " +
-                "component-ref with id " + idAttribute.getValue() + " and url " +
-                remoteComponentURL + " - " + e.getMessage());
+            log.info(
+                "Cannot read file at location specified for component-ref with id " + idAttribute.getValue() + " and " +
+                    "" + "URL " + "file:" + relativeDir + fileNameToMerge + " Will not include this file in " +
+                    "validation." + e.getMessage());
+            ValidationNotes.getInstance().createValidationNote(
+                "Cannot read file at location specified for component-ref with id " + idAttribute.getValue() + " and " +
+                    "" + "URL " + "file:" + relativeDir + fileNameToMerge + " Will not include this file in " +
+                    "validation.");
             continue;
           }
         } else {
-          //did not find a file:/http:/https: prefix continue on
+          //no resolvable remote ref is found
           continue;
         }
+        try {
+          log.info(
+              "Found a remote component-ref with id " + idAttribute.getValue() + " and " + "URL" + " " +
+                  xlinkHrefAttribute.getValue() + " will attempt to acquire and " + "include in " + "validation.");
+
+          //make sure the component-ref ID is valid and use that for the remote resource
+          // component name
+          String newComponentID = null;
+          if (idAttribute.getValue().matches("scap_[^_]+_cref_.+")) {
+            newComponentID = idAttribute.getValue().replaceAll("cref", "comp");
+
+            // after speaking with Dragos P. we will append the original URL to help identify
+            // this as a remote resource
+            // the schema id restricts commas (,) and slashes (/) so we'll replace with
+            // underscore (_) */
+            String newxlinkHrefAttribute = new String("#" + newComponentID + "_" + remoteComponentURL).replace(
+                "/", "_").replace(":", "_");
+
+            //update the component-ref xlink:href to now look within the DS for the remote
+            // resource content
+            xlinkHrefAttribute.setValue(newxlinkHrefAttribute);
+
+          } else {
+            log.info(
+                "Invalid component-ref id " + idAttribute.getValue() + " detected for a " + "remote resource. The " +
+                    "remote resource will not be used");
+            ValidationNotes.getInstance().createValidationNote(
+                "Invalid component-ref id " + idAttribute.getValue() + " detected for a " + "remote resource. The " +
+                    "remote resource will not be used");
+            continue;
+          }
+
+          //read the from filesystem or download the remote component file
+          File remoteComponentFile = null;
+          if (remoteComponentURL.getProtocol().equals("file")) {
+            remoteComponentFile = new File(remoteComponentURL.getPath());
+          } else if (remoteComponentURL.getProtocol().startsWith("http")) {
+            remoteComponentFile = FileUtils.downloadFile(remoteComponentURL, maxDownloadSize * 1024 * 1024);
+          } else {
+            log.info(
+                "Invalid component-ref id " + idAttribute.getValue() + " detected for a " + "remote resource. The " +
+                    "remote resource will not be used");
+            ValidationNotes.getInstance().createValidationNote(
+                "Invalid component-ref id " + idAttribute.getValue() + " detected for a " + "remote resource. The " +
+                    "remote resource will not be used");
+            continue;
+          }
+
+          if (remoteComponentFile != null) {
+            //create the remote component DOM content
+            XMLDocument remoteComponentContentDoc = new JDOMDocument(remoteComponentFile);
+            Element remoteComponentContentElement = remoteComponentContentDoc.getJDOMDocument().getRootElement();
+            //create the <component> element to place the external content
+            Element newComponent = new Element("component", scapVersion.getDSNamespace()).setAttribute("id", new String(
+                newComponentID + "_" + remoteComponentURL).replace("/", "_").replace(":", "_"))
+                //timestamp="2016-01-22T14:00:00">
+                .setAttribute("timestamp", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new java.util.Date()));
+            //add content the downloaded remote component
+            newComponent = newComponent.addContent(remoteComponentContentElement.clone());
+
+            //now add to original doc
+            xmlDocument.getJDOMDocument().getRootElement().addContent(newComponent);
+
+            //if there were no problems, the content was added, include as a report note
+            ValidationNotes.getInstance().createValidationNote(
+                "Validation included remote " + "component-ref with id " + idAttribute.getValue() + " and url " +
+                    remoteComponentURL);
+          } else {
+            //could not download the external reference, log and store as note
+            log.info(
+                "Unable to download component-ref with id " + idAttribute.getValue() + " " + "and url " +
+                    xlinkHrefAttribute.getValue());
+            ValidationNotes.getInstance().createValidationNote(
+                "Unable to download " + "component-ref with id " + idAttribute.getValue() + " and url " +
+                    xlinkHrefAttribute.getValue());
+            continue;
+          }
+        } catch (DocumentException | IOException e) {
+          //unable to download or merge with existing content, log and move on
+          log.info(
+              "Unable to utilize remote component-ref with id " + idAttribute.getValue() + " and url " +
+                  remoteComponentURL + " - " + e.getMessage());
+          ValidationNotes.getInstance().createValidationNote(
+              "Unable to utilize remote " + "component-ref with id " + idAttribute.getValue() + " and url " +
+                  remoteComponentURL + " - " + e.getMessage());
+          continue;
+        }
+      } else {
+        //did not find a file:/http:/https: prefix continue on
+        continue;
       }
     }
+  }
 
 
   /**
    * Downloads XCCDF 1.1.4 check-content-ref remote references and includes in the specified
    * scapContentsDir along with an appropriate filename and suffix
    *
-   * @param XCCDFFile a File of the XCCDF 1.1.4 content which contains the remote references
+   * @param XCCDFFile       a File of the XCCDF 1.1.4 content which contains the remote references
    * @param SCAPContentsDir a File object of the directory containing the SCAP 1.1 bundle files,
    *                        not null
    * @param maxDownloadSize an int (in MiB) of the maximum external file download size supported,
    *                        not null
    */
-  public static Map<String, String> getXCCDF11RemoteResources(File XCCDFFile, File
-      SCAPContentsDir, int maxDownloadSize) throws SCAPException {
+  public static Map<String, String> getXCCDF11RemoteResources(File XCCDFFile, File SCAPContentsDir, int
+      maxDownloadSize) throws SCAPException {
     Objects.requireNonNull(XCCDFFile, "XCCDFFile cannot be null.");
     Objects.requireNonNull(SCAPContentsDir, "SCAPContentsDir cannot be null.");
     Objects.requireNonNull(maxDownloadSize, "maxDownloadSize cannot be null.");
@@ -589,9 +592,9 @@ public class ContentCombiner {
     //This list will contain the check-content-ref remote URL as well as downloaded local filename
     Map<String, String> remoteURLandFilename = new LinkedHashMap<>();
 
-    String XCCDFremoteCheckRefsXPATH = "//*[namespace-uri()=\"http://checklists.nist" + "" +
-        ".gov/xccdf/1.1\" and local-name()=\"Rule\"]//*[namespace-uri()=\"http://checklists.nist"
-        + ".gov/xccdf/1.1\" and local-name()=\"check-content-ref\"]/@href";
+    String XCCDFremoteCheckRefsXPATH = "//*[namespace-uri()=\"http://checklists.nist" + "" + ".gov/xccdf/1.1\" and " +
+        "local-name()=\"Rule\"]//*[namespace-uri()=\"http://checklists.nist" + ".gov/xccdf/1.1\" and local-name()" +
+        "=\"check-content-ref\"]/@href";
     XMLDocument XCCDFComponent = null;
     try {
       XCCDFComponent = new JDOMDocument(XCCDFFile);
@@ -609,21 +612,20 @@ public class ContentCombiner {
         URL remoteComponentURL = null;
         try {
           remoteComponentURL = new URL(contentRef);
-          log.info("Found an XCCDF remote check-component-ref: " + contentRef + " will attempt " +
-              "to" + " download and include in validation.");
+          log.info(
+              "Found an XCCDF remote check-component-ref: " + contentRef + " will attempt " + "to" + " download and " +
+                  "include in validation.");
 
           //we will rename the check-component-ref to match the downloaded file name
-          String downloadedRefFileName = FileUtils.getFilenameFromURLNoExtension(contentRef) +
-              "-patches.xml";
+          String downloadedRefFileName = FileUtils.getFilenameFromURLNoExtension(contentRef) + "-patches.xml";
           attribute.setValue(downloadedRefFileName);
 
           //download the remote reference file
-          File remoteComponentFile = FileUtils.downloadFile(remoteComponentURL, maxDownloadSize *
-              1024 * 1024);
+          File remoteComponentFile = FileUtils.downloadFile(remoteComponentURL, maxDownloadSize * 1024 * 1024);
           if (remoteComponentFile != null && remoteComponentFile.length() != 0) {
             //copy the file to our SCAP 1.1 dir
-            File destFile = new File(SCAPContentsDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR
-                + downloadedRefFileName);
+            File destFile = new File(
+                SCAPContentsDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR + downloadedRefFileName);
 
             if (!destFile.createNewFile()) {
               log.info("Unable to included " + destFile.getAbsolutePath());
@@ -639,26 +641,26 @@ public class ContentCombiner {
               remoteURLandFilename.put(contentRef, downloadedRefFileName);
             } else {
               log.info("Unable to download XCCDF remote check-component-ref: " + contentRef);
-              ValidationNotes.getInstance().createValidationNote("Unable to download XCCDF " +
-                  "remote" + " check-component-ref: " + contentRef);
+              ValidationNotes.getInstance().createValidationNote(
+                  "Unable to download XCCDF " + "remote" + " check-component-ref: " + contentRef);
               continue;
             }
           } else {
             //could not download the external reference, log and store as note
             log.info("Unable to download XCCDF remote check-component-ref: " + contentRef);
-            ValidationNotes.getInstance().createValidationNote("Unable to download XCCDF remote "
-                + "check-component-ref: " + contentRef);
+            ValidationNotes.getInstance().createValidationNote(
+                "Unable to download XCCDF remote " + "check-component-ref: " + contentRef);
             continue;
           }
         } catch (MalformedURLException e) {
           //Invalid external reference URL, log and move on
-          log.info("Invalid URL for XCCDF remote check-component-ref:" + contentRef + " Will not " +
-              "" + "download the remote component." + e.getMessage());
+          log.info(
+              "Invalid URL for XCCDF remote check-component-ref:" + contentRef + " Will not " + "" + "download the " +
+                  "remote component." + e.getMessage());
           continue;
         } catch (IOException e) {
           //unable to download or merge with existing content, log and move on
-          log.info("Unable to utilize the XCCDF remote check-component-ref reference with URL: "
-              + e.getMessage());
+          log.info("Unable to utilize the XCCDF remote check-component-ref reference with URL: " + e.getMessage());
           continue;
         }
 

@@ -10,16 +10,27 @@ The schematron rules have SCAP rquirement IDs embedded
 Schematron files are found in
 `/schematron/scap` and `/schematron/other` for the .sch schematron files.
 
-SCAP requiremetns are here...
+SCAP requirements are here... todo
 
 These files may have been modified from their original source to suite validation of SCAP per 800-126r3
 See additional readmes for more information.
 
-[SCAP Rules Readme][scap-rules-readme.txt]
-[Other Rules Rules][other-rules-readme.txt]
+[SCAP Rules Readme] 
 
-[scap-rules-readme.txt]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/scap-rules-readme.txt
-[other-rules-readme.txt]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/other-rules-readme.txt
+[Other Rules Rules]
 
 ## Build Notes:
 todo
+
+License:
+---------
+[License Information]
+
+Feedback:
+---------
+Please send tool defects reports, enhancement requests, and any other related
+comments by email to scap@nist.gov.
+
+[SCAP Rules Readme]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/scap-rules-readme.txt
+[Other Rules Rules]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/other-rules-readme.txt
+[License Information]:https://github.com/usnistgov/scapval/blob/master/scapval/src/main/distro/NOTICE.txt

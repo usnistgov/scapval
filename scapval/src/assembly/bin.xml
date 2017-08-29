@@ -50,8 +50,7 @@
 			</includes>
 		</fileSet>
 
-		<!--For included .bat lanuch file and license info-->
-		<!--todo move license to root of github dir or into README.md?-->
+		<!--For included .bat launch file and license info-->
 		<fileSet>
 			<directory>${project.build.directory}/generated-distro</directory>
 			<outputDirectory></outputDirectory>

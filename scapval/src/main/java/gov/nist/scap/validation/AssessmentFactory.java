@@ -20,7 +20,11 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
+
+import static gov.nist.decima.xml.DecimaXML.newSchematron;
+import static gov.nist.decima.xml.DecimaXML.newSchematronAssessment;
 
 import gov.nist.decima.core.Decima;
 import gov.nist.decima.core.assessment.Assessment;
@@ -48,7 +52,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Element;
 
-import javax.xml.transform.stream.StreamSource;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,9 +59,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-
-import static gov.nist.decima.xml.DecimaXML.newSchematron;
-import static gov.nist.decima.xml.DecimaXML.newSchematronAssessment;
+import javax.xml.transform.stream.StreamSource;
 
 public class AssessmentFactory {
 
@@ -66,7 +67,7 @@ public class AssessmentFactory {
   private ISCAPDataStream dataStream;
   private String scapUseCase;
   private Application.ContentType contentToCheckType;
-  private XMLDocument XMLContentToValidate;
+  private XMLDocument xmlContentToValidate;
 
   private SchemaAssessment schemaAssessment;
   private Assessment<XMLDocument> schematronAssessments;
@@ -79,16 +80,14 @@ public class AssessmentFactory {
    * SCAP methods are for any complete SCAP content.
    * OVAL methods handle special OVAL processing used in both SCAP and Standalone Components.
    *
-   * @param scapVersion specified in SCAP content. If component check this should be null
-   * @param scapUseCase specified in SCAP content. If component check this should be null
-   * @param contentType one of three content types, not null
+   * @param scapVersion        specified in SCAP content. If component check this should be null
+   * @param scapUseCase        specified in SCAP content. If component check this should be null
+   * @param contentType        one of three content types, not null
    * @param documentToValidate an XMLDocument object loaded from user specified target, not null
-   * @throws DocumentException
-   * @throws SCAPException
    */
 
-  public AssessmentFactory(SCAPVersion scapVersion, String scapUseCase, Application.ContentType
-      contentType, XMLDocument documentToValidate) throws DocumentException, SCAPException {
+  public AssessmentFactory(SCAPVersion scapVersion, String scapUseCase, Application.ContentType contentType,
+                           XMLDocument documentToValidate) throws DocumentException, SCAPException {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
     Objects.requireNonNull(documentToValidate, "documentToValidate cannot be null.");
 
@@ -97,20 +96,20 @@ public class AssessmentFactory {
       this.scapVersion = scapVersion;
       this.scapUseCase = scapUseCase;
       this.contentToCheckType = contentType;
-      this.XMLContentToValidate = documentToValidate;
+      this.xmlContentToValidate = documentToValidate;
       switch (scapVersion) {
-        case V1_1:
-          this.dataStream = new SCAP11DataStream(documentToValidate.getOriginalLocation().getPath
-              (), contentType, this.scapUseCase);
-          break;
-        case V1_2:
-          this.dataStream = new SCAP12DataStream(documentToValidate.getOriginalLocation().getPath
-              (), contentType);
-          break;
-        case V1_3:
-          this.dataStream = new SCAP13DataStream(documentToValidate.getOriginalLocation().getPath
-              (), contentType);
-          break;
+      case V1_1:
+        this.dataStream = new SCAP11DataStream(
+            documentToValidate.getOriginalLocation().getPath(), contentType, this.scapUseCase);
+        break;
+      case V1_2:
+        this.dataStream = new SCAP12DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
+        break;
+      case V1_3:
+        this.dataStream = new SCAP13DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
+        break;
+      default:
+        throw new SCAPException("Unsupported SCAP Version: " + scapVersion);
       }
 
       this.schemaAssessment = createSCAPSchemaAssessment();
@@ -121,12 +120,13 @@ public class AssessmentFactory {
       String namespace = documentToValidate.getJDOMDocument().getRootElement().getNamespaceURI();
       IndividualComponent component = IndividualComponent.getByNamespace(namespace);
       if (component == null) {
-        throw new SCAPException("Unsupported component found. SCAPVal will validate components " +
-            "with namespace of: " + IndividualComponent.getAllComponentNamespaces());
+        throw new SCAPException(
+            "Unsupported component found. SCAPVal will validate components " + "with namespace of: " +
+                IndividualComponent.getAllComponentNamespaces());
       }
       log.debug("Discovered component namespace: " + namespace);
       this.contentToCheckType = contentType;
-      this.XMLContentToValidate = documentToValidate;
+      this.xmlContentToValidate = documentToValidate;
 
       this.schemaAssessment = createStandaloneComponentSchemaAssessment(component);
       this.schematronAssessments = createStandaloneComponentSchematronAssessments(component);
@@ -139,35 +139,30 @@ public class AssessmentFactory {
    * In order to validate properly all schemas must be returned and included in a single assessment.
    *
    * @return SCAP SchemaAssessments based on this AssessmentFactory
-   * @throws SCAPException
    */
 
   protected SchemaAssessment createSCAPSchemaAssessment() throws SCAPException {
 
-    SchemaAssessment scapSchemaAssessment = DecimaXML.newSchemaAssessment(SCAPValReqManager
-        .RequirementMappings.SCHEMA_VALIDATION.getSCAPReqID(scapVersion, contentToCheckType),
+    SchemaAssessment scapSchemaAssessment = DecimaXML.newSchemaAssessment(
+        SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getSCAPReqID(scapVersion, contentToCheckType),
         this.dataStream.getSchemas());
 
     return scapSchemaAssessment;
   }
 
   /**
-   * Creates required SCAP schematron assessments based on scapVersion
+   * Creates required SCAP schematron assessments based on scapVersion.
    *
    * @return an SCAP Schematron Assessment based on this AssessmentFactory
-   * @throws SCAPException
    */
   protected Assessment<XMLDocument> createSCAPSchematronAssessments() throws SCAPException {
-    Assessment<XMLDocument> scapSchematronAssessments = null;
-
     List<Assessment<XMLDocument>> assessmentGroup = new LinkedList<>();
 
     // gather SCAP specific schematron assessements
     LinkedList<SchematronSet> schematronSets = dataStream.getSchematronSets();
     for (SchematronSet schematronSet : schematronSets) {
-      SchematronAssessment schematronAssessment = newSchematronAssessment(schematronSet
-          .getSchematron(), schematronSet.getSchematronPhase(), schematronSet
-          .getSchematronHandler());
+      SchematronAssessment schematronAssessment = newSchematronAssessment(
+          schematronSet.getSchematron(), schematronSet.getSchematronPhase(), schematronSet.getSchematronHandler());
       // some schematrons have parameters which need to be set
       if (schematronSet.hasSchematronParams()) {
         schematronAssessment.addParameters(schematronSet.getSchematronParams());
@@ -176,29 +171,27 @@ public class AssessmentFactory {
     }
 
     // gather OVAL schematron assessments
-    OVALVersion ovalVersion = OVALVersion.getByString(scapVersion.getOvalSupportedVersion()
-        .getVersionString());
+    OVALVersion ovalVersion = OVALVersion.getByString(scapVersion.getOvalSupportedVersion().getVersionString());
     if (ovalVersion == null) {
       throw new SCAPException("Unable to locate a supported oval version.");
     }
-    List<Assessment<XMLDocument>> ovalSchematronAssessments = createOVALSchematronAssessments
-        (ovalVersion, contentToCheckType);
+    List<Assessment<XMLDocument>> ovalSchematronAssessments = createOVALSchematronAssessments(
+        ovalVersion, contentToCheckType);
 
     // The below utilize schematron <rule @context> so they should only fire if the specified
     // context element is found. This should prevent false positives from occurring
     assessmentGroup.addAll(ovalSchematronAssessments);
-    scapSchematronAssessments = Decima.newAssessmentSequence(assessmentGroup);
+    Assessment<XMLDocument> scapSchematronAssessments = Decima.newAssessmentSequence(assessmentGroup);
 
     return scapSchematronAssessments;
   }
 
 
   /**
-   * Creates schema assessments for Individual Component file validation
+   * Creates schema assessments for Individual Component file validation.
    *
    * @param component an Individual component seperate from an SCAP check, not null
    * @return an component SchemaAssessment based on the IndividualComponent
-   * @throws SCAPException
    */
   protected SchemaAssessment createStandaloneComponentSchemaAssessment(
       IndividualComponent component) throws SCAPException {
@@ -211,91 +204,89 @@ public class AssessmentFactory {
     schemaList.add(new StreamSource("classpath:xsd/oasis/docs/election/external/xAL.xsd"));
     schemaList.add(new StreamSource("classpath:xsd/oasis/docs/election/external/xNL.xsd"));
     switch (component) {
-      case XCCDF_1_1_4:
-        log.info("Discovered a XCCDF 1.1.4 file to validate");
-        schemaList.add(new StreamSource("classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd"));
-        break;
-      case XCCDF_1_2:
-        log.info("Discovered a XCCDF 1.2 file to validate");
-        schemaList.add(new StreamSource("classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd"));
-        schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.3/cpe-language_2.3.xsd"));
-        break;
-      case OCIL:
-        log.info("Discovered an OCIL file to validate");
-        schemaList.add(new StreamSource("classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd"));
-        break;
-      case OVAL_DEF:
-        // OVAL_DEF and OVAL_RES treated the same, fall through
-      case OVAL_RES:
-        log.info("Discovered an OVAL file to validate");
-        // OVAL schemas are handled separately based on the schema_version specified
-        return createOVALSchemaAssessment(XMLContentToValidate.getJDOMDocument().getRootElement());
+    case XCCDF_1_1_4:
+      log.info("Discovered a XCCDF 1.1.4 file to validate");
+      schemaList.add(new StreamSource("classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd"));
+      break;
+    case XCCDF_1_2:
+      log.info("Discovered a XCCDF 1.2 file to validate");
+      schemaList.add(new StreamSource("classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd"));
+      schemaList.add(new StreamSource("classpath:xsd/nist/cpe/2.3/cpe-language_2.3.xsd"));
+      break;
+    case OCIL:
+      log.info("Discovered an OCIL file to validate");
+      schemaList.add(new StreamSource("classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd"));
+      break;
+    case OVAL_DEF:
+      // OVAL_DEF and OVAL_RES treated the same, fall through
+    case OVAL_RES:
+      log.info("Discovered an OVAL file to validate");
+      // OVAL schemas are handled separately based on the schema_version specified
+      return createOVALSchemaAssessment(xmlContentToValidate.getJDOMDocument().getRootElement());
+    default:
+      throw new SCAPException(
+          "Unsupported component found. SCAPVal will validate components " + "with namespace of: " +
+              IndividualComponent.getAllComponentNamespaces());
     }
-
-    return new SchemaAssessment(SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION
-        .getIndividualComponentReqID(), schemaList);
-
+    return new SchemaAssessment(
+        SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getIndividualComponentReqID(), schemaList);
   }
 
   /**
-   * Creates schematron assessments for Individual Component file validation
+   * Creates schematron assessments for Individual Component file validation.
    *
    * @param component an Individual component seperate from an SCAP check, not null
    * @return a component Schematron Assessment based on the IndividualComponent
    */
-  protected Assessment<XMLDocument> createStandaloneComponentSchematronAssessments
-  (IndividualComponent component) {
+  protected Assessment<XMLDocument> createStandaloneComponentSchematronAssessments(IndividualComponent component) {
     Objects.requireNonNull(component, "component cannot be null.");
 
-    Assessment<XMLDocument> xmlDocumentAssessments = null;
+    Assessment<XMLDocument> xmlDocumentAssessments;
     List<Assessment<XMLDocument>> assessmentGroup = new LinkedList<>();
 
-    Schematron xccdfSchematron, ocilSchematron;
-    SchematronHandler schematronHandler = new ComponentSchematronHandler(SCAPValReqManager
-        .RequirementMappings.SCHEMATRON_VALIDATION.getIndividualComponentReqID());
+    Schematron xccdfSchematron;
+    Schematron ocilSchematron;
+    SchematronHandler schematronHandler = new ComponentSchematronHandler(
+        SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getIndividualComponentReqID());
 
     try {
       switch (component) {
-        case XCCDF_1_1_4:
-          //No schematron avail
+      case XCCDF_1_1_4:
+        //No schematron avail
+        break;
+      case XCCDF_1_2:
+        xccdfSchematron = newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
+        // the xccdf schematron has phases to account for
+        SchematronAssessment xccdfSchematronAssessment = null;
+        switch (contentToCheckType) {
+        case SOURCE:
+          xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
           break;
-        case XCCDF_1_2:
-          xccdfSchematron = newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
-          // the xccdf schematron has phases to account for
-          SchematronAssessment xccdfSchematronAssessment = null;
-          switch (contentToCheckType) {
-            case SOURCE:
-              xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark",
-                  schematronHandler);
-              break;
-            case RESULT:
-              xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "ARF-Check",
-                  schematronHandler);
-              break;
-            case COMPONENT:
-              xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark",
-                  schematronHandler);
-              break;
-          }
-          assessmentGroup.add(xccdfSchematronAssessment);
+        case RESULT:
+          xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "ARF-Check", schematronHandler);
           break;
-        case OCIL:
-          ocilSchematron = newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
-          SchematronAssessment ocilSchematronAssessment = newSchematronAssessment(ocilSchematron,
-              null, schematronHandler);
-          assessmentGroup.add(ocilSchematronAssessment);
+        case COMPONENT:
+          xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
           break;
-        case OVAL_DEF:
-          // OVAL_DEF and OVAL_RES treated the same, fall through
-        case OVAL_RES:
-          Element ovalComponent = XMLContentToValidate.getJDOMDocument().getRootElement();
-          OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
-          if (ovalVersion == null) {
-            throw new SCAPException("Unable to locate a supported oval version via " +
-                "<schema_version> element.");
-          }
-          assessmentGroup.addAll(createOVALSchematronAssessments(ovalVersion, contentToCheckType));
-          break;
+        }
+        assessmentGroup.add(xccdfSchematronAssessment);
+        break;
+      case OCIL:
+        ocilSchematron = newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
+        SchematronAssessment ocilSchematronAssessment = newSchematronAssessment(ocilSchematron, null,
+            schematronHandler);
+        assessmentGroup.add(ocilSchematronAssessment);
+        break;
+      case OVAL_DEF:
+        // OVAL_DEF and OVAL_RES treated the same, fall through
+      case OVAL_RES:
+        Element ovalComponent = xmlContentToValidate.getJDOMDocument().getRootElement();
+        OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
+        if (ovalVersion == null) {
+          throw new SCAPException("Unable to locate a supported oval version via " + "<schema_version> element.");
+        }
+        assessmentGroup.addAll(createOVALSchematronAssessments(ovalVersion, contentToCheckType));
+        break;
       }
 
       xmlDocumentAssessments = Decima.newAssessmentSequence(assessmentGroup);
@@ -316,7 +307,7 @@ public class AssessmentFactory {
    * @return a List of OVAL schematron Assessments
    */
   protected List<Assessment<XMLDocument>> createOVALSchematronAssessments(
-      OVALVersion ovalVersion,  Application.ContentType contentType) {
+      OVALVersion ovalVersion, Application.ContentType contentType) {
     Objects.requireNonNull(ovalVersion, "ovalVersion cannot be null.");
     Objects.requireNonNull(contentType, "contentType cannot be null.");
 
@@ -327,11 +318,10 @@ public class AssessmentFactory {
     //provide the correct derivedRequirementID, this could vary based on scap version or component
     String derivedRequirementID = "";
     if (contentType.equals(Application.ContentType.COMPONENT)) {
-      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
-          .getIndividualComponentReqID();
+      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getIndividualComponentReqID();
     } else {
-      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
-          .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT);
+      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(
+          scapVersion, Application.ContentType.COMPONENT);
     }
     try {
       schematronCompiler = new DefaultSchematronCompiler();
@@ -345,37 +335,35 @@ public class AssessmentFactory {
       SchematronAssessment ovalSchematronResultsAssessment;
       SchematronAssessment ovalSchematronDefinitionsAssessment;
       switch (contentType) {
-        //this is an SCAP result content validation. Add the OVAL results schematron to check
-        case RESULT:
-          ovalSchematronResults = schematronCompiler.newSchematron(new URL
-              ("classpath:rules/other/" + ovalVersion.getResultSchematron()));
-          ovalSchematronResultsAssessment = new SchematronAssessment(ovalSchematronResults, null,
-              new ComponentSchematronHandler(derivedRequirementID));
-          ovalComponentAssessments.add(ovalSchematronResultsAssessment);
-          break;
-        //this is an SCAP source content validation. Add the OVAL definitions schematron to check
-        case SOURCE:
-          ovalSchematronDefinitions = schematronCompiler.newSchematron(new URL
-              ("classpath:rules/other/" + ovalVersion.getDefinitionSchematron()));
-          ovalSchematronDefinitionsAssessment = new SchematronAssessment
-              (ovalSchematronDefinitions, null, new ComponentSchematronHandler
-                  (derivedRequirementID));
-          ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
-          break;
-        //this is standalone OVAL content validation. Add both the OVAL results and definitions
-          // schematron to check
-        case COMPONENT:
-          ovalSchematronResults = schematronCompiler.newSchematron(new URL
-              ("classpath:rules/other/" + ovalVersion.getResultSchematron()));
-          ovalSchematronResultsAssessment = new SchematronAssessment(ovalSchematronResults, null,
-              new ComponentSchematronHandler(derivedRequirementID));
-          ovalComponentAssessments.add(ovalSchematronResultsAssessment);
-          ovalSchematronDefinitions = schematronCompiler.newSchematron(new URL
-              ("classpath:rules/other/" + ovalVersion.getDefinitionSchematron()));
-          ovalSchematronDefinitionsAssessment = new SchematronAssessment
-              (ovalSchematronDefinitions, null, new ComponentSchematronHandler
-                  (derivedRequirementID));
-          ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
+      //this is an SCAP result content validation. Add the OVAL results schematron to check
+      case RESULT:
+        ovalSchematronResults = schematronCompiler.newSchematron(
+            new URL("classpath:rules/other/" + ovalVersion.getResultSchematron()));
+        ovalSchematronResultsAssessment = new SchematronAssessment(ovalSchematronResults, null,
+            new ComponentSchematronHandler(derivedRequirementID));
+        ovalComponentAssessments.add(ovalSchematronResultsAssessment);
+        break;
+      //this is an SCAP source content validation. Add the OVAL definitions schematron to check
+      case SOURCE:
+        ovalSchematronDefinitions = schematronCompiler.newSchematron(
+            new URL("classpath:rules/other/" + ovalVersion.getDefinitionSchematron()));
+        ovalSchematronDefinitionsAssessment = new SchematronAssessment(
+            ovalSchematronDefinitions, null, new ComponentSchematronHandler(derivedRequirementID));
+        ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
+        break;
+      //this is standalone OVAL content validation. Add both the OVAL results and definitions
+      // schematron to check
+      case COMPONENT:
+        ovalSchematronResults = schematronCompiler.newSchematron(
+            new URL("classpath:rules/other/" + ovalVersion.getResultSchematron()));
+        ovalSchematronResultsAssessment = new SchematronAssessment(ovalSchematronResults, null,
+            new ComponentSchematronHandler(derivedRequirementID));
+        ovalComponentAssessments.add(ovalSchematronResultsAssessment);
+        ovalSchematronDefinitions = schematronCompiler.newSchematron(
+            new URL("classpath:rules/other/" + ovalVersion.getDefinitionSchematron()));
+        ovalSchematronDefinitionsAssessment = new SchematronAssessment(
+            ovalSchematronDefinitions, null, new ComponentSchematronHandler(derivedRequirementID));
+        ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
       }
 
     } catch (MalformedURLException | SchematronCompilationException e) {
@@ -386,38 +374,39 @@ public class AssessmentFactory {
 
 
   /**
-   * OVAL schema assessments require extra handling
+   * OVAL schema assessments require extra handling.
    *
    * @param ovalComponent the OVAL Element under assessment, not null
    * @return an OVAL SchemaAssessment based on the Oval Component
-   * @throws SCAPException
    */
 
-  protected SchemaAssessment createOVALSchemaAssessment(Element ovalComponent) throws
-      SCAPException {
+  protected SchemaAssessment createOVALSchemaAssessment(Element ovalComponent) throws SCAPException {
     Objects.requireNonNull(ovalComponent, "ovalComponent cannot be null.");
     OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
     if (ovalVersion == null) {
-      throw new SCAPException("Unable to locate a supported oval version via <schema_version> " +
-          "element.");
+      throw new SCAPException("Unable to locate a supported oval version via <schema_version> " + "element.");
     }
-    LinkedList<StreamSource> schemaList = ovalVersion.getOVALSchemas(scapVersion,
-        contentToCheckType);
+    LinkedList<StreamSource> schemaList = ovalVersion.getOVALSchemas(scapVersion, contentToCheckType);
     schemaList.add(new StreamSource("classpath:xsd/w3c/TR/xmldsig-core/xmldsig-core-schema.xsd"));
     //provide the correct derivedRequirementID, this will vary based on SCAP version or
-      // individual component
+    // individual component
     String derivedRequirementID = "";
     if (contentToCheckType.equals(Application.ContentType.COMPONENT)) {
-      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION
-          .getIndividualComponentReqID();
+      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getIndividualComponentReqID();
     } else {
-      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getSCAPReqID
-          (scapVersion, Application.ContentType.COMPONENT);
+      derivedRequirementID = SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getSCAPReqID(
+          scapVersion, Application.ContentType.COMPONENT);
     }
 
     return new SchemaAssessment(derivedRequirementID, schemaList);
   }
 
+  /**
+   * Creates the Decima AssessmentExecutor after the schema/schematron assessments have been defined.
+   *
+   * @param executorService The Decima ExecutorService which should contain the threadPool count
+   * @return The AssessmentExecutor for the SCAPVal XML content under validation.
+   */
   public AssessmentExecutor<XMLDocument> newAssessmentExecutor(ExecutorService executorService) {
     Objects.requireNonNull(executorService, "executorService cannot be null.");
 
@@ -425,13 +414,12 @@ public class AssessmentFactory {
 
     assessments.add(schemaAssessment);
     assessments.add(schematronAssessments);
-    AssessmentExecutor<XMLDocument> executor = new ConcurrentAssessmentExecutor<>
-        (executorService, assessments);
+    AssessmentExecutor<XMLDocument> executor = new ConcurrentAssessmentExecutor<>(executorService, assessments);
     return executor;
   }
 
-  public XMLDocument getXMLContentToValidate() {
-    return XMLContentToValidate;
+  public XMLDocument getXmlContentToValidate() {
+    return xmlContentToValidate;
   }
 
 }

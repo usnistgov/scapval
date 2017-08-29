@@ -6,7 +6,7 @@
  * be in the public domain. Permission to freely use, copy, modify, and distribute
  * this software and its documentation without fee is hereby granted, provided that
  * this notice and disclaimer of warranty appears in all copies.
- * <p>
+ *
  * THE SOFTWARE IS PROVIDED 'AS IS' WITHOUT ANY WARRANTY OF ANY KIND, EITHER
  * EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY
  * THAT THE SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY IMPLIED WARRANTIES OF
@@ -136,12 +136,16 @@ public class Application {
     int result;
     try {
       result = new Application().runCLI(args);
-    } catch (ParseException | ConfigurationException | SCAPException | DocumentException e) {
+    } catch (ConfigurationException e) {
+      // A ConfigurationException will automatically print usage instructions on the command line
+      result = 1;
+    } catch (ParseException | SCAPException | DocumentException e) {
       // These exceptions are somewhat expected and a simple error message is sufficient
       log.info(e.getMessage());
       result = 1;
     } catch (SchematronCompilationException | AssessmentException | JDOMException | SAXException | URISyntaxException
         | IOException | RequirementsParserException | TransformerException | RuntimeException e) {
+      // These exceptions are runtime issues and prevent scapval from properly running
       log.error("SCAPVal has encountered a problem and cannot continue with this validation." + "" + " - " + e);
       result = -1;
     }
@@ -471,11 +475,11 @@ public class Application {
       }
     }
 
-    // handle when -XMLsourceds is specified
+    // handle when -sourceds is specified
     if (cmd.getOptionValue(OPTION_SOURCE_DS) != null) {
       //this option should only be specified when checking result content
       if (!contentToCheckType.equals(ContentType.RESULT)) {
-        throw new ConfigurationException("-XMLsourceds can only be specified when validation " + "result content");
+        throw new ConfigurationException("-sourceds can only be specified when validation " + "result content");
       }
 
       // the specified XML sourceds will ultimately be combined with the result content
@@ -489,8 +493,7 @@ public class Application {
           }
         }
       } else {
-        // user has not specified -combinedoutput we will set it by default and make sure we can
-        // write to it
+        // user has not specified -combinedoutput we will set it by default and make sure we can write to it
         File sourcedsCombinedOuput = new File(
             FileUtils.getFilenamePrefix(contentToCheckFilename) + "-with-data-stream.xml");
         if (!sourcedsCombinedOuput.exists()) {
@@ -514,22 +517,19 @@ public class Application {
       } else {
         //1.2 and 1.3 source ds must be an xml file
         if (!FileUtils.determineFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.XML)) {
-          throw new ConfigurationException("-XMLsourceds must be an .XML file containing a " + "source-data-stream");
+          throw new ConfigurationException("-sourceds must be an .XML file containing a " + "source-data-stream");
         }
       }
     }
 
-    // handle when -combinedoutput is specified
-    if (cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT) != null) {
-      // make sure it hasn't already been set (in the case of -XMLsourceds)
-      if (combinedOutput == null) {
-        combinedOutput = new File(cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT));
-        if (!combinedOutput.exists()) {
-          if (!combinedOutput.createNewFile() || !combinedOutput.canWrite()) {
-            throw new IOException(
-                "Cannot write to: " + combinedOutput + " Please specify a " + "valid" + " location " + "" + "" + "" +
-                    "" + "" + "" + "" + "" + "to " + "write the combined file to");
-          }
+    // handle when -combinedoutput is specified without -sourceds
+    if (cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT) != null && cmd.getOptionValue(OPTION_SOURCE_DS) == null) {
+      combinedOutput = new File(cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT));
+      if (!combinedOutput.exists()) {
+        if (!combinedOutput.createNewFile() || !combinedOutput.canWrite()) {
+          throw new IOException(
+              "Cannot write to: " + combinedOutput + " Please specify a " + "valid" + " location " + "" + "" + "" +
+                  "" + "" + "" + "" + "" + "to " + "write the combined file to");
         }
       }
     }
