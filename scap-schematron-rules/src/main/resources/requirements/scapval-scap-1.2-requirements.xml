@@ -2921,124 +2921,6 @@
         </derived-requirements>
     </requirement>
     <!-- These are additional requirements which may not have a direct mapping to SP800-126 but provide clarity to results or are required for SCAPVal -->
-    <!--<requirement id="A-1">-->
-    <!--<summary>Offline Mode</summary>-->
-    <!--<reference ref="SCAPVAL1.3" section="N/A" />-->
-    <!--<statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>-->
-    <!--<derived-requirements>-->
-    <!--<derived-requirement id="A-1-1" type="INFORMATIONAL" scapval-ext:check-type="APPLICATION">-->
-    <!--<statement>SCAPVal was in offline mode.</statement>-->
-    <!--<message>SCAPVal was in offline mode while evaluating this content. It is not resolving external references and is not checking for the latest CCE and CPE dictionary content online.</message>-->
-    <!--</derived-requirement>-->
-    <!--</derived-requirements>-->
-    <!--</requirement>-->
-    <!-- A-2 is considered a runtime error in SCAPVal 1.3 and will exit with an error on the CLI
-  <requirement id="A-2">
-    <summary />
-    <reference ref="SCAPVAL1.3" section="N/A" />
-    <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-    <derived-requirements>
-      <derived-requirement id="A-2-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
-        <statement>Version not found in OVAL file, unable to apply OVAL schematron rules.</statement>
-        <message>''{0}''</message>
-      </derived-requirement>
-    </derived-requirements>
-  </requirement>
-  -->
-    <!-- A-3 is considered a runtime error in SCAPVal 1.3 and will exit with an error on the CLI
-<requirement id="A-3">
-  <summary />
-  <reference ref="SCAPVAL1.3" section="N/A" />
-  <statement>This is an additional application specific requirement. If content does not pass this check the SCAP Content Validation Tool may fail.</statement>
-  <derived-requirements>
-    <derived-requirement id="A-3-1" type="MUST" scapval-ext:check-type="APPLICATION">
-      <statement>A file that is required for the SCAP validation use case could not be located. Please ensure that the file is named in accordance with the NIST SP 800-126 and that the file is not contained within a sub folder.</statement>
-      <message>''{0}''</message>
-    </derived-requirement>
-  </derived-requirements>
-</requirement>
-  -->
-    <!-- A-4 is considered a runtime error in SCAPVal 1.3 and will exit with an error on the CLI
-<requirement id="A-4">
-  <summary />
-  <reference ref="SCAPVAL1.3" section="N/A" />
-  <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-  <derived-requirements>
-    <derived-requirement id="A-4-1" type="SHOULD" scapval-ext:check-type="APPLICATION">
-      <statement>Skipping unrecognized file in SCAP bundle.</statement>
-      <message>''{0}''</message>
-    </derived-requirement>
-  </derived-requirements>
-</requirement>
--->
-    <!-- A-5 is considered a runtime error in SCAPVal 1.3 and will exit with an error on the CLI
-<requirement id="A-5">
-<summary />
-<reference ref="SCAPVAL1.3" section="N/A" />
-<statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-<derived-requirements>
-<derived-requirement id="A-5-1" type="MUST" scapval-ext:check-type="APPLICATION">
-  <statement>SCAP use case not found in combined data stream.</statement>
-  <message>''{0}''</message>
-</derived-requirement>
-</derived-requirements>
-</requirement>
--->
-    <!-- A-6 is considered a runtime error in SCAPVal 1.3 and will exit with an error on the CLI
-<requirement id="A-6">
-<summary />
-<reference ref="SCAPVAL1.3" section="N/A" />
-<statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-<derived-requirements>
-<derived-requirement id="A-6-1" type="MUST" scapval-ext:check-type="APPLICATION">
-  <statement>SCAP version not found in combined data stream.</statement>
-  <message>''{0}''</message>
-</derived-requirement>
-</derived-requirements>
-</requirement>
--->
-    <!-- SCAPVal will evaluate remote content if downloaded. Errors will be reported if there is a problem, no need for this additional req
- <requirement id="A-7">
-   <summary />
-   <reference ref="SCAPVAL1.3" section="N/A" />
-   <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-   <derived-requirements>
-     <derived-requirement id="A-7-1" type="MUST" scapval-ext:check-type="APPLICATION">
-       <statement>XCCDF document contains a reference to an unrecognized file type.</statement>
-       <message>''{0}''</message>
-     </derived-requirement>
-   </derived-requirements>
- </requirement>
- -->
-    <!-- This is covered by A-1
- <requirement id="A-8">
-   <summary />
-   <reference ref="SCAPVAL1.3" section="N/A" />
-   <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-   <derived-requirements>
-     <derived-requirement id="A-8-1" type="MUST" scapval-ext:check-type="APPLICATION">
-       <statement>Working off-line, unable to resolve remote reference in XCCDF document.</statement>
-       <message>''{0}''</message>
-     </derived-requirement>
-   </derived-requirements>
- </requirement>
- -->
-    <!--This is handled as a note in the validation report-->
-    <!--<requirement id="A-9">-->
-        <!--<summary/>-->
-        <!--<reference ref="SCAPVAL1.3" section="N/A"/>-->
-        <!--<statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results-->
-            <!--or is a check of SCAPVal functionality.-->
-        <!--</statement>-->
-        <!--<derived-requirements>-->
-            <!--<derived-requirement id="A-9-1" type="MUST" scapval-ext:check-type="APPLICATION">-->
-                <!--<statement>Remote reference in XCCDF document could not be located or is too large to download. To override the default maximum size limit for-->
-                    <!--remote references, set the -maxsize parameter-->
-                <!--</statement>-->
-                <!--<message>''{0}''</message>-->
-            <!--</derived-requirement>-->
-        <!--</derived-requirements>-->
-    <!--</requirement>-->
     <requirement id="A-10">
         <summary />
         <reference ref="SCAPVAL1.3" section="N/A" />
@@ -3054,34 +2936,6 @@
             </derived-requirement>
         </derived-requirements>
     </requirement>
-    <!-- SCAPVal 1.3 currently defines schemas to be used and ignores user specified schemas -->
-    <!--
-  <requirement id="A-11">
-    <summary />
-    <reference ref="SCAPVAL1.3" section="N/A" />
-    <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-    <derived-requirements>
-      <derived-requirement id="A-11-1" type="MUST" scapval-ext:check-type="APPLICATION">
-        <statement>Unrecognized schema reference.</statement>
-        <message>''{0}''</message>
-      </derived-requirement>
-    </derived-requirements>
-  </requirement>
-  -->
-    <!-- SCAPVal 1.3 currently defines schemas to be used and ignores user specified schemas -->
-    <!--
-  <requirement id="A-12">
-    <summary />
-    <reference ref="SCAPVAL1.3" section="N/A" />
-    <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-    <derived-requirements>
-      <derived-requirement id="A-12-1" type="SHOULD" scapval-ext:check-type="APPLICATION">
-        <statement>In certain instances, a newer XML schema may be substituted for an older one for schema validation.</statement>
-        <message>''{0}''</message>
-      </derived-requirement>
-    </derived-requirements>
-  </requirement>
-  -->
     <requirement id="A-14">
         <summary/>
         <reference ref="SCAPVAL1.3" section="N/A"/>
@@ -3144,32 +2998,6 @@
             </derived-requirement>
         </derived-requirements>
     </requirement>
-    <!-- Various Schematron checks will error if there is missing content
-<requirement id="A-19">
-  <summary />
-  <reference ref="SCAPVAL1.3" section="N/A" />
-  <statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-  <derived-requirements>
-    <derived-requirement id="A-19-1" type="MUST" scapval-ext:check-type="APPLICATION">
-      <statement>A file that is required for the SCAP results validation could not be located. Please ensure that the file is named in accordance with the NIST SP 800-126 and that the file is not contained within a sub folder.</statement>
-      <message>''{0}''</message>
-    </derived-requirement>
-  </derived-requirements>
-</requirement>
--->
-    <!-- This was not implemented in scapval 1.2
-<requirement id="A-20">
-<summary />
-<reference ref="SCAPVAL1.3" section="N/A" />
-<statement>This is an additional requirement which may not have a direct mapping to SP800-126. However, it is provided for clarity of validation results or is a check of SCAPVal functionality.</statement>
-<derived-requirements>
-  <derived-requirement id="A-20-1" type="MUST" scapval-ext:check-type="APPLICATION">
-    <statement>The profile provided on the command-line must exist in the source XCCDF document.</statement>
-    <message>''{0}''</message>
-  </derived-requirement>
-</derived-requirements>
-</requirement>
--->
     <requirement id="A-21">
         <summary/>
         <reference ref="SCAPVAL1.3" section="N/A"/>
