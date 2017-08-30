@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.component.SCAP11Components;
@@ -38,117 +39,110 @@ import java.util.List;
  */
 public class ScapFolderInspector implements ICandidateFileCreator {
 
-    private static final Logger log = LogManager.getLogger(ScapFolderInspector.class);
+  private static final Logger log = LogManager.getLogger(ScapFolderInspector.class);
 
-    /**
-     * Inspects a directory to see if it represents an SCAP bundle, based on
-     * SCAP 1.1 file naming conventions.
-     * 
-     * @param builder The CandidateFile.Builer.
-     * @return A CandidateFile object which represents the folder, and the SCAP
-     *         content types; otherwise, an UNKNOWN CandidateFile if the SCAP
-     *         content types were not found in the folder.
-     */
-    public CandidateFile createCandidate(final CandidateFile.Builder builder) {
+  /**
+   * Inspects a directory to see if it represents an SCAP bundle, based on
+   * SCAP 1.1 file naming conventions.
+   *
+   * @param builder The CandidateFile.Builer.
+   * @return A CandidateFile object containing the SCAP content types; otherwise type UNKNOWN is specified
+   */
+  public CandidateFile createCandidate(final CandidateFile.Builder builder) {
 
-        if (log.isDebugEnabled()) {
-            log.debug(String.format(
-                "Inspecting for SCAP %s",
-                builder.getFile().getAbsolutePath()));
-        }
-
-        final File file = builder.getFile();
-
-        if (!file.isDirectory()) {
-            throw new IllegalStateException("File must be a directory");
-        }
-
-        final List<String> filenames = getXmlFilenames(file);
-
-        final List<SCAP11Components> types = getScap11ContentTypes(filenames);
-
-        // if contains OVAL or CPE OVAL, then consider it an SCAP bundle
-        if (types.contains(SCAP11Components.OVAL_VULNERABILITY)
-            || types.contains(SCAP11Components.OVAL_COMPLIANCE)
-            || types.contains(SCAP11Components.OVAL_PATCH)
-            || types.contains(SCAP11Components.CPE_DICTIONARY)) {
-                return builder.setTypeScapBundle(types).createCandidateFile();
-        }
-
-        // not an SCAP bundle
-        return builder.setTypeUnknown("Folder is not an SCAP bundle").createCandidateFile();
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("Inspecting for SCAP %s", builder.getFile().getAbsolutePath()));
     }
 
-    /**
-     * Inspects a given folder to determine if it has SCAP 11 files based on the
-     * SCAP naming convention.
-     *
-     * @param filenames a list of String filenames
-     * @return the list of scap 11 files found
-     */
-    public List<SCAP11Components> getScap11ContentTypes(final List<String> filenames) {
+    final File file = builder.getFile();
 
-        final List<SCAP11Components> list = new LinkedList<SCAP11Components>();
-        for (final SCAP11Components type : SCAP11Components.values()) {
-            if (hasFileNamed(filenames, type)) {
-                list.add(type);
-            }
-        }
-        return list;
+    if (!file.isDirectory()) {
+      throw new IllegalStateException("File must be a directory");
     }
 
-    /**
-     * Returns true if the list of filenames contains a file named such that it
-     * matches a given SCAP content type.
-     * 
-     * @param filenames The list of filenames.
-     * @param type The SCAP content type.
-     * @return True, if the list of files has a file of that type.
-     */
-    private boolean hasFileNamed(
-            final List<String> filenames,
-            final SCAP11Components type) {
+    final List<String> filenames = getXmlFilenames(file);
 
-        for (final String filename : filenames) {
-            for(final String nameSuffix : type.getFileNameSuffixes()) {
-                if (filename.endsWith(nameSuffix)) {
-                    return true;
-                }
-            }
+    final List<SCAP11Components> types = getScap11ContentTypes(filenames);
+
+    // if contains OVAL or CPE OVAL, then consider it an SCAP bundle
+    if (types.contains(SCAP11Components.OVAL_VULNERABILITY) || types.contains(
+        SCAP11Components.OVAL_COMPLIANCE) || types.contains(SCAP11Components.OVAL_PATCH) || types.contains(
+        SCAP11Components.CPE_DICTIONARY)) {
+      return builder.setTypeScapBundle(types).createCandidateFile();
+    }
+
+    // not an SCAP bundle
+    return builder.setTypeUnknown("Folder is not an SCAP bundle").createCandidateFile();
+  }
+
+  /**
+   * Inspects a given folder to determine if it has SCAP 11 files based on the
+   * SCAP naming convention.
+   *
+   * @param filenames a list of String filenames
+   * @return the list of scap 11 files found
+   */
+  public List<SCAP11Components> getScap11ContentTypes(final List<String> filenames) {
+
+    final List<SCAP11Components> list = new LinkedList<SCAP11Components>();
+    for (final SCAP11Components type : SCAP11Components.values()) {
+      if (hasFileNamed(filenames, type)) {
+        list.add(type);
+      }
+    }
+    return list;
+  }
+
+  /**
+   * Returns true if the list of filenames contains a file named such that it
+   * matches a given SCAP content type.
+   *
+   * @param filenames The list of filenames.
+   * @param type      The SCAP content type.
+   * @return True, if the list of files has a file of that type.
+   */
+  private boolean hasFileNamed(
+      final List<String> filenames, final SCAP11Components type) {
+
+    for (final String filename : filenames) {
+      for (final String nameSuffix : type.getFileNameSuffixes()) {
+        if (filename.endsWith(nameSuffix)) {
+          return true;
         }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns list of filenames from folder.
+   *
+   * @param folder The folder.
+   * @return The list of filenames.
+   */
+  private List<String> getXmlFilenames(final File folder) {
+
+    final List<String> filenames = new ArrayList<String>();
+    final File[] xmlFiles = folder.listFiles(new XmlFileFilter());
+    for (final File xmlFile : xmlFiles) {
+      filenames.add(xmlFile.getName());
+    }
+    return filenames;
+
+  }
+
+  /**
+   * Filter non-directory, XML files.
+   */
+  static class XmlFileFilter implements FileFilter {
+
+    public boolean accept(File pathname) {
+      if (pathname == null) {
         return false;
+      }
+      return pathname.isFile() && pathname.getName().toLowerCase().endsWith(".xml");
     }
 
-    /**
-     * Returns list of filenames from folder.
-     * 
-     * @param folder The folder.
-     * @return The list of filenames.
-     */
-    private List<String> getXmlFilenames(final File folder) {
-
-        final List<String> filenames = new ArrayList<String>();
-        final File[] xmlFiles = folder.listFiles(new XmlFileFilter());
-        for (final File xmlFile : xmlFiles) {
-            filenames.add(xmlFile.getName());
-        }
-        return filenames;
-
-    }
-
-    /**
-     * Filter non-directory, XML files.
-     */
-    static class XmlFileFilter implements FileFilter {
-
-        public boolean accept(File pathname) {
-            if (pathname == null) {
-                return false;
-            }
-            return pathname.isFile()
-                && pathname.getName().toLowerCase().endsWith(".xml");
-        }
-
-    }
+  }
 
 }

@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.SCAPVersion;
@@ -34,7 +35,7 @@ import java.util.List;
 /**
  * CandidateFile has information about a File (xml, zip, folder, etc) which may
  * or may not be eligible for validation by the SCAPVAL tools.
- * <p>
+ *
  * There are four types of CandidateFile:
  * <li>SCAP_BUNDLE is a folder or zip file containing SCAP 1.1 files.</li>
  * <li>SCAP_COMBINED_FILE is an SCAP 1.2/1.3 XML file.</li>
@@ -48,233 +49,226 @@ import java.util.List;
  * <p>
  * If the type is XCCDF, then it has an XCCDF version.
  */
+
 public class CandidateFile {
 
-    public enum Type {
-        SCAP_BUNDLE,
-        SCAP_COMBINED_FILE,
-        STANDALONE_XCCDF,
-        UNKNOWN
-    }
+  public enum Type {
+    SCAP_BUNDLE, SCAP_COMBINED_FILE, STANDALONE_XCCDF, UNKNOWN
+  }
 
-    // type of candidate
+  // type of candidate
+  private Type type;
+
+  // the file under consideration
+  private String absolutePath;
+
+  // user-friendly path hides absolute path
+  private String displayPath;
+
+  // the simple file name
+  private String name;
+
+  // conveys why this file is not eligible for validation, if disqualified
+  private String disqualificaiton;
+
+  // the XCCDF version, if applicable
+  private XccdfVersion xccdfVersion;
+
+  // the SCAP version, if applicable
+  private SCAPVersion scapVersion;
+
+  // the SCAP use case, if known
+  private String scapUseCase;
+
+  // the SCAP content types, if found
+  private List<SCAP11Components> scapContentTypes = new ArrayList<>();
+
+  // true if file was ZIP and was expanded
+  private boolean isExpanded;
+
+  /**
+   * Private constructor, use Builder.
+   */
+  private CandidateFile() {
+    super();
+  }
+
+  public Type getType() {
+    return this.type;
+  }
+
+  public String getAbsolutePath() {
+    return this.absolutePath;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public boolean isUnrecognized() {
+    return this.type == Type.UNKNOWN;
+  }
+
+  public String getDisqualificaiton() {
+    return this.disqualificaiton;
+  }
+
+  public List<SCAP11Components> getScapContentTypes() {
+    return Collections.unmodifiableList(this.scapContentTypes);
+  }
+
+  public SCAPVersion getScapVersion() {
+    return this.scapVersion;
+  }
+
+  public String getScapUseCase() {
+    return this.scapUseCase;
+  }
+
+  public XccdfVersion getXccdfVersion() {
+    return xccdfVersion;
+  }
+
+  public boolean isExpansionRequired() {
+    return (this.type == Type.UNKNOWN) && this.isZipFile();
+  }
+
+  public boolean isZipFile() {
+    return this.name.toLowerCase().endsWith(".zip");
+  }
+
+  public boolean isExpanded() {
+    return isExpanded;
+  }
+
+  public String getDisplayPath() {
+    return displayPath;
+  }
+
+  static class Builder {
+
+    private final String name;
+    private final String displayPath;
+    private final CandidateFile parent;
+
+    private File file;
+
     private Type type;
-
-    // the file under consideration
-    private String absolutePath;
-
-    // user-friendly path hides absolute path
-    private String displayPath;
-
-    // the simple file name
-    private String name;
-
-    // conveys why this file is not eligible for validation, if disqualified
-    private String disqualificaiton;
-
-    // the XCCDF version, if applicable
+    private String disqualification;
     private XccdfVersion xccdfVersion;
-
-    // the SCAP version, if applicable
     private SCAPVersion scapVersion;
-
-    // the SCAP use case, if known
     private String scapUseCase;
+    private List<SCAP11Components> scapContentTypes;
 
-    // the SCAP content types, if found
-    private List<SCAP11Components> scapContentTypes = new ArrayList<>();
-
-    // true if file was ZIP and was expanded
     private boolean isExpanded;
 
-    /**
-     * Private constructor, use Builder.
-     */
-    private CandidateFile() {
-        super();
+    public Builder(final CandidateFile parent, final File file) {
+      this.parent = parent;
+      this.file = file;
+
+      if (this.file == null) {
+        throw new IllegalStateException("File cannot be null");
+      }
+      this.name = this.file.getName();
+      this.displayPath = computeDisplayPath();
     }
 
-    public Type getType() {
-        return this.type;
+    public Builder(final File file) {
+      this(null, file);
     }
 
-    public String getAbsolutePath() {
-        return this.absolutePath;
+    public boolean isFileDirectory() {
+      return this.file.isDirectory();
     }
 
-    public String getName() {
-        return this.name;
+    public boolean isFileXml() {
+      return this.file.getName().toLowerCase().endsWith(".xml");
     }
 
-    public boolean isUnrecognized() {
-        return this.type == Type.UNKNOWN;
+    public boolean isFileZip() {
+      return this.file.getName().toLowerCase().endsWith(".zip");
     }
 
-    public String getDisqualificaiton() {
-        return this.disqualificaiton;
+    public CandidateFile createCandidateFile() {
+
+      if (this.type == null) {
+        throw new IllegalStateException("Unable to create candidate file, CandidateFile.Type is null");
+      }
+
+      final CandidateFile candidate = new CandidateFile();
+
+      candidate.absolutePath = file.getAbsolutePath();
+      candidate.isExpanded = this.isExpanded;
+
+      candidate.name = this.name;
+      candidate.displayPath = this.displayPath;
+      candidate.type = this.type;
+
+      candidate.disqualificaiton = this.disqualification;
+
+      candidate.xccdfVersion = this.xccdfVersion;
+      candidate.scapContentTypes = this.scapContentTypes == null ? new ArrayList<>() : this.scapContentTypes;
+      candidate.scapUseCase = this.scapUseCase;
+      candidate.scapVersion = this.scapVersion;
+
+      return candidate;
     }
 
-    public List<SCAP11Components> getScapContentTypes() {
-        return Collections.unmodifiableList(this.scapContentTypes);
+    private String computeDisplayPath() {
+      final StringBuilder builder = new StringBuilder();
+      if (this.parent != null) {
+        builder.append(this.parent.displayPath);
+        builder.append(File.separatorChar);
+      }
+      builder.append(this.file.getName());
+      return builder.toString();
     }
 
-    public SCAPVersion getScapVersion() {
-        return this.scapVersion;
+    private void setType(final Type type) {
+      if (this.type != null) {
+        throw new IllegalStateException(
+            String.format("Unable to set type to %s, type was already %s", type.name(), this.type.name()));
+      }
+      this.type = type;
     }
 
-    public String getScapUseCase() {
-        return this.scapUseCase;
+    public Builder setTypeUnknown(final String message) {
+      this.disqualification = message;
+      setType(Type.UNKNOWN);
+      return this;
     }
 
-    public XccdfVersion getXccdfVersion() {
-        return xccdfVersion;
+    public Builder setTypeXccdf(final XccdfVersion version) {
+      this.xccdfVersion = version;
+      setType(Type.STANDALONE_XCCDF);
+      return this;
     }
 
-    public boolean isExpansionRequired() {
-        return (this.type == Type.UNKNOWN) && this.isZipFile();
+    public Builder setTypeScapCombinedFile(
+        final SCAPVersion version, final String useCase) {
+      this.scapVersion = version;
+      this.scapUseCase = useCase;
+      setType(Type.SCAP_COMBINED_FILE);
+      return this;
     }
 
-    public boolean isZipFile() {
-        return this.name.toLowerCase().endsWith(".zip");
+    public Builder setTypeScapBundle(final List<SCAP11Components> types) {
+      this.scapContentTypes = types;
+      setType(Type.SCAP_BUNDLE);
+      return this;
     }
 
-    public boolean isExpanded() {
-        return isExpanded;
+    public Builder setExpandedTo(final File expandedTo) {
+      if (isExpanded) {
+        throw new IllegalStateException("Unable to expand file twice.");
+      }
+      this.isExpanded = true;
+      this.file = expandedTo;
+      return this;
     }
 
-    public String getDisplayPath() {
-        return displayPath;
+    public File getFile() {
+      return file;
     }
-
-    static class Builder {
-
-        private final String name;
-        private final String displayPath;
-        private final CandidateFile parent;
-
-        private File file;
-
-        private Type type;
-        private String disqualification;
-        private XccdfVersion xccdfVersion;
-        private SCAPVersion scapVersion;
-        private String scapUseCase;
-        private List<SCAP11Components> scapContentTypes;
-
-        private boolean isExpanded;
-
-        public Builder(final CandidateFile parent, final File file) {
-            this.parent = parent;
-            this.file = file;
-
-            if (this.file == null) {
-                throw new IllegalStateException("File cannot be null");
-            }
-            this.name = this.file.getName();
-            this.displayPath = computeDisplayPath();
-        }
-
-        public Builder(final File file) {
-            this(null, file);
-        }
-
-        public boolean isFileDirectory() {
-            return this.file.isDirectory();
-        }
-
-        public boolean isFileXml() {
-            return this.file.getName().toLowerCase().endsWith(".xml");
-        }
-
-        public boolean isFileZip() {
-            return this.file.getName().toLowerCase().endsWith(".zip");
-        }
-
-        public CandidateFile createCandidateFile() {
-
-            if (this.type == null) {
-                throw new IllegalStateException(
-                    "Unable to create candidate file, CandidateFile.Type is null");
-            }
-
-            final CandidateFile candidate = new CandidateFile();
-
-            candidate.absolutePath = file.getAbsolutePath();
-            candidate.isExpanded = this.isExpanded;
-
-            candidate.name = this.name;
-            candidate.displayPath = this.displayPath;
-            candidate.type = this.type;
-
-            candidate.disqualificaiton = this.disqualification;
-
-            candidate.xccdfVersion = this.xccdfVersion;
-            candidate.scapContentTypes =
-                this.scapContentTypes == null ? new ArrayList<>() : this.scapContentTypes;
-            candidate.scapUseCase = this.scapUseCase;
-            candidate.scapVersion = this.scapVersion;
-
-            return candidate;
-        }
-
-        private String computeDisplayPath() {
-            final StringBuilder builder = new StringBuilder();
-            if (this.parent != null) {
-                builder.append(this.parent.displayPath);
-                builder.append(File.separatorChar);
-            }
-            builder.append(this.file.getName());
-            return builder.toString();
-        }
-
-        private void setType(final Type type) {
-            if (this.type != null) {
-                throw new IllegalStateException(String.format(
-                    "Unable to set type to %s, type was already %s",
-                    type.name(),
-                    this.type.name()));
-            }
-            this.type = type;
-        }
-
-        public Builder setTypeUnknown(final String message) {
-            this.disqualification = message;
-            setType(Type.UNKNOWN);
-            return this;
-        }
-
-        public Builder setTypeXccdf(final XccdfVersion version) {
-            this.xccdfVersion = version;
-            setType(Type.STANDALONE_XCCDF);
-            return this;
-        }
-
-        public Builder setTypeScapCombinedFile(
-                final SCAPVersion version,
-                final String useCase) {
-            this.scapVersion = version;
-            this.scapUseCase = useCase;
-            setType(Type.SCAP_COMBINED_FILE);
-            return this;
-        }
-
-        public Builder setTypeScapBundle(final List<SCAP11Components> types) {
-            this.scapContentTypes = types;
-            setType(Type.SCAP_BUNDLE);
-            return this;
-        }
-
-        public Builder setExpandedTo(final File expandedTo) {
-            if (isExpanded) {
-                throw new IllegalStateException("Unable to expand file twice.");
-            }
-            this.isExpanded = true;
-            this.file = expandedTo;
-            return this;
-        }
-
-        public File getFile() {
-            return file;
-        }
-    }
+  }
 }

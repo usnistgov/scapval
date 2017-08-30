@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 /**
@@ -27,17 +28,17 @@ package gov.nist.scap.validation.candidate;
  */
 public interface ICandidateFileCreator {
 
-    /**
-     * Takes a CandidateFile.Builder and returns the corresponding
-     * CandidateFile.
-     * <p>
-     * By convention the resulting candidate file is never be null. If the File
-     * is not a real candidate, then the resulting CandidateFile should be of
-     * type UNKNOWN, and have a disqualification message to indicate why the
-     * candidate file was disqualified.
-     * 
-     * @param builder The CandidateFile.Builder with information about a file.
-     * @return The CandidateFile.
-     */
-    CandidateFile createCandidate(CandidateFile.Builder builder);
+  /**
+   * Takes a CandidateFile.Builder and returns the corresponding
+   * CandidateFile.
+   * <p>
+   * By convention the resulting candidate file is never be null. If the File
+   * is not a real candidate, then the resulting CandidateFile should be of
+   * type UNKNOWN, and have a disqualification message to indicate why the
+   * candidate file was disqualified.
+   *
+   * @param builder The CandidateFile.Builder with information about a file.
+   * @return The CandidateFile.
+   */
+  CandidateFile createCandidate(CandidateFile.Builder builder);
 }

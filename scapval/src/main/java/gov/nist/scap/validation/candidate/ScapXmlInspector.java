@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.NamespaceConstants;
@@ -35,142 +36,127 @@ import java.io.File;
  */
 public class ScapXmlInspector implements ICandidateFileCreator {
 
-    private static final Logger log = LogManager.getLogger(ScapXmlInspector.class);
+  private static final Logger log = LogManager.getLogger(ScapXmlInspector.class);
 
-    // delegate to ScapDocumentSniffer to check for XML schema reference
-    private final ScapDocumentSniffer xmlSniffer = new ScapDocumentSniffer();
+  // delegate to ScapDocumentSniffer to check for XML schema reference
+  private final ScapDocumentSniffer xmlSniffer = new ScapDocumentSniffer();
 
-    /**
-     * Returns CandidateFile information about a file.
-     * 
-     * @param builder The CandidateFile.Builder that represents the file.
-     */
-    public CandidateFile createCandidate(final CandidateFile.Builder builder) {
+  /**
+   * Returns CandidateFile information about a file.
+   *
+   * @param builder The CandidateFile.Builder that represents the file.
+   */
+  public CandidateFile createCandidate(final CandidateFile.Builder builder) {
 
-        // determine the root schema
-        final String contentType =
-            this.xmlSniffer.findContentType(builder.getFile().getAbsolutePath());
+    // determine the root schema
+    final String contentType = this.xmlSniffer.findContentType(builder.getFile().getAbsolutePath());
 
-        // SCAP 1.2 XML
-        if (NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(contentType)) {
-            return createScap12Candidate(builder);
-        }
-
-        // SCAP 1.3 XML
-        if (NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(contentType)) {
-            return createScap13Candidate(builder);
-        }
-
-        // XCCDF 1.2 XML
-        if (NamespaceConstants.NS_XCCDF_1_2.getNamespaceString().equals(contentType)) {
-            return createXccdfCandidate(builder, XccdfVersion.V1_2);
-        }
-
-        // XCCDF 1.1.4 XML
-        if (NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString().equals(contentType)) {
-            return createXccdfCandidate(builder, XccdfVersion.V1_1_4);
-        }
-
-        return builder.setTypeUnknown("XML is not an SCAP file").createCandidateFile();
+    // SCAP 1.2 XML
+    if (NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(contentType)) {
+      return createScap12Candidate(builder);
     }
 
-    /**
-     * Builds an SCAP 1.2 candidate file, including the use case, if found in
-     * document.
-     * 
-     * @param builder The CandidateFile.Builder which represents the file.
-     * @return The candidate file.
-     */
-    private CandidateFile createScap12Candidate(
-            final CandidateFile.Builder builder) {
-        final SCAPVersion version = SCAPVersion.V1_2;
-
-        if (log.isDebugEnabled()) {
-            log.debug(String.format(
-                "%s is %s",
-                builder.getFile().getName(),
-                version.name()));
-        }
-
-        // search for use case in SCAP document
-        final String useCase = findUseCase(builder.getFile(), SCAPVersion.V1_2);
-
-        // create candidate file
-        return builder.setTypeScapCombinedFile(version, useCase).createCandidateFile();
+    // SCAP 1.3 XML
+    if (NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(contentType)) {
+      return createScap13Candidate(builder);
     }
 
-    /**
-     * Builds an SCAP 1.3 candidate file, including the use case, if found in
-     * document.
-     *
-     * @param builder The CandidateFile.Builder which represents the file.
-     * @return The candidate file.
-     */
-    private CandidateFile createScap13Candidate(
-            final CandidateFile.Builder builder) {
-        final SCAPVersion version = SCAPVersion.V1_3;
-
-        if (log.isDebugEnabled()) {
-            log.debug(String.format(
-                    "%s is %s",
-                    builder.getFile().getName(),
-                    version.name()));
-        }
-
-        // search for use case in SCAP document
-        final String useCase = findUseCase(builder.getFile(), SCAPVersion.V1_3);
-
-        // create candidate file
-        return builder.setTypeScapCombinedFile(version, useCase).createCandidateFile();
+    // XCCDF 1.2 XML
+    if (NamespaceConstants.NS_XCCDF_1_2.getNamespaceString().equals(contentType)) {
+      return createXccdfCandidate(builder, XccdfVersion.V1_2);
     }
 
-    /**
-     * Inspects an SCAP file to determine the use case.
-     * 
-     * @param file The SCAP file.
-     * @return The use case, or null if not found.
-     */
-    private String findUseCase(final File file, final SCAPVersion scapVersion) {
-
-        String useCase = null;
-        final String useCaseName =
-            this.xmlSniffer.findUseCase(file.getAbsolutePath());
-
-        if (useCaseName != null) {
-
-            try {
-                if (scapVersion.isUseCaseValid(useCaseName)) {
-                    useCase = useCaseName;
-                }
-
-            } catch (IllegalArgumentException e) {
-                log.warn(String.format(
-                    "%s has invalid SCAP use case %s",
-                    file.getName(),
-                    useCaseName));
-            }
-        }
-        return useCase;
+    // XCCDF 1.1.4 XML
+    if (NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString().equals(contentType)) {
+      return createXccdfCandidate(builder, XccdfVersion.V1_1_4);
     }
 
-    /**
-     * Builds an XCCDF candidate file.
-     * 
-     * @param builder The CandidateFile.Builder which represents the file.
-     * @param version The XCCDF version.
-     * @return The candidate file.
-     */
-    private CandidateFile createXccdfCandidate(
-            final CandidateFile.Builder builder,
-            final XccdfVersion version) {
-        if (log.isDebugEnabled()) {
-            log.debug(String.format(
-                "%s is %s",
-                builder.getFile().getName(),
-                version.name()));
+    return builder.setTypeUnknown("XML is not an SCAP file").createCandidateFile();
+  }
+
+  /**
+   * Builds an SCAP 1.2 candidate file, including the use case, if found in
+   * document.
+   *
+   * @param builder The CandidateFile.Builder which represents the file.
+   * @return The candidate file.
+   */
+  private CandidateFile createScap12Candidate(
+      final CandidateFile.Builder builder) {
+    final SCAPVersion version = SCAPVersion.V1_2;
+
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("%s is %s", builder.getFile().getName(), version.name()));
+    }
+
+    // search for use case in SCAP document
+    final String useCase = findUseCase(builder.getFile(), SCAPVersion.V1_2);
+
+    // create candidate file
+    return builder.setTypeScapCombinedFile(version, useCase).createCandidateFile();
+  }
+
+  /**
+   * Builds an SCAP 1.3 candidate file, including the use case, if found in
+   * document.
+   *
+   * @param builder The CandidateFile.Builder which represents the file.
+   * @return The candidate file.
+   */
+  private CandidateFile createScap13Candidate(
+      final CandidateFile.Builder builder) {
+    final SCAPVersion version = SCAPVersion.V1_3;
+
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("%s is %s", builder.getFile().getName(), version.name()));
+    }
+
+    // search for use case in SCAP document
+    final String useCase = findUseCase(builder.getFile(), SCAPVersion.V1_3);
+
+    // create candidate file
+    return builder.setTypeScapCombinedFile(version, useCase).createCandidateFile();
+  }
+
+  /**
+   * Inspects an SCAP file to determine the use case.
+   *
+   * @param file The SCAP file.
+   * @return The use case, or null if not found.
+   */
+  private String findUseCase(final File file, final SCAPVersion scapVersion) {
+
+    String useCase = null;
+    final String useCaseName = this.xmlSniffer.findUseCase(file.getAbsolutePath());
+
+    if (useCaseName != null) {
+
+      try {
+        if (scapVersion.isUseCaseValid(useCaseName)) {
+          useCase = useCaseName;
         }
 
-        return builder.setTypeXccdf(version).createCandidateFile();
+      } catch (IllegalArgumentException e) {
+        log.warn(String.format("%s has invalid SCAP use case %s", file.getName(), useCaseName));
+      }
     }
+    return useCase;
+  }
+
+  /**
+   * Builds an XCCDF candidate file.
+   *
+   * @param builder The CandidateFile.Builder which represents the file.
+   * @param version The XCCDF version.
+   * @return The candidate file.
+   */
+  private CandidateFile createXccdfCandidate(
+      final CandidateFile.Builder builder, final XccdfVersion version) {
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("%s is %s", builder.getFile().getName(), version.name()));
+    }
+
+    return builder.setTypeXccdf(version).createCandidateFile();
+  }
 
 }

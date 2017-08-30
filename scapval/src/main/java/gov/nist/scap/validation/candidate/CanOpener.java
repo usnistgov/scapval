@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,111 +28,116 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Opens a candidate file for validation.
  */
 public class CanOpener implements ICandidateFileCreator {
 
-    private static final Logger log = LogManager.getLogger(CanOpener.class);
+  private static final Logger log = LogManager.getLogger(CanOpener.class);
 
-    private CandidateFileList candidates = new CandidateFileList();
+  private CandidateFileList candidates = new CandidateFileList();
 
-    private final ICandidateFileCreator scapFolderInspector =
-        new ScapFolderInspector();
-    private final ICandidateFileCreator scapXmlInspector =
-        new ScapXmlInspector();
-    private final ZipExpander zipExpander;
+  private final ICandidateFileCreator scapFolderInspector = new ScapFolderInspector();
+  private final ICandidateFileCreator scapXmlInspector = new ScapXmlInspector();
+  private final ZipExpander zipExpander;
 
-    public CanOpener(final int bufferSize) {
-        this.zipExpander = new ZipExpander(bufferSize);
+  public CanOpener(final int bufferSize) {
+    this.zipExpander = new ZipExpander(bufferSize);
+  }
+
+  /**
+   * Returns all the candidates in a file. The candidates may or may not be
+   * validate-able items.
+   *
+   * @param file The file we are inspecting.
+   * @return The list of items to possibly validate.
+   */
+  public CandidateFileList findCandidateFiles(final File file) {
+    Objects.requireNonNull(file, "file cannot be null.");
+    this.candidates = new CandidateFileList();
+    final CandidateFile.Builder builder = new CandidateFile.Builder(file);
+    createCandidate(builder);
+    return this.candidates;
+  }
+
+  /**
+   * Takes a Candidate file builder and returns the candidate file
+   *
+   * @param builder The CandidateFile.Builder with information about a file.
+   * @return the CandidateFile per the specified builder
+   */
+  public CandidateFile createCandidate(final CandidateFile.Builder builder) {
+
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("Processing %s", builder.getFile().getAbsolutePath()));
     }
 
-    /**
-     * Returns all the candidates in a file. The candidates may or may not be
-     * validate-able items.
-     * 
-     * @param file The file we are inspecting.
-     * @return The list of items to possibly validate.
-     */
-    public CandidateFileList findCandidateFiles(final File file) {
+    CandidateFile candidate = null;
 
-        this.candidates = new CandidateFileList();
-        final CandidateFile.Builder builder = new CandidateFile.Builder(file);
-        createCandidate(builder);
-        return this.candidates;
+    // if file is a ZIP file
+    if (builder.isFileZip()) {
+
+      // expand the file
+      final File expanded = this.zipExpander.expand(builder.getFile());
+      builder.setExpandedTo(expanded);
     }
 
-    public CandidateFile createCandidate(final CandidateFile.Builder builder) {
+    // if the file is a directory
+    if (builder.isFileDirectory()) {
 
-        if (log.isDebugEnabled()) {
-            log.debug(String.format(
-                "Processing %s",
-                builder.getFile().getAbsolutePath()));
-        }
+      // inspect for SCAP contents
+      candidate = this.scapFolderInspector.createCandidate(builder);
+    } else {
 
-        CandidateFile candidate = null;
+      // if file is XML
+      if (builder.isFileXml()) {
 
-        // if file is a ZIP file
-        if (builder.isFileZip()) {
+        // inspect XML for SCAP or XCCDF content
+        candidate = this.scapXmlInspector.createCandidate(builder);
+      } else {
 
-            // expand the file
-            final File expanded = this.zipExpander.expand(builder.getFile());
-            builder.setExpandedTo(expanded);
-        }
-
-        // if the file is a directory
-        if (builder.isFileDirectory()) {
-
-            // inspect for SCAP contents
-            candidate = this.scapFolderInspector.createCandidate(builder);
-        } else {
-
-            // if file is XML
-            if (builder.isFileXml()) {
-
-                // inspect XML for SCAP or XCCDF content
-                candidate = this.scapXmlInspector.createCandidate(builder);
-            } else {
-
-                // otherwise, the file type is unrecognized
-                candidate =
-                    builder.setTypeUnknown(
-                        "File is not recognized for validation.").createCandidateFile();
-            }
-        }
-
-        // add candidate to list
-        this.candidates.addCandidate(candidate);
-
-        // process folder children, if candidate is not yet identified
-        if (candidate.isUnrecognized() && builder.isFileDirectory()) {
-
-            processChildren(candidate, builder.getFile());
-        }
-
-        return candidate;
+        // otherwise, the file type is unrecognized
+        candidate = builder.setTypeUnknown("File is not recognized for validation.").createCandidateFile();
+      }
     }
 
-    private void processChildren(final CandidateFile parent, final File folder) {
+    // add candidate to list
+    this.candidates.addCandidate(candidate);
 
-        // recursively process every child file
-        for (final File child : folder.listFiles()) {
+    // process folder children, if candidate is not yet identified
+    if (candidate.isUnrecognized() && builder.isFileDirectory()) {
 
-            final CandidateFile.Builder folderChildBuilder =
-                new CandidateFile.Builder(parent, child);
-
-            createCandidate(folderChildBuilder);
-        }
+      processChildren(candidate, builder.getFile());
     }
 
-    public void deleteExpandedFiles(final CandidateFileList candidates) {
+    return candidate;
+  }
 
-        final List<CandidateFile> files = candidates.getCandidates();
-        for (final CandidateFile file : files) {
-            if (file.isExpanded()) {
-                this.zipExpander.deleteDirectory(new File(file.getAbsolutePath()));
-            }
-        }
+  private void processChildren(final CandidateFile parent, final File folder) {
+
+    // recursively process every child file
+    for (final File child : folder.listFiles()) {
+
+      final CandidateFile.Builder folderChildBuilder = new CandidateFile.Builder(parent, child);
+
+      createCandidate(folderChildBuilder);
     }
+  }
+
+  /**
+   * Deletes expanded candidate files on the filesystem.
+   *
+   * @param candidates the CandidateFileList to be deleted
+   */
+  public void deleteExpandedFiles(final CandidateFileList candidates) {
+
+    final List<CandidateFile> files = candidates.getCandidates();
+    for (final CandidateFile file : files) {
+      if (file.isExpanded()) {
+        this.zipExpander.deleteDirectory(new File(file.getAbsolutePath()));
+      }
+    }
+  }
 }

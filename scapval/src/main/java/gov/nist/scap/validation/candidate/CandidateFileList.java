@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import java.util.ArrayList;
@@ -28,32 +29,37 @@ import java.util.List;
 
 /**
  * Provides a means to aggregate candidate files and return an
- * unfiltered list or filtered list by validatable candidates
+ * unfiltered list or filtered list by validatable candidates.
  */
 public class CandidateFileList {
 
-    private final List<CandidateFile> candidates = new ArrayList<CandidateFile>();
+  private final List<CandidateFile> candidates = new ArrayList<CandidateFile>();
 
-    public CandidateFileList() {
-        super();
+  public CandidateFileList() {
+    super();
+  }
+
+  public void addCandidate(final CandidateFile candidate) {
+    this.candidates.add(candidate);
+  }
+
+  public List<CandidateFile> getCandidates() {
+    return Collections.unmodifiableList(candidates);
+  }
+
+  /**
+   * Returns a list of candidate files.
+   *
+   * @return a List of CandidateFile
+   */
+  public List<CandidateFile> getValidatableCandidates() {
+
+    final List<CandidateFile> validatable = new ArrayList<CandidateFile>();
+    for (final CandidateFile candidate : this.candidates) {
+      if (!candidate.isUnrecognized()) {
+        validatable.add(candidate);
+      }
     }
-
-    public void addCandidate(final CandidateFile candidate) {
-        this.candidates.add(candidate);
-    }
-
-    public List<CandidateFile> getCandidates() {
-        return Collections.unmodifiableList(candidates);
-    }
-
-    public List<CandidateFile> getValidatableCandidates() {
-
-        final List<CandidateFile> validatable = new ArrayList<CandidateFile>();
-        for (final CandidateFile candidate : this.candidates) {
-            if (!candidate.isUnrecognized()) {
-                validatable.add(candidate);
-            }
-        }
-        return Collections.unmodifiableList(validatable);
-    }
+    return Collections.unmodifiableList(validatable);
+  }
 }
