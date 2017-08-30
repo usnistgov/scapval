@@ -20,7 +20,10 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.datastream;
+
+import static gov.nist.decima.xml.DecimaXML.newSchematron;
 
 import gov.nist.decima.xml.assessment.schematron.SchematronHandler;
 import gov.nist.decima.xml.schematron.Schematron;
@@ -33,20 +36,18 @@ import gov.nist.scap.validation.component.OVALVersion;
 import gov.nist.scap.validation.requirements.decima.ComponentSchematronHandler;
 import gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler;
 
-import javax.xml.transform.stream.StreamSource;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
-
-import static gov.nist.decima.xml.DecimaXML.newSchematron;
+import javax.xml.transform.stream.StreamSource;
 
 /**
  * Provides SCAP 1.1 specific schema/schematron items required for SCAPVal validation.
  */
-public class SCAP11DataStream implements ISCAPDataStream {
+public class SCAP11DataStream implements IScapDataStream {
 
   private String id;
   private String useCase;
@@ -56,16 +57,20 @@ public class SCAP11DataStream implements ISCAPDataStream {
   private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.1.sch";
 
   private static final String[] Schemas = {
-          "classpath:xsd/nist/cpe/2.2/cpe-language_2.2a.xsd",
-          "classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd",
-          "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd",
-          "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd",
-          "classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd"
-  };
-  private static final String[] AdditionalResultSchemas = {
-          "classpath:scapval-xsd/scap-result_1.1.xsd",
-  };
+      "classpath:xsd/nist/cpe/2.2/cpe-language_2.2a.xsd",
+      "classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd",
+      "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd",
+      "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd",
+      "classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd"};
+  private static final String[] AdditionalResultSchemas = {"classpath:scapval-xsd/scap-result_1.1.xsd",};
 
+  /**
+   * The class constructor requires contentType and a usecase.
+   *
+   * @param id          a specified id for this datastream, can be null
+   * @param contentType the ContentType within this DS
+   * @param useCase     the usecase within this DS
+   */
   public SCAP11DataStream(String id, Application.ContentType contentType, String useCase) {
     Objects.requireNonNull(contentType, "contentType cannot be null.");
     Objects.requireNonNull(useCase, "useCase cannot be null.");
@@ -80,6 +85,11 @@ public class SCAP11DataStream implements ISCAPDataStream {
     return scapVersion;
   }
 
+  /**
+   * The Schematrons required to perform SCAP validation depends on the version of SCAP.
+   *
+   * @return a list of Schematron items required for creation of a SchematronAssessment.
+   */
   public LinkedList<SchematronSet> getSchematronSets() {
     LinkedList<SchematronSet> schematronSetList = new LinkedList<>();
     //populate the SchematronSets with everything required for creation of a SchematronAssessment
@@ -92,13 +102,11 @@ public class SCAP11DataStream implements ISCAPDataStream {
         Map<String, String> sourceParams = new HashMap<>();
         sourceParams.put("datafiles_directory", "classpath:data_feeds");
 
-        // scap 11 Source Assessment, usecase is used to specify a phase which enables proper
-          // schematron asserts
+        // scap 11 Source Assessment, usecase is used to specify a phase which enables proper schematron asserts
         String phase = this.useCase;
 
         // only scap 1.1 source schematron checks utilizes phases
-        SchematronSet schematronSet = new SchematronSet(schematron, schematronHandler, phase,
-            sourceParams);
+        SchematronSet schematronSet = new SchematronSet(schematron, schematronHandler, phase, sourceParams);
         schematronSetList.add(schematronSet);
 
       } else if (contentType.equals(Application.ContentType.RESULT)) {
@@ -111,25 +119,22 @@ public class SCAP11DataStream implements ISCAPDataStream {
       }
 
       // handle the rest of the component specific schematrons. Historically xccdf-1.2.sch and
-        // ocil-2.0.sch
+      // ocil-2.0.sch
       // have been used for all content and versions
       Schematron xccdfSchematron = newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
-      SchematronHandler xccdfSchematronHandler = new ComponentSchematronHandler(SCAPValReqManager
-          .RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion, Application
-              .ContentType.COMPONENT));
+      SchematronHandler xccdfSchematronHandler = new ComponentSchematronHandler(
+          SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion,
+              Application.ContentType.COMPONENT));
       //XCCDF schematron requires a phase
-      String XCCDFPhase = contentType.equals(Application.ContentType.RESULT) ? "ARF-Check" :
-          "Benchmark";
-      SchematronSet xccdfSchematronSet = new SchematronSet(xccdfSchematron,
-          xccdfSchematronHandler, XCCDFPhase, null);
+      String xccdfPhase = contentType.equals(Application.ContentType.RESULT) ? "ARF-Check" : "Benchmark";
+      SchematronSet xccdfSchematronSet = new SchematronSet(xccdfSchematron, xccdfSchematronHandler, xccdfPhase, null);
       schematronSetList.add(xccdfSchematronSet);
 
       Schematron ocilSchematron = newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
-      SchematronHandler ocilSchematronHandler = new ComponentSchematronHandler(SCAPValReqManager
-          .RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion, Application
-              .ContentType.COMPONENT));
-      SchematronSet ocilSchematronSet = new SchematronSet(ocilSchematron, ocilSchematronHandler,
-          null, null);
+      SchematronHandler ocilSchematronHandler = new ComponentSchematronHandler(
+          SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion,
+              Application.ContentType.COMPONENT));
+      SchematronSet ocilSchematronSet = new SchematronSet(ocilSchematron, ocilSchematronHandler, null, null);
       schematronSetList.add(ocilSchematronSet);
 
     } catch (MalformedURLException e) {
@@ -156,8 +161,7 @@ public class SCAP11DataStream implements ISCAPDataStream {
     }
 
     //get and load all the appropriate OVAL schemas
-    OVALVersion ovalVersion = OVALVersion.getByString(scapVersion.getOvalSupportedVersion()
-        .getVersionString());
+    OVALVersion ovalVersion = OVALVersion.getByString(scapVersion.getOvalSupportedVersion().getVersionString());
     schemaList.addAll(ovalVersion.getOVALSchemas(scapVersion, contentType));
 
     return schemaList;

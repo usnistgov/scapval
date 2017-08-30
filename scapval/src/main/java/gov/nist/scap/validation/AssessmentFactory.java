@@ -42,7 +42,7 @@ import gov.nist.decima.xml.schematron.SchematronCompilationException;
 import gov.nist.decima.xml.schematron.SchematronCompiler;
 import gov.nist.scap.validation.component.IndividualComponent;
 import gov.nist.scap.validation.component.OVALVersion;
-import gov.nist.scap.validation.datastream.ISCAPDataStream;
+import gov.nist.scap.validation.datastream.IScapDataStream;
 import gov.nist.scap.validation.datastream.SCAP11DataStream;
 import gov.nist.scap.validation.datastream.SCAP12DataStream;
 import gov.nist.scap.validation.datastream.SCAP13DataStream;
@@ -64,7 +64,7 @@ import javax.xml.transform.stream.StreamSource;
 public class AssessmentFactory {
 
   private SCAPVersion scapVersion;
-  private ISCAPDataStream dataStream;
+  private IScapDataStream dataStream;
   private String scapUseCase;
   private Application.ContentType contentToCheckType;
   private XMLDocument xmlContentToValidate;
@@ -268,6 +268,7 @@ public class AssessmentFactory {
         case COMPONENT:
           xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
           break;
+        default:
         }
         assessmentGroup.add(xccdfSchematronAssessment);
         break;
@@ -287,6 +288,7 @@ public class AssessmentFactory {
         }
         assessmentGroup.addAll(createOVALSchematronAssessments(ovalVersion, contentToCheckType));
         break;
+      default:
       }
 
       xmlDocumentAssessments = Decima.newAssessmentSequence(assessmentGroup);
@@ -364,6 +366,8 @@ public class AssessmentFactory {
         ovalSchematronDefinitionsAssessment = new SchematronAssessment(
             ovalSchematronDefinitions, null, new ComponentSchematronHandler(derivedRequirementID));
         ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
+        break;
+      default:
       }
 
     } catch (MalformedURLException | SchematronCompilationException e) {

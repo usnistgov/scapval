@@ -20,14 +20,15 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
-/** Valid OCIL versions and their specifics. */
+/**
+ * Valid OCIL versions and their specifics.
+ */
 public enum OCILVersion {
   // schema location, schematron location
-  V2_0(new String[]{
-      "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd",
-      "classpath:rules/other/ocil-2.0.sch"});
+  V2_0(new String[] {"classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd", "classpath:rules/other/ocil-2.0.sch"});
 
   private String[] validationFiles;
 

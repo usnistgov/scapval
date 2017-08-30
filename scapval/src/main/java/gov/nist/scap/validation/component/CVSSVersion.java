@@ -20,13 +20,15 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
-/** Valid CVSS versions and their specifics. */
+/**
+ * Valid CVSS versions and their specifics.
+ */
 public enum CVSSVersion {
   // no validation files used
-  V2_0,
-  V3_0;
+  V2_0, V3_0;
 
   public String getVersionString() {
     return this.toString().replace("_", ".").replace("V", "");

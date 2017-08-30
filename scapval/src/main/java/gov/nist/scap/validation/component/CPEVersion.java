@@ -20,13 +20,16 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
-/** Valid CPE versions and their specifics. */
+/**
+ * Valid CPE versions and their specifics.
+ */
 public enum CPEVersion {
   // schema location, no schematrons
-  V2_2( new String[] { "classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd"}),
-  V2_3( new String[] { "classpath:xsd/nist/cpe/2.3/cpe-dictionary_2.3.xsd"});
+  V2_2(new String[] {"classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd"}), V2_3(
+      new String[] {"classpath:xsd/nist/cpe/2.3/cpe-dictionary_2.3.xsd"});
 
   private String[] validationFiles;
 

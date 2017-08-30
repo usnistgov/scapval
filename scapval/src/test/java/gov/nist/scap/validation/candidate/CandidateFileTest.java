@@ -22,17 +22,20 @@
  */
 package gov.nist.scap.validation.candidate;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import gov.nist.scap.validation.SCAPVersion;
 import gov.nist.scap.validation.component.SCAP11Components;
-import gov.nist.scap.validation.component.XCCDFVersion;
-
+import gov.nist.scap.validation.component.XccdfVersion;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class CandidateFileTest {
   String property = "java.io.tmpdir";
@@ -86,7 +89,7 @@ public class CandidateFileTest {
     final File file = new File(tmpDir + "xccdf.xml");
 
     final CandidateFile.Builder builder = new CandidateFile.Builder(file).setTypeXccdf
-        (XCCDFVersion.V1_2);
+        (XccdfVersion.V1_2);
 
     final CandidateFile candidate = builder.createCandidateFile();
 
@@ -97,7 +100,7 @@ public class CandidateFileTest {
     assertNull(candidate.getDisqualificaiton());
 
     assertEquals(CandidateFile.Type.STANDALONE_XCCDF, candidate.getType());
-    assertEquals(XCCDFVersion.V1_2, candidate.getXccdfVersion());
+    assertEquals(XccdfVersion.V1_2, candidate.getXccdfVersion());
     assertNull(candidate.getScapVersion());
     assertNull(candidate.getScapUseCase());
     assertTrue(candidate.getScapContentTypes().isEmpty());
@@ -188,7 +191,7 @@ public class CandidateFileTest {
     final File childFile = new File(tmpDir + "myzip0/myxccdf.xml");
 
     final CandidateFile.Builder childBuilder = new CandidateFile.Builder(parent, childFile)
-        .setTypeXccdf(XCCDFVersion.V1_1_4);
+        .setTypeXccdf(XccdfVersion.V1_1_4);
 
     final CandidateFile candidate = childBuilder.createCandidateFile();
 
@@ -199,7 +202,7 @@ public class CandidateFileTest {
     assertNull(candidate.getDisqualificaiton());
 
     assertEquals(CandidateFile.Type.STANDALONE_XCCDF, candidate.getType());
-    assertEquals(XCCDFVersion.V1_1_4, candidate.getXccdfVersion());
+    assertEquals(XccdfVersion.V1_1_4, candidate.getXccdfVersion());
     assertNull(candidate.getScapVersion());
     assertNull(candidate.getScapUseCase());
     assertTrue(candidate.getScapContentTypes().isEmpty());

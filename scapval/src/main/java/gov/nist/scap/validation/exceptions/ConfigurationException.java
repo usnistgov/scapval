@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.exceptions;
 
 import gov.nist.scap.validation.Application;
@@ -28,6 +29,11 @@ public class ConfigurationException extends Exception {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * This ConfigurationException is used when CLI arguments are bad.
+   *
+   * @param message the error message
+   */
   public ConfigurationException(String message) {
     super(message);
     //There was a problem with CLI params, show tool usage

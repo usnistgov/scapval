@@ -20,11 +20,12 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import org.jdom2.Namespace;
 
-/** Namespaces used throughout SCAPVal */
+/** Namespaces used throughout SCAPVal. */
 public enum NamespaceConstants {
   NS_SOURCE_DS_1_3("http://scap.nist.gov/schema/scap/source/1.2"),
   NS_SOURCE_DS_1_2("http://scap.nist.gov/schema/scap/source/1.2"),

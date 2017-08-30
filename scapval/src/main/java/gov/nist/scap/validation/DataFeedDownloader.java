@@ -20,13 +20,22 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
+
+import static gov.nist.scap.validation.utils.FileUtils.BUFFER_SIZE;
 
 import gov.nist.scap.validation.utils.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -37,8 +46,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-
-import static gov.nist.scap.validation.utils.FileUtils.BUFFER_SIZE;
 
 /**
  * Fetches the current CCE and CPE dictionaries at the start of the validation
@@ -94,21 +101,25 @@ public class DataFeedDownloader {
    * Array of files to download with system property keys to override.
    */
 
-  static final URLHolder[] dictionaryUrls = new URLHolder[]{
-    new URLHolder("https://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.xml",
-        "https://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.xml.gz",
-        "https://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.meta",
-        "nvdcce-0.1-feed.xml"),
+  static final URLHolder[] dictionaryUrls = new URLHolder[] {new URLHolder(
+      "https://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.xml",
+      "https://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.xml.gz",
+      "https://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.meta", "nvdcce-0.1-feed.xml"),
 
-    new URLHolder(
-        "https://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.xml",
-        "https://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.xml.gz",
-        "https://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.meta",
-        "official-cpe-dictionary_v2.2.xml")
-    };
+      new URLHolder(
+          "https://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.xml",
+          "https://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.xml.gz",
+          "https://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.meta",
+          "official-cpe-dictionary_v2.2.xml")};
 
   private static final Logger log = LogManager.getLogger(DataFeedDownloader.class);
 
+  /**
+   * Checks for out of date local data feed files then downloads and updates the local files.
+   *
+   * @param maxDownloadSizeInMiB if the download surpasses this value it will fail.
+   * @return a boolean true if a successful download occurred, false if not
+   */
   public static boolean download(int maxDownloadSizeInMiB) {
     Objects.requireNonNull(maxDownloadSizeInMiB, "maxDownloadSizeInMiB can not be null");
 
@@ -141,9 +152,9 @@ public class DataFeedDownloader {
         throw new IOException("Cannot read directory: " + dataFeedsDirectoryPath);
       }
     } catch (IOException e) {
-      String errorText = "Unable to access the data_feeds directory." + System.lineSeparator() +
-          "CCE and CPE dictionaries will not be updated." + System.lineSeparator() + "If problem " +
-          "persists, try to re-extract SCAPVal. " + e.getMessage();
+      String errorText = "Unable to access the data_feeds directory." + System.lineSeparator() + "CCE and CPE " +
+          "dictionaries will not be updated." + System.lineSeparator() + "If problem " + "persists, try to " +
+          "re-extract" + " SCAPVal. " + e.getMessage();
       log.error(errorText);
       ValidationNotes.getInstance().createValidationNote(errorText);
       return false;
@@ -170,8 +181,7 @@ public class DataFeedDownloader {
           File decompressedFile = FileUtils.decompressGZIPFile(compressedFile);
 
           if (!compressedFile.delete()) {
-            log.error("Unable to clean up the downloaded file: " + compressedFile.getAbsolutePath
-                ());
+            log.error("Unable to clean up the downloaded file: " + compressedFile.getAbsolutePath());
           }
 
           if (decompressedFile == null) {
@@ -181,9 +191,10 @@ public class DataFeedDownloader {
             //check the published hash compared to downloaded file
             if (!doesSHA256Match(new BufferedInputStream(new FileInputStream(decompressedFile)),
                 url.getOnlineSHA256Hash())) {
-              log.error("Downloaded temp file does not match expected hash.  File will not be " +
-                  "used.");
-              decompressedFile.delete();
+              log.error("Downloaded temp file does not match expected hash.  File will not be " + "used.");
+              if (!decompressedFile.delete()) {
+                log.error("Unable to delete file: " + decompressedFile.getAbsolutePath());
+              }
               continue;
             }
             File permFile = new File(dataFeedsDirectoryFile, url.getLocalName());
@@ -195,8 +206,7 @@ public class DataFeedDownloader {
               }
             }
             //use Java nio to move the file, success will be determined by the path returned
-            Path tmp = Files.move(decompressedFile.toPath(), permFile.toPath(),
-                StandardCopyOption.REPLACE_EXISTING);
+            Path tmp = Files.move(decompressedFile.toPath(), permFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             if (tmp != permFile.toPath()) {
               log.error("Could not move temp file to permanent location.");
               decompressedFile.delete();
@@ -204,8 +214,7 @@ public class DataFeedDownloader {
           }
         } catch (IOException e) {
           log.error("Unable to download and update " + url.getLocalName());
-          ValidationNotes.getInstance().createValidationNote("Unable to download and update " +
-              url.getLocalName());
+          ValidationNotes.getInstance().createValidationNote("Unable to download and update " + url.getLocalName());
           return false;
         } catch (NoSuchAlgorithmException e) {
           log.error("SHA-256 not supported");
@@ -256,14 +265,12 @@ public class DataFeedDownloader {
         log.info("There is a newer version of: " + file.getAbsolutePath());
         return true;
       }
-      log.info(file + " (SHA-256: " + FileUtils.getFileHash(file, FileUtils
-          .DEFAULT_HASH_ALGORITHM) + ") is current.");
+      log.info(file + " (SHA-256: " + FileUtils.getFileHash(file, FileUtils.DEFAULT_HASH_ALGORITHM) + ") is current.");
     } catch (NoSuchAlgorithmException e) {
       //The algorithm is set as final var set in FileUtils.DEFAULT_HASH_ALGORITHM
     } catch (IOException e) {
       //the local file is not available, attempt to replace it
-      log.info("Unable to access: " + file.getAbsolutePath() + " an update will attempt to " +
-          "replace it.");
+      log.info("Unable to access: " + file.getAbsolutePath() + " an update will attempt to " + "replace it.");
       return true;
     }
     return false;
@@ -289,15 +296,15 @@ public class DataFeedDownloader {
     return baseDigest;
   }
 
-  private static boolean doesSHA256Match(InputStream basefile, byte[] baseDigest) throws
-      IOException, NoSuchAlgorithmException {
+  private static boolean doesSHA256Match(InputStream basefile, byte[] baseDigest) throws IOException,
+      NoSuchAlgorithmException {
 
     int length = BUFFER_SIZE;
     List<byte[]> basefileList = new LinkedList<byte[]>();
     while (length == BUFFER_SIZE) {
-      byte[] b = new byte[BUFFER_SIZE];
-      length = basefile.read(b);
-      basefileList.add(b);
+      byte[] bytes = new byte[BUFFER_SIZE];
+      length = basefile.read(bytes);
+      basefileList.add(bytes);
     }
     basefile.close();
     byte[] fileArray = new byte[BUFFER_SIZE * (basefileList.size() - 1) + length];
@@ -312,7 +319,9 @@ public class DataFeedDownloader {
     MessageDigest md = MessageDigest.getInstance("SHA-256");
     byte[] digest = md.digest(fileArray);
 
-    if (digest.length != baseDigest.length) return false;
+    if (digest.length != baseDigest.length) {
+      return false;
+    }
 
     for (int i = 0, size = baseDigest.length; i < size; i++) {
       if (baseDigest[i] != digest[i]) {
@@ -336,8 +345,9 @@ public class DataFeedDownloader {
     } catch (MalformedURLException e) {
       return false;
     } catch (IOException e) {
-      log.info("Unable to reach the server for metadata on the latest file online. " + "Local " +
-          "file: " + urlHolder.getLocalName() + " will not be updated.");
+      log.info(
+          "Unable to reach the server for metadata on the latest file online. " + "Local " + "file: " + urlHolder
+              .getLocalName() + " will not be updated.");
       return false;
     }
     return true;

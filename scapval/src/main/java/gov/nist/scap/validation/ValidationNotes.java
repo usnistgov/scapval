@@ -20,13 +20,16 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import java.util.LinkedList;
 import java.util.List;
 
-/** A singleton for collecting, storing, and providing validation notes
- * throughout the validation process. */
+/**
+ * A singleton for collecting, storing, and providing validation notes
+ * throughout the validation process.
+ */
 public class ValidationNotes {
 
   private static ValidationNotes instance;
@@ -35,6 +38,11 @@ public class ValidationNotes {
   private ValidationNotes() {
   }
 
+  /**
+   * Ensures ValidationNotes functions as a singleton.
+   *
+   * @return a single instance of ValidationNotes
+   */
   public static synchronized ValidationNotes getInstance() {
     if (instance == null) {
       instance = new ValidationNotes();

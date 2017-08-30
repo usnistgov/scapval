@@ -115,24 +115,24 @@ public class ContentCombiner {
     Map<String, JDOMDocument> scapComponentDocs = new LinkedHashMap<>();
 
     //find out exactly where the bundle is located, could be in the root or one level deep
-    File SCAP11BundleDir = locateSCAP11Bundle(scapContentsDir.getAbsolutePath());
-    if (SCAP11BundleDir == null) {
+    File scap11BundleDir = locateSCAP11Bundle(scapContentsDir.getAbsolutePath());
+    if (scap11BundleDir == null) {
       throw new SCAPException("Unable to find SCAP 1.1 content in: " + scapContentsDir.getAbsolutePath());
     } else {
-      log.debug("Found SCAP 1.1 bundle in: " + SCAP11BundleDir.getAbsolutePath());
+      log.debug("Found SCAP 1.1 bundle in: " + scap11BundleDir.getAbsolutePath());
     }
 
     //look for and download any XCCDF remote check-content-ref to include with the detected SCAP
     // 11 bundle dir
     Map<String, String> remoteURLandFilenames = new LinkedHashMap<>();
     if (isOnline) {
-      File[] files = SCAP11BundleDir.listFiles();
+      File[] files = scap11BundleDir.listFiles();
       if (files != null) {
         for (File file : files) {
           if (file.getName().contains("xccdf")) {
             //remote resources will attempt to be downloaded and if successful remoteURLandFilename
             //will contain the original URL and downloaded filename
-            remoteURLandFilenames = getXCCDF11RemoteResources(file, SCAP11BundleDir, maxDownloadSize);
+            remoteURLandFilenames = getXCCDF11RemoteResources(file, scap11BundleDir, maxDownloadSize);
           }
         }
       } else {
@@ -142,7 +142,7 @@ public class ContentCombiner {
 
     // gather all SCAP 1.1 files in the detected bundle dir, these will be sorted in appropriate
     // component order
-    File[] scap11Files = gatherSCAP11Files(SCAP11BundleDir);
+    File[] scap11Files = gatherSCAP11Files(scap11BundleDir);
 
     for (File file : scap11Files) {
       // for each component file
@@ -154,7 +154,7 @@ public class ContentCombiner {
     // now we have a list of all component XML documents, build an xml template dynamically
     // utilizing <sub> elements.
     URL baseTemplateURL;
-    String baseTemplateRootXPATH;
+    String baseTemplateRootXpath;
     Namespace baseTemplateNamespace;
     SaxonXPathFactory xpathFactory = new SaxonXPathFactory();
     MutableXMLDocument template = null;
@@ -164,10 +164,10 @@ public class ContentCombiner {
     //source specific template processing
     if (sourceDS == null) {
       baseTemplateURL = (new URL(SOURCE_BASE_LOCATION));
-      baseTemplateRootXPATH = "//*[local-name()='data-stream' and namespace-uri()='" + NamespaceConstants
+      baseTemplateRootXpath = "//*[local-name()='data-stream' and namespace-uri()='" + NamespaceConstants
           .NS_SOURCE_DS_1_1.getNamespaceString() + "']";
-      String xpathDataStreamUseCase = new StringBuilder(baseTemplateRootXPATH).append("/@use-case").toString();
-      String xpathDataStreamTimestamp = new StringBuilder(baseTemplateRootXPATH).append("/@timestamp").toString();
+      String xpathDataStreamUseCase = new StringBuilder(baseTemplateRootXpath).append("/@use-case").toString();
+      String xpathDataStreamTimestamp = new StringBuilder(baseTemplateRootXpath).append("/@timestamp").toString();
 
       // customize the template data-stream per user specified scap 1.1 use case and timestamp
       actions.add(new ModifyAttributeAction(xpathFactory, xpathDataStreamUseCase,
@@ -175,16 +175,14 @@ public class ContentCombiner {
       actions.add(new ModifyAttributeAction(xpathFactory, xpathDataStreamTimestamp,
           Collections.singletonMap(templateSub.getNamespacePrefix(), templateSub.getNamespaceURI()),
           new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())));
-    }
-    //result specific template processing
-    else {
+    } else { //result specific template processing
       //if sourceDS is provided, insert the source tag and included datastream within
       baseTemplateURL = (new URL(RESULT_BASE_LOCATION));
-      baseTemplateRootXPATH = "/*:results";
+      baseTemplateRootXpath = "/*:results";
 
       Element sourceElement = new Element("source");
       sourceElement = sourceElement.addContent(sourceDS.getJDOMDocument().getRootElement().detach());
-      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH,
+      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXpath,
           Collections.singletonMap(sourceElement.getNamespacePrefix(), sourceElement.getNamespaceURI()),
           Collections.singletonList(sourceElement), null));
 
@@ -196,12 +194,12 @@ public class ContentCombiner {
       String filename = pair.getKey();
       Element templateSubLocal = new Element("sub", COMPOSITE_NS_URI);
       templateSubLocal.setAttribute("name", filename);
-      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXPATH,
+      actions.add(new InsertChildAction(xpathFactory, baseTemplateRootXpath,
           Collections.singletonMap(templateSubLocal.getNamespacePrefix(), templateSubLocal.getNamespaceURI()),
           Collections.singletonList(templateSubLocal), null));
     }
 
-    URL contextSystemId = new File(SCAP11BundleDir.getAbsolutePath()).toURI().toURL();
+    URL contextSystemId = new File(scap11BundleDir.getAbsolutePath()).toURI().toURL();
     DefaultTemplateProcessor defaultTemplateProcessor = new DefaultTemplateProcessor(
         contextSystemId, baseTemplateURL, actions);
     template = defaultTemplateProcessor.generate(new SimpleXMLDocumentResolver());
@@ -250,7 +248,7 @@ public class ContentCombiner {
 
       //create a valid system id for each component
       String systemID = new File(
-          SCAP11BundleDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR + filename).toURI().toString();
+          scap11BundleDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR + filename).toURI().toString();
 
       compMap.put(filename, new JDOMDocument(is, systemID));
     }
@@ -258,21 +256,21 @@ public class ContentCombiner {
     CompositeXMLDocument compositeXMLDocument = new CompositeXMLDocument(template, compMap);
 
     //write out the composite doc for validation
-    File SCAP11CombinedContent = new File(scapContentsDir.getName() + ".xml");
+    File scap11CombinedContent = new File(scapContentsDir.getName() + ".xml");
 
-    if (!SCAP11CombinedContent.exists()) {
-      if (!SCAP11CombinedContent.createNewFile() || !SCAP11CombinedContent.canWrite()) {
+    if (!scap11CombinedContent.exists()) {
+      if (!scap11CombinedContent.createNewFile() || !scap11CombinedContent.canWrite()) {
         throw new IOException(
-            "Problem processing the SCAP 1.1 components. Need write access to: " + "" + "" + SCAP11CombinedContent
+            "Problem processing the SCAP 1.1 components. Need write access to: " + "" + "" + scap11CombinedContent
                 .getAbsolutePath() + " in order to continue.");
       }
     }
 
     //Need to wait to delete so the report generation can occur. This will delete the file when
     // the JVM exits
-    SCAP11CombinedContent.deleteOnExit();
+    scap11CombinedContent.deleteOnExit();
 
-    return compositeXMLDocument.toJDOMDocument(SCAP11CombinedContent);
+    return compositeXMLDocument.toJDOMDocument(scap11CombinedContent);
   }
 
   /**
@@ -280,8 +278,7 @@ public class ContentCombiner {
    * This could the root of the specified Directory or within an embedded directory one level deep
    *
    * @param scapContentsDir the user specified directory where SCAP 1.1 content resides, not null
-   * @return a File object of the directory where the SCAP bundle is located within the specified
-   * scapContentsDir
+   * @return a File object of the directory where the SCAP bundle is located within the specified scapContentsDir
    */
   public static File locateSCAP11Bundle(String scapContentsDir) {
     // look for scap 1.1 files in the specified root dir or in an embedded dir.
@@ -314,17 +311,17 @@ public class ContentCombiner {
    */
   public static File[] gatherSCAP11Files(File bundleDir) {
     Objects.requireNonNull(bundleDir, "bundleDir cannot be null.");
-    List<File> SCAP11files = new LinkedList<>();
+    List<File> scap11files = new LinkedList<>();
     // get list of valid SCAP 1.1 file names
     for (File file : bundleDir.listFiles()) {
       if (file.isFile() && SCAP11Components.isValidSCAP11FileName(file.getName())) {
-        SCAP11files.add(file);
+        scap11files.add(file);
       }
     }
 
     // In order to be compliant with scap-data-stream_0.2.xsd certain components must be in a
     // certain order
-    File[] arraySCAP11files = SCAP11files.toArray(new File[SCAP11files.size()]);
+    File[] arraySCAP11files = scap11files.toArray(new File[scap11files.size()]);
     // The below sorts as file array to ensure proper order
     Arrays.sort(arraySCAP11files, new Comparator<File>() {
       public int compare(File f1, File f2) {
@@ -348,29 +345,29 @@ public class ContentCombiner {
    * Includes a SCAP source data-stream into an ARF file using the
    * arf:report-requests element. This is used for SCAP 1.2 and 1.3 content only.
    *
-   * @param ARFFile        an XMLDocument of SCAP 1.2+ result content, not null
-   * @param DSFile         an XMLDocument of SCAP 1.2+ source content, not null
+   * @param arfFile        an XMLDocument of SCAP 1.2+ result content, not null
+   * @param dsFile         an XMLDocument of SCAP 1.2+ source content, not null
    * @param combinedOutput a File where the merged content will be saved to, not null
    */
-  public static void mergeARFWithDS(XMLDocument ARFFile, XMLDocument DSFile, File combinedOutput) throws IOException,
+  public static void mergeARFWithDS(XMLDocument arfFile, XMLDocument dsFile, File combinedOutput) throws IOException,
       SCAPException, URISyntaxException {
-    Objects.requireNonNull(ARFFile, "ARFFile cannot be null.");
-    Objects.requireNonNull(DSFile, "DSFile cannot be null.");
+    Objects.requireNonNull(arfFile, "ARFFile cannot be null.");
+    Objects.requireNonNull(dsFile, "DSFile cannot be null.");
     Objects.requireNonNull(combinedOutput, "combinedOutput cannot be null.");
 
     //all files should have already been through validateCLI() so no need validate again
-    String DSFilePath = Paths.get(DSFile.getOriginalLocation().toURI()).toString();
-    String ARFFilePath = Paths.get(ARFFile.getOriginalLocation().toURI()).toString();
+    String dsFilePath = Paths.get(dsFile.getOriginalLocation().toURI()).toString();
+    String arfFilePath = Paths.get(arfFile.getOriginalLocation().toURI()).toString();
     String combinedOutputPath = combinedOutput.getAbsolutePath();
 
     log.info(
-        "Attempting to embed the source data-steam: " + DSFilePath + " into the ARF file: " + ARFFilePath + " and " +
+        "Attempting to embed the source data-steam: " + dsFilePath + " into the ARF file: " + arfFilePath + " and " +
             "creating file: " + combinedOutputPath);
 
     ValidationNotes.getInstance().createValidationNote(
-        "Validation included -sourceds content " + "file: " + DSFilePath);
+        "Validation included -sourceds content " + "file: " + dsFilePath);
 
-    JDOMDocument newCombined = new JDOMDocument(ARFFile);
+    JDOMDocument newCombined = new JDOMDocument(arfFile);
     Element reportRequests = newCombined.getJDOMDocument(true).getRootElement().getChild(
         "report-requests", NS_ARF_1_1.getNamespace());
     if (reportRequests == null) {
@@ -381,23 +378,23 @@ public class ContentCombiner {
     }
     //add the user specified datastream to a new report request
     Element newReportRequest = new Element("report-request", NS_ARF_1_1.getNamespace()).setAttribute(
-        "id", DSFilePath).addContent(new Element("content", NS_ARF_1_1.getNamespace()));
+        "id", dsFilePath).addContent(new Element("content", NS_ARF_1_1.getNamespace()));
     reportRequests = reportRequests.addContent(newReportRequest);
     //get the appropriate report-request (the last one added)
     Element reportRequestContent = reportRequests.getChildren().get(reportRequests.getChildren().size() - 1).getChild(
         "content", NS_ARF_1_1.getNamespace());
     if (reportRequestContent == null) {
-      throw new SCAPException("There was problem embedding " + DSFilePath + " into " + ARFFilePath);
+      throw new SCAPException("There was problem embedding " + dsFilePath + " into " + arfFilePath);
     }
     //add the datastream
-    Document merged = reportRequestContent.addContent(DSFile.getJDOMDocument().getRootElement().detach()).getDocument();
+    Document merged = reportRequestContent.addContent(dsFile.getJDOMDocument().getRootElement().detach()).getDocument();
     //copy new content to the combined Document
     org.jdom2.Document newCombinedDoc = newCombined.getJDOMDocument().setContent(merged.getRootElement().detach());
     try {
       //copy to result the combinedOutput
       new JDOMDocument(newCombinedDoc, new URL("file:" + combinedOutput.getAbsolutePath())).copyTo(combinedOutput);
     } catch (DocumentException e) {
-      throw new SCAPException("There was problem embedding " + DSFilePath + " into " + ARFFilePath);
+      throw new SCAPException("There was problem embedding " + dsFilePath + " into " + arfFilePath);
     }
   }
 
@@ -417,10 +414,10 @@ public class ContentCombiner {
     Objects.requireNonNull(scapVersion, "scapVersion cannot be null.");
     Objects.requireNonNull(maxDownloadSize, "maxDownloadSize cannot be null.");
 
-    String SCAPComponentRefsXPATH = "//*[namespace-uri()='" + scapVersion.getDSNamespace().getURI() + "' and " +
+    String scapComponentRefsXpath = "//*[namespace-uri()='" + scapVersion.getDSNamespace().getURI() + "' and " +
         "local-name()='component-ref']";
     //attempt to resolve any scap remote component resources
-    List<org.jdom2.Element> componentRemoteRefs = XMLUtils.getXpathElements(xmlDocument, SCAPComponentRefsXPATH);
+    List<org.jdom2.Element> componentRemoteRefs = XMLUtils.getXpathElements(xmlDocument, scapComponentRefsXpath);
     for (org.jdom2.Element component : componentRemoteRefs) {
       if (component.getAttribute("href", NS_XLINK.getNamespace()) != null) {
         Attribute idAttribute = component.getAttribute("id");
@@ -466,12 +463,12 @@ public class ContentCombiner {
           } catch (MalformedURLException e) {
             log.info(
                 "Cannot read file at location specified for component-ref with id " + idAttribute.getValue() + " and " +
-                    "" + "URL " + "file:" + relativeDir + fileNameToMerge + " Will not include this file in " +
-                    "validation." + e.getMessage());
+                    "" + "" + "" + "URL " + "file:" + relativeDir + fileNameToMerge + " Will not include this file in" +
+                    " " + "validation." + e.getMessage());
             ValidationNotes.getInstance().createValidationNote(
                 "Cannot read file at location specified for component-ref with id " + idAttribute.getValue() + " and " +
-                    "" + "URL " + "file:" + relativeDir + fileNameToMerge + " Will not include this file in " +
-                    "validation.");
+                    "" + "" + "" + "URL " + "file:" + relativeDir + fileNameToMerge + " Will not include this file in" +
+                    " " + "validation.");
             continue;
           }
         } else {
@@ -493,8 +490,8 @@ public class ContentCombiner {
             // this as a remote resource
             // the schema id restricts commas (,) and slashes (/) so we'll replace with
             // underscore (_) */
-            String newxlinkHrefAttribute = new String("#" + newComponentID + "_" + remoteComponentURL).replace(
-                "/", "_").replace(":", "_");
+            String newxlinkHrefAttribute = ("#" + newComponentID + "_" + remoteComponentURL).replace("/", "_").replace(
+                ":", "_");
 
             //update the component-ref xlink:href to now look within the DS for the remote
             // resource content
@@ -577,34 +574,34 @@ public class ContentCombiner {
    * Downloads XCCDF 1.1.4 check-content-ref remote references and includes in the specified
    * scapContentsDir along with an appropriate filename and suffix
    *
-   * @param XCCDFFile       a File of the XCCDF 1.1.4 content which contains the remote references
-   * @param SCAPContentsDir a File object of the directory containing the SCAP 1.1 bundle files,
+   * @param xccdfFile       a File of the XCCDF 1.1.4 content which contains the remote references
+   * @param scapContentsDir a File object of the directory containing the SCAP 1.1 bundle files,
    *                        not null
    * @param maxDownloadSize an int (in MiB) of the maximum external file download size supported,
    *                        not null
    */
-  public static Map<String, String> getXCCDF11RemoteResources(File XCCDFFile, File SCAPContentsDir, int
+  public static Map<String, String> getXCCDF11RemoteResources(File xccdfFile, File scapContentsDir, int
       maxDownloadSize) throws SCAPException {
-    Objects.requireNonNull(XCCDFFile, "XCCDFFile cannot be null.");
-    Objects.requireNonNull(SCAPContentsDir, "SCAPContentsDir cannot be null.");
+    Objects.requireNonNull(xccdfFile, "XCCDFFile cannot be null.");
+    Objects.requireNonNull(scapContentsDir, "SCAPContentsDir cannot be null.");
     Objects.requireNonNull(maxDownloadSize, "maxDownloadSize cannot be null.");
 
     //This list will contain the check-content-ref remote URL as well as downloaded local filename
     Map<String, String> remoteURLandFilename = new LinkedHashMap<>();
 
-    String XCCDFremoteCheckRefsXPATH = "//*[namespace-uri()=\"http://checklists.nist" + "" + ".gov/xccdf/1.1\" and " +
-        "local-name()=\"Rule\"]//*[namespace-uri()=\"http://checklists.nist" + ".gov/xccdf/1.1\" and local-name()" +
-        "=\"check-content-ref\"]/@href";
-    XMLDocument XCCDFComponent = null;
+    String xccdfRemoteCheckRefsXpath = "//*[namespace-uri()=\"http://checklists.nist" + "" + ".gov/xccdf/1.1\" and "
+        + "local-name()=\"Rule\"]//*[namespace-uri()=\"http://checklists.nist" + ".gov/xccdf/1.1\" and local-name()"
+        + "=\"check-content-ref\"]/@href";
+    XMLDocument xccdfComponent = null;
     try {
-      XCCDFComponent = new JDOMDocument(XCCDFFile);
+      xccdfComponent = new JDOMDocument(xccdfFile);
     } catch (DocumentException | FileNotFoundException e) {
       throw new SCAPException("Unable to parse XCCDF File: " + e.getMessage());
     }
 
     //attempt to resolve any scap remote component resources
-    List<org.jdom2.Attribute> componentRemoteRefs = XMLUtils.getXpathAttributes(XCCDFComponent,
-        XCCDFremoteCheckRefsXPATH);
+    List<org.jdom2.Attribute> componentRemoteRefs = XMLUtils.getXpathAttributes(xccdfComponent,
+        xccdfRemoteCheckRefsXpath);
     for (org.jdom2.Attribute attribute : componentRemoteRefs) {
       String contentRef = attribute.getValue();
       if (contentRef.startsWith("http")) {
@@ -613,8 +610,8 @@ public class ContentCombiner {
         try {
           remoteComponentURL = new URL(contentRef);
           log.info(
-              "Found an XCCDF remote check-component-ref: " + contentRef + " will attempt " + "to" + " download and " +
-                  "include in validation.");
+              "Found an XCCDF remote check-component-ref: " + contentRef + " will attempt " + "to" + " download and "
+                  + "include in validation.");
 
           //we will rename the check-component-ref to match the downloaded file name
           String downloadedRefFileName = FileUtils.getFilenameFromURLNoExtension(contentRef) + "-patches.xml";
@@ -625,7 +622,7 @@ public class ContentCombiner {
           if (remoteComponentFile != null && remoteComponentFile.length() != 0) {
             //copy the file to our SCAP 1.1 dir
             File destFile = new File(
-                SCAPContentsDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR + downloadedRefFileName);
+                scapContentsDir.getAbsolutePath() + FileUtils.PATH_SEPERATOR + downloadedRefFileName);
 
             if (!destFile.createNewFile()) {
               log.info("Unable to included " + destFile.getAbsolutePath());
@@ -655,8 +652,8 @@ public class ContentCombiner {
         } catch (MalformedURLException e) {
           //Invalid external reference URL, log and move on
           log.info(
-              "Invalid URL for XCCDF remote check-component-ref:" + contentRef + " Will not " + "" + "download the " +
-                  "remote component." + e.getMessage());
+              "Invalid URL for XCCDF remote check-component-ref:" + contentRef + " Will not " + "" + "download the "
+                  + "remote component." + e.getMessage());
           continue;
         } catch (IOException e) {
           //unable to download or merge with existing content, log and move on

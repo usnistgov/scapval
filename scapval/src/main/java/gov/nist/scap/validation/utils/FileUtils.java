@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.utils;
 
 import gov.nist.scap.validation.Application;
@@ -30,7 +31,15 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
@@ -39,7 +48,9 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
-/** Provides File related helper methods */
+/**
+ * Provides File related helper methods.
+ */
 public class FileUtils {
   public static final String PATH_SEPERATOR = java.nio.file.FileSystems.getDefault().getSeparator();
   public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
@@ -48,6 +59,12 @@ public class FileUtils {
 
   private static final Logger log = LogManager.getLogger(FileUtils.class);
 
+  /**
+   * Returns the filename only without its specified a file extension.
+   *
+   * @param filename the complete filename in question
+   * @return the resultant String
+   */
   public static String getFilenamePrefix(String filename) {
     Objects.requireNonNull(filename, "filename can not be null.");
 
@@ -56,12 +73,25 @@ public class FileUtils {
     return filename.substring(sep + 1, dot);
   }
 
-  public static String getFilenameFromURLNoExtension(String filename) {
-    Objects.requireNonNull(filename, "filename can not be null.");
+  /**
+   * Returns the filename only from a URL without its specified a file extension.
+   *
+   * @param url the complete url in question
+   * @return the resultant String
+   */
+  public static String getFilenameFromURLNoExtension(String url) {
+    Objects.requireNonNull(url, "filename can not be null.");
 
-    return filename.substring(filename.lastIndexOf('/') + 1, filename.lastIndexOf('.'));
+    return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
   }
 
+  /**
+   * Returns a file hash value as a String, based on the provided file and hash algorithm
+   *
+   * @param file      a File object to be hashed
+   * @param algorithm file hash algorithm. Scapval uses SHA-256 exclusively
+   * @return a String hash value
+   */
   public static String getFileHash(File file, String algorithm) throws FileNotFoundException {
     Objects.requireNonNull(file, "file can not be null.");
     Objects.requireNonNull(algorithm, "algorithm can not be null.");
@@ -78,35 +108,38 @@ public class FileUtils {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException(e.getMessage());
     } catch (IOException e) {
-      throw new RuntimeException("Unable to read: " + file.getAbsolutePath() + " file stream for " +
-          "hashing", e);
+      throw new RuntimeException("Unable to read: " + file.getAbsolutePath() + " file stream for " + "hashing", e);
     } finally {
       try {
         bufferedInputStream.close();
       } catch (IOException e) {
-        throw new RuntimeException("Unable to close: " + file.getAbsolutePath() + " file stream " +
-            "for hashing", e);
+        throw new RuntimeException("Unable to close: " + file.getAbsolutePath() + " file stream " + "for hashing", e);
       }
     }
     // encode as base hex, not base64
     return new String(Hex.encodeHex(messageDigest.digest())).toUpperCase();
   }
 
-  public static Application.FileType determineFileType(String contentPath) throws
-      ConfigurationException {
-    Objects.requireNonNull(contentPath, "contentPath can not be null.");
+  /**
+   * Returns the FileType (DIRECTORY, ZIP, XML) found at a given Path.
+   *
+   * @param filePath a String containing the path to the file to check
+   * @return the FileType (DIRECTORY, ZIP, XML) detected or an exception thrown
+   * @throws ConfigurationException if no valid FileType is found
+   */
+  public static Application.FileType determineSCAPFileType(String filePath) throws ConfigurationException {
+    Objects.requireNonNull(filePath, "contentPath can not be null.");
 
     // error if the specified File or Directory does not exist
-    File contentFile = new File(contentPath);
+    File contentFile = new File(filePath);
     if (!contentFile.isFile() && !contentFile.isDirectory()) {
-      throw new ConfigurationException(contentFile.getAbsolutePath() + " is not valid file or " +
-          "directory.");
+      throw new ConfigurationException(contentFile.getAbsolutePath() + " is not valid file or " + "directory.");
     }
     if (contentFile.isDirectory()) {
       return Application.FileType.DIRECTORY;
     } else if (contentFile.isFile()) {
       // we could do file type content inspection here but its better for scapval to attempt to
-        // validate
+      // validate
       // and return the reason for failure. So, we'll do a simple file extension sanity check
       String fileName = contentFile.getName();
       String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -115,14 +148,20 @@ public class FileUtils {
       } else if (fileExtension.toLowerCase().equals("xml")) {
         return Application.FileType.XML;
       } else {
-        throw new ConfigurationException("Found a file but does not contain a .xml or .zip " +
-            "extension");
+        throw new ConfigurationException("Found a file but does not contain a .xml or .zip " + "extension");
       }
     } else {
       return null;
     }
   }
 
+  /**
+   * Begins downloading a specified file.
+   *
+   * @param url                    to download from
+   * @param maxDownloadSizeInBytes the download maxsize
+   * @return the downloaded File
+   */
   public static File downloadFile(URL url, int maxDownloadSizeInBytes) {
     Objects.requireNonNull(url, "url can not be null.");
     Objects.requireNonNull(maxDownloadSizeInBytes, "maxDownloadSizeInBytes can not be null.");
@@ -160,15 +199,16 @@ public class FileUtils {
       return null;
     }
 
-    byte[] b = new byte[BUFFER_SIZE];
+    byte[] bytes = new byte[BUFFER_SIZE];
     int length = -1;
     try {
-      length = is.read(b);
+      length = is.read(bytes);
     } catch (IOException e2) {
       log.error("Unable to read temporary file: " + url);
       try {
         os.close();
       } catch (IOException e1) {
+        log.debug("Unable to close Output Stream: " + e1);
       }
       tempFile.delete();
       return null;
@@ -182,33 +222,38 @@ public class FileUtils {
     while (length >= 0) {
       totalBytesDownloaded += length;
       if (maxDownloadSizeInBytes > 0 && totalBytesDownloaded > maxDownloadSizeInBytes) {
-        log.error("Unable to download: " + url + " because the file size is larger than the " +
-            "specified " + Integer.toString(maxDownloadSizeInBytes / 1024 / 1024) + " MiB");
+        log.error(
+            "Unable to download: " + url + " because the file size is larger than the " + "specified " + Integer
+                .toString(
+                maxDownloadSizeInBytes / 1024 / 1024) + " MiB");
         try {
           os.close();
         } catch (IOException e) {
+          log.debug("Unable to close Output Stream: " + e);
         }
         tempFile.delete();
         return null;
       }
       try {
-        os.write(b, 0, length);
+        os.write(bytes, 0, length);
       } catch (IOException e) {
         log.error("Unable to write to temporary file: " + url);
         try {
           os.close();
         } catch (IOException e1) {
+          log.debug("Unable to close Output Stream: " + e1);
         }
         tempFile.delete();
         return null;
       }
       try {
-        length = is.read(b);
+        length = is.read(bytes);
       } catch (IOException e) {
         log.error("Unable to read to temporary file: " + url);
         try {
           os.close();
         } catch (IOException e1) {
+          log.debug("Unable to close Output Stream: " + e1);
         }
         tempFile.delete();
         return null;
@@ -232,6 +277,12 @@ public class FileUtils {
     return tempFile;
   }
 
+  /**
+   * Takes a gzip compressed file, decompresses it and returns the result.
+   *
+   * @param compressedFile a gzip compressed file
+   * @return the decompressed file or null if there is a problem
+   */
   public static File decompressGZIPFile(File compressedFile) {
     Objects.requireNonNull(compressedFile, "compressedFile can not be null.");
 
@@ -261,11 +312,17 @@ public class FileUtils {
         gzis.close();
         out.close();
       } catch (IOException e) {
+        log.debug("Unable to close a stream: " + e);
       }
     }
     return tempFile;
   }
 
+  /**
+   * Attempts to delete the specified directory on JVM shutdown.
+   *
+   * @param dir the directory to delete
+   */
   public static void deleteDirOnExit(File dir) {
     Objects.requireNonNull(dir, "dir can not be null.");
 
@@ -280,7 +337,13 @@ public class FileUtils {
     });
   }
 
-  public static File getTempFileFromResource(String resourcePath){
+  /**
+   * Creates a File objects from a specified Java resource path.
+   *
+   * @param resourcePath the Java resource path to pull a File from
+   * @return the File from the resource path. It will be deleted on JVM exit
+   */
+  public static File getTempFileFromResource(String resourcePath) {
     try {
       URL resourceLocation = new URL(resourcePath);
       InputStream in = resourceLocation.openConnection().getInputStream();

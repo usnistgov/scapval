@@ -378,7 +378,7 @@ public class Application {
       if (!sourcedsFile.canRead()) {
         throw new ConfigurationException("Unable to read the -sourceds content specified: " + sourcedsFilename);
       }
-      sourcedsFileType = FileUtils.determineFileType(sourcedsFilename);
+      sourcedsFileType = FileUtils.determineSCAPFileType(sourcedsFilename);
       if (scapVersion.equals(SCAPVersion.V1_1)) {
         //1.1 sourceds must be zip or dir
         if (!sourcedsFileType.equals(FileType.ZIP) && !sourcedsFileType.equals(FileType.DIRECTORY)) {
@@ -396,7 +396,7 @@ public class Application {
     }
 
     // make sure the content specified matches the correct arg type
-    contentToCheckFileType = FileUtils.determineFileType(contentToCheckFilename);
+    contentToCheckFileType = FileUtils.determineSCAPFileType(contentToCheckFilename);
 
     switch (contentToCheckFileType) {
     case DIRECTORY:
@@ -509,14 +509,14 @@ public class Application {
 
       if (scapVersion.equals(SCAPVersion.V1_1)) {
         //1.1 the specified XM Lsourceds must be a zip file or dir
-        if (!FileUtils.determineFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(
-            FileType.ZIP) && !FileUtils.determineFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(
+        if (!FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(
+            FileType.ZIP) && !FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(
             FileType.DIRECTORY)) {
           throw new ConfigurationException("-sourceds for 1.1 content must be an ZIP file or " + "Directory");
         }
       } else {
         //1.2 and 1.3 source ds must be an xml file
-        if (!FileUtils.determineFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.XML)) {
+        if (!FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.XML)) {
           throw new ConfigurationException("-sourceds must be an .XML file containing a " + "source-data-stream");
         }
       }

@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
 import java.util.ArrayList;
@@ -32,27 +33,35 @@ import java.util.Objects;
  * The order of these matter for some of the methods which iterates the fileSourceNameSuffix with .endswith()
  */
 public enum SCAP11Components {
-  CPE_DICTIONARY("cpe-dictionary.xml", "cpe-dictionary-res.xml", "<cpe-dict:cpe-list>", "cpe-dictionary-content"),
-  CPE_INVENTORY("cpe-oval.xml", "cpe-oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
-  XCCDF_BENCHMARK("xccdf.xml", "xccdf-res.xml", "<xccdf:Benchmark>", "xccdf-content"),
-  OVAL_COMPLIANCE("oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
-  OVAL_PATCH("patches.xml", "patches-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
-  OVAL_VULNERABILITY("oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
-  OCIL_QUESTIONNAIRE("ocil.xml", "ocil-res.xml", "<ocil:ocil>", "check-system-content");
+  CPE_DICTIONARY(
+      "cpe-dictionary.xml", "cpe-dictionary-res.xml", "<cpe-dict:cpe-list>", "cpe-dictionary-content"), CPE_INVENTORY(
+      "cpe-oval.xml", "cpe-oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"), XCCDF_BENCHMARK(
+      "xccdf.xml", "xccdf-res.xml", "<xccdf:Benchmark>", "xccdf-content"), OVAL_COMPLIANCE(
+      "oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"), OVAL_PATCH(
+      "patches.xml", "patches-res.xml", "<oval-def:oval_definitions>", "check-system-content"), OVAL_VULNERABILITY(
+      "oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"), OCIL_QUESTIONNAIRE(
+      "ocil.xml", "ocil-res.xml", "<ocil:ocil>", "check-system-content");
 
   private String fileSourceNameSuffix;
   private String fileResultsNameSuffix;
   private String documentElement;
   private String combinedDocLocalName;
 
-  SCAP11Components(String fileNameSuffix, String fileResultsNameSuffix, String documentElement,
-                   String combinedDocLocalName) {
+  SCAP11Components(String fileNameSuffix, String fileResultsNameSuffix, String documentElement, String
+      combinedDocLocalName) {
     this.fileSourceNameSuffix = fileNameSuffix;
     this.fileResultsNameSuffix = fileResultsNameSuffix;
     this.documentElement = documentElement;
     this.combinedDocLocalName = combinedDocLocalName;
   }
 
+  /**
+   * Returns the appropriate SCAP 1.1 enum based on filename and usecase
+   *
+   * @param fileName    the SCAP 1.1 file name
+   * @param scapUseCase the SCAP 1.1 use case
+   * @return the resultant SCAP 1.1 enum
+   */
   public static SCAP11Components getByFileNameAndUseCase(String fileName, String scapUseCase) {
     Objects.requireNonNull(fileName, "fileName cannot be null.");
     Objects.requireNonNull(scapUseCase, "scapUseCase cannot be null.");
@@ -77,6 +86,11 @@ public enum SCAP11Components {
     return null;
   }
 
+  /**
+   * Returns the Source file name suffixes for SCAP 1.1
+   *
+   * @return a String array of results
+   */
   public static String[] getSourceFileNameSuffixes() {
     List<String> returnValue = new ArrayList<String>();
     for (SCAP11Components components : SCAP11Components.values()) {
@@ -85,6 +99,11 @@ public enum SCAP11Components {
     return returnValue.toArray(new String[0]);
   }
 
+  /**
+   * Returns the Result file name suffixes for SCAP 1.1
+   *
+   * @return a String array of results
+   */
   public static String[] getResultFileNameSuffixes() {
     List<String> returnValue = new ArrayList<String>();
     for (SCAP11Components components : SCAP11Components.values()) {
@@ -93,6 +112,12 @@ public enum SCAP11Components {
     return returnValue.toArray(new String[0]);
   }
 
+  /**
+   * Checks the validity of a filename for SCAP 1.1 use
+   *
+   * @param fileName the filename to test
+   * @return true if valid, false otherwise
+   */
   public static boolean isValidSCAP11FileName(String fileName) {
     Objects.requireNonNull(fileName, "fileName cannot be null.");
     boolean isValidFileNameSuffix = false;
@@ -118,7 +143,7 @@ public enum SCAP11Components {
   }
 
   public String[] getFileNameSuffixes() {
-    return new String[]{this.fileSourceNameSuffix, this.fileResultsNameSuffix};
+    return new String[] {this.fileSourceNameSuffix, this.fileResultsNameSuffix};
   }
 
   public String getDocumentElement() {

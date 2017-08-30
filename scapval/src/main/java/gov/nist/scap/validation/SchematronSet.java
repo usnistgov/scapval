@@ -20,14 +20,18 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
-import gov.nist.decima.xml.schematron.Schematron;
 import gov.nist.decima.xml.assessment.schematron.SchematronHandler;
+import gov.nist.decima.xml.schematron.Schematron;
 
 import java.util.Map;
+import java.util.Objects;
 
-/** A related set of Schematron items required for creation of a SchematronAssessment. */
+/**
+ * A related set of Schematron items required for creation of a SchematronAssessment.
+ */
 public class SchematronSet {
   private final Schematron schematron;
   private final SchematronHandler schematronHandler;
@@ -35,8 +39,20 @@ public class SchematronSet {
   private final Map<String, String> schematronParams;
   private boolean hasParams = false;
 
-  public SchematronSet(Schematron schematron, SchematronHandler schematronHandler, String
-      schematronPhase, Map<String, String> params) {
+  /**
+   * A SchematronSet contains all the required items to create a Decima SchematronAssessment.
+   * This will eventually be iterated though by SCAPVal to create SCAP version specific schematron assessments.
+   *
+   * @param schematron        the specific Schematron item used in an assessment. Not null
+   * @param schematronHandler this schematronHandler to be used for the above. Not null
+   * @param schematronPhase   if a schematron phase is used. Can be null
+   * @param params            if any parameters are used in this schematron. Can be null
+   */
+  public SchematronSet(
+      Schematron schematron, SchematronHandler schematronHandler, String schematronPhase, Map<String, String> params) {
+    Objects.requireNonNull(schematron, "schematron cannot be null.");
+    Objects.requireNonNull(schematronHandler, "schematronHandler cannot be null.");
+
     this.schematron = schematron;
     this.schematronHandler = schematronHandler;
     this.schematronPhase = schematronPhase;

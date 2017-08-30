@@ -23,7 +23,7 @@
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.SCAPVersion;
-import gov.nist.scap.validation.component.XCCDFVersion;
+import gov.nist.scap.validation.component.XccdfVersion;
 import org.junit.Test;
 
 import java.io.File;
@@ -43,7 +43,7 @@ public class ScapXmlInspectorTest {
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
-    assertEquals(XCCDFVersion.V1_1_4, candidate.getXccdfVersion());
+    assertEquals(XccdfVersion.V1_1_4, candidate.getXccdfVersion());
     assertEquals(CandidateFile.Type.STANDALONE_XCCDF, candidate.getType());
     assertNull(candidate.getDisqualificaiton());
   }

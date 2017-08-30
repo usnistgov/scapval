@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import gov.nist.decima.core.document.DocumentException;
@@ -36,70 +37,78 @@ import java.util.Iterator;
 import java.util.Objects;
 
 /**
- * This updates the .XSL file used to modify the HTML validation report for the desired appearance.
+ * This updates the .xsl file used to modify the HTML validation report for the desired appearance.
  */
 
 public class ReportCustomizer {
   File scapXSLTemplateExtention;
   SCAPValAssessmentResults scapValAssessmentResults;
 
-  public ReportCustomizer(File XSLTemplateExtension, SCAPValAssessmentResults
-      scapValAssessmentResults) {
-    Objects.requireNonNull(XSLTemplateExtension, "XSLTemplateExtension cannot be null");
+  /**
+   * The SCAPValAssessmentResults are read and the .xsl is then customized based on the results.
+   *
+   * @param xslTemplateExtension     the xsl file template used to customize the Decima report
+   * @param scapValAssessmentResults the results of a given validation
+   */
+  public ReportCustomizer(File xslTemplateExtension, SCAPValAssessmentResults scapValAssessmentResults) {
+    Objects.requireNonNull(xslTemplateExtension, "XSLTemplateExtension cannot be null");
     Objects.requireNonNull(scapValAssessmentResults, "scapValAssessmentResults cannot be null");
 
-    this.scapXSLTemplateExtention = XSLTemplateExtension;
+    this.scapXSLTemplateExtention = xslTemplateExtension;
     this.scapValAssessmentResults = scapValAssessmentResults;
   }
 
   /**
+   * Executes the customization of the xsl file.
    *
-   * @param contentType for this validation, not null
-   * @param scapVersion can be null in the case of component check
+   * @param contentType         for this validation, not null
+   * @param scapVersion         can be null in the case of component check
    * @param individualComponent the IndividualComponent if a component check. Otherwise can be
    *                            null
    */
-  public void customize(Application.ContentType contentType, SCAPVersion scapVersion,
-                        IndividualComponent individualComponent) {
+  public void customize(
+      Application.ContentType contentType, SCAPVersion scapVersion, IndividualComponent individualComponent) {
     Objects.requireNonNull(contentType, "contentType can not be null");
 
+    final String scapvalVersionString = Messages.getVersion();
     String scapVersionString = null;
-    String scapvalVersionString = Messages.getVersion();
     String contentTypeString = null;
     String headerString = null;
 
-    Element ULElement = new Element("ul");
+    Element ulElement = new Element("ul");
     //String notesString = "<ul>";
     for (String note : this.scapValAssessmentResults.getAssessmentNotes()) {
-      ULElement.addContent(new Element("li").addContent(note));
+      ulElement.addContent(new Element("li").addContent(note));
     }
     // notesString += "</ul>";
     if (scapVersion != null) {
       switch (scapVersion) {
-        case V1_1:
-          scapVersionString = "1.1";
-          break;
-        case V1_2:
-          scapVersionString = "1.2";
-          break;
-        case V1_3:
-          scapVersionString = "1.3";
-          break;
+      case V1_1:
+        scapVersionString = "1.1";
+        break;
+      case V1_2:
+        scapVersionString = "1.2";
+        break;
+      case V1_3:
+        scapVersionString = "1.3";
+        break;
+      default:
       }
     }
     switch (contentType) {
-      case SOURCE:
-        headerString = "SCAP";
-        contentTypeString = "SCAP " + scapVersionString + " Source";
-        break;
-      case RESULT:
-        headerString = "SCAP";
-        contentTypeString = "SCAP " + scapVersionString + " Result";
-        break;
-      case COMPONENT:
-        headerString = "Component";
-        contentTypeString = individualComponent.getName() + " File";
-        break;
+    case SOURCE:
+      headerString = "SCAP";
+      contentTypeString = "SCAP " + scapVersionString + " Source";
+      break;
+    case RESULT:
+      headerString = "SCAP";
+      contentTypeString = "SCAP " + scapVersionString + " Result";
+      break;
+    case COMPONENT:
+      headerString = "Component";
+      contentTypeString = individualComponent.getName() + " File";
+      break;
+    default:
     }
 
     JDOMDocument scapvalXSLTemplateDoc;
@@ -118,17 +127,14 @@ public class ReportCustomizer {
     Element notesElement = null;
     while (descendants.hasNext()) {
       Element element = descendants.next();
-      if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals
-          ("header-title")) {
+      if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals("header-title")) {
         headerTitleElement = element;
-      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id")
-          .equals("content-type-title")) {
+      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals(
+          "content-type-title")) {
         contentTypeElement = element;
-      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id")
-          .equals("scapval-version")) {
+      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals("scapval-version")) {
         scapvalVersionElement = element;
-      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id")
-          .equals("notes-content")) {
+      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals("notes-content")) {
         notesElement = element;
       }
     }
@@ -136,20 +142,21 @@ public class ReportCustomizer {
     headerTitleElement.setContent(new Text(headerString));
     contentTypeElement.setContent(new Text(contentTypeString));
     scapvalVersionElement.setContent(new Text(scapvalVersionString));
-    notesElement.setContent(ULElement);
+    notesElement.setContent(ulElement);
 
     JDOMDocument newXSLTemplateFile = null;
     try {
       //create the updated XSL Document
-      newXSLTemplateFile = new JDOMDocument(scapvalXSLTemplateDoc.getJDOMDocument().setContent
-          (originalRootElement.detach()), scapvalXSLTemplateDoc.getOriginalLocation());
+      newXSLTemplateFile = new JDOMDocument(
+          scapvalXSLTemplateDoc.getJDOMDocument().setContent(originalRootElement.detach()),
+          scapvalXSLTemplateDoc.getOriginalLocation());
       //overwrite the existing XSL file
       //File existingXSL = new File(scapvalXSLTemplateURL.openConnection().getURL().getPath());
       newXSLTemplateFile.copyTo(scapXSLTemplateExtention);
 
     } catch (DocumentException | IOException e) {
-      throw new RuntimeException("There was a problem updating the XSL for HTML report generation" +
-          " -" + e.getMessage());
+      throw new RuntimeException(
+          "There was a problem updating the XSL for HTML report generation" + " -" + e.getMessage());
     }
   }
 }

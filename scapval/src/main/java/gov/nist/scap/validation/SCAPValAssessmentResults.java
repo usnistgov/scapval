@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import gov.nist.decima.core.assessment.result.AssessmentResults;
@@ -28,15 +29,22 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *  SCAPVal assessments include custom notes in its validation reports.
- *  This pairs Decima based assessment results along with associated assessment notes.
+ * SCAPVal assessments include custom notes in its validation reports.
+ * This pairs Decima based assessment results along with associated assessment notes.
  */
 public class SCAPValAssessmentResults {
   private final AssessmentResults assessmentResults;
   private final List<String> assessmentNotes;
 
-  public SCAPValAssessmentResults(AssessmentResults assessmentResults, List<String>
-      assessmentNotes) {
+  /**
+   * The SCAPValAssessmentResults contain the AssessmentResults from the Decima framework
+   * along with some notes from the validation.
+   *
+   * @param assessmentResults the AssessmentResults of the SCAPVal evaluation.
+   * @param assessmentNotes the list of notes for this evaluation.
+   */
+  public SCAPValAssessmentResults(
+      AssessmentResults assessmentResults, List<String> assessmentNotes) {
     Objects.requireNonNull(assessmentResults, "assessmentResults can not be null");
     Objects.requireNonNull(assessmentNotes, "assessmentNotes can not be null");
 

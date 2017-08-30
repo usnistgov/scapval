@@ -24,7 +24,7 @@ package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.SCAPVersion;
 import gov.nist.scap.validation.component.SCAP11Components;
-import gov.nist.scap.validation.component.XCCDFVersion;
+import gov.nist.scap.validation.component.XccdfVersion;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class CandidateFile {
     private String disqualificaiton;
 
     // the XCCDF version, if applicable
-    private XCCDFVersion xccdfVersion;
+    private XccdfVersion xccdfVersion;
 
     // the SCAP version, if applicable
     private SCAPVersion scapVersion;
@@ -126,7 +126,7 @@ public class CandidateFile {
         return this.scapUseCase;
     }
 
-    public XCCDFVersion getXccdfVersion() {
+    public XccdfVersion getXccdfVersion() {
         return xccdfVersion;
     }
 
@@ -156,7 +156,7 @@ public class CandidateFile {
 
         private Type type;
         private String disqualification;
-        private XCCDFVersion xccdfVersion;
+        private XccdfVersion xccdfVersion;
         private SCAPVersion scapVersion;
         private String scapUseCase;
         private List<SCAP11Components> scapContentTypes;
@@ -243,7 +243,7 @@ public class CandidateFile {
             return this;
         }
 
-        public Builder setTypeXccdf(final XCCDFVersion version) {
+        public Builder setTypeXccdf(final XccdfVersion version) {
             this.xccdfVersion = version;
             setType(Type.STANDALONE_XCCDF);
             return this;

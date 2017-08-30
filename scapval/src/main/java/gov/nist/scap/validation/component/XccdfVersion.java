@@ -20,36 +20,61 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
-package gov.nist.scap.validation.datastream;
 
-import gov.nist.scap.validation.SCAPVersion;
-import gov.nist.scap.validation.SchematronSet;
+package gov.nist.scap.validation.component;
 
-import javax.xml.transform.stream.StreamSource;
-import java.util.LinkedList;
+import java.util.Objects;
 
 /**
- * An abstraction for an SCAP data stream to handle the gathering of required
- * Schemas and Schematron for SCAP validation.
+ * Valid XCCDF versions and their specifics.
  */
-public interface ISCAPDataStream {
-  /**
-   * @return the SCAPVersion of a particular ISCAPDataStream
-   */
-  SCAPVersion getScapVersion();
+public enum XccdfVersion {
+  V1_1_4(new String[] {"classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd"}), //no schematron available for this version
+  V1_2(new String[] {"classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd", "classpath:rules/other/xccdf-1.2.sch"});
+
+  private String[] validationFiles;
+  private String namespace;
+
+  XccdfVersion(String[] validationFiles) {
+    this.validationFiles = validationFiles;
+  }
 
   /**
-   * The Schematrons required to perform SCAP validation depends on the version of SCAP.
+   * Returns the XccdfVersion enum by version string.
    *
-   * @return a list of Schematron items required for creation of a SchematronAssessment.
+   * @param version The XCCDF string version to check (e.g. "1.2")
+   * @return the matching XccdfVersion enum
    */
-  LinkedList<SchematronSet> getSchematronSets();
+  public static XccdfVersion getByString(String version) {
+    Objects.requireNonNull(version, "version cannot be null.");
+    switch (version) {
+    case "1.1.4":
+      return XccdfVersion.V1_1_4;
+    case "1.2":
+      return XccdfVersion.V1_2;
+    default:
+    }
+    return null;
+  }
+
+  public String getSchemaLocation() {
+    return validationFiles[0];
+  }
 
   /**
-   * The XML schemas required to perform SCAP validation depends on the version of SCAP.
-   * Every schemas must be part of the same assessment for Decima to properly validate.
+   * Returns the schematron location for this given version.
    *
-   * @return a LinkedList of all the Source from applicable schema XSDs
+   * @return a string with the location
    */
-  LinkedList<StreamSource> getSchemas();
+  public String getSchematron() {
+    String defSchematron = null;
+    for (String validationFile : this.validationFiles) {
+      if (validationFile.contains("sch")) {
+        defSchematron = validationFile;
+        break;
+      }
+    }
+    return defSchematron;
+  }
+
 }

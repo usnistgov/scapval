@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.utils;
 
 import gov.nist.decima.xml.document.XMLDocument;
@@ -28,29 +29,45 @@ import org.jdom2.Attribute;
 import org.jdom2.Element;
 import org.jdom2.filter.Filters;
 
+import java.util.List;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactoryConfigurationException;
-import java.util.List;
 
-/** Provides XML related helper methods */
+/**
+ * Provides XML related helper methods.
+ */
 public class XMLUtils {
 
+  /**
+   * Returns a list of attributes within an XML Document using the specified XPATH query.
+   *
+   * @param xmlDocument the document to execute the XPATH query against
+   * @param xpath       the XPATH query to run
+   * @return a list of Attributes from the XPATH query results
+   */
   public static List<Attribute> getXpathAttributes(XMLDocument xmlDocument, String xpath) {
     List<Attribute> retval;
     try {
-      XPathEvaluator xPathEvaluator = xmlDocument.newXPathEvaluator();
-      retval = xPathEvaluator.evaluate(xpath, Filters.attribute());
+      XPathEvaluator xpathEvaluator = xmlDocument.newXPathEvaluator();
+      retval = xpathEvaluator.evaluate(xpath, Filters.attribute());
     } catch (XPathFactoryConfigurationException | XPathExpressionException e) {
       throw new RuntimeException(e);
     }
     return retval;
   }
 
+  /**
+   * Returns a list of Elements within an XML Document using the specified XPATH query.
+   *
+   * @param xmlDocument the document to execute the XPATH query against
+   * @param xpath       the XPATH query to run
+   * @return a list of Elements from the XPATH query results
+   */
   public static List<Element> getXpathElements(XMLDocument xmlDocument, String xpath) {
     List<Element> retval;
     try {
-      XPathEvaluator xPathEvaluator = xmlDocument.newXPathEvaluator();
-      retval = xPathEvaluator.evaluate(xpath, Filters.element());
+      XPathEvaluator xpathEvaluator = xmlDocument.newXPathEvaluator();
+      retval = xpathEvaluator.evaluate(xpath, Filters.element());
     } catch (XPathFactoryConfigurationException | XPathExpressionException e) {
       throw new RuntimeException(e);
     }

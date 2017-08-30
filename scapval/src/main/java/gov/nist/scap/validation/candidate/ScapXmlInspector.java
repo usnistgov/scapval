@@ -24,7 +24,7 @@ package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.NamespaceConstants;
 import gov.nist.scap.validation.SCAPVersion;
-import gov.nist.scap.validation.component.XCCDFVersion;
+import gov.nist.scap.validation.component.XccdfVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,12 +63,12 @@ public class ScapXmlInspector implements ICandidateFileCreator {
 
         // XCCDF 1.2 XML
         if (NamespaceConstants.NS_XCCDF_1_2.getNamespaceString().equals(contentType)) {
-            return createXccdfCandidate(builder, XCCDFVersion.V1_2);
+            return createXccdfCandidate(builder, XccdfVersion.V1_2);
         }
 
         // XCCDF 1.1.4 XML
         if (NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString().equals(contentType)) {
-            return createXccdfCandidate(builder, XCCDFVersion.V1_1_4);
+            return createXccdfCandidate(builder, XccdfVersion.V1_1_4);
         }
 
         return builder.setTypeUnknown("XML is not an SCAP file").createCandidateFile();
@@ -162,7 +162,7 @@ public class ScapXmlInspector implements ICandidateFileCreator {
      */
     private CandidateFile createXccdfCandidate(
             final CandidateFile.Builder builder,
-            final XCCDFVersion version) {
+            final XccdfVersion version) {
         if (log.isDebugEnabled()) {
             log.debug(String.format(
                 "%s is %s",

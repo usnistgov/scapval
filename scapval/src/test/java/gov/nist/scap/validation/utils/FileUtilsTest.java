@@ -39,7 +39,7 @@ public class FileUtilsTest {
     @Test
     public void determineFileType() throws Exception {
         final String datastream = new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml").getFile()).getAbsolutePath();
-        Assert.assertEquals(FileUtils.determineFileType(datastream), Application.FileType.XML);
+        Assert.assertEquals(FileUtils.determineSCAPFileType(datastream), Application.FileType.XML);
     }
 
     @Test

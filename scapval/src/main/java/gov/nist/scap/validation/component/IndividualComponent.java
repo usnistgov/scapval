@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
 import gov.nist.decima.xml.document.XMLDocument;
@@ -27,14 +28,16 @@ import gov.nist.scap.validation.NamespaceConstants;
 
 import java.util.Objects;
 
-/** Valid Components for -componentfile checks and their specifics. */
+/**
+ * Valid Components for -componentfile checks and their specifics.
+ */
 public enum IndividualComponent {
   //each associated namespace, can be used to identify component types
-  XCCDF_1_1_4(NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(), "XCCDF 1.1.4"), XCCDF_1_2
-      (NamespaceConstants.NS_XCCDF_1_2.getNamespaceString(), "XCCDF 1.2"), OVAL_DEF
-      (NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(), "OVAL Definitions"), OVAL_RES
-      (NamespaceConstants.NS_OVAL_RES_5.getNamespaceString(), "OVAL Results"), OCIL
-      (NamespaceConstants.NS_OCIL_2_0.getNamespaceString(), "OCIL");
+  XCCDF_1_1_4(NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(), "XCCDF 1.1.4"), XCCDF_1_2(
+      NamespaceConstants.NS_XCCDF_1_2.getNamespaceString(), "XCCDF 1.2"), OVAL_DEF(
+      NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(), "OVAL Definitions"), OVAL_RES(
+      NamespaceConstants.NS_OVAL_RES_5.getNamespaceString(), "OVAL Results"), OCIL(
+      NamespaceConstants.NS_OCIL_2_0.getNamespaceString(), "OCIL");
 
   private String namespace;
   private String name;
@@ -44,6 +47,12 @@ public enum IndividualComponent {
     this.name = name;
   }
 
+  /**
+   * Returns the type of IndividualComponent by a provided namespace String.
+   *
+   * @param namespace the namespace string of desired component
+   * @return the matching IndividualComponent
+   */
   public static IndividualComponent getByNamespace(String namespace) {
     Objects.requireNonNull(namespace, "namespace cannot be null.");
     for (IndividualComponent component : IndividualComponent.values()) {
@@ -54,12 +63,23 @@ public enum IndividualComponent {
     return null;
   }
 
+  /**
+   * Returns the type of IndividualComponent found in the provided XML Document.
+   *
+   * @param xmlDocument the XML document of the IndividualComponent
+   * @return the matching IndividualComponent
+   */
   public static IndividualComponent getByXML(XMLDocument xmlDocument) {
     Objects.requireNonNull(xmlDocument, "xmlDocument cannot be null.");
     String namespace = xmlDocument.getJDOMDocument().getRootElement().getNamespaceURI();
     return IndividualComponent.getByNamespace(namespace);
   }
 
+  /**
+   * Provides all of the supported component namespaces.
+   *
+   * @return a String containing all of the supported component namesapces
+   */
   public static String getAllComponentNamespaces() {
     StringBuilder retval = new StringBuilder();
     for (IndividualComponent component : IndividualComponent.values()) {

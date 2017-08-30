@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import java.text.MessageFormat;
@@ -27,13 +28,21 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-/** Provides SCAPVal visioning messages. */
+/**
+ * Provides SCAPVal visioning messages.
+ */
 public class Messages {
+  /**
+   * Reads the messages properties file to generate argument based messages.
+   *
+   * @param key the messages key
+   * @param arguments the arguments to populate in the message
+   * @return the generated text
+   */
   public static String getMessage(String key, Object... arguments) {
     String msg = null;
     try {
-      msg = ResourceBundle.getBundle("messages", Locale.getDefault()).getString("scap.validation" +
-          ".version");
+      msg = ResourceBundle.getBundle("messages", Locale.getDefault()).getString("scap.validation" + ".version");
     } catch (MissingResourceException e) {
       msg = key;
     }
@@ -41,14 +50,12 @@ public class Messages {
   }
 
   public static void printVersion() {
-    String message = Messages.getMessage("scap.validation.version", SCAPVersion
-        .getVersionsSupported(), getVersion());
+    String message = Messages.getMessage("scap.validation.version", SCAPVersion.getVersionsSupported(), getVersion());
     System.out.println(message);
   }
 
   public static String getVersion() {
-    return ResourceBundle.getBundle("scapval-version", Locale.getDefault()).getString
-        ("Implementation-Version");
+    return ResourceBundle.getBundle("scapval-version", Locale.getDefault()).getString("Implementation-Version");
   }
 
 }
