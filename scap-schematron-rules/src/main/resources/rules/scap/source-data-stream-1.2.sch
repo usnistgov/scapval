@@ -58,6 +58,7 @@
     </sch:rule>
     <sch:rule id="scap-general-system-cpe-lang-check" context="cpe-lang:check-fact-ref">
       <sch:assert id="scap-general-system-cpe-lang-check2" test="@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' or @system eq 'http://scap.nist.gov/schema/ocil/2'">SRC-118-3|cpe-lang:platform <sch:value-of select="ancestor::cpe-lang:platform[1]/@id"/></sch:assert>
+      <sch:assert id="scap-general-scap-content-cpe-ref-check-fact" test="some $m in current()/ancestor::scap:data-stream-collection//ds:checklists/ds:component-ref satisfies(exists(xcf:get-component(xcf:get-component-ref($m/cat:catalog, current()/@href))//oval-def:definition[@id eq current()/@id-ref]))">A-27-1|cpe-lang:check-fact-ref <sch:value-of select="@id-ref"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-xccdf-check" context="xccdf:Rule/xccdf:check">
       <sch:assert id="scap-general-xccdf-check-sys-req" test="@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' or @system eq 'http://scap.nist.gov/schema/ocil/2'">SRC-118-1|xccdf:Rule <sch:value-of select="ancestor::xccdf:Rule[1]/@id"/></sch:assert>

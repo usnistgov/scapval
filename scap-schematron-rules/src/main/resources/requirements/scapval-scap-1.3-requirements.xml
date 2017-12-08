@@ -3400,4 +3400,20 @@
             </derived-requirement>
         </derived-requirements>
     </requirement>
+    <requirement id="A-27">
+        <summary>
+            Check for @href and @id-ref value of &lt;cpe:check-fact-ref&gt; element
+        </summary>
+        <reference ref="NISTIR-7698" section="5.4"/>
+        <statement>According to section 5.4 "The &lt;cpe:check-fact-ref&gt; Element" of the NIST IR 7698 (CPE Applicability Language), the @href attribute indicates "The location of the check content, such as the OVAL or OCIL document holding the desired check."
+            Within a source data stream, the @href SHALL be resolved in the context of the XML Catalog specified as
+            part of the &lt;ds:component-ref&gt;.
+        </statement>
+        <derived-requirements>
+            <derived-requirement id="A-27-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
+                <statement>cpe:check-fact-ref</statement>
+                <message>''{0}''</message>
+            </derived-requirement>
+        </derived-requirements>
+    </requirement>
 </requirements>

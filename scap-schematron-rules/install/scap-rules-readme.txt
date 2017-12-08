@@ -9,9 +9,11 @@ Change Log:
 - Added SCAP 1.3 support with result-data-stream-1.3.sch and source-data-stream-1.3.sch schematron files.
 - All SCAP schematron assert content IDs are modified to include a RES, SRC-, A- prefix per Decima integration requirements.
 - Added application requirement A-26 to warn users when optional attributes are missing in some SCAP content.
+- Added application requirement A-27 to check for @href and @id-ref value of <cpe:check-fact-ref> elements.
 - Updated RES-260-1 for SCAP 1.1 results to account for 'notapplicable', 'notchecked', or 'notselected' results.
 - For SCAP 1.1 updated RES-126-1 to properly check for result of 'unknown' instead of 'errunknownr'
 - Added Warnings RES-258-1 and RES-366-1 for SCAP 1.2 and 1.3 checks.
+- Fixed the SRC-169-1 check for 1 or more class patch oval definitions for SCAP 1.3 content
 - Previous unused versions of source-data-stream-1.2_* have been removed
 - result-data-stream-1.2.1.sch renamed to result-data-stream-1.2.sch
 
