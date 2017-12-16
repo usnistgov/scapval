@@ -27,6 +27,8 @@
   </assessments>
   <assertions>
     <assert-derived-requirement requirement-id="SRC-118-3" result="FAIL" />
+    <!-- Expect A27 to fail as the check-fact-ref does not really exist in the content (is for testing only)-->
+    <assert-derived-requirement requirement-id="A-27-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

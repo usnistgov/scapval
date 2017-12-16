@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
-<requirement>A27</requirement>
-<description>Check for @href and @id-ref value of &lt;cpe:check-fact-ref&gt; element
-This test adds a CPE platform to include the cpe:check-fact-ref element and does not include the corresponding OVAL
-  definition. This test should fail.</description>
+  <requirement>A27</requirement>
+  <description>Check for @href and @id-ref value of &lt;cpe:check-fact-ref&gt; element
+    This test adds a CPE platform to include the cpe:check-fact-ref element and does not include the corresponding OVAL
+    definition. This test should fail.</description>
 <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
           xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
           xmlns:oval-com="http://oval.mitre.org/XMLSchema/oval-common-5"
           xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
           xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
           xmlns:cpe2="http://cpe.mitre.org/language/2.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          template="classpath:scap-1.3/templates/configuration-single-data-stream-base.xml">
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
   <insert-child xpath="//xccdf:Benchmark[@id='xccdf_gov.nist.scap_benchmark_fdcc-ie-7']" >
     <cpe2:platform-specification>
       <cpe2:platform id="Windows_Server_2016_DC">
@@ -27,7 +26,7 @@ This test adds a CPE platform to include the cpe:check-fact-ref element and does
 
 </template>
 <assessments>
-  <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+  <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
     <parameter name="datafiles_directory">classpath:data_feeds</parameter>
   </schematron-assessment>
 </assessments>
