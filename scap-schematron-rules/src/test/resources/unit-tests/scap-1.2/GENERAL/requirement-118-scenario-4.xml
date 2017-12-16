@@ -26,6 +26,8 @@
     </schematron-assessment>
   </assessments>
   <assertions>
+    <!-- Expect A27 to fail as the check-fact-ref does not really exist in the content (is for testing only)-->
+    <assert-derived-requirement requirement-id="A-27-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-118-1" result="PASS" />
     <assert-derived-requirement requirement-id="SRC-118-2" result="PASS" />
     <assert-derived-requirement requirement-id="SRC-118-3" result="PASS" />
