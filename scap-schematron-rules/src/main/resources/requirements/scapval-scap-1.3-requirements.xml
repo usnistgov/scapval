@@ -271,11 +271,12 @@
         <summary/>
         <reference ref="NIST800-126r3" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
-            valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~When the &lt;xccdf:TestResult&gt; is the root
-            XCCDF element, then it will include an &lt;xccdf:benchmark&gt; element [XCCDF:6.6.2]. ~The &lt;xccdf:benchmark&gt; element c have an @id
-            attribute specified. The @id attribute SHALL match the value of the &lt;xccdf:Benchmark&gt; element's @id attribute that was processed. ~The &lt;xccdf:benchmark&gt;
-            element SHALL have an @href attribute specified. The @href attribute SHALL hold the URI to the XCCDF component (either local to the data stream
-            collection or remote) that was processed. The URI SHALL be in the form specified for the @href attribute in Table 8.
+            valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~When the &lt;xccdf:TestResult&gt;
+            is the root XCCDF element, then it will include an &lt;xccdf:benchmark&gt; element [XCCDF:6.6.2]. ~The &lt;xccdf:benchmark&gt; element SHALL have an
+            @id attribute specified. The @id attribute SHALL match the value of the &lt;xccdf:Benchmark&gt; element's @id attribute that was processed.
+            ~The &lt;xccdf:benchmark&gt; element SHALL have an @href attribute specified. The @href attribute SHALL hold the URI referencing the XCCDF
+            component (either local to the data stream collection or remote) that was processed. The URI SHALL be in the form specified for the
+            @href attribute in Table 8.
         </statement>
         <derived-requirements>
             <derived-requirement id="RES-253-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -329,10 +330,10 @@
         <summary/>
         <reference ref="NIST800-126r3" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
-            valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~~The &lt;xccdf:rule-result&gt; elements report
-            the result of the application of each selected rule [XCCDF:6.6.2].~The &lt;xccdf:check/xccdf:check-content-ref&gt; element SHALL record the
-            reference to the check system specific result component report ID and check name within the result file using the @href and @name attributes,
-            respectively.
+            valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~~The &lt;xccdf:rule-result&gt;
+            elements report the result of the application of each selected rule [XCCDF:6.6.2].~The &lt;xccdf:check/xccdf:check-content-ref&gt; element SHALL
+            record the reference to the checking system specific result component report ID and check name within the result file using the @href and
+            @name attributes, respectively.
         </statement>
         <derived-requirements>
             <derived-requirement id="RES-260-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -725,10 +726,10 @@
     <requirement id="RES-367">
         <summary/>
         <reference ref="NIST800-126r3" section="4.4.1"/>
-        <statement>Each SCAP result data stream component SHOULD NOT use any constructs that are deprecated in its associated specification.</statement>
+        <statement>Each SCAP result data stream component SHOULD NOT use any deprecated constructs in its associated specification.</statement>
         <derived-requirements>
             <derived-requirement id="RES-367-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
-                <statement>Each SCAP result data stream component SHOULD NOT use any constructs that are deprecated in its associated specification.</statement>
+                <statement>Each SCAP result data stream component SHOULD NOT use any deprecated constructs in its associated specification.</statement>
                 <message>''{0}''</message>
             </derived-requirement>
         </derived-requirements>
@@ -967,10 +968,10 @@
     <requirement id="SRC-118">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL check system~Use of the OVAL
-            check system SHALL be indicated by setting the &lt;xccdf:check&gt; element's @system attribute to
-            "http://oval.mitre.org/XMLSchema/oval-definitions-5 ".
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the
+            use of checking systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with
+            regards to SCAP.~~OVAL checking system~Use of the OVAL checking system SHALL be indicated by setting the
+            &lt;xccdf:check&gt; element's @system attribute to "http://oval.mitre.org/XMLSchema/oval-definitions-5 ".
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-118-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -995,9 +996,9 @@
     <requirement id="SRC-119">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL check system~Use of the OCIL
-            check system SHALL be indicated by setting the &lt;xccdf:check&gt; element's @system attribute to "http://scap.nist.gov/schema/ocil/2".
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems
+            other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~Use of
+            the OCIL checking system SHALL be indicated by setting the &lt;xccdf:check&gt; element's @system attribute to "http://scap.nist.gov/schema/ocil/2".
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-119-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -1481,16 +1482,16 @@
     <requirement id="SRC-242">
         <summary/>
         <reference ref="NIST800-126r3" section="5.2"/>
-        <statement>The SCAP source data stream component that SHALL be included for vulnerability scanning is the XCCDF benchmark, which expresses the checklist
-            of the flaws to be checked for. Each rule in the XCCDF benchmark SHALL reference one of the following:~An OVAL vulnerability definition. This
-            definition SHALL be contained in an OVAL component, which holds definitions of vulnerability checks used by the checklist. An XCCDF benchmark's
-            rules MAY reference one or more OVAL vulnerability class definitions in an OVAL component.~An OCIL questionnaire. This questionnaire SHALL be
-            contained in an OCIL component, which holds questionnaires that collect information that OVAL is not being used to collect, such as giving a system
-            administrator step-by-step directions for manually examining a system for a vulnerability that cannot be detected with OVAL, and then collecting
-            information on the results of that manual examination. An XCCDF benchmark's rules MAY reference one or more OCIL questionnaires in an OCIL
-            component. ~An OVAL patch definition. This definition SHALL be contained in an OVAL component, which holds definitions for patch compliance checks.
-            These checks may be needed if an organization includes patch verification in its vulnerability scanning activities. An XCCDF benchmark MAY reference
-            an OVAL patch definition through a patches up-to-date rule in a manner consistent with Section 3.2.4.3.
+        <statement>The SCAP source data stream component that SHALL be included for vulnerability scanning is the XCCDF benchmark, which expresses the checklist of
+            the flaws to be checked for. Each rule in the XCCDF benchmark SHALL reference one of the following:~An OVAL vulnerability definition. This definition
+            SHALL be contained in an OVAL component, which holds definitions of vulnerability checks used by the checklist. An XCCDF benchmark's rules MAY reference
+            one or more OVAL vulnerability class definitions in an OVAL component.~An OCIL questionnaire. This questionnaire SHALL be contained in an OCIL component,
+            which holds questionnaires that collect information that OVAL is not being used to collect. An example of OCIL use is to give step-by-step directions for
+            manually examining a system for a vulnerability that cannot be detected with OVAL. In such a case, OCIL is used for capturing information collected using
+            manual examination. An XCCDF benchmark's rules MAY reference one or more OCIL questionnaires in an OCIL component. ~An OVAL patch definition. This
+            definition SHALL be contained in an OVAL component, which holds definitions for patch compliance checks. These checks may be needed if an organization
+            includes patch verification in its vulnerability scanning activities. An XCCDF benchmark MAY reference an OVAL patch definition through a patches
+            up-to-date rule in a manner consistent with Section 3.2.4.3.
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-242-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
@@ -1856,10 +1857,12 @@
     <requirement id="SRC-290">
         <summary/>
         <reference ref="NIST800-126r3" section="3.11"/>
-        <statement>Key information SHOULD be provided on the &lt;dsig:Signature&gt; element.</statement>
+        <statement>Cryptographic key information SHOULD be provided in the &lt;dsig:Signature&gt; element through use of the &lt;dsig:KeyInfo&gt; subelement.
+        </statement>
         <derived-requirements>
             <derived-requirement id="SRC-290-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
-                <statement>Key information SHOULD be provided on the &lt;dsig:Signature&gt;.</statement>
+                <statement>Cryptographic key information SHOULD be provided in the &lt;dsig:Signature&gt; element through use of the &lt;dsig:KeyInfo&gt; subelement.
+                </statement>
                 <message>''{0}''</message>
             </derived-requirement>
         </derived-requirements>
@@ -2005,8 +2008,8 @@
     <requirement id="SRC-329">
         <summary/>
         <reference ref="NIST800-126r3" section="3.1.2"/>
-        <statement>The SCAP source data stream collection SHALL validate against the XML schema representation for the source data stream, as well as all
-            Schematron rules associated with that schema.
+        <statement>The SCAP source data stream collection SHALL validate against the XML schema representation for the source data stream,
+            as well as all associated Schematron schemas.
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-329-1" type="MUST" scapval-ext:check-type="APPLICATION">
@@ -2039,8 +2042,8 @@
     <requirement id="SRC-330">
         <summary/>
         <reference ref="NIST800-126r3" section="3.1.2"/>
-        <statement>If applicable, each component SHALL validate against its associated Schematron stylesheet. For the SCAP source data stream collection, it SHALL
-            validate against the version of the SCAP Schematron rules as specified on the &lt;ds:data-stream-collection&gt; element's @schematron-version
+        <statement>If applicable, each component SHALL validate against its associated Schematron schema. For the SCAP source data stream collection,
+            it SHALL validate against the version of the SCAP Schematron rules as specified on the &lt;ds:data-stream-collection&gt; element's @schematron-version
             attribute, and it SHOULD also validate against the latest Schematron rules.
         </statement>
         <derived-requirements>
@@ -2066,13 +2069,12 @@
     <requirement id="SRC-331">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.1"/>
-        <statement>When referencing a CVE, CCE, or CPE identifier, an &lt;xccdf:Rule&gt; element SHALL have a purpose consistent with one of the rows in Table
-            17. Based on the purpose of the &lt;xccdf:Rule&gt; element, the &lt;xccdf:Rule&gt; SHALL define its &lt;xccdf:ident&gt; element's @system attribute
-            using the corresponding value from Table 17. Also, if the &lt;xccdf:Rule&gt; element references an OVAL Definition, it SHALL reference an OVAL
-            Definition of the specified class. ~Table 17: &lt;xccdf:Rule&gt; and &lt;xccdf:ident&gt; Element Values~Purpose of the &lt;xccdf:Rule&gt;~OVAL
-            Definition Class~Identifier Type~Value for &lt;xccdf:ident&gt; @system attribute~~Check compliance with a configuration
-            setting~compliance~CCE~http://cce.mitre.org~~Perform a software inventory check~inventory~CPE~http://cpe.mitre.org~~Check for a software flaw
-            vulnerability~vulnerability~CVE~http://cve.mitre.org~~
+        <statement>When referencing a CVE, CCE, or CPE identifier, an &lt;xccdf:Rule&gt; element SHALL have a purpose consistent with one of the rows in ~Table
+            17. Based on the purpose of the &lt;xccdf:Rule&gt; element, the &lt;xccdf:Rule&gt; SHALL define its &lt;xccdf:ident&gt; element's @system attribute using the corresponding
+            value from Table 17. Also, if the &lt;xccdf:Rule&gt; element references an OVAL Definition, it SHALL reference an OVAL Definition of the specified class.
+            ~~Table 17: &lt;xccdf:Rule&gt; and &lt;xccdf:ident&gt; Element Values~Purpose of the &lt;xccdf:Rule&gt;~OVAL Definition Class~Identifier Type~Value for &lt;xccdf:ident&gt;
+            @system attribute~~Check compliance with a configuration setting~compliance~CCE~http://cce.mitre.org~~Perform a software inventory check
+            ~inventory~CPE~http://cpe.mitre.org~~Check for a software flaw vulnerability~vulnerability~CVE~http://cve.mitre.org~~
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-331-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -2109,10 +2111,10 @@
     <requirement id="SRC-333">
         <summary/>
         <reference ref="NIST800-126r3" section="3.1.2"/>
-        <statement>Any component in a data stream collection SHALL be referenced not more than once by any data stream in that collection.</statement>
+        <statement>Any single data stream in a data stream collection SHALL NOT reference any component in the collection more than once.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-333-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>Any component in a data stream collection SHALL be referenced not more than once by any data stream in that collection.</statement>
+                <statement>Any single data stream in a data stream collection SHALL NOT reference any component in the collection more than once.</statement>
                 <message>''{0}''</message>
             </derived-requirement>
         </derived-requirements>
@@ -2194,10 +2196,10 @@
     <requirement id="SRC-345">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL check system~The @href
-            attribute in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OVAL source data stream component using the &lt;ds:component-ref&gt;
-            approach defined above.
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking
+            systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL checking
+            system~The @href attribute in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OVAL source data stream component using
+            the &lt;ds:component-ref&gt; approach defined above.
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-345-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
@@ -2211,18 +2213,17 @@
     <requirement id="SRC-346">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other than
-            the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL check system~Use of the @name
-            attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OVAL Definition in the designated OVAL source
-            data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check attribute.
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking
+            systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL checking
+            system~Use of the @name attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OVAL
+            Definition in the designated OVAL source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check attribute.
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-346-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~This version of SCAP supports the use of
-                    only OVAL and/or OCIL check systems in SCAP-conformant content. Use of these check systems SHALL be restricted as follows:~~OVAL check
+                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking
+                    systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL checking
                     system~Use of the @name attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OVAL
-                    Definition in the designated OVAL source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check
-                    attribute.
+                    Definition in the designated OVAL source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check attribute.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -2231,17 +2232,15 @@
     <requirement id="SRC-348">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL check system~The @href
-            attribute in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OCIL source data stream component using the &lt;ds:component-ref&gt;
-            approach defined above.
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
+            than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~The @href attribute
+            in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OCIL source data stream component using the &lt;ds:component-ref&gt; approach defined above.
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-348-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~This version of SCAP supports the use of
-                    only OVAL and/or OCIL check systems in SCAP-conformant content. Use of these check systems SHALL be restricted as follows:~~OCIL check
-                    system~The @href attribute in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OCIL source data stream component using the &lt;ds:component-ref&gt;
-                    approach defined above.
+                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
+                    than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~The @href attribute
+                    in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OCIL source data stream component using the &lt;ds:component-ref&gt; approach defined above.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -2250,18 +2249,17 @@
     <requirement id="SRC-349">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL check system~Use of the @name
-            attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OCIL questionnaire in the designated OCIL
-            source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check attribute.
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
+            than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~Use of the @name
+            attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OCIL questionnaire in the designated
+            OCIL source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check attribute.
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-349-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~This version of SCAP supports the use of
-                    only OVAL and/or OCIL check systems in SCAP-conformant content. Use of these check systems SHALL be restricted as follows:~~OCIL check
-                    system~Use of the @name attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OCIL
-                    questionnaire in the designated OCIL source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check
-                    attribute.
+                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
+                    than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~Use of the @name
+                    attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OCIL questionnaire in the designated
+                    OCIL source data stream component, otherwise see Section 4.5.2 for information on use of the @multi-check attribute.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -2379,11 +2377,12 @@
     <requirement id="SRC-38">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.5"/>
-        <statement>The type and value binding of the specified &lt;xccdf:Value&gt; is constrained to match that lexical representation of the indicated OVAL
+        <statement>
+            The type and value binding of the specified &lt;xccdf:Value&gt; is constrained to match that lexical representation of the indicated OVAL
             Variable data type. Table 18 summarizes the constraints regarding data type usage. Additional information regarding OVAL data types can be found in
-            the OVAL Language documentation and the XCCDF specification [XCCDF]. Additional information on OVAL data types may also be added to the SCAP 1.3
-            annex document, NIST SP 800-126A.~Table 18: XCCDF-OVAL Data Export Matching Constraints~OVAL Variable Data Type~Matching XCCDF Data
-            Type~~int~number~~float~number~~boolean~boolean~~string, evr_string, version, ios_version, fileset_revision, binary~string~~
+            the OVAL Language documentation and the XCCDF specification [XCCDF]. Additional information on OVAL data types may also be added to Section 4 of the
+            SCAP 1.3 annex document, NIST SP 800-126A.~Table 18: XCCDF-OVAL Data Export Matching Constraints~OVAL Variable Data Type~Matching XCCDF Data Type~
+            ~int~number~~float~number~~boolean~boolean~~string, evr_string, version, ios_version, fileset_revision, binary~string~~
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-38-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -2653,15 +2652,15 @@
     <requirement id="TOOL-233">
         <summary/>
         <reference ref="NIST800-126r3" section="4.3.2"/>
-        <statement>If an XCCDF component has multiple &lt;xccdf:check-content-ref&gt; elements, then check processing SHALL be performed according to
-            [XCCDF:7.2.3.5.1] with the following changes:~Once a resolvable &lt;xccdf:check-content-ref&gt; element is found, then check system processing SHALL
-            proceed. When evaluating a rule, an &lt;xccdf:rule-result/xccdf:message&gt; with the @severity attribute value of "info" SHALL be generated,
-            indicating the &lt;xccdf:check-content-ref&gt; @href attribute and @name attribute, if provided.
+        <statement>If an XCCDF component has multiple &lt;xccdf:check-content-ref&gt; elements, then check processing SHALL be performed according
+            to [XCCDF:7.2.3.5.1] with the following changes:~Once a resolvable &lt;xccdf:check-content-ref&gt; element is found, then checking system
+            processing SHALL proceed. When evaluating a rule, an &lt;xccdf:rule-result/xccdf:message&gt; with the @severity attribute value of "info"
+            SHALL be generated, indicating the &lt;xccdf:check-content-ref&gt; @href attribute and @name attribute, if provided.
         </statement>
         <derived-requirements>
             <derived-requirement id="TOOL-233-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
-                <statement>If an XCCDF component has multiple &lt;xccdf:check-content-ref&gt; elements, then check processing SHALL be performed according to
-                    [XCCDF:7.2.3.5.1] with the following changes:~Once a resolvable &lt;xccdf:check-content-ref&gt; element is found, then check system
+                <statement>If an XCCDF component has multiple &lt;xccdf:check-content-ref&gt; elements, then check processing SHALL be performed according
+                    to [XCCDF:7.2.3.5.1] with the following changes:~Once a resolvable &lt;xccdf:check-content-ref&gt; element is found, then checking system
                     processing SHALL proceed. When evaluating a rule, an &lt;xccdf:rule-result/xccdf:message&gt; with the @severity attribute value of "info"
                     SHALL be generated, indicating the &lt;xccdf:check-content-ref&gt; @href attribute and @name attribute, if provided.
                 </statement>
@@ -2882,19 +2881,19 @@
     <requirement id="TOOL-335">
         <summary/>
         <reference ref="NIST800-126r3" section="3.1.2"/>
-        <statement>Schematron rules to check well-formed SCAP content. The Schematron files for the SCAP specification and its applicable component
-            specifications are located at https://scap.nist.gov/revision/1.3/#schematron. Source content SHOULD pass all Schematron assertions in the Schematron
-            rule files. When creating source content, failed assertions with a "WARNING" or "INFO" flag MAY be disregarded if the assertion discovers an issue
-            in the content that is justifiable and expected based on the needs of the content author. When executing source content, all failed assertions
-            with a "WARNING" or "INFO" flag SHALL be disregarded.
+        <statement>Schematron rules to check well-formed SCAP content. The Schematron schemas for the SCAP specification and its applicable component
+            specifications are located at https://scap.nist.gov/revision/1.3/#schematron. Source content SHOULD pass all Schematron assertions in the
+            Schematron rule files. When creating source content, failed assertions with a "WARNING" or "INFO" flag MAY be disregarded if the assertion
+            discovers an issue in the content that is justifiable and expected based on the needs of the content author. When executing source content,
+            all failed assertions with a "WARNING" or "INFO" flag SHALL be disregarded.
         </statement>
         <derived-requirements>
             <derived-requirement id="TOOL-335-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
-                <statement>Schematron rules to check well-formed SCAP content. The Schematron files for the SCAP specification and its applicable component
-                    specifications are located at https://scap.nist.gov/revision/1.3/#schematron. Source content SHOULD pass all Schematron assertions in the Schematron
-                    rule files. When creating source content, failed assertions with a "WARNING" or "INFO" flag MAY be disregarded if the assertion discovers an issue
-                    in the content that is justifiable and expected based on the needs of the content author. When executing source content, all failed assertions
-                    with a "WARNING" or "INFO" flag SHALL be disregarded.
+                <statement>Schematron rules to check well-formed SCAP content. The Schematron schemas for the SCAP specification and its applicable component
+                    specifications are located at https://scap.nist.gov/revision/1.3/#schematron. Source content SHOULD pass all Schematron assertions in the
+                    Schematron rule files. When creating source content, failed assertions with a "WARNING" or "INFO" flag MAY be disregarded if the assertion
+                    discovers an issue in the content that is justifiable and expected based on the needs of the content author. When executing source content,
+                    all failed assertions with a "WARNING" or "INFO" flag SHALL be disregarded.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -2903,12 +2902,12 @@
     <requirement id="TOOL-336">
         <summary/>
         <reference ref="NIST800-126r3" section="3.1.2"/>
-        <statement>The latest Schematron file SHOULD be used in place of any earlier versions. If the latest file is unavailable, the version specified on the
-            &lt;ds:data-stream-collection&gt; element's @schematron-version attribute SHALL be used instead.
+        <statement>The latest Schematron schema SHOULD be used in place of any earlier versions. If the latest file is unavailable, the version
+            specified on the &lt;ds:data-stream-collection&gt; element's @schematron-version attribute SHALL be used instead.
         </statement>
         <derived-requirements>
             <derived-requirement id="TOOL-336-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
-                <statement>The latest Schematron file SHOULD be used in place of any earlier versions. If the latest file is unavailable, the version specified
+                <statement>The latest Schematron schema SHOULD be used in place of any earlier versions. If the latest file is unavailable, the version specified
                     on the &lt;ds:data-stream-collection&gt; element's @schematron-version attribute SHALL be used instead.
                 </statement>
                 <message>''{0}''</message>
@@ -2918,13 +2917,13 @@
     <requirement id="TOOL-337">
         <summary/>
         <reference ref="NIST800-126r3" section="3.1.2"/>
-        <statement>Also, for the component specifications, the Schematron file on the SCAP website SHALL be used in place of any corresponding Schematron file
-            available elsewhere.
+        <statement>Also, for the component specifications, the Schematron schema on the SCAP website SHALL be used in place of any corresponding Schematron
+            schema available elsewhere.
         </statement>
         <derived-requirements>
             <derived-requirement id="TOOL-337-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
-                <statement>Also, for the component specifications, the Schematron file on the SCAP website SHALL be used in place of any corresponding
-                    Schematron file available elsewhere.
+                <statement>Also, for the component specifications, the Schematron schema on the SCAP website SHALL be used in place of any corresponding Schematron
+                    schema available elsewhere.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -2980,15 +2979,15 @@
     <requirement id="TOOL-347">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL check system~OCIL
-            questionnaires SHOULD NOT be used if OVAL can perform the same check correctly.
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems
+            other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system
+            ~OCIL questionnaires SHOULD NOT be used if OVAL can perform the same check correctly.
         </statement>
         <derived-requirements>
             <derived-requirement id="TOOL-347-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
-                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~This version of SCAP supports the use of
-                    only OVAL and/or OCIL check systems in SCAP-conformant content. Use of these check systems SHALL be restricted as follows:~~OCIL check
-                    system~OCIL questionnaires SHOULD NOT be used if OVAL can perform the same check correctly.
+                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems
+                    other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system
+                    ~OCIL questionnaires SHOULD NOT be used if OVAL can perform the same check correctly.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -2997,15 +2996,15 @@
     <requirement id="TOOL-350">
         <summary/>
         <reference ref="NIST800-126r3" section="3.2.4.2"/>
-        <statement>The following requirements and recommendations apply to the &lt;xccdf:check> element:~~Content containing the use of check systems other
-            than the OVAL and OCIL check systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL check system~
-            All requirements in Appendix B of NIST IR 7692, Specifications for the Open Checklist Interactive Language (OCIL) Version 2.0 [OCIL] SHALL be followed.
+        <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
+            than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~All requirements in
+            Appendix B of NIST IR 7692, Specifications for the Open Checklist Interactive Language (OCIL) [OCIL] SHALL be followed.
         </statement>
         <derived-requirements>
             <derived-requirement id="TOOL-350-1" type="MUST" scapval-ext:check-type="APPLICATION">
-                <statement>The following requirements and recommendations apply to the &lt;xccdf:check> element:~~This version of SCAP supports the use of only OVAL
-                    and/or OCIL check systems in SCAP-conformant content. Use of these check systems SHALL be restricted as follows:~~OCIL check system~
-                    All requirements in Appendix B of NIST IR 7692, Specifications for the Open Checklist Interactive Language (OCIL) Version 2.0 [OCIL] SHALL be followed.
+                <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
+                    than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~All requirements in
+                    Appendix B of NIST IR 7692, Specifications for the Open Checklist Interactive Language (OCIL) [OCIL] SHALL be followed.
                     SCAPVal performs the Schematron rules and Schema validation for OCIL.
                 </statement>
                 <message>''{0}''</message>
