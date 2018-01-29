@@ -35,8 +35,6 @@ import java.util.List;
     extensions = "classpath:scapval-xsd/scapval-requirements-ext.xsd")
 public class UnitIntegrationTest {
   public static List<File> paths() {
-//    return Collections.singletonList(new File
-// ("src/test/resources/unit-tests/scap-1.1/baseline-minimal.xml"));
     return Collections.singletonList(new File("src/test/resources/unit-tests"));
   }
 }
