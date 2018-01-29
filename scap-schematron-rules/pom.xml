@@ -74,7 +74,6 @@
 							</descriptors>
 						</configuration>
 					</execution>
-					<!--todo update for github-->
 					<execution>
 						<id>scap-schematron-assembly</id>
 						<phase>package</phase>
@@ -88,6 +87,22 @@
 							</filters>
 							<descriptors>
 								<descriptor>src/main/assembly/scap-schematron-rules-assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<execution>
+						<id>scap-oval-schematron-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<filters>
+								<filter>${project.basedir}/src/main/filters/website.properties</filter>
+							</filters>
+							<descriptors>
+								<descriptor>src/main/assembly/scap-oval-schematron-rules-assembly.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>

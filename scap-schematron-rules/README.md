@@ -32,5 +32,6 @@ Please send tool defects reports, enhancement requests, and any other related
 comments by email to scap@nist.gov.
 
 [SCAP Rules Readme]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/scap-rules-readme.txt
-[Other Rules Rules]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/other-rules-readme.txt
+[OVAL Rules Readme]:https://github.com/usnistgov/scapval/blob/master/scap-schematron-rules/install/oval-rules-readme
+.txt
 [License Information]:https://github.com/usnistgov/scapval/blob/master/scapval/src/main/distro/NOTICE.txt
