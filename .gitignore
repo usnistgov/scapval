@@ -16,7 +16,6 @@
 *.jar
 *.war
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
@@ -37,3 +36,4 @@ test-results
 bootstrap
 /scapval/validation-report.html
 /scapval/validation-result.xml
+

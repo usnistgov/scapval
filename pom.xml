@@ -53,8 +53,8 @@
 
 	<properties>
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
-		<version.decima>0.5.1-SNAPSHOT</version.decima>
-		<version.mitre-cpe>1.0.8-SNAPSHOT</version.mitre-cpe>
+		<version.decima>0.6.0</version.decima>
+		<version.mitre-cpe>1.0.7</version.mitre-cpe>
 	</properties>
 
 	<dependencyManagement>
