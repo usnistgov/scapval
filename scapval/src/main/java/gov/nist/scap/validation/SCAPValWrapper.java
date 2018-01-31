@@ -52,14 +52,15 @@ public class SCAPValWrapper {
    * @param args a String array of arguments
    * @return the AssessmentResults which includes a Collection of the results
    */
-  public static SCAPValAssessmentResults run(String[] args, URI bootstrapLocation) throws IOException,
+  public static SCAPValAssessmentResults run(String[] args, URI bootstrapLocation, URI logFileLocation) throws
+      IOException,
       ConfigurationException, URISyntaxException, AssessmentException, JDOMException, SchematronCompilationException,
       SAXException, RequirementsParserException, SCAPException, TransformerException, ParseException,
       DocumentException {
     Objects.requireNonNull(args, "args can not be null.");
 
     Application application = new Application();
-    return application.runProgrammatic(args, bootstrapLocation);
+    return application.runProgrammatic(args, bootstrapLocation, logFileLocation);
   }
 
   /**
@@ -72,6 +73,7 @@ public class SCAPValWrapper {
     private String useCase;
     private String reportDirPath;
     private URI bootstrapLocation = null;
+    private URI logFileLocation = null;
     private ContentType submissionType;
     private SCAPVersion scapVersion;
     private boolean isOnline = false;
@@ -119,9 +121,15 @@ public class SCAPValWrapper {
       return this;
     }
 
-    // location the URI where the HTML report's boostrap dependency resides
+    // the URI where the HTML report's boostrap dependency resides
     public Builder bootstrapLocation(URI location) {
       bootstrapLocation = location;
+      return this;
+    }
+
+    // the location to write out an optional log file for the validation (content contains console output)
+    public Builder logFileLocation(URI location) {
+      logFileLocation = location;
       return this;
     }
 
@@ -205,7 +213,7 @@ public class SCAPValWrapper {
         args.add("-debug");
       }
 
-      return SCAPValWrapper.run(args.toArray(new String[0]), bootstrapLocation);
+      return SCAPValWrapper.run(args.toArray(new String[0]), bootstrapLocation, logFileLocation);
     }
   }
 

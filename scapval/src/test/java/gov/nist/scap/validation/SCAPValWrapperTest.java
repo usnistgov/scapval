@@ -22,6 +22,8 @@
  */
 package gov.nist.scap.validation;
 
+import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
+
 import gov.nist.decima.core.assessment.result.BaseRequirementResult;
 import gov.nist.decima.core.assessment.result.ResultStatus;
 import gov.nist.scap.validation.utils.FileUtils;
@@ -30,8 +32,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
-
-import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
 
 public class SCAPValWrapperTest {
   @Test

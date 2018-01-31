@@ -23,6 +23,8 @@
 
 package gov.nist.scap.validation;
 
+import org.apache.logging.log4j.LogManager;
+
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -49,9 +51,13 @@ public class Messages {
     return MessageFormat.format(msg, arguments);
   }
 
+  /**
+   * Displays the current SCAPVal version based the pom file.
+   */
   public static void printVersion() {
     String message = Messages.getMessage("scap.validation.version", SCAPVersion.getVersionsSupported(), getVersion());
-    System.out.println(message);
+    final org.apache.logging.log4j.Logger log = LogManager.getLogger(Application.class);
+    log.info(message);
   }
 
   public static String getVersion() {

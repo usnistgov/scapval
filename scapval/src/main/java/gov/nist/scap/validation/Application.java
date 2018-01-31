@@ -66,6 +66,10 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -75,6 +79,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -192,14 +197,29 @@ public class Application {
    *
    * @param args              the command line arguments, not null
    * @param bootstrapLocation a URI to be used in the HTML report to locate the required bootstrap files, can be null
+   * @param logFileLocation a URI to specify an optional log file containing the console output, can be null
    * @return the AssessmentResults of the validation
    */
-  protected SCAPValAssessmentResults runProgrammatic(String[] args, URI bootstrapLocation) throws
+  protected SCAPValAssessmentResults runProgrammatic(String[] args, URI bootstrapLocation, URI logFileLocation) throws
       SchematronCompilationException, DocumentException, AssessmentException, JDOMException, SAXException,
       URISyntaxException, IOException, RequirementsParserException, ParseException, TransformerException,
       ConfigurationException, SCAPException {
 
     Objects.requireNonNull(args, "args cannot be null.");
+
+    if (logFileLocation != null) {
+      //setup log4j2 to write log info to the specified log file
+      System.setProperty("logFileLocation", logFileLocation.getPath());
+
+      //reconfigure log4j2 to use the appropriate configuration file which will reference the above system property
+      ConfigurationFactory configurationFactory = XmlConfigurationFactory.getInstance();
+      ConfigurationFactory.setConfigurationFactory(configurationFactory);
+      LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false);
+      URL resourceLocation = new URL("classpath:log4j2withFileLog.xml");
+      InputStream in = resourceLocation.openConnection().getInputStream();
+      ConfigurationSource configurationSource = new ConfigurationSource(in);
+      loggerContext.start(configurationFactory.getConfiguration(loggerContext, configurationSource));
+    }
 
     //print scapval version initially
     Messages.printVersion();
