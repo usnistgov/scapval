@@ -14,12 +14,12 @@
 
     <xsl:template name="process-categorizations"/>
     <xsl:template name="process-validation-details">
-        <dt>Type:</dt>
-        <dd><span id="content-type-title"></span></dd>
-        <dt>Version:</dt>
-        <dd><span id="scapval-version"></span></dd>
-        <dt>Notes:</dt>
-        <dd><span id="notes-content"></span></dd>
+        <dt class="col-sm-3">Type:</dt>
+        <dd class="col-sm-9"><span id="content-type-title"></span></dd>
+        <dt class="col-sm-3">Version:</dt>
+        <dd class="col-sm-9"><span id="scapval-version"></span></dd>
+        <dt class="col-sm-3">Notes:</dt>
+        <dd class="col-sm-9"><span id="notes-content"></span></dd>
     </xsl:template>
     <xsl:template name="process-validation-summary">
     </xsl:template>

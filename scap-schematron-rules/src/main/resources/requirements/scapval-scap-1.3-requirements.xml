@@ -4,8 +4,13 @@
               xsi:schemaLocation="http://csrc.nist.gov/ns/decima/requirements/1.0 ../../../../../decima/xml/src/main/xsd/decima/decima-requirements.xsd https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.3 ../../xsd/scapval-requirements-ext.xsd">
     <resource id="NIST800-126r3" name="The Technical Specification for the Security Content Automation Protocol (SCAP): SCAP Version 1.3"
               href="http://csrc.nist.gov/publications/drafts/800-126-rev3/sp800_126_r3_draft.pdf"/>
+    <resource id="NISTIR-7698"
+              name="Common Platform Enumeration: Applicability Language Specification Version 2.3"
+              href="http://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir7698.pdf"/>
     <resource id="NISTIR-8085" name="Security Content Automation Protocol (SCAP) Version 1.2 Content Style Guide (Draft): Best Practices for Creating and Maintaining SCAP 1.2 Content"
               href="http://csrc.nist.gov/publications/drafts/nistir-8058/nistir_8058_draft.pdf"/>
+    <resource id="SCAPVAL1.3" name="SCAP Content Validation Tool"
+              href="https://scap.nist.gov/revision/1.3/index.html"/>
     <requirement id="RES-126">
         <summary/>
         <reference ref="NIST800-126r3" section="4.5.2"/>
