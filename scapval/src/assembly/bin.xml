@@ -27,20 +27,6 @@
 		</dependencySet>
 	</dependencySets>
 	<fileSets>
-		<!--For HTML report functionality and styling-->
-		<fileSet>
-			<!-- This dir should have already been unpacked from decima-core and placed in ${project.basedir} -->
-			<!-- Currently this is accomplished with an execution in the .pom "unpack-bootstrap" -->
-			<directory>${project.basedir}/bootstrap</directory>
-			<outputDirectory>bootstrap</outputDirectory>
-			<includes>
-				<include>**/*</include>
-			</includes>
-			<excludes>
-				<exclude>**/META-INF/**</exclude>
-			</excludes>
-		</fileSet>
-
 		<!--For requirement files -->
 		<fileSet>
 			<directory>${project.build.outputDirectory}/requirements</directory>

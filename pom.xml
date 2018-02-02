@@ -53,7 +53,7 @@
 
 	<properties>
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
-		<version.decima>0.6.0</version.decima>
+		<version.decima>0.6.1</version.decima>
 		<version.mitre-cpe>1.0.7</version.mitre-cpe>
 	</properties>
 

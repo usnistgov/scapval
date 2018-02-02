@@ -52,7 +52,7 @@ public class SCAPValWrapper {
    * @param args a String array of arguments
    * @return the AssessmentResults which includes a Collection of the results
    */
-  public static SCAPValAssessmentResults run(String[] args, URI bootstrapLocation, URI logFileLocation) throws
+  public static SCAPValAssessmentResults run(String[] args, URI logFileLocation) throws
       IOException,
       ConfigurationException, URISyntaxException, AssessmentException, JDOMException, SchematronCompilationException,
       SAXException, RequirementsParserException, SCAPException, TransformerException, ParseException,
@@ -60,7 +60,7 @@ public class SCAPValWrapper {
     Objects.requireNonNull(args, "args can not be null.");
 
     Application application = new Application();
-    return application.runProgrammatic(args, bootstrapLocation, logFileLocation);
+    return application.runProgrammatic(args, logFileLocation);
   }
 
   /**
@@ -72,7 +72,6 @@ public class SCAPValWrapper {
     private String maxDownloadSize = "30"; // default max download size in MiB
     private String useCase;
     private String reportDirPath;
-    private URI bootstrapLocation = null;
     private URI logFileLocation = null;
     private ContentType submissionType;
     private SCAPVersion scapVersion;
@@ -118,12 +117,6 @@ public class SCAPValWrapper {
     // the directory to write out the optional validation XML/HTML reports
     public Builder reportOutputDirectory(String path) {
       reportDirPath = path;
-      return this;
-    }
-
-    // the URI where the HTML report's boostrap dependency resides
-    public Builder bootstrapLocation(URI location) {
-      bootstrapLocation = location;
       return this;
     }
 
@@ -213,7 +206,7 @@ public class SCAPValWrapper {
         args.add("-debug");
       }
 
-      return SCAPValWrapper.run(args.toArray(new String[0]), bootstrapLocation, logFileLocation);
+      return SCAPValWrapper.run(args.toArray(new String[0]), logFileLocation);
     }
   }
 

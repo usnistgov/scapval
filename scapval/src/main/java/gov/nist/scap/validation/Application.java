@@ -59,6 +59,7 @@ import gov.nist.scap.validation.exceptions.SCAPException;
 import gov.nist.scap.validation.utils.FileUtils;
 import gov.nist.scap.validation.utils.SCAPUtils;
 import gov.nist.scap.validation.utils.XMLUtils;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
@@ -88,6 +89,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import javax.xml.transform.TransformerException;
 
 public class Application {
@@ -184,8 +186,8 @@ public class Application {
     //create and execute all the assessments for the submitted content
     SCAPValAssessmentResults scapValAssessmentResults = executeAssessments();
 
-    //create the XML and HTML results files. The bootstrap location will be default so null
-    generateResultsReport(scapValAssessmentResults, cmd, null);
+    //create the XML and HTML results files.
+    generateResultsReport(scapValAssessmentResults, cmd);
 
     return 0;
   }
@@ -196,11 +198,10 @@ public class Application {
    * generated if -valreportfile is provided .
    *
    * @param args              the command line arguments, not null
-   * @param bootstrapLocation a URI to be used in the HTML report to locate the required bootstrap files, can be null
    * @param logFileLocation a URI to specify an optional log file containing the console output, can be null
    * @return the AssessmentResults of the validation
    */
-  protected SCAPValAssessmentResults runProgrammatic(String[] args, URI bootstrapLocation, URI logFileLocation) throws
+  protected SCAPValAssessmentResults runProgrammatic(String[] args, URI logFileLocation) throws
       SchematronCompilationException, DocumentException, AssessmentException, JDOMException, SAXException,
       URISyntaxException, IOException, RequirementsParserException, ParseException, TransformerException,
       ConfigurationException, SCAPException {
@@ -236,7 +237,7 @@ public class Application {
 
     //optionally generate XML results and HTML report
     if (cmd.getOptionValue(OPTION_VALIDATION_REPORT_FILE) != null) {
-      generateResultsReport(scapValAssessmentResults, cmd, bootstrapLocation);
+      generateResultsReport(scapValAssessmentResults, cmd);
     }
 
     return scapValAssessmentResults;
@@ -886,11 +887,8 @@ public class Application {
    *
    * @param scapValAssessmentResults the results of validation, not null
    * @param cmd                      the CommandLine object storing parsed user params, not null
-   * @param bootstrapLocation        an optional URI containing the location of the bootstrap dependency
-   *                                 for the HTML report, overriding the default. This can be null
    */
-  protected static void generateResultsReport(SCAPValAssessmentResults scapValAssessmentResults, CommandLine cmd, URI
-      bootstrapLocation) throws IOException, URISyntaxException, TransformerException {
+  protected static void generateResultsReport(SCAPValAssessmentResults scapValAssessmentResults, CommandLine cmd) throws IOException, URISyntaxException, TransformerException {
     Objects.requireNonNull(scapValAssessmentResults, "scapValAssessmentResults cannot be null.");
     Objects.requireNonNull(cmd, "cmd cannot be null.");
 
@@ -928,52 +926,7 @@ public class Application {
 
     ReportGenerator reportGenerator = new ReportGenerator();
 
-    // because the packaged version of scapval is launched from a script which could be executed
-    // from various current working dirs, check for location of a jar file, otherwise we'll use the
-    // current working directory
-    StringBuilder packagedPath = null;
-    File bootsrapDirFile = null;
     File scapvalBaseXSLTemplateFile = null;
-    String bootstrapDirPath = "";
-
-    //Gather the bootstrap location used when generating the HTML report
-    if (bootstrapLocation != null) {
-      //if user specified location, just us that
-      reportGenerator.setBootstrapPath(bootstrapLocation);
-    } else {
-      try {
-        bootstrapDirPath = new URL("classpath:bootstrap/").openConnection().getURL().getPath();
-        if (bootstrapDirPath.contains(".jar!")) {
-          /* we are running from a packaged version and would get something like
-          scapval-1.3.0\scapval-1.3.0.jar!\bootstrap
-          so in order to use the proper bootstrap dir and account for running the .bat file from
-          a different current working dir,
-          we'll gather the location with some path parsing here. Since the path is obtained from
-          URL.openConnection() the seperator should always be "/" */
-          int dirsInPath = bootstrapDirPath.split("/").length;
-          packagedPath = new StringBuilder("");
-          for (int i = 0; i < dirsInPath - 2; i++) {
-            packagedPath.append(bootstrapDirPath.split("/")[i] + "/");
-          }
-          //remove the prepended file: protocol added by URL
-          bootstrapDirPath = packagedPath.toString().replace("file:", "") + "bootstrap";
-        }
-      } catch (IOException e) {
-        //we are not running from a packaged version, try from current working directory
-        bootstrapDirPath = "bootstrap";
-      }
-
-      bootsrapDirFile = new File(bootstrapDirPath);
-    }
-
-    if (bootsrapDirFile != null) {
-      try {
-        reportGenerator.setBootstrapPath(bootsrapDirFile);
-      } catch (IOException e) {
-        throw new RuntimeException(
-            "Unable to locate bootstrap location for HTML report " + "generation:" + " " + bootsrapDirFile + " - " + e);
-      }
-    }
 
     //Gather the base scapval-report.xsl for customization
     scapvalBaseXSLTemplateFile = FileUtils.getTempFileFromResource("classpath:xsl/scapval-report.xsl");
