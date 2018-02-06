@@ -69,6 +69,25 @@ public class ScapDocumentSniffer {
   }
 
   /**
+   * For an SCAP 1.2/1.3 file, returns the scap-version attribute of the data-stream
+   * element.
+   *
+   * @param filename The SCAP file.
+   * @return The SCAP version e.g., 1.2 / 1.3.
+   */
+  public String findSCAPVersion(final String filename) {
+
+    final ScapVersionHandler scapVersionHandler = new ScapVersionHandler();
+
+    parseFile(filename, scapVersionHandler);
+
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("%s SCAP specified version is is %s", filename, scapVersionHandler.getScapVersion()));
+    }
+    return scapVersionHandler.getScapVersion();
+  }
+
+  /**
    * For an SCAP 1.2/1.3 file, returns the use-case attribute of the data-stream
    * element.
    *
@@ -77,14 +96,14 @@ public class ScapDocumentSniffer {
    */
   public String findUseCase(final String filename) {
 
-    final ScapUseCaseHandler handler = new ScapUseCaseHandler();
+    final ScapUseCaseHandler useCaseHandler = new ScapUseCaseHandler();
 
-    parseFile(filename, handler);
+    parseFile(filename, useCaseHandler);
 
     if (log.isDebugEnabled()) {
-      log.debug(String.format("%s SCAP use case is %s", filename, handler.getUseCase()));
+      log.debug(String.format("%s SCAP use case is %s", filename, useCaseHandler.getUseCase()));
     }
-    return handler.getUseCase();
+    return useCaseHandler.getUseCase();
   }
 
   /**
@@ -208,6 +227,43 @@ public class ScapDocumentSniffer {
 
     public String getUseCase() {
       return this.useCase;
+    }
+  }
+
+  /**
+   * Handles an XML document by searching for the scap-version attribute, then
+   * finding the specified SCAP version of the data-stream element.
+   */
+  static class ScapVersionHandler extends DefaultHandler {
+
+    // the value of the scap-version attribute, if found
+    private String scapVersion = null;
+
+    @Override
+    public void startElement(
+        String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+
+      // short-circuit for performance
+      if (scapVersion == null) {
+
+        // if stream is SCAP 1.2/1.3 and element is data-stream
+        if ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
+            uri) || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)) && "data-stream".equals(
+            localName)) {
+
+          // get value of the scap-version attribute
+          this.scapVersion = attributes.getValue("scap-version");
+          if (log.isDebugEnabled()) {
+            log.debug(String.format("found scap-version %s", this.scapVersion));
+          }
+        }
+      }
+
+      super.startElement(uri, localName, qualifiedName, attributes);
+    }
+
+    public String getScapVersion() {
+      return this.scapVersion;
     }
   }
 }

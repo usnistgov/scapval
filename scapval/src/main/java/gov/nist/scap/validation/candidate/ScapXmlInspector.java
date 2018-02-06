@@ -52,13 +52,17 @@ public class ScapXmlInspector implements ICandidateFileCreator {
     final String contentType = this.xmlSniffer.findContentType(builder.getFile().getAbsolutePath());
 
     // SCAP 1.2 XML
-    if (NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(contentType)) {
-      return createScap12Candidate(builder);
+    if (NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(contentType) ) {
+      if (this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.2")) {
+        return createScap12Candidate(builder);
+      }
     }
 
     // SCAP 1.3 XML
     if (NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(contentType)) {
-      return createScap13Candidate(builder);
+      if (this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.3")) {
+        return createScap13Candidate(builder);
+      }
     }
 
     // XCCDF 1.2 XML

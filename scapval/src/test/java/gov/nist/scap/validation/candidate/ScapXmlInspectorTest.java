@@ -22,14 +22,16 @@
  */
 package gov.nist.scap.validation.candidate;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import gov.nist.scap.validation.SCAPVersion;
 import gov.nist.scap.validation.component.XccdfVersion;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
-
-import static org.junit.Assert.*;
 
 public class ScapXmlInspectorTest {
 
@@ -116,6 +118,34 @@ public class ScapXmlInspectorTest {
     assertNull(candidate.getDisqualificaiton());
 
     assertEquals(SCAPVersion.V1_2, candidate.getScapVersion());
+    assertNull(candidate.getScapUseCase());
+  }
+
+  @Test
+  public void testScap13() throws Exception {
+    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-13/" +
+        "source_data_stream_collection_sample.xml").getFile());
+
+    final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
+
+    assertNull(candidate.getXccdfVersion());
+    assertEquals(CandidateFile.Type.SCAP_COMBINED_FILE, candidate.getType());
+    assertNull(candidate.getDisqualificaiton());
+    assertEquals(SCAPVersion.V1_3, candidate.getScapVersion());
+    assertEquals("CONFIGURATION", candidate.getScapUseCase());
+  }
+
+  @Test
+  public void testScap13WithoutUseCase() throws Exception {
+    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-13/" +
+        "source_data_stream_collection_sample-NO-USE-CASE.xml").getFile());
+
+    final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
+
+    assertNull(candidate.getXccdfVersion());
+    assertEquals(CandidateFile.Type.SCAP_COMBINED_FILE, candidate.getType());
+    assertNull(candidate.getDisqualificaiton());
+    assertEquals(SCAPVersion.V1_3, candidate.getScapVersion());
     assertNull(candidate.getScapUseCase());
   }
 
