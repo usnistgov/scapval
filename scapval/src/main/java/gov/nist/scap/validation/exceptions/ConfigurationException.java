@@ -39,4 +39,9 @@ public class ConfigurationException extends Exception {
     //There was a problem with CLI params, show tool usage
     Application.showHelp();
   }
+
+  public ConfigurationException() {
+    //There was a problem with CLI params, show tool usage
+    Application.showHelp();
+  }
 }

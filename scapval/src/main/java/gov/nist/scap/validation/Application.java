@@ -144,15 +144,21 @@ public class Application {
     try {
       result = new Application().runCLI(args);
     } catch (ConfigurationException e) {
-      // A ConfigurationException will automatically print usage instructions on the command line
+      // These exceptions are a result of CLI param problems including specified source/destination files.
+      // Tool usage is automatically displayed for any ConfigurationException.
+      if (e.getMessage() != null && !e.getMessage().isEmpty()) {
+        log.error(e.getMessage());
+      }
       result = 1;
     } catch (ParseException | SCAPException | DocumentException e) {
-      // These exceptions are somewhat expected and a simple error message is sufficient
-      log.info(e.getMessage());
+      // These exceptions are a result of problems with the validation content which SCAPVal is able to properly detect.
+      if (e.getMessage() != null && !e.getMessage().isEmpty()) {
+        log.error(e.getMessage());
+      }
       result = 1;
     } catch (SchematronCompilationException | AssessmentException | JDOMException | SAXException | URISyntaxException
         | IOException | RequirementsParserException | TransformerException | RuntimeException e) {
-      // These exceptions are runtime issues and prevent scapval from properly running
+      // These exceptions are runtime issues that prevent scapval from properly running further.
       log.error("SCAPVal has encountered a problem and cannot continue with this validation." + "" + " - " + e);
       result = -1;
     }
@@ -197,7 +203,7 @@ public class Application {
    * All results are returned in an AssessmentResults Object and an optional HTML report is
    * generated if -valreportfile is provided .
    *
-   * @param args              the command line arguments, not null
+   * @param args            the command line arguments, not null
    * @param logFileLocation a URI to specify an optional log file containing the console output, can be null
    * @return the AssessmentResults of the validation
    */
@@ -313,9 +319,14 @@ public class Application {
       throw new ConfigurationException("Must provide command line arguments");
     }
 
-    // account for the help params, if not the usage message will be displayed twice
-    if (args[0].equals("-h") || args[0].equals("--help)")) {
-      throw new ConfigurationException("");
+    // the version will have already been displayed so exit normally
+    if (args[0].equals("-v") || args[0].equals("-version")) {
+      System.exit(0);
+    }
+
+    // Decima supports both long and short param option here, version and usage will be displayed
+    if (args[0].equals("-h") || args[0].equals("--help")) {
+      throw new ConfigurationException();
     }
 
     // parse the args
@@ -888,7 +899,8 @@ public class Application {
    * @param scapValAssessmentResults the results of validation, not null
    * @param cmd                      the CommandLine object storing parsed user params, not null
    */
-  protected static void generateResultsReport(SCAPValAssessmentResults scapValAssessmentResults, CommandLine cmd) throws IOException, URISyntaxException, TransformerException {
+  protected static void generateResultsReport(SCAPValAssessmentResults scapValAssessmentResults, CommandLine cmd)
+      throws IOException, URISyntaxException, TransformerException {
     Objects.requireNonNull(scapValAssessmentResults, "scapValAssessmentResults cannot be null.");
     Objects.requireNonNull(cmd, "cmd cannot be null.");
 
