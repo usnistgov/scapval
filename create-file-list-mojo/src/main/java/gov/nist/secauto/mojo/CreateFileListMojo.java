@@ -116,7 +116,7 @@ public class CreateFileListMojo extends AbstractMojo {
   /**
    * Scans a single directory.
    *
-   * @param root
+   * @param resource
    *          Directory to scan
    * @param writer
    *          Where to write the source list

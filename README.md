@@ -24,9 +24,13 @@ SCAPVal utilizes Apache Maven to build and has the following dependencies:
 - scap-schematron-rules - included in this repository /scap-schematron-rules
 - Apache Commons Codec - available via Maven Central
 - junit - available via Maven Central
-- mitre-cpe - todo 
+- mitre-cpe - currently not available in Maven Central
 
-todo elaborate and provide command line build instructions?
+Once all the above decencies have been acquired and installed in your local maven repository.
+
+`mvn clean install package`
+
+Once complete, scapval will be ready for use in */scapval/target*
 
 License:
 ---------
@@ -37,5 +41,5 @@ Feedback:
 Please send tool defects reports, enhancement requests, and any other related
 comments by email to scap@nist.gov.
 
-[NIST Special Publication 800-126 Rev.3]:http://csrc.nist.gov/publications/PubsDrafts.html#SP-800-126-Rev-3
+[NIST Special Publication 800-126 Rev.3]:http://csrc.nist.gov/publications/PubsDrafts.html
 [License Information]:https://github.com/usnistgov/scapval/blob/master/scapval/src/main/distro/NOTICE.txt
