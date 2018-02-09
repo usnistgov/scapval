@@ -27,30 +27,37 @@ import org.junit.Test;
 
 public class OVALVersionTest {
   @Test
-  public void getByString() throws Exception {
-    Assert.assertEquals(OVALVersion.getByString("5.11.1"), OVALVersion.V5_11_1);
-  }
-
-  @Test
   public void getVersionString() throws Exception {
+    Assert.assertEquals(OVALVersion.V5_11.getVersionString(), "5.11");
     Assert.assertEquals(OVALVersion.V5_11_1.getVersionString(), "5.11.1");
+    Assert.assertEquals(OVALVersion.V5_11_2.getVersionString(), "5.11.2");
   }
 
   @Test
   public void getSchemaDir() throws Exception {
+    Assert.assertEquals(OVALVersion.V5_11.getSchemaDir(), "xsd/mitre/oval/oval_5.11/");
     Assert.assertEquals(OVALVersion.V5_11_1.getSchemaDir(), "xsd/mitre/oval/oval_5.11.1/");
+    Assert.assertEquals(OVALVersion.V5_11_2.getSchemaDir(), "xsd/mitre/oval/oval_5.11.2/");
   }
 
   @Test
   public void getDefinitionSchematron() throws Exception {
-    Assert.assertEquals(OVALVersion.V5_11_1.getDefinitionSchematron(),
+    Assert.assertEquals(OVALVersion.V5_11.getDefinitionSchematron(),
         "oval-definitions-schematron-5.11.sch");
+    Assert.assertEquals(OVALVersion.V5_11_1.getDefinitionSchematron(),
+        "oval-definitions-schematron-5.11.1.sch");
+    Assert.assertEquals(OVALVersion.V5_11_2.getDefinitionSchematron(),
+        "oval-definitions-schematron-5.11.2.sch");
   }
 
   @Test
   public void getResultSchematron() throws Exception {
-    Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(),
+    Assert.assertEquals(OVALVersion.V5_11.getResultSchematron(),
         "oval-results-schematron-5.11.sch");
+    Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(),
+        "oval-results-schematron-5.11.1.sch");
+    Assert.assertEquals(OVALVersion.V5_11_2.getResultSchematron(),
+        "oval-results-schematron-5.11.2.sch");
   }
 
 }

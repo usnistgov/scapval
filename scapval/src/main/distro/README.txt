@@ -103,7 +103,10 @@ comments by email to scap@nist.gov.
 
 Changelog:
 ----------
-Version ${project.version}
+Version 1.3.2
+- Generated and added OVAL 5.11.1 schematron files and improved handling of 5.11.x OVAL schematrons.
+
+Version 1.3.1
 - Support for SCAP 1.3 added including new requirements from 800-126r3.
 - Support for legacy SCAP 1.0 dropped.
 - SCAPVal has been rewritten and now utilizing the NIST Decima Framework
