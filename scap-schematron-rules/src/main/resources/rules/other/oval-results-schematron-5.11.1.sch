@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- This file was produced with the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools
-and ran against oval-results-schema.xsd -->
+<!-- This file was produced from oval-results-schema.xsd with the provided XSLT ExtractSchFromXSD.xsl from https://github
+.com/OVALProject/Language/tree/5.11.2/tools and modified for SCAPVal specific use (see oval-rules-readme.txt for details)-->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron"
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
             queryBinding="xslt">

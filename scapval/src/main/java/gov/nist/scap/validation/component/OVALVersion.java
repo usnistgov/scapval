@@ -64,11 +64,10 @@ public enum OVALVersion {
           "oval-results-schematron-5.10.1.sch"}), V5_11(
       new String[] {"xsd/mitre/oval/oval_5.11/", "oval-definitions-schematron-5.11.sch",
           "oval-results-schematron-5.11.sch"}), V5_11_1(
-      //5.11.1 schematrons are not available in github so using 5.11 version
-      new String[] {"xsd/mitre/oval/oval_5.11.1/", "oval-definitions-schematron-5.11.sch",
-          "oval-results-schematron-5.11.sch"}), V5_11_2(
-      new String[] {"xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.sch",
-          "oval-results-schematron-5.12.sch"});
+      new String[] {"xsd/mitre/oval/oval_5.11.1/", "oval-definitions-schematron-5.11.1.sch",
+          "oval-results-schematron-5.11.1.sch"}), V5_11_2(
+      new String[] {"xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
+          "oval-results-schematron-5.11.2.sch"});
 
   private String[] validationFiles;
 

@@ -5,7 +5,7 @@ Each schematron assert includes an ID in its content with prefixes SRC-, RES-, a
 These asserts correspond to specific SCAP requirements found in the requirements/ directory.
 
 Change Log:
-1.3
+1.3.2
 - Added SCAP 1.3 support with result-data-stream-1.3.sch and source-data-stream-1.3.sch schematron files.
 - All SCAP schematron assert content IDs are modified to include a RES, SRC-, A- prefix per Decima integration requirements.
 - Added application requirement A-26 to warn users when optional attributes are missing in some SCAP content.

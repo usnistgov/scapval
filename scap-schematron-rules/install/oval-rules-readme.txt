@@ -2,15 +2,28 @@ To validate OVAL content, SCAP uses OVAL Definition Schematron schemas that have
 To use XPath 1.0, the queryBinding="xslt2" attributes were removed from the root element of the schematron schemas.
 The modification was made to avoid an XPath exception in the floor() function when the current element being processed is not a node.
 
-Version 1.3 Updates:
-- Include OVAL definitions 5.12:
+Version 1.3.2 Updates:
+- Include OVAL definitions 5.11.2:
     - Extracted from OVAL *.definitions-schema.xsd on github via the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools
     the output files were then merged into a single .sch file
     Modifications:
         - Removed some duplicate rules as a result of merging the extracted schematron from several XSDs.
         - Commented out pattern oval_schema_version_core_matches_platforms until fix is provided.
 
-- Include OVAL results 5.12:
+- Include OVAL results 5.11.2:
+    - Extracted from OVAL oval-results-schema.xsd schema github via the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools
+    Modifications:
+        - Prepend the XPath Axes ancestor-or-self:: to several asserts to allow for testing OVAL content embedded in ARF reports
+        - Commented out pattern oval_schema_version_core_matches_platforms until fix is provided.
+
+- Include OVAL definitions 5.11.1:
+    - Extracted from OVAL *.definitions-schema.xsd on github via the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools
+    the output files were then merged into a single .sch file
+    Modifications:
+        - Removed some duplicate rules as a result of merging the extracted schematron from several XSDs.
+        - Commented out pattern oval_schema_version_core_matches_platforms until fix is provided.
+
+- Include OVAL results 5.11.1:
     - Extracted from OVAL oval-results-schema.xsd schema github via the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools
     Modifications:
         - Prepend the XPath Axes ancestor-or-self:: to several asserts to allow for testing OVAL content embedded in ARF reports

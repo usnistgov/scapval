@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema"
             queryBinding="xslt">
-    <!-- This file was produced with the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools
-    and ran against all .xsd schemas and merged into this single file. The exception is oval-results-schema.xsd which was transformed separately -->
+    <!-- This file was produced from *.definitions-schema.xsd with the provided XSLT ExtractSchFromXSD.xsl from https://github
+    .com/OVALProject/Language/tree/5.11.2/tools and modified for SCAPVal specific use (see oval-rules-readme.txt for details)-->
     <sch:ns xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="oval-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
    <sch:ns xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="aix-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix"/>
    <sch:ns xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
@@ -1375,12 +1375,6 @@
             <sch:value-of select="../@id"/> - the state child element of an ldap_test must reference an ldap_state</sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldap57_test_dep">
-                              <sch:rule context="ind-def:ldap57_test">
-                                    <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
-                              </sch:rule>
-                        </sch:pattern>
    <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldap57_test">
                               <sch:rule context="ind-def:ldap57_test/ind-def:object">
                                     <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-def:ldap57_object/@id">
@@ -1389,12 +1383,6 @@
                               <sch:rule context="ind-def:ldap57_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:ldap57_state/@id">
             <sch:value-of select="../@id"/> - the state child element of an ldap57_test must reference an ldap57_state</sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldap57_object_dep">
-                              <sch:rule context="ind-def:ldap57_object">
-                                    <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
                               </sch:rule>
                         </sch:pattern>
    <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldap57_object_verify_filter_state">
@@ -1406,12 +1394,6 @@
                                     <sch:let name="state_name" value="local-name($reffed_state)"/>
                                     <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
                                     <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name='ldap57_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldap57_state_dep">
-                              <sch:rule context="ind-def:ldap57_state">
-                                    <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
                               </sch:rule>
                         </sch:pattern>
    <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldap57stevalue">
@@ -1580,12 +1562,6 @@
             <sch:value-of select="../@id"/> - operation attribute for the pattern entity of a textfilecontent54_object should be 'pattern match'</sch:assert>
                                                                         </sch:rule>
                                                                   </sch:pattern>
-   <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_tfc54_i">
-                                                            <sch:rule context="win-def:textfilecontent54_state/win-def:instance">
-                                                                  <sch:assert test="string-length(.) = 0 or number(.) &lt; 1">
-            <sch:value-of select="../@id"/> - the value of instance must be greater than one</sch:assert>
-                                                            </sch:rule>
-                                                      </sch:pattern>
    <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_txttst_dep">
                               <sch:rule context="ind-def:textfilecontent_test">
                                     <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
@@ -1733,14 +1709,16 @@
    <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldaptype_timestamp_value_dep">
                                         <sch:rule context="oval-def:oval_definitions/oval-def:states/ind-def:ldap_state/ind-def:ldaptype|oval-def:oval_definitions/oval-def:states/ind-def:ldap57_state/ind-def:ldaptype">
                                             <sch:report test=".='LDAPTYPE_TIMESTAMP'">
-                                                                    DEPRECATED ELEMENT VALUE IN: ldap_state ELEMENT VALUE: <sch:value-of select="."/>
+                                                                    DEPRECATED ELEMENT VALUE IN: ldap_state ELEMENT
+                                                VALUE: <sch:value-of select="."/>
                                                               </sch:report>
                                         </sch:rule>
                                     </sch:pattern>
    <sch:pattern xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ind-def_ldaptype_email_value_dep">
                                         <sch:rule context="oval-def:oval_definitions/oval-def:states/ind-def:ldap_state/ind-def:ldaptype|oval-def:oval_definitions/oval-def:states/ind-def:ldap57_state/ind-def:ldaptype">
                                             <sch:report test=".='LDAPTYPE_EMAIL'">
-                                                                    DEPRECATED ELEMENT VALUE IN: ldap_state ELEMENT VALUE: <sch:value-of select="."/>
+                                                                    DEPRECATED ELEMENT VALUE IN: ldap_state ELEMENT
+                                                VALUE: <sch:value-of select="."/>
                                                               </sch:report>
                                         </sch:rule>
                                     </sch:pattern>
@@ -2094,20 +2072,6 @@
          </sch:report>
                         </sch:rule>
                   </sch:pattern>
-   <sch:pattern xmlns:ios-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#ios" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ios-def_salut_none_value_dep">
-                                            <sch:rule context="oval-def:oval_definitions/oval-def:states/ios-def:acl_state/ios-def:use">
-                                                 <sch:report test=".='NONE'">
-                                                       DEPRECATED ELEMENT VALUE IN: acl_state ELEMENT VALUE: <sch:value-of select="."/>
-                                                 </sch:report>
-                                            </sch:rule>
-                                       </sch:pattern>
-   <sch:pattern xmlns:ios-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#ios" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="ios-def_sratst_null_value_dep">
-                                            <sch:rule context="oval-def:oval_definitions/oval-def:states/ios-def:routingprotocolauthintf_state/ios-def:auth_type">
-                                                 <sch:report test=".='NULL'">
-                                                       DEPRECATED ELEMENT VALUE IN: routingprotocolauthintf_state ELEMENT VALUE: <sch:value-of select="."/>
-                                                 </sch:report>
-                                            </sch:rule>
-                                       </sch:pattern>
    
    <sch:ns xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="oval-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
    <sch:ns xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="iosxe-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe"/>
@@ -2165,38 +2129,13 @@
             <sch:value-of select="../@id"/> - the state child element of a version_test must reference a version_state</sch:assert>
                     </sch:rule>
                 </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_versionste_platform_dep">
-                                        <sch:rule context="iosxe-def:version_state/iosxe-def:platform">
-                                            <sch:report test="true()">Warning: DEPRECATED ENTITY: <sch:value-of select="name()"/>. This entity has been deprecated because it cannot be reliably collected.</sch:report>
-                                        </sch:rule>
-                                    </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_versionste_rp_dep">
-                                        <sch:rule context="iosxe-def:version_state/iosxe-def:rp">
-                                            <sch:report test="true()">Warning: DEPRECATED ENTITY: <sch:value-of select="name()"/>. This entity has been deprecated because it cannot be reliably collected.</sch:report>
-                                        </sch:rule>
-                                    </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_versionste_pkg_dep">
-                                        <sch:rule context="iosxe-def:version_state/iosxe-def:pkg">
-                                            <sch:report test="true()">Warning: DEPRECATED ENTITY: <sch:value-of select="name()"/>. This entity has been deprecated because it cannot be reliably collected.</sch:report>
-                                        </sch:rule>
-                                    </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_versionste_ios_release_dep">
-                                        <sch:rule context="iosxe-def:version_state/iosxe-def:ios_release">
-                                            <sch:report test="true()">Warning: DEPRECATED ENTITY: <sch:value-of select="name()"/>. This entity has been deprecated because it is irrelevant to the IOS-XE version.</sch:report>
-                                        </sch:rule>
-                                    </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_versionste_ios_train_dep">
-                                        <sch:rule context="iosxe-def:version_state/iosxe-def:ios_train">
-                                            <sch:report test="true()">Warning: DEPRECATED ENTITY: <sch:value-of select="name()"/>. This entity has been deprecated because it is irrelevant to the IOS-XE version.</sch:report>
-                                        </sch:rule>
-                                    </sch:pattern>
    <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_interfacetst">
-                    <sch:rule context="iosxe-def:interface_test/iosxe-def:object">
-                        <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/iosxe-def:interface_object/@id">
+                    <sch:rule context="iosxe-def:interface_test/ios-def:object">
+                        <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ios-def:interface_object/@id">
             <sch:value-of select="../@id"/> - the object child element of an interface_test must reference an interface_object</sch:assert>
                     </sch:rule>
-                    <sch:rule context="iosxe-def:interface_test/iosxe-def:state">
-                        <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/iosxe-def:interface_state/@id">
+                    <sch:rule context="iosxe-def:interface_test/ios-def:state">
+                        <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ios-def:interface_state/@id">
             <sch:value-of select="../@id"/> - the state child element of an interface_test must reference an interface_state</sch:assert>
                     </sch:rule>
                 </sch:pattern>
@@ -2415,20 +2354,6 @@
                         <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe') and ($state_name='snmpview_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type.</sch:assert>
                     </sch:rule>
                 </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_sratst_null_value_dep">
-                                    <sch:rule context="oval-def:oval_definitions/oval-def:states/iosxe-def:routingprotocolauthintf_state/iosxe-def:auth_type">
-                                         <sch:report test=".='NULL'">
-                                               DEPRECATED ELEMENT VALUE IN: routingprotocolauthintf_state ELEMENT VALUE: <sch:value-of select="."/>
-                                         </sch:report>
-                                    </sch:rule>
-                               </sch:pattern>
-   <sch:pattern xmlns:iosxe-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#iosxe" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="iosxe-def_salut_none_value_dep">
-                                    <sch:rule context="oval-def:oval_definitions/oval-def:states/iosxe-def:acl_state/iosxe-def:use">
-                                         <sch:report test=".='NONE'">
-                                               DEPRECATED ELEMENT VALUE IN: acl_state ELEMENT VALUE: <sch:value-of select="."/>
-                                         </sch:report>
-                                    </sch:rule>
-                               </sch:pattern>
    
    <sch:ns xmlns:junos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#junos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="oval-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
    <sch:ns xmlns:junos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#junos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="junos-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5#junos"/>
@@ -2505,16 +2430,6 @@
    <sch:ns xmlns:linux-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="linux-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
    <sch:ns xmlns:linux-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
    <sch:ns xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="oval" uri="http://oval.mitre.org/XMLSchema/oval-common-5"/>
-   <sch:pattern xmlns:linux-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="suse-def_apparmorstatus_tst">
-                         <sch:rule context="linux-def:apparmorstatus_test/linux-def:object">
-                              <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/linux-def:apparmorstatus_object/@id">
-            <sch:value-of select="../@id"/> - the object child element of a apparmorstatus_test must reference a apparmorstatus_object</sch:assert>
-                         </sch:rule>
-                         <sch:rule context="linux-def:apparmorstatus_test/linux-def:state">
-                              <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/linux-def:apparmorstatus_state/@id">
-            <sch:value-of select="../@id"/> - the state child element of a apparmorstatustest must reference a apparmorstatus_state</sch:assert>
-                         </sch:rule>
-                    </sch:pattern>
    <sch:pattern xmlns:linux-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="linux-def_dpkginfo_test">
                          <sch:rule context="linux-def:dpkginfo_test/linux-def:object">
                               <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/linux-def:dpkginfo_object/@id">
@@ -3145,12 +3060,6 @@
          </sch:report>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist510_test_dep">
-                              <sch:rule context="macos-def:plist510_test">
-                                    <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
-                              </sch:rule>
-                        </sch:pattern>
    <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist510_test">
                               <sch:rule context="macos-def:plist510_test/macos-def:object">
                                     <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/macos-def:plist510_object/@id">
@@ -3159,12 +3068,6 @@
                               <sch:rule context="macos-def:plist510_test/macos-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/macos-def:plist510_state/@id">
             <sch:value-of select="../@id"/> - the state child element of a plist510_test must reference a plist510_state</sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist510_object_dep">
-                              <sch:rule context="macos-def:plist510_object">
-                                    <sch:report test="true()"> DEPRECATED OBJECT: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-                                    </sch:report>
                               </sch:rule>
                         </sch:pattern>
    <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist510_object_verify_filter_state">
@@ -3190,46 +3093,6 @@
                                                                                           <sch:value-of select="../@id"/> - operation attribute for the filepath entity of a plist510_object should be 'equals' </sch:assert>
                                                                               </sch:rule>
                                                                         </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist510_state_dep">
-                              <sch:rule context="macos-def:plist510_state">
-                                    <sch:report test="true()">DEPRECATED STATE: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist511_test">
-                              <sch:rule context="macos-def:plist511_test/macos-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/macos-def:plist511_object/@id">
-            <sch:value-of select="../@id"/> - the object child element of a plist511_test must reference a plist511_object</sch:assert>
-                              </sch:rule>
-                              <sch:rule context="macos-def:plist511_test/macos-def:state">
-                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/macos-def:plist511_state/@id">
-            <sch:value-of select="../@id"/> - the state child element of a plist511_test must reference a plist511_state</sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist511_object_verify_filter_state">
-                              <sch:rule context="macos-def:plist511_object//oval-def:filter">
-                                    <sch:let name="parent_object" value="ancestor::macos-def:plist511_object"/>
-                                    <sch:let name="parent_object_id" value="$parent_object/@id"/>
-                                    <sch:let name="state_ref" value="."/>
-                                    <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id=$state_ref]"/>
-                                    <sch:let name="state_name" value="local-name($reffed_state)"/>
-                                    <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                                    <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#macos') and ($state_name='plist511_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist511objfilepath">
-                                                                              <sch:rule context="macos-def:plist511_object/macos-def:filepath">
-                                                                                    <sch:assert test="not(@operation) or @operation='equals'">
-                                                                                          <sch:value-of select="../@id"/> - operation attribute for the filepath entity of a plist511_object should be 'equals'
-                                                                                    </sch:assert>
-                                                                              </sch:rule>
-                                                                        </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_plist511objxpath">
-                                                                        <sch:rule context="macos-def:plist_object/macos-def:xpath">
-                                                                              <sch:assert test="not(@operation) or @operation='equals'">
-            <sch:value-of select="../@id"/> - operation attribute for the xpath entity of a plist_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
-                                                                        </sch:rule>
-                                                                  </sch:pattern>
    <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_pwpolicy_test_dep">
                               <sch:rule context="macos-def:pwpolicy_test">
                                     <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
@@ -3263,22 +3126,10 @@
                                     <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#macos') and ($state_name='pwpolicy_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_pwpobjusername">
-                                                                        <sch:rule context="macos-def:pwpolicy_object/macos-def:username">
-                                                                              <sch:assert test="not(@operation) or @operation='equals'">
-            <sch:value-of select="../@id"/> - operation attribute for the username entity of a pwpolicy_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
-                                                                        </sch:rule>
-                                                                  </sch:pattern>
    <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_pwpobjuserpass">
                                                                         <sch:rule context="macos-def:pwpolicy_object/macos-def:userpass">
                                                                               <sch:assert test="not(@operation) or @operation='equals'">
             <sch:value-of select="../@id"/> - operation attribute for the userpass entity of a pwpolicy_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
-                                                                        </sch:rule>
-                                                                  </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_pwpobjdirnode">
-                                                                        <sch:rule context="macos-def:pwpolicy_object/macos-def:directory_node">
-                                                                              <sch:assert test="not(@operation) or @operation='equals'">
-            <sch:value-of select="../@id"/> - operation attribute for the directory_node entity of a pwpolicy_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                                         </sch:rule>
                                                                   </sch:pattern>
    <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_pwpolicy_state_dep">
@@ -3320,12 +3171,6 @@
             <sch:value-of select="../@id"/> - operation attribute for the userpass entity of a pwpolicy59_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                                               <sch:assert test="not((@xsi:nil='1' or @xsi:nil='true')) or ../macos-def:username/@xsi:nil='true' or ../macos-def:username/@xsi:nil='1'">
             <sch:value-of select="../@id"/> - username entity must be nil when userpass entity is nil</sch:assert>
-                                                                        </sch:rule>
-                                                                  </sch:pattern>
-   <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_pwp59dirnode">
-                                                                        <sch:rule context="macos-def:pwpolicy59_object/macos-def:directory_node">
-                                                                              <sch:assert test="not(@operation) or @operation='equals'">
-            <sch:value-of select="../@id"/> - operation attribute for the directory_node entity of a pwpolicy59_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                                         </sch:rule>
                                                                   </sch:pattern>
    <sch:pattern xmlns:macos-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="macos-def_rlimittst">
@@ -4221,18 +4066,6 @@
             <sch:value-of select="../@id"/> - filename entity cannot be empty unless the xsi:nil attribute is set to true or a var_ref is used</sch:assert>
                                                                                   </sch:rule>
                                                                             </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:unix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="unix-def_file_gid">
-                                                            <sch:rule context="unix-def:file_state/unix-def:group_id">
-                                                                  <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
-            <sch:value-of select="../@id"/> - the value of group_id must be greater than zero</sch:assert>
-                                                            </sch:rule>
-                                                      </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:unix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="unix-def_file_uid">
-                                                            <sch:rule context="unix-def:file_state/unix-def:user_id">
-                                                                  <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
-            <sch:value-of select="../@id"/> - the value of user_id must be greater than zero</sch:assert>
-                                                            </sch:rule>
-                                                      </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:unix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="unix-def_recurse_value_file_dep">
                                     <sch:rule context="oval-def:oval_definitions/oval-def:objects/unix-def:file_object/unix-def:behaviors">
                                           <sch:report test="@recurse='files'">DEPRECATED ATTRIBUTE VALUE IN: <sch:value-of select="name()"/> ATTRIBUTE VALUE: <sch:value-of select="@recurse"/>
@@ -4703,12 +4536,6 @@
             <sch:value-of select="../@id"/> - the state child element of an activedirectory_test must reference an activedirectory_state</sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_activedirectory57tst_dep">
-                              <sch:rule context="win-def:activedirectory57_test">
-                                    <sch:report test="true()">DEPRECATED TEST: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
-                              </sch:rule>
-                        </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_activedirectory57_test">
                               <sch:rule context="win-def:activedirectory57_test/win-def:object">
                                     <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/win-def:activedirectory57_object/@id">
@@ -4728,18 +4555,6 @@
                                     <sch:let name="state_name" value="local-name($reffed_state)"/>
                                     <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
                                     <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#windows') and ($state_name='activedirectory57_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_activedirectory57obj_dep">
-                              <sch:rule context="win-def:activedirectory57_object">
-                                    <sch:report test="true()">DEPRECATED OBJECT: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_activedirectory57ste_dep">
-                              <sch:rule context="win-def:activedirectory57_state">
-                                    <sch:report test="true()">DEPRECATED STATE: <sch:value-of select="name()"/> ID: <sch:value-of select="@id"/>
-         </sch:report>
                               </sch:rule>
                         </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_ad57stevalue">
@@ -4807,6 +4622,16 @@
             <sch:value-of select="../@id"/> - operation attribute for the module_id entity of a cmdlet_object must be 'equals'</sch:assert>
                                                                         </sch:rule>
                                                                   </sch:pattern>
+    <sch:pattern xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                 xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
+                 xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+                 xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"
+                 id="win-def_cmdletobjmodule_version">
+        <sch:rule context="win-def:cmdlet_object/win-def:module_version">
+            <sch:assert test="not(@operation) or @operation='equals'">
+                <sch:value-of select="../@id"/> - operation attribute for the module_version entity of a cmdlet_object must be 'equals'</sch:assert>
+        </sch:rule>
+    </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_cmdletobjverb">
                                                                         <sch:rule context="win-def:cmdlet_object/win-def:verb">
                                                                               <sch:assert test="not(@operation) or @operation='equals'">
@@ -5246,27 +5071,6 @@
                                     <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#windows') and ($state_name='interface_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_junctiontst">
-                              <sch:rule context="win-def:junction_test/win-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/win-def:junction_object/@id">
-            <sch:value-of select="../@id"/> - the object child element of a junction_test must reference a junction_object</sch:assert>
-                              </sch:rule>
-                              <sch:rule context="win-def:junction_test/win-def:state">
-                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/win-def:junction_state/@id">
-            <sch:value-of select="../@id"/> - the state child element of a junction_test must reference a junction_state</sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_junction_object_verify_filter_state">
-                              <sch:rule context="win-def:junction_object//oval-def:filter">
-                                    <sch:let name="parent_object" value="ancestor::win-def:junction_object"/>
-                                    <sch:let name="parent_object_id" value="$parent_object/@id"/>
-                                    <sch:let name="state_ref" value="."/>
-                                    <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id=$state_ref]"/>
-                                    <sch:let name="state_name" value="local-name($reffed_state)"/>
-                                    <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                                    <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#windows') and ($state_name='junction_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
-                              </sch:rule>
-                        </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_lptst">
                               <sch:rule context="win-def:lockoutpolicy_test/win-def:object">
                                     <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/win-def:lockoutpolicy_object/@id">
@@ -5277,18 +5081,6 @@
             <sch:value-of select="../@id"/> - the state child element of a lockoutpolicy_test must reference a lockoutpolicy_state</sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_lps_fl">
-                                                            <sch:rule context="win-def:lockoutpolicy_state/win-def:force_logoff">
-                                                                  <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
-            <sch:value-of select="../@id"/> - the value of force_logoff must be greater than or equal to zero</sch:assert>
-                                                            </sch:rule>
-                                                      </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_lps_ld">
-                                                            <sch:rule context="win-def:lockoutpolicy_state/win-def:lockout_duration">
-                                                                  <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
-            <sch:value-of select="../@id"/> - the value of lockout_duration must be greater than or equal to zero</sch:assert>
-                                                            </sch:rule>
-                                                      </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_metabasetst">
                               <sch:rule context="win-def:metabase_test/win-def:object">
                                     <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/win-def:metabase_object/@id">
@@ -5354,12 +5146,6 @@
             <sch:value-of select="../@id"/> - the state child element of a passwordpolicy_test must reference a passwordpolicy_state</sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_pwp_mpa">
-                                                            <sch:rule context="win-def:passwordpolicy_state/win-def:max_passwd_age">
-                                                                  <sch:assert test="number(.) &lt; 0">
-            <sch:value-of select="../@id"/> - the value of max_passwd_age must be greater than or equal to zero</sch:assert>
-                                                            </sch:rule>
-                                                      </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_peheaderobjfilepath">
                                                                               <sch:rule context="win-def:peheader_object/win-def:filepath">
                                                                                     <sch:assert test="not(preceding-sibling::win-def:behaviors[@max_depth or @recurse_direction])">
@@ -5748,16 +5534,6 @@
                                     <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#windows') and ($state_name='serviceeffectiverights_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                               </sch:rule>
                         </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_sef_include_group_value_dep">
-                                    <sch:rule context="oval-def:oval_definitions/oval-def:objects/win-def:serviceeffectiverights_object/win-def:behaviors">
-                                          <sch:report test="@include_group">DEPRECATED BEHAVIOR IN: win-def:serviceeffectiverights_object</sch:report>
-                                    </sch:rule>
-                              </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_sef_resolve_group_value_dep">
-                                    <sch:rule context="oval-def:oval_definitions/oval-def:objects/win-def:serviceeffectiverights_object/win-def:behaviors">
-                                          <sch:report test="@resolve_group">DEPRECATED BEHAVIOR IN: serviceeffectiverights_object </sch:report>
-                                    </sch:rule>
-                              </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_srtst">
                               <sch:rule context="win-def:sharedresource_test/win-def:object">
                                     <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/win-def:sharedresource_object/@id">
@@ -6122,13 +5898,6 @@
                                                     </sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
-   <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_sft_file_attribute_directory_value_dep">
-                                                <sch:rule context="oval-def:oval_definitions/oval-def:states/win-def:file_state/win-def:type">
-                                                      <sch:report test=".='FILE_ATTRIBUTE_DIRECTORY'">
-                                                            DEPRECATED ELEMENT VALUE IN: file_state ELEMENT VALUE: <sch:value-of select="."/>
-                                                      </sch:report>
-                                                </sch:rule>
-                                          </sch:pattern>
    <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:win-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="win-def_ssr_stype_special_value_dep">
                                                 <sch:rule context="oval-def:oval_definitions/oval-def:states/win-def:sharedresource_state/win-def:shared_type">
                                                       <sch:report test=".='STYPE_SPECIAL'">
