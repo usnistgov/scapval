@@ -59,18 +59,19 @@ lib (folder) : Contains JAR files to include on the classpath when running the r
 data (folder) : Support files for the rules.
 
 Usage:
-Schematron rules should be processed in accordance with the instructions found at http://www.schematron.com/.  The Schematron rules are written using XPath 2.0, and therefore they should be processed as XSLT 2.0, with an XSLT 2.0 compatible processor.  source-data-stream-1.2.1.sch leverages custom Java functions for select rules.  If the Java functions are not enabled when running the Schematron checks, a warning will be issued stating that the functions are not accessible, but no further consequences are expected.
+Schematron rules should be processed in accordance with the instructions found at http://www.schematron.com/.  The Schematron rules are written using XPath 2.0, and therefore they should be processed as XSLT 2.0, with an XSLT 2.0 compatible processor. Some .sch files leverage custom Java functions for select rules.  If the Java functions are not enabled when running the Schematron checks, a warning will be issued stating that the functions are not accessible, but no further consequences are expected.
 
-These are the steps to run source-data-stream-1.2.1.sch using Saxon-HE 9.4 (free) for Java.
-Prerequisite: Java 6 is installed and available on the system path
-1) Download Saxon-HE 9.4 for Java from http://saxon.sourceforge.net/#F9.4HE and unzip it.
-2) Download ISO Schematron XSLT 2.0 files from http://www.schematron.com/implementation.html and unzip them.
-3) Download the CCE file from http://static.nvd.nist.gov/feeds/xml/cce/nvdcce-0.1-feed.xml and put it in the directory called "data" that is a sibling to this scap-rules-readme.txt.
-4) Compile the SCAP Schematron Rules by running the following command:
-	java -cp %SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -s:source-data-stream-1.2.1.sch -xsl:%SCHEMATRON_HOME%\iso_svrl_for_xslt2.xsl -o:source-data-stream-1.2.1.sch.xsl
-5) Run the resulting XSLT against the target SCAP content using the following command:
-	java -cp %SCAP_SCHEMATRON_HOME%\lib\scap-schematron-rules-0.4.jar;%SCAP_SCHEMATRON_HOME%\lib\cpe-2.3.1.jar;%SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -init:gov.nist.scap.schematron.Initializer -s:scap-source-content.xml -xsl:source-data-stream-1.2.1.sch.xsl -o:scap-source-content-results.xml
+These are the steps to run the included .sch schematron files using Saxon-HE (free) for Java.
+Prerequisite: Java 6 or higher is installed and available on the system path
 
-Each failed assertion will have a bar (|) delimited error message.  The first part of the error message is the text of the error.  The second part of the error message is the requirement number (the requirement and derived requirement is separated by a dash (-)).  The (optional) third part is the identifier for the element that caused the failure.
+1) Download Saxon-HE 9.8 for Java from http://saxon.sourceforge.net/ and unzip it.
 
-The requirement number maps to the requirements found in scap-val-requirements-1.2.html.
+2) Download ISO Schematron XSLT 2.0 files from https://github.com/Schematron/schematron/releases/download/2017-02-09/iso-schematron-xslt2.zip and unzip them.
+
+3) Compile the SCAP Schematron Rules by running the following command (choose proper .sch file as necessary):
+	java -cp %SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -s:source-data-stream-1.3.sch -xsl:%SCHEMATRON_HOME%\iso_svrl_for_xslt2.xsl -o:compiled.sch.xsl
+
+4) Run the resulting XSLT against the target SCAP content using the following command:
+	java -cp %SCAP_SCHEMATRON_HOME%\lib\scap-schematron-rules-1.3.2.jar;%mitre-cpe-1.0.7.jar;%SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -init:gov.nist.scap.schematron.Initializer -s:scap-source-content.xml -xsl:compiled.sch.xsl -o:results.xml
+
+Each failed assertion will contain a requirement number (the requirement and derived requirement is separated by a dash (-)) which maps to the associated requirement file in /requirements, as well as the failed test condition and location of the failed item.
