@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -128,6 +129,9 @@ public class DataFeedDownloader {
 
     try {
       dataFeedsDirectoryPath = new URL("classpath:data_feeds/").openConnection().getURL().getPath();
+      //remove any URL encoding present which could corrupt the path
+      dataFeedsDirectoryPath = URLDecoder.decode(dataFeedsDirectoryPath, "UTF-8");
+
       if (dataFeedsDirectoryPath.contains(".jar!")) {
         //we are running from a packaged version and would get something like
         // scapval-1.3.0\scapval-1.3.0.jar!\data_feeds

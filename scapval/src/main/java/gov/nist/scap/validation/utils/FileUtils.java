@@ -172,6 +172,7 @@ public class FileUtils {
       is = url.openStream();
     } catch (IOException e) {
       log.error("Unable to download: " + url.toString());
+      log.debug("Unable to download: " + url.toString() + " - " + e);
       ValidationNotes.getInstance().createValidationNote("Unable to download: " + url.toString());
       return null;
     }
@@ -189,6 +190,7 @@ public class FileUtils {
       tempFile.deleteOnExit();
     } catch (IOException e) {
       log.error("Unable to create temporary file: " + url);
+      log.debug("Unable to create temporary file: " + url + " - " + e);
       return null;
     }
     OutputStream os = null;
