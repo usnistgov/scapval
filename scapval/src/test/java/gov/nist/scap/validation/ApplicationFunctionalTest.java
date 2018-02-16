@@ -22,9 +22,9 @@
  */
 package gov.nist.scap.validation;
 
-import org.junit.Test;
-
 import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 public class ApplicationFunctionalTest {
 
@@ -39,12 +39,17 @@ public class ApplicationFunctionalTest {
   }
 
   @Test
+  public void CompleteSourceRunWhitespaceInFileName() {
+    try {
+      new Application().runCLI(new String[]{"-scapversion", "1.3", "-file",
+          "src/test/resources/candidates/scap-13/source ds whitespace.xml"});
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
   public void CompleteResultRun() {
-
-//        // handle when -sourceds and -crpath are specified
-//        if (cmd.getOptionValue(OPTION_SOURCE_DS) != null || cmd.getOptionValue(OPTION_CR_PATH)
-// != null) {
-
     try {
       new Application().runCLI(new String[]{"-scapversion", "1.2", "-resultfile",
           "src/test/resources/candidates/scap-12/arf/ARF-results.xml"});
