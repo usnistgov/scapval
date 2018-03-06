@@ -218,7 +218,7 @@ public enum OVALVersion {
       }
 
     } catch (IOException e) {
-      throw new RuntimeException("There was a problem loading required OVAL scheama files - " + e);
+      throw new RuntimeException("There was a problem loading required OVAL schema files - " + e);
     }
 
     return schemaList;

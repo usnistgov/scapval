@@ -115,7 +115,7 @@
       <sch:assert id="scap-general-oval-def-vulnerability-extension" test="if(@class eq 'vulnerability') then every $m in xcf:get-all-parents(ancestor::oval-def:definitions,.) satisfies (if( generate-id(current()) ne generate-id($m) ) then matches($m/@class,'^(inventory|vulnerability)$') else true() ) else true()">SRC-215-1|oval-def:definition <sch:value-of select="@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-oval-generator" context="oval-def:generator">
-      <sch:assert id="scap-general-oval-version" test="every $m in oval-com:schema_version satisfies if (not(exists($m/@platform))) then matches($m,'^5\.(3|4|5|6|7|8|9|10(\.1)|11|11(\.1|\.2)?)$') else true()">SRC-216-1</sch:assert>
+      <sch:assert id="scap-general-oval-version" test="every $m in oval-com:schema_version satisfies if (not(exists($m/@platform))) then matches($m,'^5\.(3|4|5|6|7|8|9|10(\.1)?|11(\.1|\.2)?)$') else true()">SRC-216-1</sch:assert>
       <sch:assert id="scap-general-oval-platform-version" test="every $m in oval-com:schema_version satisfies if (exists($m/@platform)) then matches($m,'^5\.11(\.1|\.2):1(\.0|\.1|\.2)$') else true()">SRC-216-2</sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-signature-sig" context="dsig:Signature">
