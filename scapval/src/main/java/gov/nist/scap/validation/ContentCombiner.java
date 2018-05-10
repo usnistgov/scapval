@@ -29,20 +29,21 @@ import static gov.nist.scap.validation.NamespaceConstants.NS_XLINK;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import gov.nist.decima.core.document.DocumentException;
-import gov.nist.decima.core.document.post.template.Action;
-import gov.nist.decima.core.document.post.template.DefaultTemplateProcessor;
-import gov.nist.decima.core.document.post.template.InsertChildAction;
-import gov.nist.decima.core.document.post.template.ModifyAttributeAction;
 import gov.nist.decima.xml.document.CompositeXMLDocument;
 import gov.nist.decima.xml.document.JDOMDocument;
 import gov.nist.decima.xml.document.MutableXMLDocument;
 import gov.nist.decima.xml.document.SimpleXMLDocumentResolver;
 import gov.nist.decima.xml.document.XMLDocument;
 import gov.nist.decima.xml.jdom2.saxon.xpath.SaxonXPathFactory;
+import gov.nist.decima.xml.templating.document.post.template.Action;
+import gov.nist.decima.xml.templating.document.post.template.DefaultTemplateProcessor;
+import gov.nist.decima.xml.templating.document.post.template.InsertChildAction;
+import gov.nist.decima.xml.templating.document.post.template.ModifyAttributeAction;
 import gov.nist.scap.validation.component.SCAP11Components;
 import gov.nist.scap.validation.exceptions.SCAPException;
 import gov.nist.scap.validation.utils.FileUtils;
 import gov.nist.scap.validation.utils.XMLUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Attribute;
@@ -73,6 +74,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;

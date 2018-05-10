@@ -23,15 +23,12 @@
 
 package gov.nist.scap.validation;
 
-import static gov.nist.decima.xml.DecimaXML.newSchematron;
-import static gov.nist.decima.xml.DecimaXML.newSchematronAssessment;
-
 import gov.nist.decima.core.Decima;
 import gov.nist.decima.core.assessment.Assessment;
 import gov.nist.decima.core.assessment.AssessmentExecutor;
 import gov.nist.decima.core.assessment.ConcurrentAssessmentExecutor;
 import gov.nist.decima.core.document.DocumentException;
-import gov.nist.decima.xml.DecimaXML;
+import gov.nist.decima.xml.assessment.Factory;
 import gov.nist.decima.xml.assessment.schema.SchemaAssessment;
 import gov.nist.decima.xml.assessment.schematron.SchematronAssessment;
 import gov.nist.decima.xml.assessment.schematron.SchematronHandler;
@@ -48,6 +45,7 @@ import gov.nist.scap.validation.datastream.SCAP12DataStream;
 import gov.nist.scap.validation.datastream.SCAP13DataStream;
 import gov.nist.scap.validation.exceptions.SCAPException;
 import gov.nist.scap.validation.requirements.decima.ComponentSchematronHandler;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Element;
@@ -59,6 +57,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+
 import javax.xml.transform.stream.StreamSource;
 
 public class AssessmentFactory {
@@ -143,7 +142,7 @@ public class AssessmentFactory {
 
   protected SchemaAssessment createSCAPSchemaAssessment() throws SCAPException {
 
-    SchemaAssessment scapSchemaAssessment = DecimaXML.newSchemaAssessment(
+    SchemaAssessment scapSchemaAssessment = Factory.newSchemaAssessment(
         SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getSCAPReqID(scapVersion, contentToCheckType),
         this.dataStream.getSchemas());
 
@@ -161,7 +160,7 @@ public class AssessmentFactory {
     // gather SCAP specific schematron assessements
     LinkedList<SchematronSet> schematronSets = dataStream.getSchematronSets();
     for (SchematronSet schematronSet : schematronSets) {
-      SchematronAssessment schematronAssessment = newSchematronAssessment(
+      SchematronAssessment schematronAssessment = Factory.newSchematronAssessment(
           schematronSet.getSchematron(), schematronSet.getSchematronPhase(), schematronSet.getSchematronHandler());
       // some schematrons have parameters which need to be set
       if (schematronSet.hasSchematronParams()) {
@@ -255,26 +254,26 @@ public class AssessmentFactory {
         //No schematron avail
         break;
       case XCCDF_1_2:
-        xccdfSchematron = newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
+        xccdfSchematron = Factory.newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
         // the xccdf schematron has phases to account for
         SchematronAssessment xccdfSchematronAssessment = null;
         switch (contentToCheckType) {
         case SOURCE:
-          xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
+          xccdfSchematronAssessment = Factory.newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
           break;
         case RESULT:
-          xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "ARF-Check", schematronHandler);
+          xccdfSchematronAssessment = Factory.newSchematronAssessment(xccdfSchematron, "ARF-Check", schematronHandler);
           break;
         case COMPONENT:
-          xccdfSchematronAssessment = newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
+          xccdfSchematronAssessment = Factory.newSchematronAssessment(xccdfSchematron, "Benchmark", schematronHandler);
           break;
         default:
         }
         assessmentGroup.add(xccdfSchematronAssessment);
         break;
       case OCIL:
-        ocilSchematron = newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
-        SchematronAssessment ocilSchematronAssessment = newSchematronAssessment(ocilSchematron, null,
+        ocilSchematron = Factory.newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
+        SchematronAssessment ocilSchematronAssessment = Factory.newSchematronAssessment(ocilSchematron, null,
             schematronHandler);
         assessmentGroup.add(ocilSchematronAssessment);
         break;

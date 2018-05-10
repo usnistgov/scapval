@@ -23,8 +23,7 @@
 
 package gov.nist.scap.validation.datastream;
 
-import static gov.nist.decima.xml.DecimaXML.newSchematron;
-
+import gov.nist.decima.xml.assessment.Factory;
 import gov.nist.decima.xml.assessment.schematron.SchematronHandler;
 import gov.nist.decima.xml.schematron.Schematron;
 import gov.nist.decima.xml.schematron.SchematronCompilationException;
@@ -42,6 +41,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
+
 import javax.xml.transform.stream.StreamSource;
 
 /**
@@ -97,7 +97,7 @@ public class SCAP12DataStream implements IScapDataStream {
     //populate the SchematronSets with everything required for creation of a SchematronAssessment
     try {
       if (contentType.equals(Application.ContentType.SOURCE)) {
-        Schematron schematron = newSchematron(new URL(SOURCE_SCHEMATRON_LOCATION));
+        Schematron schematron = Factory.newSchematron(new URL(SOURCE_SCHEMATRON_LOCATION));
         SchematronHandler schematronHandler = new SCAPSchematronHandler(schematron);
 
         // create necessary params for SCAP Source Schematron
@@ -109,7 +109,7 @@ public class SCAP12DataStream implements IScapDataStream {
         schematronSetList.add(schematronSet);
 
       } else if (contentType.equals(Application.ContentType.RESULT)) {
-        Schematron schematron = newSchematron(new URL(RESULT_SCHEMATRON_LOCATION));
+        Schematron schematron = Factory.newSchematron(new URL(RESULT_SCHEMATRON_LOCATION));
         SchematronHandler schematronHandler = new SCAPSchematronHandler(schematron);
         //there are no params and phases are not required for Result schematron rules
         SchematronSet schematronSet = new SchematronSet(schematron, schematronHandler, null, null);
@@ -117,7 +117,7 @@ public class SCAP12DataStream implements IScapDataStream {
       }
 
       //load the tmsad schematron (only for version 1.2+)
-      Schematron tmsadSchematron = newSchematron(new URL(TMSAD_SCHEMATRON_LOCATION));
+      Schematron tmsadSchematron = Factory.newSchematron(new URL(TMSAD_SCHEMATRON_LOCATION));
       SchematronHandler tmsadSchematronHandler = new ComponentSchematronHandler(
           SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion,
               Application.ContentType.COMPONENT));
@@ -127,7 +127,7 @@ public class SCAP12DataStream implements IScapDataStream {
       // handle the rest of the component specific schematrons. Historically xccdf-1.2.sch and
       // ocil-2.0.sch
       // have been used for all content and versions
-      Schematron xccdfSchematron = newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
+      Schematron xccdfSchematron = Factory.newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
       SchematronHandler xccdfSchematronHandler = new ComponentSchematronHandler(
           SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion,
               Application.ContentType.COMPONENT));
@@ -136,7 +136,7 @@ public class SCAP12DataStream implements IScapDataStream {
       SchematronSet xccdfSchematronSet = new SchematronSet(xccdfSchematron, xccdfSchematronHandler, xccdfPhase, null);
       schematronSetList.add(xccdfSchematronSet);
 
-      Schematron ocilSchematron = newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
+      Schematron ocilSchematron = Factory.newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
       SchematronHandler ocilSchematronHandler = new ComponentSchematronHandler(
           SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION.getSCAPReqID(scapVersion,
               Application.ContentType.COMPONENT));
