@@ -50,7 +50,6 @@ import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.Namespace;
 import org.jdom2.transform.JDOMSource;
 
 import java.io.ByteArrayInputStream;
@@ -157,7 +156,7 @@ public class ContentCombiner {
     // utilizing <sub> elements.
     URL baseTemplateURL;
     String baseTemplateRootXpath;
-    Namespace baseTemplateNamespace;
+//    Namespace baseTemplateNamespace;
     SaxonXPathFactory xpathFactory = new SaxonXPathFactory();
     MutableXMLDocument template = null;
     List<Action> actions = new LinkedList<>();

@@ -93,6 +93,7 @@ public class ZipExpanderTest {
     try {
       // target folder already exists
       final String name = "classpath:src/test/resources/candidates/scap-11-zip";
+      // TDOD: Do not create test files on the classpath
       final File parent = new File(new URL(name).getFile());
       conflict = new File(parent, "SharePoint");
       conflict.mkdirs();

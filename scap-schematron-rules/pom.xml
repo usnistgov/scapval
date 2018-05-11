@@ -100,11 +100,11 @@
         </dependency>
         <dependency>
             <groupId>gov.nist.decima</groupId>
-            <artifactId>decima-xml</artifactId>
+            <artifactId>decima-xml-assessment</artifactId>
         </dependency>
         <dependency>
             <groupId>gov.nist.decima</groupId>
-            <artifactId>decima-testing</artifactId>
+            <artifactId>decima-xml-testing</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

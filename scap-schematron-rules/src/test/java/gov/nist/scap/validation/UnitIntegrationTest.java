@@ -22,7 +22,8 @@
  */
 package gov.nist.scap.validation;
 
-import gov.nist.decima.testing.PathRunner;
+import gov.nist.decima.xml.testing.PathRunner;
+
 import org.junit.runner.RunWith;
 
 import java.io.File;

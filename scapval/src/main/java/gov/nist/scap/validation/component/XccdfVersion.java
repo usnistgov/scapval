@@ -33,7 +33,7 @@ public enum XccdfVersion {
   V1_2(new String[] {"classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd", "classpath:rules/other/xccdf-1.2.sch"});
 
   private String[] validationFiles;
-  private String namespace;
+    // private String namespace;
 
   XccdfVersion(String[] validationFiles) {
     this.validationFiles = validationFiles;

@@ -84,7 +84,7 @@ public class ContentCombinerTest {
         final File arfResult = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/arf_result_wo_datastream.xml").getFile());
         final File datastream = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/datastream.xml").getFile());
         final File invalidDatastream = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/baddatastream.xml").getFile());
-        final String[] args = {"-scapversion", "1.2", "-resultfile", arfResult.getAbsolutePath(), "-sourceds", datastream.getAbsolutePath()};
+//        final String[] args = {"-scapversion", "1.2", "-resultfile", arfResult.getAbsolutePath(), "-sourceds", datastream.getAbsolutePath()};
 
         //try to merge invalid datastream
         try {

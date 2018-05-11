@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>gov.nist.secauto</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<version>8-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>scapval-parent</artifactId>
@@ -77,9 +77,14 @@
 				<artifactId>decima-xml</artifactId>
 				<version>${version.decima}</version>
 			</dependency>
+            <dependency>
+                <groupId>gov.nist.decima</groupId>
+                <artifactId>decima-xml-assessment</artifactId>
+                <version>${version.decima}</version>
+            </dependency>
 			<dependency>
 				<groupId>gov.nist.decima</groupId>
-				<artifactId>decima-testing</artifactId>
+				<artifactId>decima-xml-testing</artifactId>
 				<version>${version.decima}</version>
 				<scope>test</scope>
 			</dependency>

@@ -20,33 +20,31 @@
 		<!-- Decima Validation Framework -->
 		<dependency>
 			<groupId>gov.nist.decima</groupId>
-			<artifactId>decima-xml</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist.decima</groupId>
-			<artifactId>decima-testing</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist.decima</groupId>
 			<artifactId>decima-module</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>gov.nist.decima</groupId>
 			<artifactId>decima-xml-templating</artifactId>
 		</dependency>
-
+        <dependency>
+            <groupId>gov.nist.decima</groupId>
+            <artifactId>decima-xml-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>gov.nist.secauto</groupId>
 			<artifactId>scap-schematron-rules</artifactId>
 			<version>${version.scap-schematron-rules}</version>
 			<type>jar</type>
 		</dependency>
+        <dependency>
+            <groupId>gov.nist</groupId>
+            <artifactId>mitre-cpe</artifactId>
+        </dependency>
 		<!-- SHA-256 hashing of target validation files -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.9</version>
 		</dependency>
 	</dependencies>
 

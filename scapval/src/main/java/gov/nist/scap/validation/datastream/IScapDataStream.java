@@ -30,29 +30,35 @@ import java.util.LinkedList;
 import javax.xml.transform.stream.StreamSource;
 
 /**
- * An abstraction for an SCAP data stream to handle the gathering of required
- * Schemas and Schematron for SCAP validation.
+ * An abstraction for an SCAP data stream to handle the gathering of required Schemas and Schematron
+ * for SCAP validation.
  */
 public interface IScapDataStream {
-  /**
-   * The SCAP version for a particular data stream.
-   *
-   * @return the SCAPVersion of a particular IScapDataStream
-   */
-  SCAPVersion getScapVersion();
+    /**
+     * Get the datastream's identifier
+     * @return the identifier string
+     */
+    String getId();
 
-  /**
-   * The Schematrons required to perform SCAP validation depends on the version of SCAP.
-   *
-   * @return a list of Schematron items required for creation of a SchematronAssessment.
-   */
-  LinkedList<SchematronSet> getSchematronSets();
+    /**
+     * The SCAP version for a particular data stream.
+     *
+     * @return the SCAPVersion of a particular IScapDataStream
+     */
+    SCAPVersion getScapVersion();
 
-  /**
-   * The XML schemas required to perform SCAP validation depends on the version of SCAP.
-   * Every schemas must be part of the same assessment for Decima to properly validate.
-   *
-   * @return a LinkedList of all the Source from applicable schema XSDs
-   */
-  LinkedList<StreamSource> getSchemas();
+    /**
+     * The Schematrons required to perform SCAP validation depends on the version of SCAP.
+     *
+     * @return a list of Schematron items required for creation of a SchematronAssessment.
+     */
+    LinkedList<SchematronSet> getSchematronSets();
+
+    /**
+     * The XML schemas required to perform SCAP validation depends on the version of SCAP. Every
+     * schemas must be part of the same assessment for Decima to properly validate.
+     *
+     * @return a LinkedList of all the Source from applicable schema XSDs
+     */
+    LinkedList<StreamSource> getSchemas();
 }
