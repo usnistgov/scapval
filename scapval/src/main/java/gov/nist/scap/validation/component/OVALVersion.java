@@ -97,7 +97,7 @@ public enum OVALVersion {
    * @param ovalComponent the OVAL Component as an JDOM Element
    * @return the OVALVersion enum
    */
-  public static OVALVersion getOVALVersion(org.jdom2.Element ovalComponent) {
+  public static OVALVersion getOVALVersion(Element ovalComponent) {
     Objects.requireNonNull(ovalComponent, "ovalComponent cannot be null.");
     String ovalVersionString = "";
     Iterator<Element> iterator = ovalComponent.getDescendants(Filters.element());

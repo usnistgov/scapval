@@ -207,19 +207,16 @@ public class ScapDocumentSniffer {
         String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
 
       // short-circuit for performance
-      if (useCase == null) {
-
         // if stream is SCAP 1.2/1.3 and element is data-stream
-        if ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
+      if (useCase == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
             uri) || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)) && "data-stream".equals(
-            localName)) {
+            localName))) {
 
           // get value of the use-case attribute
           this.useCase = attributes.getValue("use-case");
           if (log.isDebugEnabled()) {
             log.debug(String.format("found use-case %s", this.useCase));
           }
-        }
       }
 
       super.startElement(uri, localName, qualifiedName, attributes);
@@ -244,19 +241,16 @@ public class ScapDocumentSniffer {
         String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
 
       // short-circuit for performance
-      if (scapVersion == null) {
-
         // if stream is SCAP 1.2/1.3 and element is data-stream
-        if ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
+      if (scapVersion == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
             uri) || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)) && "data-stream".equals(
-            localName)) {
+            localName))) {
 
           // get value of the scap-version attribute
           this.scapVersion = attributes.getValue("scap-version");
           if (log.isDebugEnabled()) {
             log.debug(String.format("found scap-version %s", this.scapVersion));
           }
-        }
       }
 
       super.startElement(uri, localName, qualifiedName, attributes);

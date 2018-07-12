@@ -26,6 +26,10 @@ package gov.nist.secauto.mojo;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.IOUtil;
@@ -43,31 +47,25 @@ import java.util.List;
  * This class is based on code from
  * <a href="http://andreashohmann.com/articles/maven-source-file-list-plugin.html">an article</a> by
  * Andreas Hohmann.
- * 
- * @goal create-list
- * @phase process-resources
- * @requiresDependencyResolution compile
  */
+@Mojo(name = "create-list", defaultPhase = LifecyclePhase.PROCESS_RESOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class CreateFileListMojo extends AbstractMojo {
   /**
    * Location of the generated list of source files.
-   *
-   * @parameter expression="${project.build.directory}/classes/file-list.txt"
    */
+  @Parameter(defaultValue = "${project.build.directory}/classes/file-list.txt", required = true)
   private File listFile;
 
   /**
    * @parameter expression="${create.resources-to-scan}"
    */
+  @Parameter(defaultValue = "${create.resources-to-scan}", required = true)
   private List<Resource> resources;
 
   /**
    * Make the project context available.
-   * 
-   * @parameter expression="${project}"
-   * @required
-   * @readonly
    */
+  @Parameter(defaultValue = "${project}", readonly = true, required = true)
   private MavenProject project;
 
   /**

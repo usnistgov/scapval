@@ -23,13 +23,6 @@
 
 package gov.nist.scap.validation;
 
-import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
-import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_RESULT_FILE;
-import static gov.nist.decima.module.cli.CLIParser.OPTION_VALIDATION_REPORT_FILE;
-import static gov.nist.decima.module.cli.CLIParser.OPTION_VALIDATION_RESULT_FILE;
-import static gov.nist.scap.validation.NamespaceConstants.NS_SOURCE_DS_1_2;
-import static gov.nist.scap.validation.NamespaceConstants.NS_SOURCE_DS_1_3;
-
 import gov.nist.decima.core.Decima;
 import gov.nist.decima.core.assessment.AssessmentException;
 import gov.nist.decima.core.assessment.AssessmentExecutor;
@@ -242,7 +235,7 @@ public class Application {
     SCAPValAssessmentResults scapValAssessmentResults = executeAssessments();
 
     //optionally generate XML results and HTML report
-    if (cmd.getOptionValue(OPTION_VALIDATION_REPORT_FILE) != null) {
+    if (cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE) != null) {
       generateResultsReport(scapValAssessmentResults, cmd);
     }
 
@@ -517,24 +510,20 @@ public class Application {
       // the specified XML sourceds will ultimately be combined with the result content
       if (cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT) != null) {
         combinedOutput = new File(cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT));
-        if (!combinedOutput.exists()) {
-          if (!combinedOutput.createNewFile() || !combinedOutput.canWrite()) {
+        if (!combinedOutput.exists() && (!combinedOutput.createNewFile() || !combinedOutput.canWrite())) {
             throw new IOException(
                 "Cannot write to: " + combinedOutput + " Please specify a " + "valid" + " location " + "" + "" + "" +
                     "" + "" + "" + "" + "" + "to " + "write the combined file to");
-          }
         }
       } else {
         // user has not specified -combinedoutput we will set it by default and make sure we can write to it
         File sourcedsCombinedOuput = new File(
             FileUtils.getFilenamePrefix(contentToCheckFilename) + "-with-data-stream.xml");
-        if (!sourcedsCombinedOuput.exists()) {
-          if (!sourcedsCombinedOuput.createNewFile() || !sourcedsCombinedOuput.canWrite()) {
+        if (!sourcedsCombinedOuput.exists() && (!sourcedsCombinedOuput.createNewFile() || !sourcedsCombinedOuput.canWrite())) {
             throw new IOException(
                 "Cannot write to: " + sourcedsCombinedOuput.getAbsolutePath() + " Please specify a " + "" + "" + "" +
                     "" + "" + "" + "" + "" + "valid location to " + "write the combined file to with " +
                     "-combinedoutput");
-          }
         }
         combinedOutput = sourcedsCombinedOuput;
       }
@@ -557,12 +546,10 @@ public class Application {
     // handle when -combinedoutput is specified without -sourceds
     if (cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT) != null && cmd.getOptionValue(OPTION_SOURCE_DS) == null) {
       combinedOutput = new File(cmd.getOptionValue(OPTION_COMBINED_CONTENT_OUTPUT));
-      if (!combinedOutput.exists()) {
-        if (!combinedOutput.createNewFile() || !combinedOutput.canWrite()) {
+      if (!combinedOutput.exists() && (!combinedOutput.createNewFile() || !combinedOutput.canWrite())) {
           throw new IOException(
               "Cannot write to: " + combinedOutput + " Please specify a " + "valid" + " location " + "" + "" + "" +
                   "" + "" + "" + "" + "" + "to " + "write the combined file to");
-        }
       }
     }
   }
@@ -764,15 +751,15 @@ public class Application {
           }
           break;
         case V1_2:
-          if (!namespace.equals(NS_SOURCE_DS_1_2.getNamespaceString())) {
+          if (!namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString())) {
             throw new SCAPException(
-                "Unable to find the expected namespace for source content: " + NS_SOURCE_DS_1_2.getNamespaceString());
+                "Unable to find the expected namespace for source content: " + NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString());
           }
           break;
         case V1_3:
-          if (!namespace.equals(NS_SOURCE_DS_1_3.getNamespaceString())) {
+          if (!namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString())) {
             throw new SCAPException(
-                "Unable to find the expected namespace for source content: " + NS_SOURCE_DS_1_3.getNamespaceString());
+                "Unable to find the expected namespace for source content: " + NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString());
           }
           break;
         default:
@@ -906,27 +893,23 @@ public class Application {
 
     File validationResultFile;
     {
-      String fileValue = cmd.getOptionValue(OPTION_VALIDATION_RESULT_FILE, DEFAULT_VALIDATION_RESULT_FILE);
+      String fileValue = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_RESULT_FILE, CLIParser.DEFAULT_VALIDATION_RESULT_FILE);
       validationResultFile = new File(fileValue);
       File parentDir = validationResultFile.getParentFile();
-      if (parentDir != null && !parentDir.exists()) {
-        if (!parentDir.mkdirs()) {
+      if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
           throw new RuntimeException(
               "Problem creating folder specified for Result File: " + parentDir.getAbsolutePath());
-        }
       }
     }
 
     File validationReportFile;
     {
-      String fileValue = cmd.getOptionValue(OPTION_VALIDATION_REPORT_FILE, DEFAULT_VALIDATION_REPORT_FILE);
+      String fileValue = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE, CLIParser.DEFAULT_VALIDATION_REPORT_FILE);
       validationReportFile = new File(fileValue);
       File parentDir = validationReportFile.getParentFile();
-      if (parentDir != null && !parentDir.exists()) {
-        if (!parentDir.mkdirs()) {
+      if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
           throw new RuntimeException(
               "Problem creating folder specified for Result Report: " + parentDir.getAbsolutePath());
-        }
       }
     }
 
