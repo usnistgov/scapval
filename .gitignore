@@ -30,10 +30,15 @@ hs_err_pid*
 .checkstyle
 .classpath
 
+# Build specific files
+
+.pmd
+.pmdruleset.xml
+test.out
+
 #SCAPVal output files
 target
 test-results
 bootstrap
 /scapval/validation-report.html
 /scapval/validation-result.xml
-
