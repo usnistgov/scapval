@@ -13,7 +13,11 @@ goto BUILD_COMMAND
 set JAVA="%JAVA_HOME%\bin\java.exe"
 
 :BUILD_COMMAND
-set COMMAND=%JAVA% -jar "%~dp0${project.build.finalName}.${project.packaging}"
+set COMMAND=%JAVA% -Djava.protocol.handler.pkgs=sun.net.www.protocol -jar "%~dp0${project.build.finalName}.${project.packaging}"
+
+rem uncomment below to display the java version used to launch scapval
+rem %JAVA% -version
+rem echo:
 
 :COMMAND_REPEAT
   if "%~1" == "" GOTO RUN

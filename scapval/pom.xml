@@ -269,6 +269,7 @@
 									<filtering>true</filtering>
 									<includes>
 										<include>scapval.bat</include>
+										<include>scapval.sh</include>
 									</includes>
 								</resource>
 							</resources>
