@@ -2,7 +2,7 @@
 
 The following are common Maven commands for addressing a number of concerns.
 
-## License Management
+## License Management 
 
 To check NIST license is included in all source files:
 
