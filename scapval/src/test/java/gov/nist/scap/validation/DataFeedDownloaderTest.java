@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import org.junit.Test;
@@ -27,7 +28,7 @@ import org.junit.Test;
 public class DataFeedDownloaderTest {
   @Test
   public void download() throws Exception {
-    //this should execute with no exceptions whether online or not
+    // this should execute with no exceptions whether online or not
     DataFeedDownloader.download(30);
   }
 }

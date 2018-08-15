@@ -28,27 +28,26 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Enumerates the valid component files of SCAP 1.1 and their associated characteristics.
- * This is not required for SCAP 1.2/1.3 versions as they implement a native data-stream approach
- * The order of these matter for some of the methods which iterates the fileSourceNameSuffix with .endswith()
+ * Enumerates the valid component files of SCAP 1.1 and their associated characteristics. This is
+ * not required for SCAP 1.2/1.3 versions as they implement a native data-stream approach The order
+ * of these matter for some of the methods which iterates the fileSourceNameSuffix with .endswith()
  */
 public enum SCAP11Components {
-  CPE_DICTIONARY(
-      "cpe-dictionary.xml", "cpe-dictionary-res.xml", "<cpe-dict:cpe-list>", "cpe-dictionary-content"), CPE_INVENTORY(
-      "cpe-oval.xml", "cpe-oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"), XCCDF_BENCHMARK(
-      "xccdf.xml", "xccdf-res.xml", "<xccdf:Benchmark>", "xccdf-content"), OVAL_COMPLIANCE(
-      "oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"), OVAL_PATCH(
-      "patches.xml", "patches-res.xml", "<oval-def:oval_definitions>", "check-system-content"), OVAL_VULNERABILITY(
-      "oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"), OCIL_QUESTIONNAIRE(
-      "ocil.xml", "ocil-res.xml", "<ocil:ocil>", "check-system-content");
+  CPE_DICTIONARY("cpe-dictionary.xml", "cpe-dictionary-res.xml", "<cpe-dict:cpe-list>", "cpe-dictionary-content"),
+  CPE_INVENTORY("cpe-oval.xml", "cpe-oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
+  XCCDF_BENCHMARK("xccdf.xml", "xccdf-res.xml", "<xccdf:Benchmark>", "xccdf-content"),
+  OVAL_COMPLIANCE("oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
+  OVAL_PATCH("patches.xml", "patches-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
+  OVAL_VULNERABILITY("oval.xml", "oval-res.xml", "<oval-def:oval_definitions>", "check-system-content"),
+  OCIL_QUESTIONNAIRE("ocil.xml", "ocil-res.xml", "<ocil:ocil>", "check-system-content");
 
   private String fileSourceNameSuffix;
   private String fileResultsNameSuffix;
   private String documentElement;
   private String combinedDocLocalName;
 
-  SCAP11Components(String fileNameSuffix, String fileResultsNameSuffix, String documentElement, String
-      combinedDocLocalName) {
+  SCAP11Components(String fileNameSuffix, String fileResultsNameSuffix, String documentElement,
+      String combinedDocLocalName) {
     this.fileSourceNameSuffix = fileNameSuffix;
     this.fileResultsNameSuffix = fileResultsNameSuffix;
     this.documentElement = documentElement;
@@ -58,8 +57,10 @@ public enum SCAP11Components {
   /**
    * Returns the appropriate SCAP 1.1 enum based on filename and usecase
    *
-   * @param fileName    the SCAP 1.1 file name
-   * @param scapUseCase the SCAP 1.1 use case
+   * @param fileName
+   *          the SCAP 1.1 file name
+   * @param scapUseCase
+   *          the SCAP 1.1 use case
    * @return the resultant SCAP 1.1 enum
    */
   public static SCAP11Components getByFileNameAndUseCase(String fileName, String scapUseCase) {
@@ -67,16 +68,16 @@ public enum SCAP11Components {
     Objects.requireNonNull(scapUseCase, "scapUseCase cannot be null.");
     for (SCAP11Components component : SCAP11Components.values()) {
       if (fileName.endsWith(component.getFileSourceNameSuffix())) {
-        //OVAL_COMPLIANCE or OVAL_VULNERABILITY have the same file prefix so usecase
-        //must be used to determine which. Otherwise return solely on filename prefix
+        // OVAL_COMPLIANCE or OVAL_VULNERABILITY have the same file prefix so usecase
+        // must be used to determine which. Otherwise return solely on filename prefix
         if (fileName.endsWith("oval.xml") && !fileName.endsWith("cpe-oval.xml")) {
           return (scapUseCase.equals("CONFIGURATION")) ? OVAL_COMPLIANCE : OVAL_VULNERABILITY;
         }
         return component;
       }
       if (fileName.endsWith(component.getResultsFileNameSuffix())) {
-        //OVAL_COMPLIANCE or OVAL_VULNERABILITY have the same file prefix so usecase
-        //must be used to determine which. Otherwise return solely on filename prefix
+        // OVAL_COMPLIANCE or OVAL_VULNERABILITY have the same file prefix so usecase
+        // must be used to determine which. Otherwise return solely on filename prefix
         if (fileName.endsWith("oval-res.xml") && !fileName.endsWith("cpe-oval-res.xml")) {
           return (scapUseCase.equals("CONFIGURATION")) ? OVAL_COMPLIANCE : OVAL_VULNERABILITY;
         }
@@ -115,7 +116,8 @@ public enum SCAP11Components {
   /**
    * Checks the validity of a filename for SCAP 1.1 use
    *
-   * @param fileName the filename to test
+   * @param fileName
+   *          the filename to test
    * @return true if valid, false otherwise
    */
   public static boolean isValidSCAP11FileName(String fileName) {
@@ -143,7 +145,7 @@ public enum SCAP11Components {
   }
 
   public String[] getFileNameSuffixes() {
-    return new String[] {this.fileSourceNameSuffix, this.fileResultsNameSuffix};
+    return new String[] { this.fileSourceNameSuffix, this.fileResultsNameSuffix };
   }
 
   public String getDocumentElement() {

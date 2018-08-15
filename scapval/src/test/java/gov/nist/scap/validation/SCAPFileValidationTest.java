@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import gov.nist.decima.core.assessment.result.BaseRequirementResult;
@@ -33,18 +34,17 @@ import java.net.URL;
 public class SCAPFileValidationTest {
   @Test
   public void SCAP11DIRSourceExpectPass() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-11/source-folder/").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1).useCase("CONFIGURATION")
-        .isOnline(false).submissionDirLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(new URL("classpath:src/test/resources/candidates" + "/scap-11/source-folder/").getFile())
+        .getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1)
+            .useCase("CONFIGURATION").isOnline(false).submissionDirLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -52,18 +52,18 @@ public class SCAPFileValidationTest {
 
   @Test
   public void SCAP11ZIPSourceExpectPass() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-11-zip/R1100-scap11.zip").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1).useCase("CONFIGURATION")
-        .submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile
+        = new File(new URL("classpath:src/test/resources/candidates" + "/scap-11-zip/R1100-scap11.zip").getFile())
+            .getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1)
+            .useCase("CONFIGURATION").submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -72,14 +72,14 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP11SourceExpectFail() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-11-zip/R1100-scap11-ERROR.zip").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1).useCase("CONFIGURATION")
-        .isOnline(false).submissionFileLocation(testFile).run();        //assure many results
+    String testFile
+        = new File(new URL("classpath:src/test/resources/candidates" + "/scap-11-zip/R1100-scap11-ERROR.zip").getFile())
+            .getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1)
+            .useCase("CONFIGURATION").isOnline(false).submissionFileLocation(testFile).run(); // assure many results
     // were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
@@ -93,18 +93,18 @@ public class SCAPFileValidationTest {
 
   @Test
   public void SCAP12SourceExpectPass() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_2).useCase("CONFIGURATION")
-        .submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates" + "/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_2)
+            .useCase("CONFIGURATION").submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -113,14 +113,14 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP12SourceExpectFail() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall-ERROR.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_2).useCase("CONFIGURATION")
-        .isOnline(false).submissionFileLocation(testFile).run();        //assure many results
+    String testFile = new File(new URL(
+        "classpath:src/test/resources/candidates" + "/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall-ERROR.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_2)
+            .useCase("CONFIGURATION").isOnline(false).submissionFileLocation(testFile).run(); // assure many results
     // were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
@@ -134,18 +134,18 @@ public class SCAPFileValidationTest {
 
   @Test
   public void SCAP13SourceExpectPass() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-13/source_data_stream_collection_sample.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_3).useCase("CONFIGURATION")
-        .isOnline(true).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates" + "/scap-13/source_data_stream_collection_sample.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_3)
+            .useCase("CONFIGURATION").isOnline(true).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -154,15 +154,14 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP13SourceExpectFail() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/scap-13/source_data_stream_collection_sample-NO-USE-CASE.xml").getFile())
-        .getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_3).useCase("CONFIGURATION")
-        .submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(new URL(
+        "classpath:src/test/resources/candidates" + "/scap-13/source_data_stream_collection_sample-NO-USE-CASE.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_3)
+            .useCase("CONFIGURATION").submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {

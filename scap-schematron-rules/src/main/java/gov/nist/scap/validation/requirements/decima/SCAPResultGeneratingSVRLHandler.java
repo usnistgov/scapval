@@ -89,7 +89,7 @@ public class SCAPResultGeneratingSVRLHandler extends AbstractIdAwareSVRLHandler 
       values = handleValues(valueArray[1]);
     }
     // Add the schematron test to the "Message" in the final report
-    //consider including the context
+    // consider including the context
     String test = " - TEST: " + failedAssert.getAttribute("test").getValue();
     values.add(test);
     handleAssertionResult(derivedRequirementId, assertionId, testStatus, xpath, values);

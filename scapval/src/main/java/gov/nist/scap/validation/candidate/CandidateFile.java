@@ -33,8 +33,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * CandidateFile has information about a File (xml, zip, folder, etc) which may
- * or may not be eligible for validation by the SCAPVAL tools.
+ * CandidateFile has information about a File (xml, zip, folder, etc) which may or may not be
+ * eligible for validation by the SCAPVAL tools.
  *
  * There are four types of CandidateFile:
  * <li>SCAP_BUNDLE is a folder or zip file containing SCAP 1.1 files.</li>
@@ -44,8 +44,7 @@ import java.util.List;
  * <p>
  * If the type is SCAP_BUNDLE, then it has one or more SCAP content types.
  * <p>
- * If the type is SCAP_COMBINED_FILE, then it has an SCAP version, and may have
- * a use case.
+ * If the type is SCAP_COMBINED_FILE, then it has an SCAP version, and may have a use case.
  * <p>
  * If the type is XCCDF, then it has an XCCDF version.
  */
@@ -53,7 +52,10 @@ import java.util.List;
 public class CandidateFile {
 
   public enum Type {
-    SCAP_BUNDLE, SCAP_COMBINED_FILE, STANDALONE_XCCDF, UNKNOWN
+    SCAP_BUNDLE,
+    SCAP_COMBINED_FILE,
+    STANDALONE_XCCDF,
+    UNKNOWN
   }
 
   // type of candidate
@@ -244,8 +246,7 @@ public class CandidateFile {
       return this;
     }
 
-    public Builder setTypeScapCombinedFile(
-        final SCAPVersion version, final String useCase) {
+    public Builder setTypeScapCombinedFile(final SCAPVersion version, final String useCase) {
       this.scapVersion = version;
       this.scapUseCase = useCase;
       setType(Type.SCAP_COMBINED_FILE);

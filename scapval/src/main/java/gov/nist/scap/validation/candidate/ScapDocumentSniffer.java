@@ -40,11 +40,11 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 /**
- * Takes an XML file and determines the content type (SCAP or XCCDF) by looking
- * at XML namespace of the root element.
+ * Takes an XML file and determines the content type (SCAP or XCCDF) by looking at XML namespace of
+ * the root element.
  * <p>
- * For SCAP 1.2/1.3 content, can also find the SCAP use case by looking at the
- * use-case attribute of the data-stream element.
+ * For SCAP 1.2/1.3 content, can also find the SCAP use case by looking at the use-case attribute of
+ * the data-stream element.
  */
 public class ScapDocumentSniffer {
 
@@ -53,7 +53,8 @@ public class ScapDocumentSniffer {
   /**
    * Call this method to find the content type of the given file.
    *
-   * @param filename The location of the file.
+   * @param filename
+   *          The location of the file.
    * @return The namespace of the root element, if recognized; otherwise, null.
    */
   public String findContentType(final String filename) {
@@ -69,10 +70,10 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * For an SCAP 1.2/1.3 file, returns the scap-version attribute of the data-stream
-   * element.
+   * For an SCAP 1.2/1.3 file, returns the scap-version attribute of the data-stream element.
    *
-   * @param filename The SCAP file.
+   * @param filename
+   *          The SCAP file.
    * @return The SCAP version e.g., 1.2 / 1.3.
    */
   public String findSCAPVersion(final String filename) {
@@ -88,10 +89,10 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * For an SCAP 1.2/1.3 file, returns the use-case attribute of the data-stream
-   * element.
+   * For an SCAP 1.2/1.3 file, returns the use-case attribute of the data-stream element.
    *
-   * @param filename The SCAP file.
+   * @param filename
+   *          The SCAP file.
    * @return The use case, e.g., CONFIGURATION.
    */
   public String findUseCase(final String filename) {
@@ -109,8 +110,10 @@ public class ScapDocumentSniffer {
   /**
    * Parses a particular XML file, and handles it in a certain way.
    *
-   * @param filename The XML file.
-   * @param handler  Handler determines what we are looking for in the file.
+   * @param filename
+   *          The XML file.
+   * @param handler
+   *          Handler determines what we are looking for in the file.
    */
   private void parseFile(final String filename, final DefaultHandler handler) {
 
@@ -138,8 +141,8 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * Handles an XML document by inspecting the namespace of the root element
-   * to determine if it is recognized as an SCAP namespace.
+   * Handles an XML document by inspecting the namespace of the root element to determine if it is
+   * recognized as an SCAP namespace.
    */
   static class ScapUriHandler extends DefaultHandler {
 
@@ -150,13 +153,13 @@ public class ScapDocumentSniffer {
     private String contentType = null;
 
     // collection of all recognized SCAP namespaces
-    private static final String[] SCAP_URIS = {NamespaceConstants.NS_CPE_DICT_2.getNamespaceString(),
+    private static final String[] SCAP_URIS = { NamespaceConstants.NS_CPE_DICT_2.getNamespaceString(),
         NamespaceConstants.NS_OCIL_2_0.getNamespaceString(), NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(),
-        NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString(), NamespaceConstants
-        .NS_SOURCE_DS_1_2.getNamespaceString(), NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(),
+        NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString(),
+        NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(),
+        NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(),
         NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString(), NamespaceConstants.NS_ARF_1_1.getNamespaceString(),
-        NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(), NamespaceConstants.NS_XCCDF_1_2.getNamespaceString(),
-    };
+        NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(), NamespaceConstants.NS_XCCDF_1_2.getNamespaceString(), };
 
     private static final Set<String> NAMESPACE_MAP = new HashSet<String>();
 
@@ -167,8 +170,8 @@ public class ScapDocumentSniffer {
     }
 
     @Override
-    public void startElement(
-        String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qualifiedName, Attributes attributes)
+        throws SAXException {
 
       // short-circuit after root element for performance
       if (!isRootElementFound) {
@@ -194,8 +197,8 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * Handles an XML document by searching for the SCAP 1.2/1.3 namespace, then
-   * finding the use-case attribute of the data-stream element.
+   * Handles an XML document by searching for the SCAP 1.2/1.3 namespace, then finding the use-case
+   * attribute of the data-stream element.
    */
   static class ScapUseCaseHandler extends DefaultHandler {
 
@@ -203,20 +206,20 @@ public class ScapDocumentSniffer {
     private String useCase = null;
 
     @Override
-    public void startElement(
-        String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qualifiedName, Attributes attributes)
+        throws SAXException {
 
       // short-circuit for performance
-        // if stream is SCAP 1.2/1.3 and element is data-stream
-      if (useCase == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
-            uri) || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)) && "data-stream".equals(
-            localName))) {
+      // if stream is SCAP 1.2/1.3 and element is data-stream
+      if (useCase == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(uri)
+          || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri))
+          && "data-stream".equals(localName))) {
 
-          // get value of the use-case attribute
-          this.useCase = attributes.getValue("use-case");
-          if (log.isDebugEnabled()) {
-            log.debug(String.format("found use-case %s", this.useCase));
-          }
+        // get value of the use-case attribute
+        this.useCase = attributes.getValue("use-case");
+        if (log.isDebugEnabled()) {
+          log.debug(String.format("found use-case %s", this.useCase));
+        }
       }
 
       super.startElement(uri, localName, qualifiedName, attributes);
@@ -228,8 +231,8 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * Handles an XML document by searching for the scap-version attribute, then
-   * finding the specified SCAP version of the data-stream element.
+   * Handles an XML document by searching for the scap-version attribute, then finding the specified
+   * SCAP version of the data-stream element.
    */
   static class ScapVersionHandler extends DefaultHandler {
 
@@ -237,20 +240,20 @@ public class ScapDocumentSniffer {
     private String scapVersion = null;
 
     @Override
-    public void startElement(
-        String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qualifiedName, Attributes attributes)
+        throws SAXException {
 
       // short-circuit for performance
-        // if stream is SCAP 1.2/1.3 and element is data-stream
-      if (scapVersion == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(
-            uri) || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)) && "data-stream".equals(
-            localName))) {
+      // if stream is SCAP 1.2/1.3 and element is data-stream
+      if (scapVersion == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(uri)
+          || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri))
+          && "data-stream".equals(localName))) {
 
-          // get value of the scap-version attribute
-          this.scapVersion = attributes.getValue("scap-version");
-          if (log.isDebugEnabled()) {
-            log.debug(String.format("found scap-version %s", this.scapVersion));
-          }
+        // get value of the scap-version attribute
+        this.scapVersion = attributes.getValue("scap-version");
+        if (log.isDebugEnabled()) {
+          log.debug(String.format("found scap-version %s", this.scapVersion));
+        }
       }
 
       super.startElement(uri, localName, qualifiedName, attributes);

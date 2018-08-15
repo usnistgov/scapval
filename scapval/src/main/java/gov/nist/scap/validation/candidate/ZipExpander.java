@@ -35,9 +35,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * Takes a zip file and expands it to the file system. By convention the file is
- * expanded to a folder next to the ZIP file, and the folder is named just like
- * the ZIP file but without the .zip file extension.
+ * Takes a zip file and expands it to the file system. By convention the file is expanded to a
+ * folder next to the ZIP file, and the folder is named just like the ZIP file but without the .zip
+ * file extension.
  */
 public class ZipExpander {
   private static final Logger log = LogManager.getLogger(ZipExpander.class);
@@ -49,7 +49,8 @@ public class ZipExpander {
   /**
    * Constructs a ZipExpander with a given output buffer size.
    *
-   * @param bufferSize The buffer size in bytes.
+   * @param bufferSize
+   *          The buffer size in bytes.
    */
   public ZipExpander(final int bufferSize) {
 
@@ -66,7 +67,8 @@ public class ZipExpander {
   /**
    * Expands a ZIP file and returns the new folder where it was expanded to.
    *
-   * @param compressedFile The original ZIP file.
+   * @param compressedFile
+   *          The original ZIP file.
    * @return The new folder with expanded contents. Null if there is a problem
    */
   public File expand(final File compressedFile, final File targetDirFile) {
@@ -114,13 +116,17 @@ public class ZipExpander {
   /**
    * Writes out all the entries in a zip file.
    *
-   * @param targetFolder   Where we are writing to.
-   * @param zipInputStream The ZIP input stream.
-   * @param buffer         A buffer for reading.
-   * @throws IOException If unable to read a ZIP entry.
+   * @param targetFolder
+   *          Where we are writing to.
+   * @param zipInputStream
+   *          The ZIP input stream.
+   * @param buffer
+   *          A buffer for reading.
+   * @throws IOException
+   *           If unable to read a ZIP entry.
    */
-  private void writeZipEntries(
-      final File targetFolder, final ZipInputStream zipInputStream, final byte[] buffer) throws IOException {
+  private void writeZipEntries(final File targetFolder, final ZipInputStream zipInputStream, final byte[] buffer)
+      throws IOException {
 
     // get the next zip entry
     ZipEntry zipEntry = zipInputStream.getNextEntry();
@@ -156,13 +162,17 @@ public class ZipExpander {
   /**
    * Writes a single zip entry out to the file system.
    *
-   * @param target         Where we are writing out to.
-   * @param zipEntry       The zip entry.
-   * @param zipInputStream The zip input stream.
-   * @param buffer         A buffer for writing.
+   * @param target
+   *          Where we are writing out to.
+   * @param zipEntry
+   *          The zip entry.
+   * @param zipInputStream
+   *          The zip input stream.
+   * @param buffer
+   *          A buffer for writing.
    */
-  private void writeFile(
-      final File target, final ZipEntry zipEntry, final ZipInputStream zipInputStream, final byte[] buffer) {
+  private void writeFile(final File target, final ZipEntry zipEntry, final ZipInputStream zipInputStream,
+      final byte[] buffer) {
 
     final File newFile = new File(target, zipEntry.getName());
 
@@ -201,8 +211,8 @@ public class ZipExpander {
   /**
    * Creates target folder where we are unzipping to.
    *
-   * @param compressedFile The original ZIP filename upon which the target
-   *                       folder name is based.
+   * @param compressedFile
+   *          The original ZIP filename upon which the target folder name is based.
    * @return The target folder where we can unzip to.
    */
   private File createTarget(final File compressedFile, final File targetDir) {
@@ -221,7 +231,8 @@ public class ZipExpander {
   /**
    * For completeness, call this method to delete an expanded folder.
    *
-   * @param path The folder.
+   * @param path
+   *          The folder.
    */
   public void deleteDirectory(final File path) {
 
@@ -243,10 +254,11 @@ public class ZipExpander {
   }
 
   /**
-   * Returns the target folder name based on the original ZIP file. Folder
-   * name is constructed by removing .zip from the filename.
+   * Returns the target folder name based on the original ZIP file. Folder name is constructed by
+   * removing .zip from the filename.
    *
-   * @param compressedFile The original compressed ZIP file.
+   * @param compressedFile
+   *          The original compressed ZIP file.
    * @return The new target folder name.
    */
   private File getTargetDirectory(final File compressedFile, final File targetDir) {

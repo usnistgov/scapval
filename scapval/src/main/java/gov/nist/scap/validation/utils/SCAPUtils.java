@@ -41,33 +41,36 @@ public class SCAPUtils {
   /**
    * Returns a list of Oval Elements from specified SCAP XML Content.
    *
-   * @param scapContent an XMLDocument containing the SCAP content
-   * @param scapVersion the SCAP version within the specified XML Content
+   * @param scapContent
+   *          an XMLDocument containing the SCAP content
+   * @param scapVersion
+   *          the SCAP version within the specified XML Content
    * @return a List of OVAL Elements
-   * @throws SCAPException if there is a problem with the SCAP structure
+   * @throws SCAPException
+   *           if there is a problem with the SCAP structure
    */
-  public static List<Element> getOVALComponentsFromSCAPContent(
-      XMLDocument scapContent, SCAPVersion scapVersion) throws SCAPException {
+  public static List<Element> getOVALComponentsFromSCAPContent(XMLDocument scapContent, SCAPVersion scapVersion)
+      throws SCAPException {
     Objects.requireNonNull(scapContent, "scapContent cannot be null.");
     Objects.requireNonNull(scapVersion, "scapVersion cannot be null.");
 
-    //the SCAP version will determine where to pull the oval components from
+    // the SCAP version will determine where to pull the oval components from
     String getOvalComponentXpath = "";
     switch (scapVersion) {
     case V1_1:
-      //using the composite doc for 1.1 content, then pulling out oval components
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and " +
-          "local-name()" + "='schema_version']/ancestor-or-self::*:check-system-content/*";
+      // using the composite doc for 1.1 content, then pulling out oval components
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and "
+          + "local-name()" + "='schema_version']/ancestor-or-self::*:check-system-content/*";
       break;
     case V1_2:
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and " +
-          "local-name()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + ""
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and "
+          + "local-name()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + ""
           + ".gov/schema/scap/source/1.2' and local-name()='component']/*";
       break;
     case V1_3:
-      //SCAP 1.3 still uses the 1.2 namespce.
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and " +
-          "local-name()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + ""
+      // SCAP 1.3 still uses the 1.2 namespce.
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and "
+          + "local-name()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + ""
           + ".gov/schema/scap/source/1.2' and local-name()='component']/*";
       break;
     default:
@@ -77,7 +80,7 @@ public class SCAPUtils {
     try {
       ovalElements = scapContent.newXPathEvaluator().evaluate(getOvalComponentXpath, Filters.element());
     } catch (XPathExpressionException | XPathFactoryConfigurationException e) {
-      //no results found, returning null
+      // no results found, returning null
     }
     return ovalElements;
   }
@@ -85,17 +88,20 @@ public class SCAPUtils {
   /**
    * Returns a list of Oval Results from specified SCAP XML Content.
    *
-   * @param scapContent an XMLDocument containing the SCAP content
-   * @param scapVersion the SCAP version within the specified XML Content
+   * @param scapContent
+   *          an XMLDocument containing the SCAP content
+   * @param scapVersion
+   *          the SCAP version within the specified XML Content
    * @return a List of OVAL Results
-   * @throws SCAPException if there is a problem with the SCAP structure
+   * @throws SCAPException
+   *           if there is a problem with the SCAP structure
    */
-  public static List<Element> getOVALResultsFromSCAPContent(
-      XMLDocument scapContent, SCAPVersion scapVersion) throws SCAPException {
+  public static List<Element> getOVALResultsFromSCAPContent(XMLDocument scapContent, SCAPVersion scapVersion)
+      throws SCAPException {
     Objects.requireNonNull(scapContent, "scapContent cannot be null.");
     Objects.requireNonNull(scapVersion, "scapVersion cannot be null.");
 
-    //the SCAP version will determine where to pull the oval components from
+    // the SCAP version will determine where to pull the oval components from
     String getOvalResultsXpath = "";
     switch (scapVersion) {
     case V1_1:
@@ -104,13 +110,13 @@ public class SCAPUtils {
       break;
     case V1_2:
       getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and local-name"
-          + "()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + "" + "" + "" +
-          ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
+          + "()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + "" + "" + ""
+          + ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
       break;
     case V1_3:
       getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and local-name"
-          + "()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + "" + "" + "" +
-          ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
+          + "()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + "" + "" + ""
+          + ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
       break;
     default:
     }
@@ -119,7 +125,7 @@ public class SCAPUtils {
     try {
       ovalElements = scapContent.newXPathEvaluator().evaluate(getOvalResultsXpath, Filters.element());
     } catch (XPathExpressionException | XPathFactoryConfigurationException e) {
-      //no results found, returning null
+      // no results found, returning null
     }
     return ovalElements;
   }

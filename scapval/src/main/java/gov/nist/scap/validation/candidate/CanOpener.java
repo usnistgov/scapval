@@ -48,10 +48,10 @@ public class CanOpener implements ICandidateFileCreator {
   }
 
   /**
-   * Returns all the candidates in a file. The candidates may or may not be
-   * validate-able items.
+   * Returns all the candidates in a file. The candidates may or may not be validate-able items.
    *
-   * @param file The file we are inspecting.
+   * @param file
+   *          The file we are inspecting.
    * @return The list of items to possibly validate.
    */
   public CandidateFileList findCandidateFiles(final File file) {
@@ -65,7 +65,8 @@ public class CanOpener implements ICandidateFileCreator {
   /**
    * Takes a Candidate file builder and returns the candidate file
    *
-   * @param builder The CandidateFile.Builder with information about a file.
+   * @param builder
+   *          The CandidateFile.Builder with information about a file.
    * @return the CandidateFile per the specified builder
    */
   public CandidateFile createCandidate(final CandidateFile.Builder builder) {
@@ -129,7 +130,8 @@ public class CanOpener implements ICandidateFileCreator {
   /**
    * Deletes expanded candidate files on the filesystem.
    *
-   * @param candidates the CandidateFileList to be deleted
+   * @param candidates
+   *          the CandidateFileList to be deleted
    */
   public void deleteExpandedFiles(final CandidateFileList candidates) {
 

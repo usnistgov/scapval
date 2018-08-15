@@ -43,7 +43,8 @@ public class Resource extends PatternSet {
   /**
    * A copy constructor allowing a maven resource to be provided.
    * 
-   * @param in a maven resource
+   * @param in
+   *          a maven resource
    */
   public Resource(org.apache.maven.model.Resource in) {
     directory = in.getDirectory();

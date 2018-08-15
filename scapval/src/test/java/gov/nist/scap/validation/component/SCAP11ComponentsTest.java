@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
 import org.junit.Assert;
@@ -28,8 +29,8 @@ import org.junit.Test;
 public class SCAP11ComponentsTest {
   @Test
   public void getByFileName() throws Exception {
-    Assert.assertEquals(SCAP11Components.getByFileNameAndUseCase("cpe-oval.xml", "CONFIGURATION")
-        , SCAP11Components.CPE_INVENTORY);
+    Assert.assertEquals(SCAP11Components.getByFileNameAndUseCase("cpe-oval.xml", "CONFIGURATION"),
+        SCAP11Components.CPE_INVENTORY);
   }
 
   @Test

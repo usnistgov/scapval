@@ -28,7 +28,7 @@ package gov.nist.scap.validation.component;
  */
 public enum OCILVersion {
   // schema location, schematron location
-  V2_0(new String[] {"classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd", "classpath:rules/other/ocil-2.0.sch"});
+  V2_0(new String[] { "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd", "classpath:rules/other/ocil-2.0.sch" });
 
   private String[] validationFiles;
 

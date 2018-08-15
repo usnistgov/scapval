@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import static org.junit.Assert.fail;
@@ -31,8 +32,8 @@ public class ApplicationFunctionalTest {
   @Test
   public void CompleteSourceRun() {
     try {
-      new Application().runCLI(new String[]{"-scapversion", "1.2", "-file",
-          "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml"});
+      new Application().runCLI(new String[] { "-scapversion", "1.2", "-file",
+          "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -41,8 +42,8 @@ public class ApplicationFunctionalTest {
   @Test
   public void CompleteSourceRunWhitespaceInFileName() {
     try {
-      new Application().runCLI(new String[]{"-scapversion", "1.3", "-file",
-          "src/test/resources/candidates/scap-13/source ds whitespace.xml"});
+      new Application().runCLI(new String[] { "-scapversion", "1.3", "-file",
+          "src/test/resources/candidates/scap-13/source ds whitespace.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -51,8 +52,8 @@ public class ApplicationFunctionalTest {
   @Test
   public void CompleteResultRun() {
     try {
-      new Application().runCLI(new String[]{"-scapversion", "1.2", "-resultfile",
-          "src/test/resources/candidates/scap-12/arf/ARF-results.xml"});
+      new Application().runCLI(new String[] { "-scapversion", "1.2", "-resultfile",
+          "src/test/resources/candidates/scap-12/arf/ARF-results.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -61,9 +62,8 @@ public class ApplicationFunctionalTest {
   @Test
   public void CompleteComponentRun() {
     try {
-      new Application().runCLI(new String[]{"-componentfile",
-          "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5" +
-              "-10.xml"});
+      new Application().runCLI(new String[] { "-componentfile",
+          "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5" + "-10.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -73,10 +73,10 @@ public class ApplicationFunctionalTest {
   public void IncompleteRun() {
     boolean failed = false;
     try {
-      new Application().runCLI(new String[]{"-scapversion", ".4", "-file",
-          "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml"});
+      new Application().runCLI(new String[] { "-scapversion", ".4", "-file",
+          "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
     } catch (Exception e) {
-      //expected an exception, test passed
+      // expected an exception, test passed
       failed = true;
     }
     if (!failed) {

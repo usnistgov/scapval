@@ -29,11 +29,11 @@ import java.util.Objects;
  * Valid XCCDF versions and their specifics.
  */
 public enum XccdfVersion {
-  V1_1_4(new String[] {"classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd"}), //no schematron available for this version
-  V1_2(new String[] {"classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd", "classpath:rules/other/xccdf-1.2.sch"});
+  V1_1_4(new String[] { "classpath:xsd/nist/xccdf/1.1/xccdf-1.1.4.xsd" }), // no schematron available for this version
+  V1_2(new String[] { "classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd", "classpath:rules/other/xccdf-1.2.sch" });
 
   private String[] validationFiles;
-    // private String namespace;
+  // private String namespace;
 
   XccdfVersion(String[] validationFiles) {
     this.validationFiles = validationFiles;
@@ -42,7 +42,8 @@ public enum XccdfVersion {
   /**
    * Returns the XccdfVersion enum by version string.
    *
-   * @param version The XCCDF string version to check (e.g. "1.2")
+   * @param version
+   *          The XCCDF string version to check (e.g. "1.2")
    * @return the matching XccdfVersion enum
    */
   public static XccdfVersion getByString(String version) {

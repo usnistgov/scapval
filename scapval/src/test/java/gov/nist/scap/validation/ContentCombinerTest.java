@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import gov.nist.decima.xml.document.JDOMDocument;
@@ -43,81 +44,92 @@ import static org.junit.Assert.fail;
 
 public class ContentCombinerTest {
 
-    @Test
-    public void combineSCAP11Source() throws Exception {
+  @Test
+  public void combineSCAP11Source() throws Exception {
 
-        final File testDir = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder").getPath());
+    final File testDir = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder").getPath());
 
-        XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, null);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
-        Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(), "http://scap.nist.gov/schema/data-stream/0.2");
-        Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
+    XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, null);
+    Assert.assertNotNull(result);
+    Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
+    Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(),
+        "http://scap.nist.gov/schema/data-stream/0.2");
+    Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
+  }
+
+  @Test
+  public void combineSCAP11SourceExtraDir() throws Exception {
+
+    final File testDir
+        = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder-extra-dir").getPath());
+
+    XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, null);
+    Assert.assertNotNull(result);
+    Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
+    Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(),
+        "http://scap.nist.gov/schema/data-stream/0.2");
+    Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
+  }
+
+  public void combineSCAP11Result() throws Exception {
+    //
+    // final String testDir = new File(new
+    // URL("classpath:src/test/resources/candidates/scap-11/source-folder").getFile()).getAbsolutePath();
+    //
+    // XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false,
+    // Application.ContentType.SOURCE);
+    // Assert.assertNotNull(result);
+    // Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
+    // Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(),
+    // "http://scap.nist.gov/schema/data-stream/0.2");
+    // Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
+  }
+
+  @Test
+  public void mergeARFWithDS() throws Exception {
+    final File combinedFile = new File("combinedFile.xml");
+    final File arfResult = new File(
+        new URL("classpath:src/test/resources/candidates/scap-12/arf/arf_result_wo_datastream.xml").getFile());
+    final File datastream
+        = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/datastream.xml").getFile());
+    final File invalidDatastream
+        = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/baddatastream.xml").getFile());
+    // final String[] args = {"-scapversion", "1.2", "-resultfile", arfResult.getAbsolutePath(),
+    // "-sourceds", datastream.getAbsolutePath()};
+
+    // try to merge invalid datastream
+    try {
+      // XMLDocument ARFFile, XMLDocument DSFile, File combinedOutput
+      ContentCombiner.mergeARFWithDS(new JDOMDocument(arfResult), new JDOMDocument(invalidDatastream), combinedFile);
+    } catch (Exception e) {
+      // expected to fail, move on
     }
 
-    @Test
-    public void combineSCAP11SourceExtraDir() throws Exception {
-
-        final File testDir = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder-extra-dir").getPath());
-
-        XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, null);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
-        Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(), "http://scap.nist.gov/schema/data-stream/0.2");
-        Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
+    // try to merge valid file
+    try {
+      ContentCombiner.mergeARFWithDS(new JDOMDocument(arfResult), new JDOMDocument(datastream), combinedFile);
+    } catch (Exception e) {
+      fail("File could not be combined: " + e);
     }
 
-    public void combineSCAP11Result() throws Exception {
-//
-//        final String testDir = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder").getFile()).getAbsolutePath();
-//
-//        XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, Application.ContentType.SOURCE);
-//        Assert.assertNotNull(result);
-//        Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
-//        Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(), "http://scap.nist.gov/schema/data-stream/0.2");
-//        Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
+    try {
+      final DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+      domFactory.setNamespaceAware(true);
+
+      final DocumentBuilder builder = domFactory.newDocumentBuilder();
+      final Document doc = builder.parse("combinedFile.xml");
+      final XPath xpath = XPathFactory.newInstance().newXPath();
+      final XPathExpression xccdfRule
+          = xpath.compile("//*[namespace-uri()='http://checklists.nist.gov/xccdf/1.2' and local-name()='Rule']");
+      final Object ruleTest = xccdfRule.evaluate(doc, XPathConstants.NODESET);
+      final NodeList xccdfRules = (NodeList) ruleTest;
+
+      assertTrue(xccdfRules.getLength() >= 1);
+    } catch (Exception e) {
+      fail("File could not be combined: " + e);
+    } finally {
+      combinedFile.delete();
     }
-
-    @Test
-    public void mergeARFWithDS() throws Exception {
-        final File combinedFile = new File("combinedFile.xml");
-        final File arfResult = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/arf_result_wo_datastream.xml").getFile());
-        final File datastream = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/datastream.xml").getFile());
-        final File invalidDatastream = new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/baddatastream.xml").getFile());
-//        final String[] args = {"-scapversion", "1.2", "-resultfile", arfResult.getAbsolutePath(), "-sourceds", datastream.getAbsolutePath()};
-
-        //try to merge invalid datastream
-        try {
-//            XMLDocument ARFFile, XMLDocument DSFile, File combinedOutput
-            ContentCombiner.mergeARFWithDS(new JDOMDocument(arfResult), new JDOMDocument(invalidDatastream), combinedFile);
-        } catch (Exception e) {
-            //expected to fail, move on
-        }
-
-        //try to merge valid file
-        try {
-            ContentCombiner.mergeARFWithDS(new JDOMDocument(arfResult), new JDOMDocument(datastream), combinedFile);
-        } catch (Exception e) {
-            fail("File could not be combined: " + e);
-        }
-
-        try {
-            final DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-            domFactory.setNamespaceAware(true);
-
-            final DocumentBuilder builder = domFactory.newDocumentBuilder();
-            final Document doc = builder.parse("combinedFile.xml");
-            final XPath xpath = XPathFactory.newInstance().newXPath();
-            final XPathExpression xccdfRule = xpath.compile("//*[namespace-uri()='http://checklists.nist.gov/xccdf/1.2' and local-name()='Rule']");
-            final Object ruleTest = xccdfRule.evaluate(doc, XPathConstants.NODESET);
-            final NodeList xccdfRules = (NodeList) ruleTest;
-
-            assertTrue(xccdfRules.getLength() >= 1);
-        } catch (Exception e) {
-            fail("File could not be combined: " + e);
-        } finally {
-            combinedFile.delete();
-        }
-    }
+  }
 
 }

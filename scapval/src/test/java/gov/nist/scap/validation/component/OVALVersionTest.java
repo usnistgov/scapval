@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.component;
 
 import org.junit.Assert;
@@ -42,22 +43,16 @@ public class OVALVersionTest {
 
   @Test
   public void getDefinitionSchematron() throws Exception {
-    Assert.assertEquals(OVALVersion.V5_11.getDefinitionSchematron(),
-        "oval-definitions-schematron-5.11.sch");
-    Assert.assertEquals(OVALVersion.V5_11_1.getDefinitionSchematron(),
-        "oval-definitions-schematron-5.11.1.sch");
-    Assert.assertEquals(OVALVersion.V5_11_2.getDefinitionSchematron(),
-        "oval-definitions-schematron-5.11.2.sch");
+    Assert.assertEquals(OVALVersion.V5_11.getDefinitionSchematron(), "oval-definitions-schematron-5.11.sch");
+    Assert.assertEquals(OVALVersion.V5_11_1.getDefinitionSchematron(), "oval-definitions-schematron-5.11.1.sch");
+    Assert.assertEquals(OVALVersion.V5_11_2.getDefinitionSchematron(), "oval-definitions-schematron-5.11.2.sch");
   }
 
   @Test
   public void getResultSchematron() throws Exception {
-    Assert.assertEquals(OVALVersion.V5_11.getResultSchematron(),
-        "oval-results-schematron-5.11.sch");
-    Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(),
-        "oval-results-schematron-5.11.1.sch");
-    Assert.assertEquals(OVALVersion.V5_11_2.getResultSchematron(),
-        "oval-results-schematron-5.11.2.sch");
+    Assert.assertEquals(OVALVersion.V5_11.getResultSchematron(), "oval-results-schematron-5.11.sch");
+    Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(), "oval-results-schematron-5.11.1.sch");
+    Assert.assertEquals(OVALVersion.V5_11_2.getResultSchematron(), "oval-results-schematron-5.11.2.sch");
   }
 
 }

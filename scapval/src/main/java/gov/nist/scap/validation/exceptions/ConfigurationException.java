@@ -32,16 +32,17 @@ public class ConfigurationException extends Exception {
   /**
    * This ConfigurationException is used when CLI arguments are bad.
    *
-   * @param message the error message
+   * @param message
+   *          the error message
    */
   public ConfigurationException(String message) {
     super(message);
-    //There was a problem with CLI params, show tool usage
+    // There was a problem with CLI params, show tool usage
     Application.showHelp();
   }
 
   public ConfigurationException() {
-    //There was a problem with CLI params, show tool usage
+    // There was a problem with CLI params, show tool usage
     Application.showHelp();
   }
 }

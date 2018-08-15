@@ -32,16 +32,37 @@ import gov.nist.scap.validation.component.XccdfVersion;
 import org.jdom2.Namespace;
 
 /**
- * Enumerates the versions of SCAP, associated use Cases,
- * and version specific info (OVAL, OCIL, XCCDF, CPE, CCE, CVSS).
+ * Enumerates the versions of SCAP, associated use Cases, and version specific info (OVAL, OCIL,
+ * XCCDF, CPE, CCE, CVSS).
  */
 public enum SCAPVersion {
-  V1_1("1.1", new String[] { "CONFIGURATION", "VULNERABILITY_XCCDF_OVAL", "SYSTEM_INVENTORY", "OVAL_ONLY" },
-      OVALVersion.V5_8, OCILVersion.V2_0, XccdfVersion.V1_1_4, CPEVersion.V2_2, CCEVersion.V5, CVSSVersion.V2_0),
-  V1_2("1.2", new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
-      OVALVersion.V5_10_1, OCILVersion.V2_0, XccdfVersion.V1_2, CPEVersion.V2_3, CCEVersion.V5, CVSSVersion.V2_0),
-  V1_3("1.3", new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
-      OVALVersion.V5_11_2, OCILVersion.V2_0, XccdfVersion.V1_2, CPEVersion.V2_3, CCEVersion.V5, CVSSVersion.V3_0);
+  V1_1(
+      "1.1",
+      new String[] { "CONFIGURATION", "VULNERABILITY_XCCDF_OVAL", "SYSTEM_INVENTORY", "OVAL_ONLY" },
+      OVALVersion.V5_8,
+      OCILVersion.V2_0,
+      XccdfVersion.V1_1_4,
+      CPEVersion.V2_2,
+      CCEVersion.V5,
+      CVSSVersion.V2_0),
+  V1_2(
+      "1.2",
+      new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
+      OVALVersion.V5_10_1,
+      OCILVersion.V2_0,
+      XccdfVersion.V1_2,
+      CPEVersion.V2_3,
+      CCEVersion.V5,
+      CVSSVersion.V2_0),
+  V1_3(
+      "1.3",
+      new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
+      OVALVersion.V5_11_2,
+      OCILVersion.V2_0,
+      XccdfVersion.V1_2,
+      CPEVersion.V2_3,
+      CCEVersion.V5,
+      CVSSVersion.V3_0);
 
   private String name;
   private String[] useCases;
@@ -53,8 +74,8 @@ public enum SCAPVersion {
   private CVSSVersion cvssSupportedVersion;
 
   SCAPVersion(String name, String[] useCases, OVALVersion ovalSupportedVersion, OCILVersion ocilSupportedVersion,
-              XccdfVersion xccdfSupportedVersion, CPEVersion cpeSupportedVersion, CCEVersion cceSupportedVersion,
-              CVSSVersion cvssSupportedVersion) {
+      XccdfVersion xccdfSupportedVersion, CPEVersion cpeSupportedVersion, CCEVersion cceSupportedVersion,
+      CVSSVersion cvssSupportedVersion) {
 
     this.name = name;
     this.useCases = useCases;
@@ -67,9 +88,10 @@ public enum SCAPVersion {
   }
 
   /**
-   *  Returns the SCAPVersion enum based on a string version (e.g. "1.3)
+   * Returns the SCAPVersion enum based on a string version (e.g. "1.3)
    *
-   * @param stringVersion a string representation of the version
+   * @param stringVersion
+   *          a string representation of the version
    * @return the applicable SCAPVersion enum
    */
   public static SCAPVersion getByString(String stringVersion) {
@@ -84,13 +106,14 @@ public enum SCAPVersion {
   /**
    * Returns all supported SCAP version for this particular build of SCAPVal.
    *
-   * @return a comma separated String containing all the support SCAP versions for this build of SCAPVal
+   * @return a comma separated String containing all the support SCAP versions for this build of
+   *         SCAPVal
    */
   public static String getVersionsSupported() {
     StringBuilder builder = new StringBuilder();
     SCAPVersion[] versions = values();
     int last = versions.length - 1;
-    for (int i = 0; ; i++) {
+    for (int i = 0;; i++) {
       builder.append(versions[i].name);
       if (i == last) {
         return builder.toString();
@@ -110,7 +133,8 @@ public enum SCAPVersion {
   /**
    * Checks if a proposed usecase is valid for this particular SCAP version.
    *
-   * @param usecase the usecase as a String to check
+   * @param usecase
+   *          the usecase as a String to check
    * @return a boolean of true if this usecase is valid or false.
    */
   public boolean isUseCaseValid(String usecase) {

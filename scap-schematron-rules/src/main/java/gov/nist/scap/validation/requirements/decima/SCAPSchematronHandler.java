@@ -40,8 +40,7 @@ public class SCAPSchematronHandler extends AbstractIdAwareSchematronHandler {
   }
 
   @Override
-  protected AbstractDerivedRequirementParsingHandler newDerivedRequirementParsingHandler(
-      Schematron schematron) {
+  protected AbstractDerivedRequirementParsingHandler newDerivedRequirementParsingHandler(Schematron schematron) {
     SCAPDerivedRequirementParsingHandler handler = new SCAPDerivedRequirementParsingHandler();
     SchematronParser.parse(schematron.getProcessedSchematron(), handler);
     return handler;
@@ -49,8 +48,7 @@ public class SCAPSchematronHandler extends AbstractIdAwareSchematronHandler {
 
   @Override
   public SVRLHandler newSVRLHandler(Assessment<? extends XMLDocument> assessment, XMLDocument assessedDocument,
-      AssessmentResultBuilder assessmentResultBuilder)
-      throws AssessmentException {
+      AssessmentResultBuilder assessmentResultBuilder) throws AssessmentException {
     return new SCAPResultGeneratingSVRLHandler(assessment, assessedDocument, assessmentResultBuilder, this);
   }
 

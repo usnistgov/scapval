@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import gov.nist.decima.xml.testing.PathRunner;
@@ -32,7 +33,7 @@ import java.util.List;
 
 @RunWith(PathRunner.class)
 public class UnitIntegrationTest {
-	public static List<File> paths() {
-		return Collections.singletonList(new File("src/test/resources/unit-tests/"));
-	}
+  public static List<File> paths() {
+    return Collections.singletonList(new File("src/test/resources/unit-tests/"));
+  }
 }

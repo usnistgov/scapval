@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Provides a means to aggregate candidate files and return an
- * unfiltered list or filtered list by validatable candidates.
+ * Provides a means to aggregate candidate files and return an unfiltered list or filtered list by
+ * validatable candidates.
  */
 public class CandidateFileList {
 

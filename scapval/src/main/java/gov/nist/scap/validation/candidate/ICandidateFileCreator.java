@@ -29,15 +29,14 @@ package gov.nist.scap.validation.candidate;
 public interface ICandidateFileCreator {
 
   /**
-   * Takes a CandidateFile.Builder and returns the corresponding
-   * CandidateFile.
+   * Takes a CandidateFile.Builder and returns the corresponding CandidateFile.
    * <p>
-   * By convention the resulting candidate file is never be null. If the File
-   * is not a real candidate, then the resulting CandidateFile should be of
-   * type UNKNOWN, and have a disqualification message to indicate why the
-   * candidate file was disqualified.
+   * By convention the resulting candidate file is never be null. If the File is not a real candidate,
+   * then the resulting CandidateFile should be of type UNKNOWN, and have a disqualification message
+   * to indicate why the candidate file was disqualified.
    *
-   * @param builder The CandidateFile.Builder with information about a file.
+   * @param builder
+   *          The CandidateFile.Builder with information about a file.
    * @return The CandidateFile.
    */
   CandidateFile createCandidate(CandidateFile.Builder builder);

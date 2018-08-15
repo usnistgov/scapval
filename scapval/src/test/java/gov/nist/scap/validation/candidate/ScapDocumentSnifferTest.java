@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.NamespaceConstants;
@@ -37,22 +38,21 @@ public class ScapDocumentSnifferTest {
 
   @Test
   public void testXccdf() throws Exception {
-    final File xccdfFile = new File(new URL
-        ("classpath:src/test/resources/candidates/components/xccdf/xccdf114-xml/fdcc-winvista" +
-            "-xccdf.xml").getFile());
+    final File xccdfFile = new File(
+        new URL("classpath:src/test/resources/candidates/components/xccdf/xccdf114-xml/fdcc-winvista" + "-xccdf.xml")
+            .getFile());
 
-    assertEquals(NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(), this.sniffer
-        .findContentType(xccdfFile.getAbsolutePath()));
+    assertEquals(NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(),
+        this.sniffer.findContentType(xccdfFile.getAbsolutePath()));
   }
 
   @Test
   public void testOval5() throws Exception {
-    final File ovalFile = new File(new URL
-        ("classpath:src/test/resources/candidates/components/oval/fdcc-winxp-oval-5-4.xml")
-        .getFile());
+    final File ovalFile = new File(
+        new URL("classpath:src/test/resources/candidates/components/oval/fdcc-winxp-oval-5-4.xml").getFile());
 
-    assertEquals(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(), this.sniffer
-        .findContentType(ovalFile.getAbsolutePath()));
+    assertEquals(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(),
+        this.sniffer.findContentType(ovalFile.getAbsolutePath()));
   }
 
   @Test
@@ -62,42 +62,42 @@ public class ScapDocumentSnifferTest {
 
   @Test
   public void testScap12() throws Exception {
-    final File scap12File = new File(new URL
-        ("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall" +
-            ".xml").getFile());
+    final File scap12File = new File(
+        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall" + ".xml")
+            .getFile());
 
-    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(), this.sniffer
-        .findContentType(scap12File.getAbsolutePath()));
+    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(),
+        this.sniffer.findContentType(scap12File.getAbsolutePath()));
 
     assertEquals("CONFIGURATION", this.sniffer.findUseCase(scap12File.getAbsolutePath()));
 
-    final File scap12FileNoUseCase = new File(new URL
-        ("classpath:src/test/resources/candidates/scap-12/scap_gov" +
-            ".nist_USGCB-Windows-XP-firewall-NO-USE-CASE.xml").getFile());
+    final File scap12FileNoUseCase = new File(new URL(
+        "classpath:src/test/resources/candidates/scap-12/scap_gov" + ".nist_USGCB-Windows-XP-firewall-NO-USE-CASE.xml")
+            .getFile());
 
-    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(), this.sniffer
-        .findContentType(scap12FileNoUseCase.getAbsolutePath()));
+    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(),
+        this.sniffer.findContentType(scap12FileNoUseCase.getAbsolutePath()));
 
     assertNull(this.sniffer.findUseCase(scap12FileNoUseCase.getAbsolutePath()));
   }
 
   @Test
   public void testScap13() throws Exception {
-    final File scap13File = new File(new URL
-        ("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample" +
-            ".xml").getFile());
+    final File scap13File = new File(
+        new URL("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample" + ".xml")
+            .getFile());
 
-    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(), this.sniffer
-        .findContentType(scap13File.getAbsolutePath()));
+    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(),
+        this.sniffer.findContentType(scap13File.getAbsolutePath()));
 
     assertEquals("CONFIGURATION", this.sniffer.findUseCase(scap13File.getAbsolutePath()));
 
-    final File scap13FileNoUseCase = new File(new URL
-        ("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample-NO" +
-            "-USE-CASE.xml").getFile());
+    final File scap13FileNoUseCase = new File(new URL(
+        "classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample-NO" + "-USE-CASE.xml")
+            .getFile());
 
-    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(), this.sniffer
-        .findContentType(scap13FileNoUseCase.getAbsolutePath()));
+    assertEquals(NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(),
+        this.sniffer.findContentType(scap13FileNoUseCase.getAbsolutePath()));
 
     assertNull(this.sniffer.findUseCase(scap13FileNoUseCase.getAbsolutePath()));
   }

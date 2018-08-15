@@ -46,17 +46,17 @@ import javax.xml.transform.TransformerException;
  */
 public class SCAPValWrapper {
   /**
-   * Runs SCAPVal with the provided arguments per CLI usage.
-   * A Builder is provided to help create the arguments.
+   * Runs SCAPVal with the provided arguments per CLI usage. A Builder is provided to help create the
+   * arguments.
    *
-   * @param args a String array of arguments
+   * @param args
+   *          a String array of arguments
    * @return the AssessmentResults which includes a Collection of the results
    */
-  public static SCAPValAssessmentResults run(String[] args, URI logFileLocation) throws
-      IOException,
-      ConfigurationException, URISyntaxException, AssessmentException, JDOMException, SchematronCompilationException,
-      SAXException, RequirementsParserException, SCAPException, TransformerException, ParseException,
-      DocumentException {
+  public static SCAPValAssessmentResults run(String[] args, URI logFileLocation)
+      throws IOException, ConfigurationException, URISyntaxException, AssessmentException, JDOMException,
+      SchematronCompilationException, SAXException, RequirementsParserException, SCAPException, TransformerException,
+      ParseException, DocumentException {
     Objects.requireNonNull(args, "args can not be null.");
 
     Application application = new Application();
@@ -120,7 +120,8 @@ public class SCAPValWrapper {
       return this;
     }
 
-    // the location to write out an optional log file for the validation (content contains console output)
+    // the location to write out an optional log file for the validation (content contains console
+    // output)
     public Builder logFileLocation(URI location) {
       logFileLocation = location;
       return this;
@@ -187,14 +188,14 @@ public class SCAPValWrapper {
         args.add("-online");
       }
 
-      //to specify where result/report files are written
-      //if null, they will not be created
+      // to specify where result/report files are written
+      // if null, they will not be created
       if (reportDirPath != null) {
-        //the xml result file
+        // the xml result file
         args.add("-valresultfile");
         args.add(reportDirPath + "validation-result.xml");
 
-        //the html report file
+        // the html report file
         args.add("-valreportfile");
         args.add(reportDirPath + "validation-report.html");
       }

@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.component.SCAP11Components;
@@ -38,19 +39,20 @@ public class CanOpenerTest {
   public void testZipWithMultipleBundles() throws Exception {
 
     final CanOpener opener = new CanOpener(1024);
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with" +
-        "-extra-files/Win7-53-1.2.1.0.zip").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0.zip")
+            .getFile());
 
-    //if the last set of tests were interrupted, ensure dir is cleaned up
-    File checkDir = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with" +
-        "-extra-files/Win7-53-1.2.1.0").getFile());
+    // if the last set of tests were interrupted, ensure dir is cleaned up
+    File checkDir = new File(
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0").getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }
 
     final CandidateFileList result = opener.findCandidateFiles(file);
 
-    //wrap the rest in try/finally to ensure proper cleanup after the test
+    // wrap the rest in try/finally to ensure proper cleanup after the test
     try {
       final List<CandidateFile> candidates = result.getCandidates();
       assertEquals(4, candidates.size());
@@ -58,8 +60,8 @@ public class CanOpenerTest {
       // the file was expanded
       final CandidateFile root = candidates.get(0);
 
-      assertTrue(root.getAbsolutePath().endsWith
-          ("src\\test\\resources\\candidates\\scap-11-zip-with-extra-files\\Win7-53-1.2.1.0"));
+      assertTrue(root.getAbsolutePath()
+          .endsWith("src\\test\\resources\\candidates\\scap-11-zip-with-extra-files\\Win7-53-1.2.1.0"));
       assertEquals(CandidateFile.Type.UNKNOWN, root.getType());
 
       // the first file is a sample readme file, not SCAP
@@ -91,12 +93,13 @@ public class CanOpenerTest {
   @Test
   public void testWindowsZipFromCab() throws Exception {
     final CanOpener opener = new CanOpener(1024);
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with" +
-        "-extra-files/Win7-53-1.2.1.0.zip").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0.zip")
+            .getFile());
 
-    //if the last set of tests were interrupted, ensure dir is cleaned up
-    File checkDir = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with" +
-        "-extra-files/Win7-53-1.2.1.0").getFile());
+    // if the last set of tests were interrupted, ensure dir is cleaned up
+    File checkDir = new File(
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0").getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }
@@ -134,12 +137,12 @@ public class CanOpenerTest {
   public void testScap11Zip() throws Exception {
 
     final CanOpener opener = new CanOpener(1024);
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100" +
-        "-scap11.zip").getFile());
+    final File file
+        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100" + "-scap11.zip").getFile());
 
-    //if the last set of tests were interrupted, ensure dir is cleaned up
-    File checkDir = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100" +
-        "-scap11").getFile());
+    // if the last set of tests were interrupted, ensure dir is cleaned up
+    File checkDir
+        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100" + "-scap11").getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }
@@ -151,8 +154,7 @@ public class CanOpenerTest {
 
       final CandidateFile bundle = candidates.get(0);
       assertEquals("R1100-scap11.zip", bundle.getName());
-      assertTrue(bundle.getAbsolutePath().endsWith
-          ("src\\test\\resources\\candidates\\scap-11-zip\\R1100-scap11"));
+      assertTrue(bundle.getAbsolutePath().endsWith("src\\test\\resources\\candidates\\scap-11-zip\\R1100-scap11"));
       assertTrue(bundle.isExpanded());
       assertEquals(CandidateFile.Type.SCAP_BUNDLE, bundle.getType());
     } finally {
@@ -165,12 +167,14 @@ public class CanOpenerTest {
   public void testScap11ZipExtraFiles() throws Exception {
 
     final CanOpener opener = new CanOpener(1024);
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with" +
-        "-extra-files/R1100-scap11-extra-file.zip").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/R1100-scap11-extra-file.zip")
+            .getFile());
 
-    //if the last set of tests were interrupted, ensure dir is cleaned up
-    File checkDir = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with" +
-        "-extra-files/R1100-scap11-extra-file").getFile());
+    // if the last set of tests were interrupted, ensure dir is cleaned up
+    File checkDir = new File(
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/R1100-scap11-extra-file")
+            .getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }
@@ -182,9 +186,8 @@ public class CanOpenerTest {
 
       final CandidateFile bundle = candidates.get(0);
       assertEquals("R1100-scap11-extra-file.zip", bundle.getName());
-      assertTrue(bundle.getAbsolutePath().endsWith
-          ("src\\test\\resources\\candidates\\scap-11-zip-with-extra-files\\R1100-scap11-extra" +
-              "-file"));
+      assertTrue(bundle.getAbsolutePath()
+          .endsWith("src\\test\\resources\\candidates\\scap-11-zip-with-extra-files\\R1100-scap11-extra" + "-file"));
       assertTrue(bundle.isExpanded());
       assertEquals(CandidateFile.Type.SCAP_BUNDLE, bundle.getType());
     } finally {

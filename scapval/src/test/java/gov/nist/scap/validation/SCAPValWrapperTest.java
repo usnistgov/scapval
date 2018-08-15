@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
@@ -39,26 +40,24 @@ public class SCAPValWrapperTest {
   @Test
   public void runSCAP() throws Exception {
 
-    final String datastream = new File(new URL
-        ("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall" +
-            ".xml").getFile()).getAbsolutePath();
+    final String datastream = new File(
+        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall" + ".xml")
+            .getFile()).getAbsolutePath();
 
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.SOURCE).submissionFileLocation(datastream).scapVersion
-        (SCAPVersion.V1_2).isOnline(false).debugMessageLevel(false).maxDownloadSize("40").useCase
-        ("CONFIGURATION").run();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.SOURCE).submissionFileLocation(datastream).scapVersion(SCAPVersion.V1_2)
+        .isOnline(false).debugMessageLevel(false).maxDownloadSize("40").useCase("CONFIGURATION").run();
 
-    //ensure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 180);
+    // ensure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 180);
 
-    //ensure at least 1 note generated
+    // ensure at least 1 note generated
     Assert.assertTrue(assessmentResults.getAssessmentNotes().size() > 0);
 
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -66,75 +65,65 @@ public class SCAPValWrapperTest {
 
   @Test
   public void runComponentWithReportAndLogFile() throws Exception {
-    final String component = new File(new URL
-        ("classpath:src/test/resources/candidates/components/oval/oval-vulnerability-remote-code" +
-            "-exec-5-10.xml").getFile()).getAbsolutePath();
+    final String component = new File(new URL(
+        "classpath:src/test/resources/candidates/components/oval/oval-vulnerability-remote-code" + "-exec-5-10.xml")
+            .getFile()).getAbsolutePath();
 
     SCAPValAssessmentResults assessmentResults;
     File tmpReport = null;
     File tmpResults = null;
     File tmpLog = null;
 
-    try{
+    try {
       URI logFileURI = new File(FileUtils.TMP_DIR + "test.log").toURI();
 
-      assessmentResults = new SCAPValWrapper.Builder()
-              .submissionType(Application.ContentType.COMPONENT)
-              .submissionFileLocation(component)
-              .reportOutputDirectory(FileUtils.TMP_DIR)
-              .logFileLocation(logFileURI)
-              .run();
+      assessmentResults = new SCAPValWrapper.Builder().submissionType(Application.ContentType.COMPONENT)
+          .submissionFileLocation(component).reportOutputDirectory(FileUtils.TMP_DIR).logFileLocation(logFileURI).run();
 
-      //confirm the html report was created
+      // confirm the html report was created
       tmpReport = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_REPORT_FILE);
-      //and populated
+      // and populated
       Assert.assertTrue(tmpReport.length() > 1);
 
-      //confirm the xml results file was created
+      // confirm the xml results file was created
       tmpResults = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_RESULT_FILE);
-      //and populated
+      // and populated
       Assert.assertTrue(tmpResults.length() > 1);
 
-      //confirm the log was created
+      // confirm the log was created
       tmpLog = new File(FileUtils.TMP_DIR + "test.log");
-      //and populated
+      // and populated
       Assert.assertTrue(tmpLog.length() > 1);
 
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw e;
-    }
-    finally {
-      //clean up the tmp files
-      if(tmpReport != null) {
+    } finally {
+      // clean up the tmp files
+      if (tmpReport != null) {
         tmpReport.deleteOnExit();
       }
-      if(tmpResults != null) {
+      if (tmpResults != null) {
         tmpResults.deleteOnExit();
       }
-      if(tmpLog != null) {
+      if (tmpLog != null) {
         tmpLog.deleteOnExit();
       }
     }
 
-    //there should be at least one result
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    // there should be at least one result
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
 
-    //ensure at least 1 note generated
+    // ensure at least 1 note generated
     Assert.assertTrue(assessmentResults.getAssessmentNotes().size() > 0);
 
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
         if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-          //this particular case should have no status FAIL
+          // this particular case should have no status FAIL
           Assert.fail("Should not have had a result with FAIL.");
         }
       }
     }
   }
 }
-
-
-

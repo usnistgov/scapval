@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation;
 
 import gov.nist.decima.core.assessment.result.BaseRequirementResult;
@@ -33,18 +34,17 @@ import java.net.URL;
 public class ComponentFileValidationTest {
   @Test
   public void OVALPassTest() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/oval/oval-vulnerability-remote-code-exec-5-10.xml").getFile())
-        .getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(new URL(
+        "classpath:src/test/resources/candidates" + "/components/oval/oval-vulnerability-remote-code-exec-5-10.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -53,14 +53,12 @@ public class ComponentFileValidationTest {
   @Test
   public void OVALFailTest() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/oval/oval-vulnerability-remote-code-exec-5-10-ERROR.xml").getFile())
-        .getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(new URL("classpath:src/test/resources/candidates"
+        + "/components/oval/oval-vulnerability-remote-code-exec-5-10-ERROR.xml").getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
@@ -74,17 +72,17 @@ public class ComponentFileValidationTest {
 
   @Test
   public void OCILPassTest() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/ocil/R2100-OCIL.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile
+        = new File(new URL("classpath:src/test/resources/candidates" + "/components/ocil/R2100-OCIL.xml").getFile())
+            .getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -93,13 +91,13 @@ public class ComponentFileValidationTest {
   @Test
   public void OCILFailTest() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/ocil/R2100-OCIL-ERROR.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates" + "/components/ocil/R2100-OCIL-ERROR.xml").getFile())
+            .getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
@@ -113,17 +111,17 @@ public class ComponentFileValidationTest {
 
   @Test
   public void XCCDF11PassTest() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/xccdf/xccdf114-xml/fdcc-winvista-xccdf.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates" + "/components/xccdf/xccdf114-xml/fdcc-winvista-xccdf.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -132,14 +130,13 @@ public class ComponentFileValidationTest {
   @Test
   public void XCCDF11FailTest() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/xccdf/xccdf114-xml/fdcc-winvista-xccdf-ERROR.xml").getFile())
-        .getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(new URL(
+        "classpath:src/test/resources/candidates" + "/components/xccdf/xccdf114-xml/fdcc-winvista-xccdf-ERROR.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
@@ -153,17 +150,17 @@ public class ComponentFileValidationTest {
 
   @Test
   public void XCCDF12PassTest() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/xccdf/xccdf12-xml/macos-xccdf1.2.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates" + "/components/xccdf/xccdf12-xml/macos-xccdf1.2.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
-        //this particular case should have no status FAIL
+        // this particular case should have no status FAIL
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
@@ -172,13 +169,13 @@ public class ComponentFileValidationTest {
   @Test
   public void XCCDF12FailTest() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" +
-        "/components/xccdf/xccdf12-xml/macos-xccdf1.2-ERROR.xml").getFile()).getAbsolutePath();
-    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder().submissionType
-        (Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
-    //assure many results were generated
-    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size()
-        > 0);
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates" + "/components/xccdf/xccdf12-xml/macos-xccdf1.2-ERROR.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
     for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
         .getBaseRequirementResults()) {
       if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {

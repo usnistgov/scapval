@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import static org.junit.Assert.assertEquals;
@@ -46,8 +47,8 @@ public class CandidateFileTest {
 
     final File file = new File(tmpDir + "myzip.zip");
 
-    final CandidateFile.Builder builder = new CandidateFile.Builder(file).setTypeUnknown("Some " +
-        "reason why this is not SCAP");
+    final CandidateFile.Builder builder
+        = new CandidateFile.Builder(file).setTypeUnknown("Some " + "reason why this is not SCAP");
 
     final CandidateFile candidate = builder.createCandidateFile();
 
@@ -64,32 +65,31 @@ public class CandidateFileTest {
     assertTrue(candidate.getScapContentTypes().isEmpty());
   }
 
-//  @Test
-//  public void testTypeEmbeddedXCCDF() {
-//
-//    final File file = new File("C:\\Users\\user\\Downloads\\U_Windows_2008_MS_V6R36_STIG.zip");
-//
-//
-//    final int BUFFER_SIZE = 2048;
-//
-//    final CanOpener opener = new CanOpener(BUFFER_SIZE);
-//
-//    final CandidateFileList result =
-//            opener.findCandidateFiles(file);
-//    final List<CandidateFile> candidates =
-//            result.getValidatableCandidates();
-//
-//      candidates.contains("s");
-//
-//  }
+  // @Test
+  // public void testTypeEmbeddedXCCDF() {
+  //
+  // final File file = new File("C:\\Users\\user\\Downloads\\U_Windows_2008_MS_V6R36_STIG.zip");
+  //
+  //
+  // final int BUFFER_SIZE = 2048;
+  //
+  // final CanOpener opener = new CanOpener(BUFFER_SIZE);
+  //
+  // final CandidateFileList result =
+  // opener.findCandidateFiles(file);
+  // final List<CandidateFile> candidates =
+  // result.getValidatableCandidates();
+  //
+  // candidates.contains("s");
+  //
+  // }
 
   @Test
   public void testTypeXccdf() {
 
     final File file = new File(tmpDir + "xccdf.xml");
 
-    final CandidateFile.Builder builder = new CandidateFile.Builder(file).setTypeXccdf
-        (XccdfVersion.V1_2);
+    final CandidateFile.Builder builder = new CandidateFile.Builder(file).setTypeXccdf(XccdfVersion.V1_2);
 
     final CandidateFile candidate = builder.createCandidateFile();
 
@@ -137,8 +137,8 @@ public class CandidateFileTest {
 
     final File file = new File(tmpDir + "scap.xml");
 
-    final CandidateFile.Builder builder = new CandidateFile.Builder(file).setTypeScapCombinedFile
-        (SCAPVersion.V1_2, "CONFIGURATION");
+    final CandidateFile.Builder builder
+        = new CandidateFile.Builder(file).setTypeScapCombinedFile(SCAPVersion.V1_2, "CONFIGURATION");
 
     final CandidateFile candidate = builder.createCandidateFile();
 
@@ -160,8 +160,8 @@ public class CandidateFileTest {
 
     final File file = new File(tmpDir + "myzip.zip");
 
-    final CandidateFile.Builder builder = new CandidateFile.Builder(file).setExpandedTo(new File
-        (tmpDir + "myzip0")).setTypeUnknown("Unknown expanded file");
+    final CandidateFile.Builder builder = new CandidateFile.Builder(file).setExpandedTo(new File(tmpDir + "myzip0"))
+        .setTypeUnknown("Unknown expanded file");
 
     final CandidateFile candidate = builder.createCandidateFile();
 
@@ -190,8 +190,8 @@ public class CandidateFileTest {
 
     final File childFile = new File(tmpDir + "myzip0/myxccdf.xml");
 
-    final CandidateFile.Builder childBuilder = new CandidateFile.Builder(parent, childFile)
-        .setTypeXccdf(XccdfVersion.V1_1_4);
+    final CandidateFile.Builder childBuilder
+        = new CandidateFile.Builder(parent, childFile).setTypeXccdf(XccdfVersion.V1_1_4);
 
     final CandidateFile candidate = childBuilder.createCandidateFile();
 
@@ -222,8 +222,8 @@ public class CandidateFileTest {
   @Test
   public void testCannotExpandTwice() {
 
-    final CandidateFile.Builder builder = new CandidateFile.Builder(new File("foobar.zip"))
-        .setExpandedTo(new File("foobar"));
+    final CandidateFile.Builder builder
+        = new CandidateFile.Builder(new File("foobar.zip")).setExpandedTo(new File("foobar"));
     try {
       builder.setExpandedTo(new File("foobar2"));
       fail("Expected exception if expand called twice");

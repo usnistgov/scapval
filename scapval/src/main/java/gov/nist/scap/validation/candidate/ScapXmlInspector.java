@@ -44,7 +44,8 @@ public class ScapXmlInspector implements ICandidateFileCreator {
   /**
    * Returns CandidateFile information about a file.
    *
-   * @param builder The CandidateFile.Builder that represents the file.
+   * @param builder
+   *          The CandidateFile.Builder that represents the file.
    */
   public CandidateFile createCandidate(final CandidateFile.Builder builder) {
 
@@ -52,13 +53,15 @@ public class ScapXmlInspector implements ICandidateFileCreator {
     final String contentType = this.xmlSniffer.findContentType(builder.getFile().getAbsolutePath());
 
     // SCAP 1.2 XML
-    if (NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(contentType) && this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.2")) {
-        return createScap12Candidate(builder);
+    if (NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(contentType)
+        && this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.2")) {
+      return createScap12Candidate(builder);
     }
 
     // SCAP 1.3 XML
-    if (NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(contentType) && this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.3")) {
-        return createScap13Candidate(builder);
+    if (NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(contentType)
+        && this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.3")) {
+      return createScap13Candidate(builder);
     }
 
     // XCCDF 1.2 XML
@@ -75,14 +78,13 @@ public class ScapXmlInspector implements ICandidateFileCreator {
   }
 
   /**
-   * Builds an SCAP 1.2 candidate file, including the use case, if found in
-   * document.
+   * Builds an SCAP 1.2 candidate file, including the use case, if found in document.
    *
-   * @param builder The CandidateFile.Builder which represents the file.
+   * @param builder
+   *          The CandidateFile.Builder which represents the file.
    * @return The candidate file.
    */
-  private CandidateFile createScap12Candidate(
-      final CandidateFile.Builder builder) {
+  private CandidateFile createScap12Candidate(final CandidateFile.Builder builder) {
     final SCAPVersion version = SCAPVersion.V1_2;
 
     if (log.isDebugEnabled()) {
@@ -97,14 +99,13 @@ public class ScapXmlInspector implements ICandidateFileCreator {
   }
 
   /**
-   * Builds an SCAP 1.3 candidate file, including the use case, if found in
-   * document.
+   * Builds an SCAP 1.3 candidate file, including the use case, if found in document.
    *
-   * @param builder The CandidateFile.Builder which represents the file.
+   * @param builder
+   *          The CandidateFile.Builder which represents the file.
    * @return The candidate file.
    */
-  private CandidateFile createScap13Candidate(
-      final CandidateFile.Builder builder) {
+  private CandidateFile createScap13Candidate(final CandidateFile.Builder builder) {
     final SCAPVersion version = SCAPVersion.V1_3;
 
     if (log.isDebugEnabled()) {
@@ -121,7 +122,8 @@ public class ScapXmlInspector implements ICandidateFileCreator {
   /**
    * Inspects an SCAP file to determine the use case.
    *
-   * @param file The SCAP file.
+   * @param file
+   *          The SCAP file.
    * @return The use case, or null if not found.
    */
   private String findUseCase(final File file, final SCAPVersion scapVersion) {
@@ -146,12 +148,13 @@ public class ScapXmlInspector implements ICandidateFileCreator {
   /**
    * Builds an XCCDF candidate file.
    *
-   * @param builder The CandidateFile.Builder which represents the file.
-   * @param version The XCCDF version.
+   * @param builder
+   *          The CandidateFile.Builder which represents the file.
+   * @param version
+   *          The XCCDF version.
    * @return The candidate file.
    */
-  private CandidateFile createXccdfCandidate(
-      final CandidateFile.Builder builder, final XccdfVersion version) {
+  private CandidateFile createXccdfCandidate(final CandidateFile.Builder builder, final XccdfVersion version) {
     if (log.isDebugEnabled()) {
       log.debug(String.format("%s is %s", builder.getFile().getName(), version.name()));
     }

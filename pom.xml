@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -55,7 +57,7 @@
 		<version.decima>0.6.3-SNAPSHOT</version.decima>
 		<version.mitre-cpe>1.0.7</version.mitre-cpe>
 
-		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments-->
+		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
 		<additionalparam>-Xdoclint:none</additionalparam>
 	</properties>
 
@@ -77,11 +79,11 @@
 				<artifactId>decima-xml</artifactId>
 				<version>${version.decima}</version>
 			</dependency>
-            <dependency>
-                <groupId>gov.nist.decima</groupId>
-                <artifactId>decima-xml-assessment</artifactId>
-                <version>${version.decima}</version>
-            </dependency>
+			<dependency>
+				<groupId>gov.nist.decima</groupId>
+				<artifactId>decima-xml-assessment</artifactId>
+				<version>${version.decima}</version>
+			</dependency>
 			<dependency>
 				<groupId>gov.nist.decima</groupId>
 				<artifactId>decima-xml-testing</artifactId>
@@ -166,6 +168,10 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
 			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>net.revelc.code.formatter</groupId> -->
+<!-- 				<artifactId>formatter-maven-plugin</artifactId> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 

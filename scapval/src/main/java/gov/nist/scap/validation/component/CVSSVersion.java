@@ -28,7 +28,8 @@ package gov.nist.scap.validation.component;
  */
 public enum CVSSVersion {
   // no validation files used
-  V2_0, V3_0;
+  V2_0,
+  V3_0;
 
   public String getVersionString() {
     return this.toString().replace("_", ".").replace("V", "");

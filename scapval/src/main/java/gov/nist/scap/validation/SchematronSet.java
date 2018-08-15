@@ -40,16 +40,21 @@ public class SchematronSet {
   private boolean hasParams = false;
 
   /**
-   * A SchematronSet contains all the required items to create a Decima SchematronAssessment.
-   * This will eventually be iterated though by SCAPVal to create SCAP version specific schematron assessments.
+   * A SchematronSet contains all the required items to create a Decima SchematronAssessment. This
+   * will eventually be iterated though by SCAPVal to create SCAP version specific schematron
+   * assessments.
    *
-   * @param schematron        the specific Schematron item used in an assessment. Not null
-   * @param schematronHandler this schematronHandler to be used for the above. Not null
-   * @param schematronPhase   if a schematron phase is used. Can be null
-   * @param params            if any parameters are used in this schematron. Can be null
+   * @param schematron
+   *          the specific Schematron item used in an assessment. Not null
+   * @param schematronHandler
+   *          this schematronHandler to be used for the above. Not null
+   * @param schematronPhase
+   *          if a schematron phase is used. Can be null
+   * @param params
+   *          if any parameters are used in this schematron. Can be null
    */
-  public SchematronSet(
-      Schematron schematron, SchematronHandler schematronHandler, String schematronPhase, Map<String, String> params) {
+  public SchematronSet(Schematron schematron, SchematronHandler schematronHandler, String schematronPhase,
+      Map<String, String> params) {
     Objects.requireNonNull(schematron, "schematron cannot be null.");
     Objects.requireNonNull(schematronHandler, "schematronHandler cannot be null.");
 

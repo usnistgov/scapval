@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import org.junit.Test;
@@ -38,8 +39,7 @@ public class ZipExpanderTest {
     File file = null;
     File result = null;
     try {
-      file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/SharePoint" +
-          ".zip").getFile());
+      file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/SharePoint" + ".zip").getFile());
       result = this.expander.expand(file);
       assertTrue(result.exists());
 
@@ -62,8 +62,9 @@ public class ZipExpanderTest {
     File file = null;
     File result = null;
     try {
-      file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip-with-extra" +
-          "-files/R1100-scap11-extra-file.zip").getFile());
+      file = new File(new URL(
+          "classpath:src/test/resources/candidates/scap-11-zip-with-extra" + "-files/R1100-scap11-extra-file.zip")
+              .getFile());
       result = this.expander.expand(file);
       assertTrue(result.exists());
 
@@ -79,8 +80,9 @@ public class ZipExpanderTest {
   @Test
   public void testZipExceptions() throws Exception {
     // not a ZIP file
-    final File file = new File(new URL("classpath:src/test/resources/candidates/components/xccdf" +
-        "/xccdf-114-xml/fdcc-winvista-xccdf.xml").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/components/xccdf" + "/xccdf-114-xml/fdcc-winvista-xccdf.xml")
+            .getFile());
     try {
       this.expander.expand(file);
       fail("Should have throw exception, file is not zip");
@@ -97,8 +99,7 @@ public class ZipExpanderTest {
       final File parent = new File(new URL(name).getFile());
       conflict = new File(parent, "SharePoint");
       conflict.mkdirs();
-      target = this.expander.expand(new File(new URL(String.format("%s/SharePoint.zip", name))
-          .getFile()));
+      target = this.expander.expand(new File(new URL(String.format("%s/SharePoint.zip", name)).getFile()));
 
       assertEquals("SharePoint0", target.getName());
     } finally {

@@ -37,8 +37,10 @@ public class Messages {
   /**
    * Reads the messages properties file to generate argument based messages.
    *
-   * @param key the messages key
-   * @param arguments the arguments to populate in the message
+   * @param key
+   *          the messages key
+   * @param arguments
+   *          the arguments to populate in the message
    * @return the generated text
    */
   public static String getMessage(String key, Object... arguments) {

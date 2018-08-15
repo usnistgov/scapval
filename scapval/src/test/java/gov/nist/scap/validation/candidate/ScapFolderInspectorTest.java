@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import gov.nist.scap.validation.component.SCAP11Components;
@@ -45,8 +46,7 @@ public class ScapFolderInspectorTest {
 
     final File folder = new File(new URL(path).getFile());
 
-    final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder
-        (folder));
+    final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(folder));
 
     assertEquals(folder.getAbsolutePath(), candidate.getAbsolutePath());
     assertEquals(CandidateFile.Type.SCAP_BUNDLE, candidate.getType());
@@ -65,11 +65,9 @@ public class ScapFolderInspectorTest {
   @Test
   public void testNonScapFolder() throws Exception {
 
-    final File folder = new File(new URL("classpath:src/test/resources/candidates/non-scap")
-        .getFile());
+    final File folder = new File(new URL("classpath:src/test/resources/candidates/non-scap").getFile());
 
-    final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder
-        (folder));
+    final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(folder));
 
     assertTrue(candidate.isUnrecognized());
     assertEquals(CandidateFile.Type.UNKNOWN, candidate.getType());

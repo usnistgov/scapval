@@ -40,13 +40,16 @@ public class SimpleExtensionFunctionDefinition extends ExtensionFunctionDefiniti
 
   /**
    * Constructs a new {@link ExtensionFunctionDefinition} using a provided set of parameters that
-   * define the namespace, arguments, result, and function to call to evaluate an extension
-   * function.
+   * define the namespace, arguments, result, and function to call to evaluate an extension function.
    * 
-   * @param qname the qualified name for the function
-   * @param argType the argument definition for the function
-   * @param resultType the return type for the function
-   * @param efc the callback object to use to evaluate the function
+   * @param qname
+   *          the qualified name for the function
+   * @param argType
+   *          the argument definition for the function
+   * @param resultType
+   *          the return type for the function
+   * @param efc
+   *          the callback object to use to evaluate the function
    */
   public SimpleExtensionFunctionDefinition(StructuredQName qname, SequenceType[] argType, SequenceType resultType,
       ExtensionFunctionCall efc) {

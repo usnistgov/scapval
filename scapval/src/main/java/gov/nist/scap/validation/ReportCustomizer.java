@@ -47,8 +47,10 @@ public class ReportCustomizer {
   /**
    * The SCAPValAssessmentResults are read and the .xsl is then customized based on the results.
    *
-   * @param xslTemplateExtension     the xsl file template used to customize the Decima report
-   * @param scapValAssessmentResults the results of a given validation
+   * @param xslTemplateExtension
+   *          the xsl file template used to customize the Decima report
+   * @param scapValAssessmentResults
+   *          the results of a given validation
    */
   public ReportCustomizer(File xslTemplateExtension, SCAPValAssessmentResults scapValAssessmentResults) {
     Objects.requireNonNull(xslTemplateExtension, "XSLTemplateExtension cannot be null");
@@ -61,13 +63,15 @@ public class ReportCustomizer {
   /**
    * Executes the customization of the xsl file.
    *
-   * @param contentType         for this validation, not null
-   * @param scapVersion         can be null in the case of component check
-   * @param individualComponent the IndividualComponent if a component check. Otherwise can be
-   *                            null
+   * @param contentType
+   *          for this validation, not null
+   * @param scapVersion
+   *          can be null in the case of component check
+   * @param individualComponent
+   *          the IndividualComponent if a component check. Otherwise can be null
    */
-  public void customize(
-      Application.ContentType contentType, SCAPVersion scapVersion, IndividualComponent individualComponent) {
+  public void customize(Application.ContentType contentType, SCAPVersion scapVersion,
+      IndividualComponent individualComponent) {
     Objects.requireNonNull(contentType, "contentType can not be null");
 
     final String scapvalVersionString = Messages.getVersion();
@@ -76,7 +80,7 @@ public class ReportCustomizer {
     String headerString = null;
 
     Element ulElement = new Element("ul");
-    //String notesString = "<ul>";
+    // String notesString = "<ul>";
     for (String note : this.scapValAssessmentResults.getAssessmentNotes()) {
       ulElement.addContent(new Element("li").addContent(note));
     }
@@ -129,8 +133,8 @@ public class ReportCustomizer {
       Element element = descendants.next();
       if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals("header-title")) {
         headerTitleElement = element;
-      } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals(
-          "content-type-title")) {
+      } else if (element.getAttributeValue("id") != null
+          && element.getAttributeValue("id").equals("content-type-title")) {
         contentTypeElement = element;
       } else if (element.getAttributeValue("id") != null && element.getAttributeValue("id").equals("scapval-version")) {
         scapvalVersionElement = element;
@@ -146,12 +150,12 @@ public class ReportCustomizer {
 
     JDOMDocument newXSLTemplateFile = null;
     try {
-      //create the updated XSL Document
-      newXSLTemplateFile = new JDOMDocument(
-          scapvalXSLTemplateDoc.getJDOMDocument().setContent(originalRootElement.detach()),
-          scapvalXSLTemplateDoc.getOriginalLocation());
-      //overwrite the existing XSL file
-      //File existingXSL = new File(scapvalXSLTemplateURL.openConnection().getURL().getPath());
+      // create the updated XSL Document
+      newXSLTemplateFile
+          = new JDOMDocument(scapvalXSLTemplateDoc.getJDOMDocument().setContent(originalRootElement.detach()),
+              scapvalXSLTemplateDoc.getOriginalLocation());
+      // overwrite the existing XSL file
+      // File existingXSL = new File(scapvalXSLTemplateURL.openConnection().getURL().getPath());
       newXSLTemplateFile.copyTo(scapXSLTemplateExtention);
 
     } catch (DocumentException | IOException e) {

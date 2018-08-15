@@ -27,8 +27,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A singleton for collecting, storing, and providing validation notes
- * throughout the validation process.
+ * A singleton for collecting, storing, and providing validation notes throughout the validation
+ * process.
  */
 public class ValidationNotes {
 

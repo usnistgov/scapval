@@ -41,8 +41,10 @@ public class XMLUtils {
   /**
    * Returns a list of attributes within an XML Document using the specified XPATH query.
    *
-   * @param xmlDocument the document to execute the XPATH query against
-   * @param xpath       the XPATH query to run
+   * @param xmlDocument
+   *          the document to execute the XPATH query against
+   * @param xpath
+   *          the XPATH query to run
    * @return a list of Attributes from the XPATH query results
    */
   public static List<Attribute> getXpathAttributes(XMLDocument xmlDocument, String xpath) {
@@ -59,8 +61,10 @@ public class XMLUtils {
   /**
    * Returns a list of Elements within an XML Document using the specified XPATH query.
    *
-   * @param xmlDocument the document to execute the XPATH query against
-   * @param xpath       the XPATH query to run
+   * @param xmlDocument
+   *          the document to execute the XPATH query against
+   * @param xpath
+   *          the XPATH query to run
    * @return a list of Elements from the XPATH query results
    */
   public static List<Element> getXpathElements(XMLDocument xmlDocument, String xpath) {

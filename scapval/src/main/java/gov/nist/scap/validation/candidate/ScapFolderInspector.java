@@ -34,19 +34,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Inspects a folder to see if it is a folder of SCAP files based on file naming
- * convention. Refer to NIST SP-126 for the specification of naming SCAP files.
+ * Inspects a folder to see if it is a folder of SCAP files based on file naming convention. Refer
+ * to NIST SP-126 for the specification of naming SCAP files.
  */
 public class ScapFolderInspector implements ICandidateFileCreator {
 
   private static final Logger log = LogManager.getLogger(ScapFolderInspector.class);
 
   /**
-   * Inspects a directory to see if it represents an SCAP bundle, based on
-   * SCAP 1.1 file naming conventions.
+   * Inspects a directory to see if it represents an SCAP bundle, based on SCAP 1.1 file naming
+   * conventions.
    *
-   * @param builder The CandidateFile.Builer.
-   * @return A CandidateFile object containing the SCAP content types; otherwise type UNKNOWN is specified
+   * @param builder
+   *          The CandidateFile.Builer.
+   * @return A CandidateFile object containing the SCAP content types; otherwise type UNKNOWN is
+   *         specified
    */
   public CandidateFile createCandidate(final CandidateFile.Builder builder) {
 
@@ -65,9 +67,8 @@ public class ScapFolderInspector implements ICandidateFileCreator {
     final List<SCAP11Components> types = getScap11ContentTypes(filenames);
 
     // if contains OVAL or CPE OVAL, then consider it an SCAP bundle
-    if (types.contains(SCAP11Components.OVAL_VULNERABILITY) || types.contains(
-        SCAP11Components.OVAL_COMPLIANCE) || types.contains(SCAP11Components.OVAL_PATCH) || types.contains(
-        SCAP11Components.CPE_DICTIONARY)) {
+    if (types.contains(SCAP11Components.OVAL_VULNERABILITY) || types.contains(SCAP11Components.OVAL_COMPLIANCE)
+        || types.contains(SCAP11Components.OVAL_PATCH) || types.contains(SCAP11Components.CPE_DICTIONARY)) {
       return builder.setTypeScapBundle(types).createCandidateFile();
     }
 
@@ -76,10 +77,10 @@ public class ScapFolderInspector implements ICandidateFileCreator {
   }
 
   /**
-   * Inspects a given folder to determine if it has SCAP 11 files based on the
-   * SCAP naming convention.
+   * Inspects a given folder to determine if it has SCAP 11 files based on the SCAP naming convention.
    *
-   * @param filenames a list of String filenames
+   * @param filenames
+   *          a list of String filenames
    * @return the list of scap 11 files found
    */
   public List<SCAP11Components> getScap11ContentTypes(final List<String> filenames) {
@@ -94,15 +95,16 @@ public class ScapFolderInspector implements ICandidateFileCreator {
   }
 
   /**
-   * Returns true if the list of filenames contains a file named such that it
-   * matches a given SCAP content type.
+   * Returns true if the list of filenames contains a file named such that it matches a given SCAP
+   * content type.
    *
-   * @param filenames The list of filenames.
-   * @param type      The SCAP content type.
+   * @param filenames
+   *          The list of filenames.
+   * @param type
+   *          The SCAP content type.
    * @return True, if the list of files has a file of that type.
    */
-  private boolean hasFileNamed(
-      final List<String> filenames, final SCAP11Components type) {
+  private boolean hasFileNamed(final List<String> filenames, final SCAP11Components type) {
 
     for (final String filename : filenames) {
       for (final String nameSuffix : type.getFileNameSuffixes()) {
@@ -117,7 +119,8 @@ public class ScapFolderInspector implements ICandidateFileCreator {
   /**
    * Returns list of filenames from folder.
    *
-   * @param folder The folder.
+   * @param folder
+   *          The folder.
    * @return The list of filenames.
    */
   private List<String> getXmlFilenames(final File folder) {

@@ -20,6 +20,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.scap.validation.candidate;
 
 import static org.junit.Assert.assertEquals;
@@ -40,8 +41,9 @@ public class ScapXmlInspectorTest {
   @Test
   public void testXccdf() throws Exception {
 
-    final File file = new File(new URL("classpath:src/test/resources/candidates/components/xccdf" +
-        "/xccdf114-xml/fdcc-winvista-xccdf.xml").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/components/xccdf" + "/xccdf114-xml/fdcc-winvista-xccdf.xml")
+            .getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
@@ -52,8 +54,8 @@ public class ScapXmlInspectorTest {
 
   @Test
   public void testOval5() throws Exception {
-    final File file = new File(new URL("classpath:src/test/resources/candidates/oval/fdcc-winxp" +
-        "-oval-5-4.xml").getFile());
+    final File file
+        = new File(new URL("classpath:src/test/resources/candidates/oval/fdcc-winxp" + "-oval-5-4.xml").getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
@@ -80,8 +82,9 @@ public class ScapXmlInspectorTest {
 
   @Test
   public void testScap12() throws Exception {
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov" +
-        ".nist_USGCB-Windows-XP-firewall.xml").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov" + ".nist_USGCB-Windows-XP-firewall.xml")
+            .getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
@@ -94,8 +97,9 @@ public class ScapXmlInspectorTest {
 
   @Test
   public void testScap12WithoutUseCase() throws Exception {
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov" +
-        ".nist_USGCB-Windows-XP-firewall-NO-USE-CASE.xml").getFile());
+    final File file = new File(new URL(
+        "classpath:src/test/resources/candidates/scap-12/scap_gov" + ".nist_USGCB-Windows-XP-firewall-NO-USE-CASE.xml")
+            .getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
@@ -108,8 +112,8 @@ public class ScapXmlInspectorTest {
 
   @Test
   public void testScap12InvalidUseCase() throws Exception {
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov" +
-        ".nist_USGCB-Windows-XP-firewall-INVALID-USE-CASE.xml").getFile());
+    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov"
+        + ".nist_USGCB-Windows-XP-firewall-INVALID-USE-CASE.xml").getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
@@ -123,8 +127,9 @@ public class ScapXmlInspectorTest {
 
   @Test
   public void testScap13() throws Exception {
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-13/" +
-        "source_data_stream_collection_sample.xml").getFile());
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/scap-13/" + "source_data_stream_collection_sample.xml")
+            .getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 
@@ -137,8 +142,9 @@ public class ScapXmlInspectorTest {
 
   @Test
   public void testScap13WithoutUseCase() throws Exception {
-    final File file = new File(new URL("classpath:src/test/resources/candidates/scap-13/" +
-        "source_data_stream_collection_sample-NO-USE-CASE.xml").getFile());
+    final File file = new File(new URL(
+        "classpath:src/test/resources/candidates/scap-13/" + "source_data_stream_collection_sample-NO-USE-CASE.xml")
+            .getFile());
 
     final CandidateFile candidate = this.inspector.createCandidate(new CandidateFile.Builder(file));
 

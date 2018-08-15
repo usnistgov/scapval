@@ -48,7 +48,8 @@ import java.util.List;
  * <a href="http://andreashohmann.com/articles/maven-source-file-list-plugin.html">an article</a> by
  * Andreas Hohmann.
  */
-@Mojo(name = "create-list", defaultPhase = LifecyclePhase.PROCESS_RESOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "create-list", defaultPhase = LifecyclePhase.PROCESS_RESOURCES,
+    requiresDependencyResolution = ResolutionScope.COMPILE)
 public class CreateFileListMojo extends AbstractMojo {
   /**
    * Location of the generated list of source files.

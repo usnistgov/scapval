@@ -30,10 +30,9 @@ import org.xml.sax.ext.EntityResolver2;
 /**
  * This extension is required by Decima in order to use SCAPVals required XML catalog.
  */
-public class ResourceResolverExtension implements gov.nist.decima.xml.service
-    .ResourceResolverExtension {
-  private static final XMLCatalogResolver RESOLVER = new XMLCatalogResolver(new
-          String[]{"classpath:scapval-xsd/scapval-catalog.xml"});
+public class ResourceResolverExtension implements gov.nist.decima.xml.service.ResourceResolverExtension {
+  private static final XMLCatalogResolver RESOLVER
+      = new XMLCatalogResolver(new String[] { "classpath:scapval-xsd/scapval-catalog.xml" });
 
   @Override
   public EntityResolver2 getEntityResolver() {
