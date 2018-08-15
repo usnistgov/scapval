@@ -57,7 +57,7 @@ public class FileUtils {
     public static final String DEFAULT_HASH_ALGORITHM = "SHA-256";
     public static final int BUFFER_SIZE = 64 * 1024;
 
-    private static final Logger log = LogManager.getLogger(FileUtils.class);
+    private static final Logger log = LogManager.getLogger(Application.class);
 
     /**
      * Returns the filename only without its specified a file extension.

@@ -23,6 +23,7 @@
 package gov.nist.scap.validation;
 
 import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
+import static gov.nist.decima.module.cli.CLIParser.DEFAULT_VALIDATION_RESULT_FILE;
 
 import gov.nist.decima.core.assessment.result.BaseRequirementResult;
 import gov.nist.decima.core.assessment.result.ResultStatus;
@@ -31,6 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URL;
 
 public class SCAPValWrapperTest {
@@ -63,32 +65,55 @@ public class SCAPValWrapperTest {
   }
 
   @Test
-  public void runComponentWithReport() throws Exception {
+  public void runComponentWithReportAndLogFile() throws Exception {
     final String component = new File(new URL
         ("classpath:src/test/resources/candidates/components/oval/oval-vulnerability-remote-code" +
             "-exec-5-10.xml").getFile()).getAbsolutePath();
 
     SCAPValAssessmentResults assessmentResults;
-    File tmpTest = null;
+    File tmpReport = null;
+    File tmpResults = null;
+    File tmpLog = null;
+
     try{
+      URI logFileURI = new File(FileUtils.TMP_DIR + "test.log").toURI();
+
       assessmentResults = new SCAPValWrapper.Builder()
               .submissionType(Application.ContentType.COMPONENT)
               .submissionFileLocation(component)
               .reportOutputDirectory(FileUtils.TMP_DIR)
+              .logFileLocation(logFileURI)
               .run();
 
       //confirm the html report was created
-      tmpTest = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_REPORT_FILE);
+      tmpReport = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_REPORT_FILE);
       //and populated
-      Assert.assertTrue(tmpTest.length() > 1);
+      Assert.assertTrue(tmpReport.length() > 1);
+
+      //confirm the xml results file was created
+      tmpResults = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_RESULT_FILE);
+      //and populated
+      Assert.assertTrue(tmpResults.length() > 1);
+
+      //confirm the log was created
+      tmpLog = new File(FileUtils.TMP_DIR + "test.log");
+      //and populated
+      Assert.assertTrue(tmpLog.length() > 1);
+
     }
     catch (Exception e) {
       throw e;
     }
     finally {
-      //clean up the tmp file
-      if(tmpTest != null) {
-        tmpTest.deleteOnExit();
+      //clean up the tmp files
+      if(tmpReport != null) {
+        tmpReport.deleteOnExit();
+      }
+      if(tmpResults != null) {
+        tmpResults.deleteOnExit();
+      }
+      if(tmpLog != null) {
+        tmpLog.deleteOnExit();
       }
     }
 

@@ -157,7 +157,7 @@ public class AssessmentFactory {
   protected Assessment<XMLDocument> createSCAPSchematronAssessments() throws SCAPException {
     List<Assessment<XMLDocument>> assessmentGroup = new LinkedList<>();
 
-    // gather SCAP specific schematron assessements
+    // gather SCAP specific schematron assessments
     LinkedList<SchematronSet> schematronSets = dataStream.getSchematronSets();
     for (SchematronSet schematronSet : schematronSets) {
       SchematronAssessment schematronAssessment = Factory.newSchematronAssessment(

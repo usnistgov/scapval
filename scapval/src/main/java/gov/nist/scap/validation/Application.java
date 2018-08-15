@@ -61,6 +61,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
@@ -178,8 +179,7 @@ public class Application {
     //parse and validate the CLI args. var 'cmd' will be used later for report generation
     CommandLine cmd = parseCLI(args);
 
-    //prepare things like updating data feeds, hashing submitted content, gathering validation
-    // variables
+    //prepare things like updating data feeds, hashing submitted content, gathering validation variables
     preAssessmentProcessing();
 
     //create and execute all the assessments for the submitted content
@@ -207,6 +207,7 @@ public class Application {
 
     Objects.requireNonNull(args, "args cannot be null.");
 
+    //handle optionally running results to a log file
     if (logFileLocation != null) {
       //setup log4j2 to write log info to the specified log file
       System.setProperty("logFileLocation", logFileLocation.getPath());
@@ -218,7 +219,9 @@ public class Application {
       URL resourceLocation = new URL("classpath:log4j2withFileLog.xml");
       InputStream in = resourceLocation.openConnection().getInputStream();
       ConfigurationSource configurationSource = new ConfigurationSource(in);
-      loggerContext.start(configurationFactory.getConfiguration(loggerContext, configurationSource));
+      Configuration newConfiguration = configurationFactory.getConfiguration(loggerContext, configurationSource);
+
+      loggerContext.start(newConfiguration);
     }
 
     //print scapval version initially
@@ -227,8 +230,7 @@ public class Application {
     //parse and validate the CLI args.
     CommandLine cmd = parseCLI(args);
 
-    //prepare things like updating data feeds, hashing submitted content, gathering validation
-    // variables
+    //prepare things like updating data feeds, hashing submitted content, gathering validation variables
     preAssessmentProcessing();
 
     //create and execute all the assessments for the submitted content
@@ -237,6 +239,12 @@ public class Application {
     //optionally generate XML results and HTML report
     if (cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE) != null) {
       generateResultsReport(scapValAssessmentResults, cmd);
+    }
+
+    //close any logging resources
+    if (logFileLocation != null) {
+      LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false);
+      loggerContext.close();
     }
 
     return scapValAssessmentResults;
@@ -727,8 +735,8 @@ public class Application {
     for (Attribute attribute : results) {
       if (!scapVersion.getVersion().equals(attribute.getValue())) {
         throw new ConfigurationException(
-            "SCAP version specified on command line " + scapVersion.getVersion() + " " + "Does not match what was " +
-                "found in the specified content " + results);
+            "SCAP version specified on command line '" + scapVersion.getVersion() + "' " + "Does not match what was " +
+                "found in the specified content " + results.get(0).getName() + "='" + results.get(0).getValue() + "'");
       }
     }
 
