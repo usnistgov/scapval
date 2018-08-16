@@ -21,12 +21,13 @@ If the JAVA_HOME variable is set then the JRE which is at that location will be 
 SCAPVal utilizes Apache Maven to build and has the following dependencies:
 - gov.nist.secauto.oss-maven - https://github.com/usnistgov/oss-maven
 - NIST Decima Framework - https://github.com/usnistgov/decima
+- create-file-list-mojo - included in this repository /create-file-list-mojo
 - scap-schematron-rules - included in this repository /scap-schematron-rules
 - Apache Commons Codec - available via Maven Central
 - junit - available via Maven Central
 - mitre-cpe - currently not available in Maven Central
 
-Once all the above decencies have been acquired and installed in your local maven repository.
+Once all the above dependencies have been acquired and installed in your local maven repository.
 
 `mvn clean install package`
 
@@ -41,5 +42,5 @@ Feedback:
 Please send tool defects reports, enhancement requests, and any other related
 comments by email to scap@nist.gov.
 
-[NIST Special Publication 800-126 Rev.3]:http://csrc.nist.gov/publications/PubsDrafts.html
+[NIST Special Publication 800-126 Rev.3]:https://csrc.nist.gov/publications/detail/sp/800-126/rev-3/final
 [License Information]:https://github.com/usnistgov/scapval/blob/master/scapval/src/main/distro/NOTICE.txt

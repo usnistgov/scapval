@@ -107,6 +107,7 @@ Changelog:
 Version 1.3.3
 - Added Bash launch script for OSX and *NIX usage
 - Resolved an error when running with later versions of Java
+- Updated various OVAL rules per OVALProject/Language on GitHub
 
 Version 1.3.2
 - Generated and added OVAL 5.11.1 schematron files and improved handling of 5.11.x OVAL schematrons.

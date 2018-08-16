@@ -12,8 +12,8 @@ and */schematron/other* (for component specific schematrons)
 
 SCAPVal requirements are found in */requirements*
 
-These files may have been modified from their original source to suite validation of SCAP per 800-126r3
-See additional readmes for more information.
+Included schematron files may have been modified from their original source to suit validation of SCAP per 800-126r3
+See additional readmes below for changes and usage information.
 
 [SCAP Rules Readme] 
 

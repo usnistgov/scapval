@@ -2,6 +2,9 @@ To validate OVAL content, SCAP uses OVAL Definition Schematron schemas that have
 To use XPath 1.0, the queryBinding="xslt2" attributes were removed from the root element of the schematron schemas.
 The modification was made to avoid an XPath exception in the floor() function when the current element being processed is not a node.
 
+Version 1.3.3 Updates:
+- Fixes to OVAL schematron rules from official github repository per https://github.com/balleman/Language/commit/f54e24132b99a1ea72290635590850e985942d6c
+
 Version 1.3.2 Updates:
 - Include OVAL definitions 5.11.2:
     - Extracted from OVAL *.definitions-schema.xsd on github via the provided XSLT ExtractSchFromXSD.xsl from https://github.com/OVALProject/Language/tree/5.11.2/tools

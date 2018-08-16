@@ -4,7 +4,34 @@ These schematron rules will not retrieve remote resources and assume a data-stre
 Each schematron assert includes an ID in its content with prefixes SRC-, RES-, and A-.
 These asserts correspond to specific SCAP requirements found in the requirements/ directory.
 
+Usage:
+Schematron rules should be processed in accordance with the instructions found at http://www.schematron.com/.  The Schematron rules are written using XPath 2.0, and therefore they should be processed as XSLT 2.0, with an XSLT 2.0 compatible processor. Some .sch files leverage custom Java functions for select rules.  If the Java functions are not enabled when running the Schematron checks, a warning will be issued stating that the functions are not accessible, but no further consequences are expected.
+
+These are the steps to run the included .sch schematron files using Saxon-HE (free) for Java.
+Prerequisite: Java 6 or higher is installed and available on the system path.
+
+1) Download Saxon-HE 9.8 for Java from http://saxon.sourceforge.net/ and unzip it.
+
+2) Download ISO Schematron XSLT 2.0 files from https://github.com/Schematron/schematron/releases/download/2017-02-09/iso-schematron-xslt2.zip and unzip them.
+
+3) Download the CPE reference Implementation 2.3.3 at https://sourceforge
+.net/p/cpereferenceimp/code/HEAD/tree/tags/RELEASE_2.3.3/  using the "Download Snapshot" link and unzip it.
+Build the project with 'mvn package' and keep the resulting target\cpe-2.3.3.jar file available for future step 5.
+
+4) Compile the SCAP Schematron Rules by running the following command (choose proper .sch file as necessary):
+	java -cp %SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -s:source-data-stream-1.3.sch -xsl:%SCHEMATRON_HOME%\iso_svrl_for_xslt2.xsl -o:compiled.sch.xsl
+
+5) Run the resulting XSLT against the target SCAP content using the following command:
+	java -cp %SCAP_SCHEMATRON_HOME%\lib\scap-schematron-rules-1.3.2.jar;%cpe-2.3.3.jar;%SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -init:gov.nist.scap.schematron.Initializer -s:scap-source-content.xml -xsl:compiled.sch.xsl -o:results.xml
+
+The results.xml file will contain any failed assertions. Each assertion will contain a requirement number (the
+requirement and derived requirement is separated by a dash (-)) which maps to the associated requirement file in
+/requirements, as well as the failed test condition and location of the failed item.
+
 Change Log:
+1.3.3
+- Fixed a bug in OVAL version regex in requirement SRC-216-1
+
 1.3.2
 - Added SCAP 1.3 support with result-data-stream-1.3.sch and source-data-stream-1.3.sch schematron files.
 - All SCAP schematron assert content IDs are modified to include a RES, SRC-, A- prefix per Decima integration requirements.
@@ -57,28 +84,4 @@ scap-val-requirements-1.2.html : The documented requirements for SCAP 1.2, expor
 xsl_details (folder) : Contains XSLT files for select requirements where the Schematron does not provide a detailed error location
 lib (folder) : Contains JAR files to include on the classpath when running the rules.
 data (folder) : Support files for the rules.
-
-Usage:
-Schematron rules should be processed in accordance with the instructions found at http://www.schematron.com/.  The Schematron rules are written using XPath 2.0, and therefore they should be processed as XSLT 2.0, with an XSLT 2.0 compatible processor. Some .sch files leverage custom Java functions for select rules.  If the Java functions are not enabled when running the Schematron checks, a warning will be issued stating that the functions are not accessible, but no further consequences are expected.
-
-These are the steps to run the included .sch schematron files using Saxon-HE (free) for Java.
-Prerequisite: Java 6 or higher is installed and available on the system path.
-
-1) Download Saxon-HE 9.8 for Java from http://saxon.sourceforge.net/ and unzip it.
-
-2) Download ISO Schematron XSLT 2.0 files from https://github.com/Schematron/schematron/releases/download/2017-02-09/iso-schematron-xslt2.zip and unzip them.
-
-3) Download the CPE reference Implementation 2.3.3 at https://sourceforge
-.net/p/cpereferenceimp/code/HEAD/tree/tags/RELEASE_2.3.3/  using the "Download Snapshot" link and unzip it.
-Build the project with 'mvn package' and keep the resulting target\cpe-2.3.3.jar file available for future step 5.
-
-4) Compile the SCAP Schematron Rules by running the following command (choose proper .sch file as necessary):
-	java -cp %SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -s:source-data-stream-1.3.sch -xsl:%SCHEMATRON_HOME%\iso_svrl_for_xslt2.xsl -o:compiled.sch.xsl
-
-5) Run the resulting XSLT against the target SCAP content using the following command:
-	java -cp %SCAP_SCHEMATRON_HOME%\lib\scap-schematron-rules-1.3.2.jar;%cpe-2.3.3.jar;%SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -init:gov.nist.scap.schematron.Initializer -s:scap-source-content.xml -xsl:compiled.sch.xsl -o:results.xml
-
-The results.xml file will contain any failed assertions. Each assertion will contain a requirement number (the
-requirement and derived requirement is separated by a dash (-)) which maps to the associated requirement file in
-/requirements, as well as the failed test condition and location of the failed item.
 
