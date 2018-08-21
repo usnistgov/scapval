@@ -35,7 +35,7 @@ import javax.xml.transform.stream.StreamSource;
  */
 public interface IScapDataStream {
   /**
-   * Get the datastream's identifier
+   * Get the datastream's identifier.
    * 
    * @return the identifier string
    */

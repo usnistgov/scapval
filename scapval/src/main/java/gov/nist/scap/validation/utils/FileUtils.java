@@ -82,7 +82,7 @@ public class FileUtils {
   public static String getTmpDir() {
     String tmpDir = TMP_DIR;
     //some OS will return without trailing path separator make sure to include on prevent issues
-    if(!tmpDir.endsWith(PATH_SEPERATOR)){
+    if (!tmpDir.endsWith(PATH_SEPERATOR)) {
       tmpDir = tmpDir.concat(PATH_SEPERATOR);
     }
     return tmpDir;

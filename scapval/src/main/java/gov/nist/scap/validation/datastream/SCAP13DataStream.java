@@ -81,6 +81,8 @@ public class SCAP13DataStream implements IScapDataStream {
   }
 
   /**
+   * Get the datastream's identifier.
+   *
    * @return the id
    */
   public String getId() {
