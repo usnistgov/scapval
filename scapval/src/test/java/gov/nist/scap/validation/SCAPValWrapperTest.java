@@ -78,7 +78,8 @@ public class SCAPValWrapperTest {
       URI logFileURI = new File(FileUtils.getTmpDir() + "test.log").toURI();
 
       assessmentResults = new SCAPValWrapper.Builder().submissionType(Application.ContentType.COMPONENT)
-          .submissionFileLocation(component).reportOutputDirectory(FileUtils.getTmpDir()).logFileLocation(logFileURI).run();
+          .submissionFileLocation(component).reportOutputDirectory(FileUtils.getTmpDir()).logFileLocation(logFileURI)
+          .run();
 
       // confirm the html report was created
       tmpReport = new File(FileUtils.getTmpDir() + DEFAULT_VALIDATION_REPORT_FILE);
