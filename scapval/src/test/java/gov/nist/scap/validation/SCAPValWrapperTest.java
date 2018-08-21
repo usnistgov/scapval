@@ -75,23 +75,23 @@ public class SCAPValWrapperTest {
     File tmpLog = null;
 
     try {
-      URI logFileURI = new File(FileUtils.TMP_DIR + "test.log").toURI();
+      URI logFileURI = new File(FileUtils.getTmpDir() + "test.log").toURI();
 
       assessmentResults = new SCAPValWrapper.Builder().submissionType(Application.ContentType.COMPONENT)
-          .submissionFileLocation(component).reportOutputDirectory(FileUtils.TMP_DIR).logFileLocation(logFileURI).run();
+          .submissionFileLocation(component).reportOutputDirectory(FileUtils.getTmpDir()).logFileLocation(logFileURI).run();
 
       // confirm the html report was created
-      tmpReport = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_REPORT_FILE);
+      tmpReport = new File(FileUtils.getTmpDir() + DEFAULT_VALIDATION_REPORT_FILE);
       // and populated
       Assert.assertTrue(tmpReport.length() > 1);
 
       // confirm the xml results file was created
-      tmpResults = new File(FileUtils.TMP_DIR + DEFAULT_VALIDATION_RESULT_FILE);
+      tmpResults = new File(FileUtils.getTmpDir() + DEFAULT_VALIDATION_RESULT_FILE);
       // and populated
       Assert.assertTrue(tmpResults.length() > 1);
 
       // confirm the log was created
-      tmpLog = new File(FileUtils.TMP_DIR + "test.log");
+      tmpLog = new File(FileUtils.getTmpDir() + "test.log");
       // and populated
       Assert.assertTrue(tmpLog.length() > 1);
 

@@ -75,6 +75,20 @@ public class FileUtils {
   }
 
   /**
+   * Returns the path of an appropriate temporary directory for reading/writing temp files.
+   *
+   * @return the path as a String
+   */
+  public static String getTmpDir() {
+    String tmpDir = TMP_DIR;
+    //some OS will return without trailing path separator make sure to include on prevent issues
+    if(!tmpDir.endsWith(PATH_SEPERATOR)){
+      tmpDir = tmpDir.concat(PATH_SEPERATOR);
+    }
+    return tmpDir;
+  }
+
+  /**
    * Returns the filename only from a URL without its specified a file extension.
    *
    * @param url
@@ -364,7 +378,7 @@ public class FileUtils {
         return null;
       }
       // create the file in a temp location
-      File tempFile = new File(FileUtils.TMP_DIR + in.hashCode() + ".tmp");
+      File tempFile = new File(FileUtils.getTmpDir() + in.hashCode() + ".tmp");
       tempFile.createNewFile();
       // this temp file will be removed on exit of JVM
       tempFile.deleteOnExit();
