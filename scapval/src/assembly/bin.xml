@@ -41,8 +41,20 @@
 			<directory>${project.build.directory}/generated-distro</directory>
 			<outputDirectory></outputDirectory>
 			<includes>
-				<include>**/*</include>
+				<include>*.txt</include>
+				<include>*.bat</include>
 			</includes>
+		</fileSet>
+
+		<!--For included .sh bash launch file, ensures LF newline and executable perms-->
+		<fileSet>
+			<directory>${project.build.directory}/generated-distro</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>*.sh</include>
+			</includes>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0755</fileMode>
 		</fileSet>
 
 		<!--For NVD files and oval test type-->
