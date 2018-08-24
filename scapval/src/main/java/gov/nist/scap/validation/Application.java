@@ -159,7 +159,7 @@ public class Application {
     } catch (SchematronCompilationException | AssessmentException | JDOMException | SAXException | URISyntaxException
         | IOException | RequirementsParserException | TransformerException | RuntimeException e) {
       // These exceptions are runtime issues that prevent scapval from properly running further.
-      log.error("SCAPVal has encountered a problem and cannot continue with this validation." + "" + " - " + e);
+      log.error("SCAPVal has encountered a problem and cannot continue with this validation." + " - " + e);
       result = -1;
     }
     System.exit(result);
@@ -282,16 +282,16 @@ public class Application {
         .desc(
             "Directory of individual component " + "SCAP files. " + "Provide if validating SCAP 1.1 source files only")
         .hasArg().build());
-    contentToCheck.addOption(
-        Option.builder(OPTION_FILE).desc("SCAP Source XML file (SCAP 1.2, " + "1.3) or ZIP file " + "" + "" + "" + ""
-            + "" + "" + "" + "" + "(SCAP " + "1.1). Only provide if validating source files").hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_FILE).desc("SCAP Source XML file (SCAP 1.2, "
+        + "1.3) or ZIP file (SCAP " + "1.1)." + " Only provide if validating source files").hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_DIR).desc("Directory of individual " + "component SCAP "
         + "result files. Provide if validating SCAP 1.1 result files " + "only").hasArg().build());
     contentToCheck
-        .addOption(Option
-            .builder(OPTION_RESULT_FILE).desc("SCAP result XML file (SCAP " + "" + "1.2, 1.3) " + "" + "" + "" + "" + ""
-                + "" + "" + "" + "or ZIP file " + "(SCAP 1.1). Only provide if validating result files")
-            .hasArg().build());
+        .addOption(
+            Option
+                .builder(OPTION_RESULT_FILE).desc("SCAP result XML file (SCAP " + ""
+                    + "1.2, 1.3) or ZIP file (SCAP 1.1)." + " Only provide if validating result files")
+                .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE).desc("Validate an individual " + "component file. "
         + "" + "" + "" + "" + "" + "" + "" + "" + "Currently " + "XCCDF/OVAL/OCIL is supported").hasArg().build());
     cliParser.addOptionGroup(contentToCheck);
@@ -306,10 +306,13 @@ public class Application {
     cliParser.addOption(scapVersionValidator);
 
     // other various options
-    Option optionDatastreamOutput = Option.builder(OPTION_COMBINED_CONTENT_OUTPUT).desc("Creates " + "" + "an "
-        + "optional file for reference containing any combined remote resources processed " + "by " + "SCAPVal and any "
-        + "" + "" + "" + "" + "" + "" + "" + "" + "-sourceds Data Stream specified. " + "This file is a copy of the"
-        + " " + "final " + "content" + " " + "SCAPVal " + "validates " + "against" + ".").hasArg().build();
+    Option optionDatastreamOutput
+        = Option.builder(OPTION_COMBINED_CONTENT_OUTPUT)
+            .desc("Creates " + "" + "an "
+                + "optional file for reference containing any combined remote resources processed " + "by "
+                + "SCAPVal and any " + "-sourceds Data Stream specified. " + "This file is a copy of the" + " "
+                + "final " + "content" + " " + "SCAPVal " + "validates " + "against" + ".")
+            .hasArg().build();
     Option optionOnline = Option.builder(OPTION_ONLINE).desc("Enable download of latest " + "dictionaries and remote "
         + "" + "" + "" + "" + "" + "" + "" + "" + "resolution of some components").hasArg(false).build();
     Option optionMaxSize = Option.builder(OPTION_MAX_SIZE)
@@ -384,6 +387,9 @@ public class Application {
     } else if (cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
       contentToCheckType = ContentType.COMPONENT;
       contentToCheckFilename = cmd.getOptionValue(OPTION_COMPONENT_FILE);
+    } else {
+      throw new ConfigurationException(
+          "Content to validate must be specified with -dir, -resultdir, -file, " + "-resultfile, or -componentfile");
     }
 
     // get the scap version from the command line
@@ -523,7 +529,7 @@ public class Application {
     if (cmd.getOptionValue(OPTION_SOURCE_DS) != null) {
       // this option should only be specified when checking result content
       if (!contentToCheckType.equals(ContentType.RESULT)) {
-        throw new ConfigurationException("-sourceds can only be specified when validation " + "result content");
+        throw new ConfigurationException("-sourceds can only be specified when validating " + "result content");
       }
 
       // the specified XML sourceds will ultimately be combined with the result content
