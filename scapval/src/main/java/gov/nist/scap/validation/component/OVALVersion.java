@@ -116,7 +116,7 @@ public enum OVALVersion {
     Iterator<Element> iterator = ovalComponent.getDescendants(Filters.element());
     while (iterator.hasNext()) {
       Element decendantElement = iterator.next();
-      if (decendantElement.getName().equals("schema_version")
+      if (decendantElement.getName().equals("schema_version") && !decendantElement.hasAttributes()
           && decendantElement.getNamespace().equals(NamespaceConstants.NS_OVAL_COM_5.getNamespace())) {
         ovalVersionString = decendantElement.getValue();
         break;

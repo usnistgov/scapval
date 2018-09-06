@@ -748,7 +748,7 @@ public class Application {
     // check each data-stream for the specified scap version.
     for (Attribute attribute : results) {
       if (!scapVersion.getVersion().equals(attribute.getValue())) {
-        throw new ConfigurationException("SCAP version specified on command line '" + scapVersion.getVersion() + "' "
+        throw new SCAPException("SCAP version specified on command line '" + scapVersion.getVersion() + "' "
             + "Does not match what was " + "found in the specified content " + results.get(0).getName() + "='"
             + results.get(0).getValue() + "'");
       }
