@@ -2,14 +2,14 @@
 <content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
   <requirement>135</requirement>
   <description>If no profile was selected for a scan, then xccdf:profile SHALL be excluded from xccdf:TestResult
-               In this case, the profile was not selected.</description>
+               In this case, the profile was completely deleted</description>
   <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0" 
             xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2" 
             xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" 
             xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
             template="classpath:scap-1.1/templates/results-base-compliance.xml">
-  <modify-attribute xpath="//*:Profile[@id='test_profile1']//*:select/@selected" value="false"/>
+  <delete xpath="//*:Profile[@id='test_profile1']"/>
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
@@ -18,6 +18,8 @@
   </assessments>
   <assertions>
     <assert-derived-requirement requirement-id="RES-135-1" result="FAIL" />
+    <!--  Also expect 40-2 to fail since we are completely removing the profile element -->
+    <assert-derived-requirement requirement-id="RES-40-2" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

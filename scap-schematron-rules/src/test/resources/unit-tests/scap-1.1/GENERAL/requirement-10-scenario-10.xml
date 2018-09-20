@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
   <requirement>10</requirement>
-  <description>This is a comprehensively valid xccdf for the Configuration use case. xccdf:Profile missing xccdf:description with xml:lang="en-US"</description>
+  <description>This is a comprehensively valid xccdf for the Configuration use case. xccdf:Rule missing xccdf:description with xml:lang="en-US"</description>
   <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
   xmlns:ds="http://scap.nist.gov/schema/data-stream/0.2"
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1"
@@ -14,7 +14,7 @@
         <xhtml:strong>???</xhtml:strong>
       </xccdf:description>
     </insert-sibling>
-    <delete xpath="/ds:data-stream//xccdf:Benchmark//xccdf:Profile/xccdf:description/@xml:lang" />
+    <delete xpath="/ds:data-stream//xccdf:Benchmark//xccdf:Rule/xccdf:description/@xml:lang" />
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">

@@ -7,9 +7,9 @@
             xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" 
             xmlns:xccdf="http://checklists.nist.gov/xccdf/1.1" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-            template="classpath:scap-1.1/templates/results-base-compliance.xml">
+            template="classpath:scap-1.1/templates/results-base-vulnerability.xml">
     <replace xpath="//*:rule-result[@idref='test_rule1']//*:result">
-      <xccdf:result>fail</xccdf:result>
+      <xccdf:result>error</xccdf:result>
     </replace>
   </template>
   <assessments>
