@@ -123,7 +123,7 @@ public class AssessmentFactory {
       String namespace = documentToValidate.getJDOMDocument().getRootElement().getNamespaceURI();
       IndividualComponent component = IndividualComponent.getByNamespace(namespace);
       if (component == null) {
-        throw new SCAPException("Unsupported component found. SCAPVal will validate components " + "with namespace of: "
+        throw new SCAPException("Unsupported component found. SCAPVal will validate components with namespace of: "
             + IndividualComponent.getAllComponentNamespaces());
       }
       log.debug("Discovered component namespace: " + namespace);
@@ -226,7 +226,7 @@ public class AssessmentFactory {
       // OVAL schemas are handled separately based on the schema_version specified
       return createOVALSchemaAssessment(xmlContentToValidate.getJDOMDocument().getRootElement());
     default:
-      throw new SCAPException("Unsupported component found. SCAPVal will validate components " + "with namespace of: "
+      throw new SCAPException("Unsupported component found. SCAPVal will validate components with namespace of: "
           + IndividualComponent.getAllComponentNamespaces());
     }
     return new SchemaAssessment(SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getIndividualComponentReqID(),
@@ -286,7 +286,7 @@ public class AssessmentFactory {
         Element ovalComponent = xmlContentToValidate.getJDOMDocument().getRootElement();
         OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
         if (ovalVersion == null) {
-          throw new SCAPException("Unable to locate a supported oval version via " + "<schema_version> element.");
+          throw new SCAPException("Unable to locate a supported oval version via <schema_version> element.");
         }
         assessmentGroup.addAll(createOVALSchematronAssessments(ovalVersion, contentToCheckType));
         break;
@@ -392,7 +392,7 @@ public class AssessmentFactory {
     Objects.requireNonNull(ovalComponent, "ovalComponent cannot be null.");
     OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
     if (ovalVersion == null) {
-      throw new SCAPException("Unable to locate a supported oval version via <schema_version> " + "element.");
+      throw new SCAPException("Unable to locate a supported oval version via <schema_version> element.");
     }
     LinkedList<StreamSource> schemaList = ovalVersion.getOVALSchemas(scapVersion, contentToCheckType);
     schemaList.add(new StreamSource("classpath:xsd/w3c/TR/xmldsig-core/xmldsig-core-schema.xsd"));

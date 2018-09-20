@@ -266,7 +266,7 @@ public class ContentCombiner {
 
     if (!scap11CombinedContent.exists()
         && (!scap11CombinedContent.createNewFile() || !scap11CombinedContent.canWrite())) {
-      throw new IOException("Problem processing the SCAP 1.1 components. Need write access to: " + "" + ""
+      throw new IOException("Problem processing the SCAP 1.1 components. Need write access to: "
           + scap11CombinedContent.getAbsolutePath() + " in order to continue.");
     }
 
@@ -374,8 +374,7 @@ public class ContentCombiner {
     log.info("Attempting to embed the source data-steam: " + dsFilePath + " into the ARF file: " + arfFilePath + " and "
         + "creating file: " + combinedOutputPath);
 
-    ValidationNotes.getInstance()
-        .createValidationNote("Validation included -sourceds content " + "file: " + dsFilePath);
+    ValidationNotes.getInstance().createValidationNote("Validation included -sourceds content file: " + dsFilePath);
 
     JDOMDocument newCombined = new JDOMDocument(arfFile);
     Element reportRequests
@@ -426,7 +425,7 @@ public class ContentCombiner {
     Objects.requireNonNull(maxDownloadSize, "maxDownloadSize cannot be null.");
 
     String scapComponentRefsXpath
-        = "//*[namespace-uri()='" + scapVersion.getDSNamespace().getURI() + "' and " + "local-name()='component-ref']";
+        = "//*[namespace-uri()='" + scapVersion.getDSNamespace().getURI() + "' and local-name()='component-ref']";
     // attempt to resolve any scap remote component resources
     List<Element> componentRemoteRefs = XMLUtils.getXpathElements(xmlDocument, scapComponentRefsXpath);
     for (Element component : componentRemoteRefs) {
@@ -444,12 +443,11 @@ public class ContentCombiner {
             remoteComponentURL = new URL(xlinkHrefAttribute.getValue());
           } catch (MalformedURLException e) {
             // Invalid external reference URL, log and move on
-            log.info(
-                "Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and " + "URL "
-                    + xlinkHrefAttribute.getValue() + " Will not " + "download the remote component." + e.getMessage());
-            ValidationNotes.getInstance().createValidationNote(
-                "Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and " + "URL "
-                    + xlinkHrefAttribute.getValue() + " Will not " + "download the remote component.");
+            log.info("Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and URL "
+                + xlinkHrefAttribute.getValue() + " Will not download the remote component." + e.getMessage());
+            ValidationNotes.getInstance()
+                .createValidationNote("Invalid http/https location for component-ref with id " + idAttribute.getValue()
+                    + " and URL " + xlinkHrefAttribute.getValue() + " Will not download the remote component.");
             continue;
           }
         } else if (xlinkHrefAttribute.getValue().startsWith("file:")) {
@@ -464,21 +462,20 @@ public class ContentCombiner {
             // need to prepend the file: protocol to beginning of path full
             remoteComponentURL = new URL("file:" + relativeDir + fileNameToMerge);
           } catch (URISyntaxException e) {
-            log.info("Cannot access the directory of the validation target: " + relativeDir + " " + "and " + "URL "
-                + xlinkHrefAttribute.getValue() + " Will not include this file " + "in" + " validation."
-                + e.getMessage());
-            ValidationNotes.getInstance().createValidationNote(
-                "Cannot access the directory of the validation target: " + relativeDir + " " + "and " + "URL "
-                    + xlinkHrefAttribute.getValue() + " Will not include this file " + "in" + " validation.");
+            log.info("Cannot access the directory of the validation target: " + relativeDir + " and URL "
+                + xlinkHrefAttribute.getValue() + " Will not include this file in validation." + e.getMessage());
+            ValidationNotes.getInstance()
+                .createValidationNote("Cannot access the directory of the validation target: " + relativeDir
+                    + " and URL " + xlinkHrefAttribute.getValue() + " Will not include this file in validation.");
             continue;
           } catch (MalformedURLException e) {
             log.info("Cannot read file at location specified for component-ref with id " + idAttribute.getValue()
-                + " and " + "" + "" + "" + "URL " + "file:" + relativeDir + fileNameToMerge
-                + " Will not include this file in" + " " + "validation." + e.getMessage());
+                + " and URL file:" + relativeDir + fileNameToMerge + " Will not include this file in validation."
+                + e.getMessage());
             ValidationNotes.getInstance()
                 .createValidationNote("Cannot read file at location specified for component-ref with id "
-                    + idAttribute.getValue() + " and " + "" + "" + "" + "URL " + "file:" + relativeDir + fileNameToMerge
-                    + " Will not include this file in" + " " + "validation.");
+                    + idAttribute.getValue() + " and URL file:" + relativeDir + fileNameToMerge
+                    + " Will not include this file in validation.");
             continue;
           }
         } else {
@@ -486,8 +483,8 @@ public class ContentCombiner {
           continue;
         }
         try {
-          log.info("Found a remote component-ref with id " + idAttribute.getValue() + " and " + "URL" + " "
-              + xlinkHrefAttribute.getValue() + " will attempt to acquire and " + "include in " + "validation.");
+          log.info("Found a remote component-ref with id " + idAttribute.getValue() + " and URL "
+              + xlinkHrefAttribute.getValue() + " will attempt to acquire and include in validation.");
 
           // make sure the component-ref ID is valid and use that for the remote resource
           // component name
@@ -509,10 +506,10 @@ public class ContentCombiner {
             xlinkHrefAttribute.setValue(newxlinkHrefAttribute);
 
           } else {
-            log.info("Invalid component-ref id " + idAttribute.getValue() + " detected for a " + "remote resource. The "
+            log.info("Invalid component-ref id " + idAttribute.getValue() + " detected for a remote resource. The "
                 + "remote resource will not be used");
             ValidationNotes.getInstance().createValidationNote("Invalid component-ref id " + idAttribute.getValue()
-                + " detected for a " + "remote resource. The " + "remote resource will not be used");
+                + " detected for a remote resource. The remote resource will not be used");
             continue;
           }
 
@@ -523,10 +520,10 @@ public class ContentCombiner {
           } else if (remoteComponentURL.getProtocol().startsWith("http")) {
             remoteComponentFile = FileUtils.downloadFile(remoteComponentURL, maxDownloadSize * 1024 * 1024);
           } else {
-            log.info("Invalid component-ref id " + idAttribute.getValue() + " detected for a " + "remote resource. The "
+            log.info("Invalid component-ref id " + idAttribute.getValue() + " detected for a remote resource. The "
                 + "remote resource will not be used");
             ValidationNotes.getInstance().createValidationNote("Invalid component-ref id " + idAttribute.getValue()
-                + " detected for a " + "remote resource. The " + "remote resource will not be used");
+                + " detected for a remote resource. The remote resource will not be used");
             continue;
           }
 
@@ -548,13 +545,13 @@ public class ContentCombiner {
 
             // if there were no problems, the content was added, include as a report
             // note
-            ValidationNotes.getInstance().createValidationNote("Validation included remote " + "component-ref with id "
+            ValidationNotes.getInstance().createValidationNote("Validation included remote component-ref with id "
                 + idAttribute.getValue() + " and url " + remoteComponentURL);
           } else {
             // could not download the external reference, log and store as note
-            log.info("Unable to download component-ref with id " + idAttribute.getValue() + " " + "and url "
+            log.info("Unable to download component-ref with id " + idAttribute.getValue() + " and url "
                 + xlinkHrefAttribute.getValue());
-            ValidationNotes.getInstance().createValidationNote("Unable to download " + "component-ref with id "
+            ValidationNotes.getInstance().createValidationNote("Unable to download component-ref with id "
                 + idAttribute.getValue() + " and url " + xlinkHrefAttribute.getValue());
             continue;
           }
@@ -562,7 +559,7 @@ public class ContentCombiner {
           // unable to download or merge with existing content, log and move on
           log.info("Unable to utilize remote component-ref with id " + idAttribute.getValue() + " and url "
               + remoteComponentURL + " - " + e.getMessage());
-          ValidationNotes.getInstance().createValidationNote("Unable to utilize remote " + "component-ref with id "
+          ValidationNotes.getInstance().createValidationNote("Unable to utilize remote component-ref with id "
               + idAttribute.getValue() + " and url " + remoteComponentURL + " - " + e.getMessage());
           continue;
         }
@@ -594,8 +591,8 @@ public class ContentCombiner {
     // filename
     Map<String, String> remoteURLandFilename = new LinkedHashMap<>();
 
-    String xccdfRemoteCheckRefsXpath = "//*[namespace-uri()=\"http://checklists.nist" + "" + ".gov/xccdf/1.1\" and "
-        + "local-name()=\"Rule\"]//*[namespace-uri()=\"http://checklists.nist" + ".gov/xccdf/1.1\" and local-name()"
+    String xccdfRemoteCheckRefsXpath = "//*[namespace-uri()=\"http://checklists.nist.gov/xccdf/1.1\" and "
+        + "local-name()=\"Rule\"]//*[namespace-uri()=\"http://checklists.nist.gov/xccdf/1.1\" and local-name()"
         + "=\"check-content-ref\"]/@href";
     XMLDocument xccdfComponent = null;
     try {
@@ -613,8 +610,8 @@ public class ContentCombiner {
         URL remoteComponentURL = null;
         try {
           remoteComponentURL = new URL(contentRef);
-          log.info("Found an XCCDF remote check-component-ref: " + contentRef + " will attempt " + "to"
-              + " download and " + "include in validation.");
+          log.info("Found an XCCDF remote check-component-ref: " + contentRef + " will attempt to"
+              + " download and include in validation.");
 
           // we will rename the check-component-ref to match the downloaded file name
           String downloadedRefFileName = FileUtils.getFilenameFromURLNoExtension(contentRef) + "-patches.xml";
@@ -642,20 +639,20 @@ public class ContentCombiner {
             } else {
               log.info("Unable to download XCCDF remote check-component-ref: " + contentRef);
               ValidationNotes.getInstance()
-                  .createValidationNote("Unable to download XCCDF " + "remote" + " check-component-ref: " + contentRef);
+                  .createValidationNote("Unable to download XCCDF remote check-component-ref: " + contentRef);
               continue;
             }
           } else {
             // could not download the external reference, log and store as note
             log.info("Unable to download XCCDF remote check-component-ref: " + contentRef);
             ValidationNotes.getInstance()
-                .createValidationNote("Unable to download XCCDF remote " + "check-component-ref: " + contentRef);
+                .createValidationNote("Unable to download XCCDF remote check-component-ref: " + contentRef);
             continue;
           }
         } catch (MalformedURLException e) {
           // Invalid external reference URL, log and move on
-          log.info("Invalid URL for XCCDF remote check-component-ref:" + contentRef + " Will not " + ""
-              + "download the " + "remote component." + e.getMessage());
+          log.info("Invalid URL for XCCDF remote check-component-ref:" + contentRef + " Will not "
+              + "download the remote component." + e.getMessage());
           continue;
         } catch (IOException e) {
           // unable to download or merge with existing content, log and move on

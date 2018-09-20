@@ -48,7 +48,7 @@ public class CandidateFileTest {
     final File file = new File(tmpDir + "myzip.zip");
 
     final CandidateFile.Builder builder
-        = new CandidateFile.Builder(file).setTypeUnknown("Some " + "reason why this is not SCAP");
+        = new CandidateFile.Builder(file).setTypeUnknown("Some reason why this is not SCAP");
 
     final CandidateFile candidate = builder.createCandidateFile();
 

@@ -141,7 +141,7 @@ public class SCAPValWrapper {
       ArrayList<String> args = new ArrayList<>();
 
       if (this.submissionType == null || (this.submissionFilePath == null && this.submissionDirPath == null)) {
-        throw new Exception("submissionType and submissionFilePath or submissionDirPath " + "must be specified");
+        throw new Exception("submissionType and submissionFilePath or submissionDirPath must be specified");
       }
 
       if (this.submissionFilePath != null && this.submissionDirPath != null) {

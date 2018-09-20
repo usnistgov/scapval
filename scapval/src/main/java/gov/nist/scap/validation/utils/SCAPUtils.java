@@ -59,18 +59,18 @@ public class SCAPUtils {
     switch (scapVersion) {
     case V1_1:
       // using the composite doc for 1.1 content, then pulling out oval components
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and "
-          + "local-name()" + "='schema_version']/ancestor-or-self::*:check-system-content/*";
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and "
+          + "local-name()='schema_version']/ancestor-or-self::*:check-system-content/*";
       break;
     case V1_2:
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and "
-          + "local-name()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + ""
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and "
+          + "local-name()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
           + ".gov/schema/scap/source/1.2' and local-name()='component']/*";
       break;
     case V1_3:
       // SCAP 1.3 still uses the 1.2 namespce.
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and "
-          + "local-name()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + ""
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and "
+          + "local-name()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
           + ".gov/schema/scap/source/1.2' and local-name()='component']/*";
       break;
     default:
@@ -105,17 +105,17 @@ public class SCAPUtils {
     String getOvalResultsXpath = "";
     switch (scapVersion) {
     case V1_1:
-      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and local-name"
-          + "()" + "='schema_version']/ancestor-or-self::*:oval_results";
+      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and local-name"
+          + "()='schema_version']/ancestor-or-self::*:oval_results";
       break;
     case V1_2:
-      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and local-name"
-          + "()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + "" + "" + ""
+      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and local-name"
+          + "()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
           + ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
       break;
     case V1_3:
-      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre" + ".org/XMLSchema/oval-common-5' and local-name"
-          + "()" + "='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist" + "" + "" + "" + "" + ""
+      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and local-name"
+          + "()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
           + ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
       break;
     default:

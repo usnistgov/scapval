@@ -46,7 +46,7 @@ public class Messages {
   public static String getMessage(String key, Object... arguments) {
     String msg = null;
     try {
-      msg = ResourceBundle.getBundle("messages", Locale.getDefault()).getString("scap.validation" + ".version");
+      msg = ResourceBundle.getBundle("messages", Locale.getDefault()).getString("scap.validation.version");
     } catch (MissingResourceException e) {
       msg = key;
     }

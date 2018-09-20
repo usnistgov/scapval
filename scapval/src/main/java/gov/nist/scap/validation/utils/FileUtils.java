@@ -126,12 +126,12 @@ public class FileUtils {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException(e.getMessage());
     } catch (IOException e) {
-      throw new RuntimeException("Unable to read: " + file.getAbsolutePath() + " file stream for " + "hashing", e);
+      throw new RuntimeException("Unable to read: " + file.getAbsolutePath() + " file stream for hashing", e);
     } finally {
       try {
         bufferedInputStream.close();
       } catch (IOException e) {
-        throw new RuntimeException("Unable to close: " + file.getAbsolutePath() + " file stream " + "for hashing", e);
+        throw new RuntimeException("Unable to close: " + file.getAbsolutePath() + " file stream for hashing", e);
       }
     }
     // encode as base hex, not base64
@@ -153,7 +153,7 @@ public class FileUtils {
     // error if the specified File or Directory does not exist
     File contentFile = new File(filePath);
     if (!contentFile.isFile() && !contentFile.isDirectory()) {
-      throw new ConfigurationException(contentFile.getAbsolutePath() + " is not valid file or " + "directory.");
+      throw new ConfigurationException(contentFile.getAbsolutePath() + " is not valid file or directory.");
     }
     if (contentFile.isDirectory()) {
       return Application.FileType.DIRECTORY;
@@ -169,7 +169,7 @@ public class FileUtils {
       } else if (fileExtension.toLowerCase().equals("xml")) {
         return Application.FileType.XML;
       } else {
-        throw new ConfigurationException("Found a file but does not contain a .xml or .zip " + "extension");
+        throw new ConfigurationException("Found a file but does not contain a .xml or .zip extension");
       }
     } else {
       return null;
@@ -241,7 +241,7 @@ public class FileUtils {
       while (length >= 0) {
         totalBytesDownloaded += length;
         if (maxDownloadSizeInBytes > 0 && totalBytesDownloaded > maxDownloadSizeInBytes) {
-          log.error("Unable to download: " + url + " because the file size is larger than the " + "specified "
+          log.error("Unable to download: " + url + " because the file size is larger than the specified "
               + Integer.toString(maxDownloadSizeInBytes / 1024 / 1024) + " MiB");
           try {
             os.close();

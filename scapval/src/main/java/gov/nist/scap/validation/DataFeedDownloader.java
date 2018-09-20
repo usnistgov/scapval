@@ -158,8 +158,8 @@ public class DataFeedDownloader {
       }
     } catch (IOException e) {
       String errorText = "Unable to access the data_feeds directory." + System.lineSeparator() + "CCE and CPE "
-          + "dictionaries will not be updated." + System.lineSeparator() + "If problem " + "persists, try to "
-          + "re-extract" + " SCAPVal. " + e.getMessage();
+          + "dictionaries will not be updated." + System.lineSeparator() + "If problem persists, try to "
+          + "re-extract SCAPVal. " + e.getMessage();
       log.error(errorText);
       ValidationNotes.getInstance().createValidationNote(errorText);
       return false;
@@ -196,7 +196,7 @@ public class DataFeedDownloader {
             // check the published hash compared to downloaded file
             if (!doesSHA256Match(new BufferedInputStream(new FileInputStream(decompressedFile)),
                 url.getOnlineSHA256Hash())) {
-              log.error("Downloaded temp file does not match expected hash.  File will not be " + "used.");
+              log.error("Downloaded temp file does not match expected hash.  File will not be used.");
               if (!decompressedFile.delete()) {
                 log.error("Unable to delete file: " + decompressedFile.getAbsolutePath());
               }
@@ -274,7 +274,7 @@ public class DataFeedDownloader {
       // The algorithm is set as final var set in FileUtils.DEFAULT_HASH_ALGORITHM
     } catch (IOException e) {
       // the local file is not available, attempt to replace it
-      log.info("Unable to access: " + file.getAbsolutePath() + " an update will attempt to " + "replace it.");
+      log.info("Unable to access: " + file.getAbsolutePath() + " an update will attempt to replace it.");
       return true;
     }
     return false;
@@ -349,7 +349,7 @@ public class DataFeedDownloader {
     } catch (MalformedURLException e) {
       return false;
     } catch (IOException e) {
-      log.info("Unable to reach the server for metadata on the latest file online. " + "Local " + "file: "
+      log.info("Unable to reach the server for metadata on the latest file online. Local file: "
           + urlHolder.getLocalName() + " will not be updated.");
       return false;
     }

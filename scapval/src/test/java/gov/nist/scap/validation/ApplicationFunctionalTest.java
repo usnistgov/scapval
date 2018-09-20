@@ -63,7 +63,7 @@ public class ApplicationFunctionalTest {
   public void CompleteComponentRun() {
     try {
       new Application().runCLI(new String[] { "-componentfile",
-          "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5" + "-10.xml" });
+          "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5-10.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }

@@ -41,7 +41,7 @@ public class SCAPValWrapperTest {
   public void runSCAP() throws Exception {
 
     final String datastream = new File(
-        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall" + ".xml")
+        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
             .getFile()).getAbsolutePath();
 
     SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()

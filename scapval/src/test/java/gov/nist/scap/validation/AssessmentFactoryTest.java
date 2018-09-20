@@ -56,8 +56,8 @@ public class AssessmentFactoryTest {
 
   @Test
   public void createAssessmentFactory12() throws Exception {
-    XMLDocument SCAP12 = new JDOMDocument(new File(
-        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall" + ".xml")
+    XMLDocument SCAP12 = new JDOMDocument(
+        new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
             .getFile()));
     AssessmentFactory assessmentFactory
         = new AssessmentFactory(SCAPVersion.V1_2, "CONFIGURATION", Application.ContentType.SOURCE, SCAP12);
@@ -73,8 +73,7 @@ public class AssessmentFactoryTest {
   @Test
   public void createAssessmentFactory13() throws Exception {
     XMLDocument SCAP13 = new JDOMDocument(new File(
-        new URL("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample" + ".xml")
-            .getFile()));
+        new URL("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample.xml").getFile()));
     AssessmentFactory assessmentFactory
         = new AssessmentFactory(SCAPVersion.V1_3, "CONFIGURATION", Application.ContentType.SOURCE, SCAP13);
     SchemaAssessment scapDocumentSchemaAssessment = assessmentFactory.createSCAPSchemaAssessment();

@@ -159,8 +159,7 @@ public class ReportCustomizer {
       newXSLTemplateFile.copyTo(scapXSLTemplateExtention);
 
     } catch (DocumentException | IOException e) {
-      throw new RuntimeException(
-          "There was a problem updating the XSL for HTML report generation" + " -" + e.getMessage());
+      throw new RuntimeException("There was a problem updating the XSL for HTML report generation -" + e.getMessage());
     }
   }
 }

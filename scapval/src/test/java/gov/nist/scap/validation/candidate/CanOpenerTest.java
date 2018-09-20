@@ -23,15 +23,15 @@
 
 package gov.nist.scap.validation.candidate;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import gov.nist.scap.validation.component.SCAP11Components;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CanOpenerTest {
 
@@ -40,12 +40,11 @@ public class CanOpenerTest {
 
     final CanOpener opener = new CanOpener(1024);
     final File file = new File(
-        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0.zip")
-            .getFile());
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with-extra-files/Win7-53-1.2.1.0.zip").getFile());
 
     // if the last set of tests were interrupted, ensure dir is cleaned up
     File checkDir = new File(
-        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0").getFile());
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with-extra-files/Win7-53-1.2.1.0").getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }
@@ -94,12 +93,11 @@ public class CanOpenerTest {
   public void testWindowsZipFromCab() throws Exception {
     final CanOpener opener = new CanOpener(1024);
     final File file = new File(
-        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0.zip")
-            .getFile());
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with-extra-files/Win7-53-1.2.1.0.zip").getFile());
 
     // if the last set of tests were interrupted, ensure dir is cleaned up
     File checkDir = new File(
-        new URL("classpath:src/test/resources/candidates/scap-11-zip-with" + "-extra-files/Win7-53-1.2.1.0").getFile());
+        new URL("classpath:src/test/resources/candidates/scap-11-zip-with-extra-files/Win7-53-1.2.1.0").getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }
@@ -138,11 +136,10 @@ public class CanOpenerTest {
 
     final CanOpener opener = new CanOpener(1024);
     final File file
-        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100" + "-scap11.zip").getFile());
+        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100-scap11.zip").getFile());
 
     // if the last set of tests were interrupted, ensure dir is cleaned up
-    File checkDir
-        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100" + "-scap11").getFile());
+    File checkDir = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100-scap11").getFile());
     if (checkDir.isDirectory()) {
       new ZipExpander(1024).deleteDirectory(checkDir);
     }

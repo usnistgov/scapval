@@ -34,7 +34,7 @@ import java.net.URL;
 public class SCAPFileValidationTest {
   @Test
   public void SCAP11DIRSourceExpectPass() throws Exception {
-    String testFile = new File(new URL("classpath:src/test/resources/candidates" + "/scap-11/source-folder/").getFile())
+    String testFile = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder/").getFile())
         .getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1)
@@ -53,7 +53,7 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP11ZIPSourceExpectPass() throws Exception {
     String testFile
-        = new File(new URL("classpath:src/test/resources/candidates" + "/scap-11-zip/R1100-scap11.zip").getFile())
+        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100-scap11.zip").getFile())
             .getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1)
@@ -73,7 +73,7 @@ public class SCAPFileValidationTest {
   public void SCAP11SourceExpectFail() throws Exception {
     boolean passed = true;
     String testFile
-        = new File(new URL("classpath:src/test/resources/candidates" + "/scap-11-zip/R1100-scap11-ERROR.zip").getFile())
+        = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/R1100-scap11-ERROR.zip").getFile())
             .getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_1)
@@ -94,7 +94,7 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP12SourceExpectPass() throws Exception {
     String testFile = new File(
-        new URL("classpath:src/test/resources/candidates" + "/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
+        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
             .getFile()).getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_2)
@@ -113,8 +113,8 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP12SourceExpectFail() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL(
-        "classpath:src/test/resources/candidates" + "/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall-ERROR.xml")
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall-ERROR.xml")
             .getFile()).getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_2)
@@ -135,8 +135,8 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP13SourceExpectPass() throws Exception {
     String testFile = new File(
-        new URL("classpath:src/test/resources/candidates" + "/scap-13/source_data_stream_collection_sample.xml")
-            .getFile()).getAbsolutePath();
+        new URL("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample.xml").getFile())
+            .getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_3)
             .useCase("CONFIGURATION").isOnline(true).submissionFileLocation(testFile).run();
@@ -154,8 +154,8 @@ public class SCAPFileValidationTest {
   @Test
   public void SCAP13SourceExpectFail() throws Exception {
     boolean passed = true;
-    String testFile = new File(new URL(
-        "classpath:src/test/resources/candidates" + "/scap-13/source_data_stream_collection_sample-NO-USE-CASE.xml")
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates/scap-13/source_data_stream_collection_sample-NO-USE-CASE.xml")
             .getFile()).getAbsolutePath();
     SCAPValAssessmentResults assessmentResults
         = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_3)
