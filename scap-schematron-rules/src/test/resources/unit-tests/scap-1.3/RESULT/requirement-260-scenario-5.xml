@@ -18,7 +18,7 @@
             <xccdf:check-content-ref href="#oval-res1"/>
         </replace>
 
-        <add-attribute xpath="//xccdf:Rule[@id='xccdf_gov.nist_rule_test_rule1']/xccdf:check" name="multi-check" value="false"/>
+        <add-attribute xpath="//xccdf:Rule[@id='xccdf_gov.nist_rule_test_rule1']/xccdf:check" name="multi-check" value="true"/>
 
     </template>
     <assessments>
@@ -26,7 +26,9 @@
                                handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
     </assessments>
     <assertions>
-        <assert-derived-requirement requirement-id="RES-260-1" result="PASS"/>
+        <assert-derived-requirement requirement-id="RES-260-1" result="FAIL"/>
+        <!-- expect 126-5 to fail since it checks for @name as well -->
+        <assert-derived-requirement requirement-id="RES-126-5" result="FAIL"/>
         <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
         <assert-derived-requirement requirement-id="RES-258-1" result="FAIL"/>
         <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>

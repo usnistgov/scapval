@@ -7,7 +7,9 @@
   xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
-    <modify-attribute value="#scap_gov.nist_cref_2406" xpath="//xccdf:check-content-ref[@href = 'fdcc-ie7-oval.xml']/@href" />
+  
+    <modify-attribute value="#ref-2011080510033832-2406" xpath="//xccdf:check-content-ref[@href = 'fdcc-ie7-oval.xml']/@href" />
+  
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
@@ -15,7 +17,17 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-31-1" result="PASS" />
+    <assert-derived-requirement requirement-id="SRC-31-1" result="FAIL" />
+    <!-- Also expect quite a few others to fail due to the simple modification 
+         to the bad href value --> 
+    <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-346-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-38-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-38-3" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-345-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

@@ -11,7 +11,7 @@
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
-    <delete xpath="//dsig:Manifest" />
+    <delete xpath="//dsig:Manifest/dsig:Reference[1]" />
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
@@ -19,10 +19,7 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-284-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-284-2" result="FAIL" />
-    <!-- Also expect 288-1 to fail due to the dsig modification for this test -->
-    <assert-derived-requirement requirement-id="SRC-288-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

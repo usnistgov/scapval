@@ -3,7 +3,7 @@
   <requirement>262</requirement>
   <description>Each XCCDF Benchmark SHALL have at least one rule that references either an OVAL compliance class 
                 definition in an OVAL component or an OCIL questionnaire in an OCIL Questionnaire component.
-                This test removes all oval compliance classes, the ocil:questionnaire remains </description>
+                This test generates a bad ocil:questionnaire reference but oval compliance classes remain </description>
   <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
   xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
   xmlns:ocil="http://scap.nist.gov/schema/ocil/2.0"
@@ -12,7 +12,7 @@
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-with-ocil-base.xml">
     
-    <modify-attribute value="vulnerability" xpath="//oval-def:definition/@class" />
+    <modify-attribute value="bad" xpath="//ocil:questionnaire/@id" />
     
   </template>
   <assessments>
@@ -22,13 +22,9 @@
   </assessments>
   <assertions>
     <assert-derived-requirement requirement-id="SRC-262-1" result="PASS" />
-    <!-- Also expect a few others to fail due to the simple modification 
-    of elements from the template for this test -->
-    <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
+    <!-- Also expect a few others to fail due to the simple modification of elements from the template for this test -->
     <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-30-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-214-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-349-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

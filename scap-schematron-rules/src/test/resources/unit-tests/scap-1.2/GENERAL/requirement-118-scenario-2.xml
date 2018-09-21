@@ -8,7 +8,7 @@
   xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
-    <modify-attribute value="oval-def" xpath="//xccdf:check/@system" />
+    <modify-attribute value="oval-def" xpath="//cpe-dict:check/@system" />
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
@@ -16,10 +16,9 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-118-1" result="FAIL" />
-    <!-- Also expect 351-1 and 262-1 to fail due to the @system modification for this test -->
-    <assert-derived-requirement requirement-id="SRC-351-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-118-2" result="FAIL" />
+    <!-- Also expect 72-1 due to the @system modification for this test -->
+    <assert-derived-requirement requirement-id="SRC-72-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

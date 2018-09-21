@@ -8,7 +8,11 @@
               xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
               xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
               xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/result-base.xml"/>
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/result-base.xml">
+
+        <delete xpath="//*:collected_objects"/>
+
+    </template>
     <assessments>
         <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.sch"
                                handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
@@ -16,7 +20,7 @@
         </schematron-assessment>
     </assessments>
     <assertions>
-        <assert-derived-requirement requirement-id="RES-181-1" result="PASS"/>
+        <assert-derived-requirement requirement-id="RES-181-1" result="FAIL"/>
         <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
         <assert-derived-requirement requirement-id="RES-258-1" result="FAIL"/>
         <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>
