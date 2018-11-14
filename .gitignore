@@ -42,3 +42,4 @@ test-results
 bootstrap
 /scapval/validation-report.html
 /scapval/validation-result.xml
+/release.properties
