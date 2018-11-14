@@ -54,7 +54,7 @@
 
 	<properties>
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
-		<version.decima>0.6.3-SNAPSHOT</version.decima>
+		<version.decima>0.6.3</version.decima>
 		<version.mitre-cpe>1.0.7</version.mitre-cpe>
 
 		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
