@@ -56,6 +56,7 @@
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
 		<version.decima>0.6.3</version.decima>
 		<version.mitre-cpe>1.0.7</version.mitre-cpe>
+		<plugin.version.swid-maven-plugin>0.6.0</plugin.version.swid-maven-plugin>
 
 		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
 		<additionalparam>-Xdoclint:none</additionalparam>
@@ -119,6 +120,11 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>gov.nist.secauto.mojo</groupId>
+					<artifactId>create-file-list-mojo</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>xml-maven-plugin</artifactId>
 					<version>1.0.1</version>
@@ -168,10 +174,10 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>net.revelc.code.formatter</groupId> -->
-<!-- 				<artifactId>formatter-maven-plugin</artifactId> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>net.revelc.code.formatter</groupId> -->
+			<!-- <artifactId>formatter-maven-plugin</artifactId> -->
+			<!-- </plugin> -->
 		</plugins>
 	</build>
 
