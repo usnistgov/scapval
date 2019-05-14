@@ -32,6 +32,7 @@ import static org.junit.Assert.fail;
 import gov.nist.scap.validation.SCAPVersion;
 import gov.nist.scap.validation.component.SCAP11Components;
 import gov.nist.scap.validation.component.XccdfVersion;
+import gov.nist.scap.validation.utils.FileUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -197,8 +198,8 @@ public class CandidateFileTest {
 
     assertEquals("myxccdf.xml", candidate.getName());
     assertFalse(candidate.isExpanded());
-    assertEquals(tmpDir + "myzip0\\myxccdf.xml", candidate.getAbsolutePath());
-    assertEquals("myzip.zip\\myxccdf.xml", candidate.getDisplayPath());
+    assertEquals(tmpDir + "myzip0" + FileUtils.PATH_SEPERATOR + "myxccdf.xml", candidate.getAbsolutePath());
+    assertEquals("myzip.zip" + FileUtils.PATH_SEPERATOR + "myxccdf.xml", candidate.getDisplayPath());
     assertNull(candidate.getDisqualificaiton());
 
     assertEquals(CandidateFile.Type.STANDALONE_XCCDF, candidate.getType());

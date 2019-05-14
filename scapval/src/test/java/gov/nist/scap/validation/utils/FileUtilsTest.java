@@ -25,40 +25,50 @@ package gov.nist.scap.validation.utils;
 
 import gov.nist.scap.validation.Application;
 import org.junit.Assert;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
 
 public class FileUtilsTest {
-  @Test
-  public void getFileHash() throws Exception {
-    final File datastream = new File(
-        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
-            .getFile());
-    Assert.assertEquals(FileUtils.getFileHash(datastream, FileUtils.DEFAULT_HASH_ALGORITHM),
-        "31AFB52F56F827AFE8555397D2E6302127AB715EAE9316AFA4D509C2008E6857");
-  }
+    @Test
+    public void getFileHash() throws Exception {
+        final String WindowsEOLHash = "58387DF8211F862C7853466A686FA409402514E00232E94AA81CF5D6561CD942";
+        final String UnixEOLHash = "31AFB52F56F827AFE8555397D2E6302127AB715EAE9316AFA4D509C2008E6857";
 
-  @Test
-  public void determineFileType() throws Exception {
-    final String datastream = new File(
-        new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
-            .getFile()).getAbsolutePath();
-    Assert.assertEquals(FileUtils.determineSCAPFileType(datastream), Application.FileType.XML);
-  }
+        final File datastream = new File(
+                new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
+                        .getFile());
 
-  @Test
-  public void decompressGZIPFile() throws Exception {
-    final File compressedFile
-        = new File(new URL("classpath:src/test/resources/candidates/gzip/test-content.gz").getFile());
-    File decompressedFile = null;
-    try {
-      decompressedFile = FileUtils.decompressGZIPFile(compressedFile);
-      Assert.assertEquals(decompressedFile.length(), 12);
-    } finally {
-      decompressedFile.delete();
+        if (FileUtils.getFileHash(datastream, FileUtils.DEFAULT_HASH_ALGORITHM).equals(WindowsEOLHash) ||
+                FileUtils.getFileHash(datastream, FileUtils.DEFAULT_HASH_ALGORITHM).equals(UnixEOLHash)) {
+            //found an expected hash
+        } else {
+            throw new ComparisonFailure("Did not find expected Hash value", WindowsEOLHash + " or " +
+                    UnixEOLHash, FileUtils.getFileHash(datastream, FileUtils.DEFAULT_HASH_ALGORITHM));
+        }
     }
-  }
+
+    @Test
+    public void determineFileType() throws Exception {
+        final String datastream = new File(
+                new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
+                        .getFile()).getAbsolutePath();
+        Assert.assertEquals(FileUtils.determineSCAPFileType(datastream), Application.FileType.XML);
+    }
+
+    @Test
+    public void decompressGZIPFile() throws Exception {
+        final File compressedFile
+                = new File(new URL("classpath:src/test/resources/candidates/gzip/test-content.gz").getFile());
+        File decompressedFile = null;
+        try {
+            decompressedFile = FileUtils.decompressGZIPFile(compressedFile);
+            Assert.assertEquals(decompressedFile.length(), 12);
+        } finally {
+            decompressedFile.delete();
+        }
+    }
 
 }
