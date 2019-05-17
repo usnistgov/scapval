@@ -63,6 +63,7 @@
     <sch:rule id="scap-general-xccdf-check" context="xccdf:Rule/xccdf:check">
       <sch:assert id="scap-general-xccdf-check-sys-req" test="@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' or @system eq 'http://scap.nist.gov/schema/ocil/2'">SRC-118-1|xccdf:Rule <sch:value-of select="ancestor::xccdf:Rule[1]/@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-check-supported-check-systems" test="@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' or @system eq 'http://scap.nist.gov/schema/ocil/2'">SRC-351-1|xccdf:Rule <sch:value-of select="ancestor::xccdf:Rule[1]/@id"/></sch:assert>
+      <sch:assert id="scap-general-xccdf-check-patches-ref-oval-only" test="if(current()/parent::xccdf:Rule[ends-with(@id,'security_patches_up_to_date')]) then current()/@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' else true()">SRC-169-2|xccdf:Rule <sch:value-of select="parent::xccdf:Rule/@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-scap-data-stream-collection" context="scap:data-stream-collection ">
       <sch:assert flag="WARNING" id="scap-general-latest-schematron-rules" test="exists(current()[@schematron-version='1.2'])">SRC-330-2|scap:data-stream-collection</sch:assert>

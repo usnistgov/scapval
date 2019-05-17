@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
   <requirement>169</requirement>
-  <description>An xccdf:Rule with @id "xccdf_NAMESPACE_rule_security_patches_up_to_date" and @multi-check=true SHALL reference an OVAL component that
-    contains two or more oval definition of class 'patch'. This schematron assert also covers SRC-275-1 If your content contains external
-    references, SCAPVal will attempt to resolve them in -online mode.</description>
+  <description>An XCCDF benchmark MAY include a patches up-to-date rule that SHALL reference an OVAL
+    source data stream component. This check ensures that XCCDF Rule IDs ending with security_patches_up_to_date utilize check @system of OVAL only.</description>
   <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
   xmlns:cpe-dict="http://cpe.mitre.org/dictionary/2.0"
   xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
   xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.2/templates/configuration-single-data-stream-base.xml">
-    <modify-attribute value="fdcc-ie7-oval.xml" xpath="//xccdf:Rule[@id = 'xccdf_gov.nist.scap_rule_security_patches_up_to_date']//xccdf:check-content-ref[1]/@href" />
+    <modify-attribute value="http://scap.nist.gov/schema/ocil/2" xpath="//xccdf:Rule[@id = 'xccdf_gov.nist.scap_rule_security_patches_up_to_date']//xccdf:check/@system" />
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.2.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
@@ -18,7 +17,9 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-169-2" result="FAIL" />
+    <!-- SRC-348-1 is expected to fail as we are only modifying the @system attribute for the purpose of this test -->
+    <assert-derived-requirement requirement-id="SRC-348-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

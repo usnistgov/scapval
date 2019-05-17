@@ -1141,6 +1141,12 @@
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
+            <derived-requirement id="SRC-169-2" type="MUST" scapval-ext:check-type="SCHEMATRON">
+                <statement>An XCCDF benchmark MAY include a patches up-to-date rule that SHALL reference an OVAL
+                    source data stream component. This check ensures that XCCDF Rule IDs ending with security_patches_up_to_date utilize check @system of OVAL only.
+                </statement>
+                <message>''{0}''</message>
+            </derived-requirement>
         </derived-requirements>
     </requirement>
     <requirement id="SRC-171">
