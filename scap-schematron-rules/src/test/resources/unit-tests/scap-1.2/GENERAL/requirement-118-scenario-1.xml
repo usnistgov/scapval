@@ -17,9 +17,10 @@
   </assessments>
   <assertions>
     <assert-derived-requirement requirement-id="SRC-118-1" result="FAIL" />
-    <!-- Also expect 351-1 and 262-1 to fail due to the @system modification for this test -->
+    <!-- Also expect 351-1, 262-1, and 169-2 to fail due to the @system modification for this test -->
     <assert-derived-requirement requirement-id="SRC-351-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-169-2" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

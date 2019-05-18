@@ -102,6 +102,9 @@ comments by email to scap@nist.gov.
 
 Changelog:
 ----------
+Version 1.3.4
+- Improved messaging when problems detected with remote components.
+
 Version 1.3.3
 - Added Bash launch script for OSX and *NIX usage
 - Resolved an error when running with later versions of Java

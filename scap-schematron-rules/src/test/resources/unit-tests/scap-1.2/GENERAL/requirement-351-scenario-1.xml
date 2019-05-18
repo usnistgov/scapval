@@ -27,6 +27,7 @@
     <!-- Also expect quite a few test to fail because we modified the system to a bad reference -->
     <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-118-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-169-2" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

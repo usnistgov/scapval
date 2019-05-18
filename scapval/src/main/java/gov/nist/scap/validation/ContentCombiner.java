@@ -435,12 +435,22 @@ public class ContentCombiner {
 
         URL remoteComponentURL = null;
 
+        // startsWith() will work for http and https
         if (xlinkHrefAttribute.getValue().startsWith("http")) {
-          // startsWith() will work for http and https
+          // Note: http redirects are currently not supported in SCAPVal
           // this is a remote file that needs to be read and merged into this DS
           try {
             // make sure the component-ref URL is valid
             remoteComponentURL = new URL(xlinkHrefAttribute.getValue());
+
+            if(!xlinkHrefAttribute.getValue().endsWith("xml")){
+              String errRemoteMustBeXML = "Remote component-ref must be an XML file. Invalid component-ref with id " +
+                idAttribute.getValue() + " and URL " + xlinkHrefAttribute.getValue() + " Will not download the remote component.";
+              log.info(errRemoteMustBeXML);
+              ValidationNotes.getInstance().createValidationNote(errRemoteMustBeXML);
+              continue;
+            }
+
           } catch (MalformedURLException e) {
             // Invalid external reference URL, log and move on
             log.info("Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and URL "
@@ -485,7 +495,6 @@ public class ContentCombiner {
         try {
           log.info("Found a remote component-ref with id " + idAttribute.getValue() + " and URL "
               + xlinkHrefAttribute.getValue() + " will attempt to acquire and include in validation.");
-
           // make sure the component-ref ID is valid and use that for the remote resource
           // component name
           String newComponentID = null;
@@ -543,10 +552,11 @@ public class ContentCombiner {
             // now add to original doc
             xmlDocument.getJDOMDocument().getRootElement().addContent(newComponent);
 
-            // if there were no problems, the content was added, include as a report
-            // note
-            ValidationNotes.getInstance().createValidationNote("Validation included remote component-ref with id "
-                + idAttribute.getValue() + " and url " + remoteComponentURL);
+            // if there were no problems, the content was added, include as a report note
+            String remoteContentIncluded = "Validation included remote component-ref with id "
+                    + idAttribute.getValue() + " and url " + remoteComponentURL;
+            ValidationNotes.getInstance().createValidationNote(remoteContentIncluded);
+            log.info(remoteContentIncluded);
           } else {
             // could not download the external reference, log and store as note
             log.info("Unable to download component-ref with id " + idAttribute.getValue() + " and url "
