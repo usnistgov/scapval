@@ -443,14 +443,6 @@ public class ContentCombiner {
             // make sure the component-ref URL is valid
             remoteComponentURL = new URL(xlinkHrefAttribute.getValue());
 
-            if(!xlinkHrefAttribute.getValue().endsWith("xml")){
-              String errRemoteMustBeXML = "Remote component-ref must be an XML file. Invalid component-ref with id " +
-                idAttribute.getValue() + " and URL " + xlinkHrefAttribute.getValue() + " Will not download the remote component.";
-              log.info(errRemoteMustBeXML);
-              ValidationNotes.getInstance().createValidationNote(errRemoteMustBeXML);
-              continue;
-            }
-
           } catch (MalformedURLException e) {
             // Invalid external reference URL, log and move on
             log.info("Invalid http/https location for component-ref with id " + idAttribute.getValue() + " and URL "
