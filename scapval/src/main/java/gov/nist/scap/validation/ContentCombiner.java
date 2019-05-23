@@ -557,12 +557,19 @@ public class ContentCombiner {
                 + idAttribute.getValue() + " and url " + xlinkHrefAttribute.getValue());
             continue;
           }
-        } catch (DocumentException | IOException e) {
+        } catch (IOException e) {
           // unable to download or merge with existing content, log and move on
-          log.info("Unable to utilize remote component-ref with id " + idAttribute.getValue() + " and url "
-              + remoteComponentURL + " - " + e.getMessage());
-          ValidationNotes.getInstance().createValidationNote("Unable to utilize remote component-ref with id "
-              + idAttribute.getValue() + " and url " + remoteComponentURL + " - " + e.getMessage());
+          String ioException = "Unable to utilize remote component-ref with id " + idAttribute.getValue() + " and url "
+                  + remoteComponentURL + " - " + e.getMessage();
+          ValidationNotes.getInstance().createValidationNote(ioException);
+          log.info(ioException);
+          continue;
+        } catch (DocumentException e) {
+          // problem with the downloaded remote component-ref
+          String docException = "There was a problem in the XML of remote component-ref with id " + idAttribute.getValue() + " and url "
+                  + remoteComponentURL + " Unable to utilize this remote component-ref. - " + e.getMessage();
+          log.info(docException);
+          ValidationNotes.getInstance().createValidationNote(docException);
           continue;
         }
       } else {
