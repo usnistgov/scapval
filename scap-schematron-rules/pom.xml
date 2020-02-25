@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>gov.nist.secauto.scap</groupId>
+		<groupId>gov.nist.secauto.scap.validation</groupId>
 		<artifactId>scapval-parent</artifactId>
 		<version>1.3.4-SNAPSHOT</version>
 	</parent>
@@ -31,7 +31,7 @@
 		</dependency>
 		<dependency>
 			<groupId>gov.nist.secauto.cpe</groupId>
-			<artifactId>mitre-cpe</artifactId>
+			<artifactId>cpe-reference-implementation</artifactId>
 		</dependency>
 	</dependencies>
 

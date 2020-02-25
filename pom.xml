@@ -8,7 +8,7 @@
 		<version>15-SNAPSHOT</version>
 	</parent>
 
-	<groupId>gov.nist.secauto.scap</groupId>
+	<groupId>gov.nist.secauto.scap.validation</groupId>
 	<artifactId>scapval-parent</artifactId>
 	<version>1.3.4-SNAPSHOT</version>
 
@@ -54,7 +54,7 @@
 	<properties>
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
 		<version.decima>0.6.4-SNAPSHOT</version.decima>
-		<version.mitre-cpe>1.0.8-SNAPSHOT</version.mitre-cpe>
+		<version.cpe-reference-implementation>1.0.8-SNAPSHOT</version.cpe-reference-implementation>
 		<plugin.version.swid-maven-plugin>0.6.1-SNAPSHOT</plugin.version.swid-maven-plugin>
 
 		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
@@ -92,8 +92,8 @@
 			</dependency>
 			<dependency>
 				<groupId>gov.nist.secauto.cpe</groupId>
-				<artifactId>mitre-cpe</artifactId>
-				<version>${version.mitre-cpe}</version>
+				<artifactId>cpe-reference-implementation</artifactId>
+				<version>${version.cpe-reference-implementation}</version>
 			</dependency>
 
 			<!-- SHA-256 hashing of target validation files -->
@@ -109,7 +109,7 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>gov.nist.secauto.mojo</groupId>
+					<groupId>gov.nist.secauto.scap.validation</groupId>
 					<artifactId>create-file-list-mojo</artifactId>
 					<version>${project.version}</version>
 				</plugin>

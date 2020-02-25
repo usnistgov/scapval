@@ -11,7 +11,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:ocil-2.0-templates/ocil-base.xml" />
   <assessments>
     <schematron-assessment ruleset="classpath:rules/other/ocil-2.0.sch"
-                           handler-class="gov.nist.scap.validation.Comp1ComponentSchematronHandler" >
+                           handler-class="gov.nist.secauto.scap.validation.Comp1ComponentSchematronHandler" >
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>

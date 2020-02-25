@@ -10,7 +10,7 @@
     <modify-attribute value="SCAP_1.1" xpath="//xccdf:Benchmark/@style" />
   </template>
   <assessments>
-    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.3.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler">
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.3.sch" handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler">
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>

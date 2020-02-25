@@ -11,7 +11,7 @@
     <defaultGoal>install</defaultGoal>
     <plugins>
       <plugin>
-        <groupId>gov.nist.secauto.mojo</groupId>
+        <groupId>gov.nist.secauto.scap.filelist</groupId>
         <artifactId>create-file-list-mojo</artifactId>
         <version>1.0.1-SNAPSHOT</version>
         <executions>

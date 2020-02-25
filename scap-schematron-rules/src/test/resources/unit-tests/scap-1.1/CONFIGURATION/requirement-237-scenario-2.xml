@@ -13,7 +13,7 @@
     <modify-attribute xpath="/ds:data-stream/ds:check-system-content[1]/oval-def:oval_definitions[1]/oval-def:definitions[1]/oval-def:definition[1]/oval-def:metadata[1]/oval-def:reference[1]/@ref_id" value="cpe:/o:microsoft:windows_xp" />
   </template>
   <assessments>
-    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler" phase="CONFIGURATION">
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler" phase="CONFIGURATION">
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>

@@ -16,7 +16,7 @@
     </template>
     <assessments>
         <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.2.sch"
-                               handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler"/>
+                               handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler"/>
     </assessments>
     <assertions>
         <assert-derived-requirement requirement-id="RES-126-1" result="PASS"/>

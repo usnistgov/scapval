@@ -11,7 +11,7 @@
   <sch:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
   <sch:ns prefix="ds" uri="http://scap.nist.gov/schema/scap/source/1.2"/>
   <sch:ns prefix="dsig" uri="http://www.w3.org/2000/09/xmldsig#"/>
-  <sch:ns prefix="java" uri="java:gov.nist.scap.schematron"/>
+  <sch:ns prefix="java" uri="java:gov.nist.secauto.scap.validation.schematron"/>
   <sch:ns prefix="nvd-config" uri="http://scap.nist.gov/schema/feed/configuration/0.1"/>
   <sch:ns prefix="ocil" uri="http://scap.nist.gov/schema/ocil/2.0"/>
   <sch:ns prefix="oval-com" uri="http://oval.mitre.org/XMLSchema/oval-common-5"/>

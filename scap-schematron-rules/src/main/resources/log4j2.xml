@@ -9,7 +9,7 @@
 		<Root level="WARN">
 			<AppenderRef ref="console"/>
 		</Root>
-		<logger name="gov.nist.scap.validation.requirements.decima.RequirementsTestParser" level="WARN" additivity="false">
+		<logger name="gov.nist.secauto.scap.validation.decima.requirements.RequirementsTestParser" level="WARN" additivity="false">
 			<AppenderRef ref="console"/>
 		</logger>
 		<logger name="gov.nist" level="INFO" additivity="false">

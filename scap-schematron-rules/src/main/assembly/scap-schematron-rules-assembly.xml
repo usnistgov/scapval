@@ -61,7 +61,7 @@
 	    <dependencySet>
 	      <outputDirectory>lib</outputDirectory>
 	      <includes>
-		<include>org.mitre.cpe:cpe:jar:2.3.1</include>
+		<include>gov.nist.secauto.cpe:cpe:jar:2.3.1</include>
 		<include>${project.groupId}:${project.artifactId}:jar:${project.version}</include>
 	      </includes>
 	    </dependencySet>

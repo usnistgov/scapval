@@ -10,7 +10,7 @@
     <delete xpath="/ds:data-stream//xccdf:check-content-ref" />
   </template>
   <assessments>
-    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.scap.validation.requirements.decima.SCAPSchematronHandler" phase="CONFIGURATION">
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.1.sch" handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler" phase="CONFIGURATION">
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>

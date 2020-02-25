@@ -22,7 +22,7 @@ Build the project with 'mvn package' and keep the resulting target\cpe-2.3.3.jar
 	java -cp %SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -s:source-data-stream-1.3.sch -xsl:%SCHEMATRON_HOME%\iso_svrl_for_xslt2.xsl -o:compiled.sch.xsl
 
 5) Run the resulting XSLT against the target SCAP content using the following command:
-	java -cp %SCAP_SCHEMATRON_HOME%\lib\scap-schematron-rules-1.3.2.jar;%cpe-2.3.3.jar;%SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -init:gov.nist.scap.schematron.Initializer -s:scap-source-content.xml -xsl:compiled.sch.xsl -o:results.xml
+	java -cp %SCAP_SCHEMATRON_HOME%\lib\scap-schematron-rules-1.3.2.jar;%cpe-2.3.3.jar;%SAXON_HOME%\saxon9he.jar net.sf.saxon.Transform -init:gov.nist.secauto.scap.validation.schematron.Initializer -s:scap-source-content.xml -xsl:compiled.sch.xsl -o:results.xml
 
 The results.xml file will contain any failed assertions. Each assertion will contain a requirement number (the
 requirement and derived requirement is separated by a dash (-)) which maps to the associated requirement file in

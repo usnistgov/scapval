@@ -14,7 +14,7 @@
   </template>
   <assessments>
     <schematron-assessment ruleset="classpath:rules/other/oval-definitions-schematron-5.9.sch"
-                           handler-class="gov.nist.scap.validation.Comp1ComponentSchematronHandler" >
+                           handler-class="gov.nist.secauto.scap.validation.Comp1ComponentSchematronHandler" >
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>
