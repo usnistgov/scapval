@@ -1,8 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>gov.nist.secauto</groupId>
+		<groupId>gov.nist.secauto.scap</groupId>
 		<artifactId>scapval-parent</artifactId>
 		<version>1.3.4-SNAPSHOT</version>
 	</parent>
@@ -11,6 +13,27 @@
 
 	<name>SCAP Schematron Rules</name>
 	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gov.nist.secauto.decima</groupId>
+			<artifactId>decima-xml-assessment</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>gov.nist.secauto.decima</groupId>
+			<artifactId>decima-xml-testing</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gov.nist.secauto.cpe</groupId>
+			<artifactId>mitre-cpe</artifactId>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -92,24 +115,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist.decima</groupId>
-			<artifactId>decima-xml-assessment</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist.decima</groupId>
-			<artifactId>decima-xml-testing</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist</groupId>
-			<artifactId>mitre-cpe</artifactId>
-		</dependency>
-	</dependencies>
 </project>
