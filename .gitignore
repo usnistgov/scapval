@@ -40,6 +40,6 @@ test.out
 target
 test-results
 bootstrap
-/scapval/validation-report.html
-/scapval/validation-result.xml
+validation-report.html
+validation-result.xml
 /release.properties

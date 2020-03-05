@@ -104,6 +104,7 @@ Changelog:
 ----------
 Version 1.3.4
 - Improved messaging when problems detected with remote components.
+- Now utilizing xercesImpl-2.12.0 dependency as implemented in Decima
 
 Version 1.3.3
 - Added Bash launch script for OSX and *NIX usage

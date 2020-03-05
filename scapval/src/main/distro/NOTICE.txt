@@ -151,7 +151,7 @@ Copyright (c) 2000-2010 Rick Jelliffe and Academia Sinica Computing Center, Taiw
       TypeUtil.java
       Copyright 2002-2012 Ramnivas Laddad, Juergen Hoeller, Chris Beams
 
-    xercesImpl-2.11.0.jar
+    xercesImpl-2.12.0.jar
 
       Apache Xerces Java
       Copyright 1999-2010 The Apache Software Foundation
