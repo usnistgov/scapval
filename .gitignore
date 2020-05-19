@@ -31,10 +31,10 @@ hs_err_pid*
 .classpath
 
 # Build specific files
-
 .pmd
 .pmdruleset.xml
 test.out
+.factorypath
 
 #SCAPVal output files
 target
