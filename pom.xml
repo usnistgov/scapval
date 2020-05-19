@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>gov.nist.secauto</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>15-SNAPSHOT</version>
+		<version>17</version>
 	</parent>
 
 	<groupId>gov.nist.secauto.scap.validation</groupId>
@@ -16,14 +16,57 @@
 
 	<name>SCAP Validation Tool Parent</name>
 	<description>An SCAP validation tool based on the requirements in SP 800-126.</description>
-	<url>https://github.com/usnistgov/scapval</url>
+	<url>${site.url}</url>
+
+	<properties>
+		<site.url>https://pages.nist.gov/scapval</site.url>
+		<scm.url>https://github.com/usnistgov/scapval</scm.url>
+		<issueManagement.url>https://github.com/usnistgov/scapval/issues</issueManagement.url>
+
+		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
+		<version.decima>0.6.4</version.decima>
+		<version.cpe-reference-implementation>1.0.8</version.cpe-reference-implementation>
+		<plugin.version.swid-maven-plugin>0.6.1</plugin.version.swid-maven-plugin>
+
+		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
+		<additionalparam>-Xdoclint:none</additionalparam>
+	</properties>
+
+	<issueManagement>
+		<url>${issueManagement.url}</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 
 	<scm>
-		<url>https://github.com/usnistgov/scapval</url>
-		<connection>scm:git:https://github.com/usnistgov/scapval.git</connection>
-		<developerConnection>scm:git:https://github.com/usnistgov/scapval.git</developerConnection>
+		<url>${scm.url}/tree/master</url>
+		<connection>scm:git:ssh://git@github.com/usnistgov/scapval.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/usnistgov/scapval.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<site>
+			<id>site_scm</id>
+			<url>${project.baseUri}</url>
+		</site>
+	</distributionManagement>
+
+	<licenses>
+		<license>
+			<name>NIST License</name>
+			<url>https://www.nist.gov/director/licensing</url>
+			<distribution>repo</distribution>
+			<comments>NIST software License</comments>
+		</license>
+	</licenses>
 
 	<developers>
 		<developer>
@@ -32,35 +75,17 @@
 			<email>david.waltermire@nist.gov</email>
 			<organization>National Institute of Standards and Technology</organization>
 			<roles>
-				<role>designer</role>
+				<role>maintainer</role>
 				<role>developer</role>
 			</roles>
 		</developer>
 	</developers>
 
 	<modules>
-		<module>create-file-list-mojo</module>
-		<module>scap-schematron-rules</module>
 		<module>scapval</module>
+		<module>scap-schematron-rules</module>
+		<module>create-file-list-mojo</module>
 	</modules>
-
-	<distributionManagement>
-		<site>
-			<id>scapval-public</id>
-			<url>test:/localhost/decima</url>
-		</site>
-	</distributionManagement>
-
-	<properties>
-		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
-		<version.decima>0.6.4-SNAPSHOT</version.decima>
-		<version.cpe-reference-implementation>1.0.8-SNAPSHOT</version.cpe-reference-implementation>
-		<plugin.version.swid-maven-plugin>0.6.1-SNAPSHOT</plugin.version.swid-maven-plugin>
-
-		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
-		<additionalparam>-Xdoclint:none</additionalparam>
-	</properties>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
