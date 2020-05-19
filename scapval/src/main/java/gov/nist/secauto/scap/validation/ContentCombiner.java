@@ -23,6 +23,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.secauto.scap.validation;
 
 import static gov.nist.secauto.decima.xml.document.CompositeXMLDocument.COMPOSITE_NS_URI;
@@ -547,8 +548,8 @@ public class ContentCombiner {
             xmlDocument.getJDOMDocument().getRootElement().addContent(newComponent);
 
             // if there were no problems, the content was added, include as a report note
-            String remoteContentIncluded = "Validation included remote component-ref with id "
-                    + idAttribute.getValue() + " and url " + remoteComponentURL;
+            String remoteContentIncluded = "Validation included remote component-ref with id " + idAttribute.getValue()
+                + " and url " + remoteComponentURL;
             ValidationNotes.getInstance().createValidationNote(remoteContentIncluded);
             log.info(remoteContentIncluded);
           } else {
@@ -562,13 +563,14 @@ public class ContentCombiner {
         } catch (IOException e) {
           // unable to download or merge with existing content, log and move on
           String ioException = "Unable to utilize remote component-ref with id " + idAttribute.getValue() + " and url "
-                  + remoteComponentURL + " - " + e.getMessage();
+              + remoteComponentURL + " - " + e.getMessage();
           ValidationNotes.getInstance().createValidationNote(ioException);
           log.info(ioException);
           continue;
         } catch (DocumentException e) {
           // problem with the downloaded remote component-ref
-          String docException = "There was a problem in the XML of remote component-ref with id " + idAttribute.getValue() + " and url "
+          String docException
+              = "There was a problem in the XML of remote component-ref with id " + idAttribute.getValue() + " and url "
                   + remoteComponentURL + " Unable to utilize this remote component-ref. - " + e.getMessage();
           log.info(docException);
           ValidationNotes.getInstance().createValidationNote(docException);

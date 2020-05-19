@@ -23,6 +23,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.secauto.scap.validation;
 
 import static gov.nist.secauto.decima.module.cli.CLIParser.DEFAULT_VALIDATION_REPORT_FILE;
@@ -51,7 +52,7 @@ public class SCAPValWrapperTest {
   public static void initialize() {
     ClasspathHandler.initialize();
   }
-  
+
   @Test
   public void runSCAP() throws Exception {
 

@@ -41,14 +41,15 @@ public class ResourceResolverExtension implements gov.nist.secauto.decima.xml.se
   private static XMLCatalogResolver instance() {
     Object lock = ResourceResolverExtension.class;
     synchronized (lock) {
-        if (instance == null) {
-          ClasspathHandler.initialize();
+      if (instance == null) {
+        ClasspathHandler.initialize();
 
-          instance = new XMLCatalogResolver(new String[] { "classpath:scapval-xsd/scapval-catalog.xml" });
-        }
-        return instance;
+        instance = new XMLCatalogResolver(new String[] { "classpath:scapval-xsd/scapval-catalog.xml" });
+      }
+      return instance;
     }
   }
+
   @Override
   public EntityResolver2 getEntityResolver() {
     return instance();
