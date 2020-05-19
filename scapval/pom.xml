@@ -244,9 +244,9 @@
 								<resource>
 									<directory>${project.basedir}/install</directory>
 									<includes>
-										<include> *.html </include>
-										<include> *.txt </include>
-										<include> scapval-xml2html.xsl </include>
+										<include>*.html</include>
+										<include>*.txt</include>
+										<include>scapval-xml2html.xsl</include>
 									</includes>
 								</resource>
 							</resources>
@@ -312,7 +312,6 @@
 			<plugin>
 				<groupId>gov.nist.secauto.scap.validation</groupId>
 				<artifactId>create-file-list-mojo</artifactId>
-				<version>${project.parent.version}</version>
 				<executions>
 					<execution>
 						<id>oval-schema-list</id>

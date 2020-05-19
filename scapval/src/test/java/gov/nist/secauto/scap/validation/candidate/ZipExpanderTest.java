@@ -23,6 +23,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.secauto.scap.validation.candidate;
 
 import org.junit.Test;
@@ -39,105 +40,100 @@ import org.junit.BeforeClass;
 
 public class ZipExpanderTest {
 
-    private final ZipExpander expander = new ZipExpander(1024);
+  private final ZipExpander expander = new ZipExpander(1024);
 
-    @BeforeClass
-    public static void initialize() {
-      ClasspathHandler.initialize();
+  @BeforeClass
+  public static void initialize() {
+    ClasspathHandler.initialize();
+  }
+
+  @Test
+  public void testExpand() throws Exception {
+    File file = null;
+    File result = null;
+    try {
+      file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/SharePoint" + ".zip").getFile());
+      result = this.expander.expand(file);
+      assertTrue(result.exists());
+
+      final File[] children = result.listFiles();
+      assertEquals(6, children.length);
+
+      // the order of listFiles is different per OS so we will just iterate through a list of expected
+      // files and use a flag
+      String[] expectedFileNames = { "Documentation", "sp2007-cpe-dictionary.xml", "sp2007-cpe-oval.xml",
+          "sp2007-ocil.xml", "sp2007-oval.xml", "sp2007-xccdf.xml" };
+
+      for (String expectedFileName : expectedFileNames) {
+        Boolean hasExpectedFile = false;
+
+        for (File child : children) {
+          if (expectedFileName.equals(child.getName())) {
+            hasExpectedFile = true;
+          }
+        }
+        if (!hasExpectedFile) {
+          // if we get here it was not found
+          throw new AssertionError("Did not find expected file " + expectedFileName);
+        }
+      }
+
+    } finally {
+      // clean up
+      this.expander.deleteDirectory(result);
+    }
+  }
+
+  @Test
+  public void testExpand2() throws Exception {
+    File file = null;
+    File result = null;
+    try {
+      file = new File(new URL(
+          "classpath:src/test/resources/candidates/scap-11-zip-with-extra" + "-files/R1100-scap11-extra-file.zip")
+              .getFile());
+      result = this.expander.expand(file);
+      assertTrue(result.exists());
+
+      final File[] children = result.listFiles();
+      assertEquals(7, children.length);
+
+    } finally {
+      // clean up
+      expander.deleteDirectory(result);
+    }
+  }
+
+  @Test
+  public void testZipExceptions() throws Exception {
+    // not a ZIP file
+    final File file = new File(
+        new URL("classpath:src/test/resources/candidates/components/xccdf" + "/xccdf-114-xml/fdcc-winvista-xccdf.xml")
+            .getFile());
+    try {
+      this.expander.expand(file);
+      fail("Should have throw exception, file is not zip");
+    } catch (IllegalStateException e) {
+      // expected
     }
 
-    @Test
-    public void testExpand() throws Exception {
-        File file = null;
-        File result = null;
-        try {
-            file = new File(new URL("classpath:src/test/resources/candidates/scap-11-zip/SharePoint" + ".zip").getFile());
-            result = this.expander.expand(file);
-            assertTrue(result.exists());
+    File conflict = null;
+    File target = null;
+    try {
+      // target folder already exists
+      final String name = "classpath:src/test/resources/candidates/scap-11-zip";
+      // TDOD: Do not create test files on the classpath
+      final File parent = new File(new URL(name).getFile());
+      conflict = new File(parent, "SharePoint");
+      conflict.mkdirs();
+      target = this.expander.expand(new File(new URL(String.format("%s/SharePoint.zip", name)).getFile()));
 
-            final File[] children = result.listFiles();
-            assertEquals(6, children.length);
-
-            //the order of listFiles is different per OS so we will just iterate through a list of expected files and use a flag
-            String[] expectedFileNames = {
-                    "Documentation",
-                    "sp2007-cpe-dictionary.xml",
-                    "sp2007-cpe-oval.xml",
-                    "sp2007-ocil.xml",
-                    "sp2007-oval.xml",
-                    "sp2007-xccdf.xml"
-            };
-
-            for (String expectedFileName : expectedFileNames) {
-                Boolean hasExpectedFile = false;
-
-                for (File child : children) {
-                    if (expectedFileName.equals(child.getName())) {
-                        hasExpectedFile = true;
-                    }
-                }
-                if (!hasExpectedFile) {
-                    //if we get here it was not found
-                    throw new AssertionError("Did not find expected file " + expectedFileName);
-                }
-            }
-
-        } finally {
-            // clean up
-            this.expander.deleteDirectory(result);
-        }
+      assertEquals("SharePoint0", target.getName());
+    } finally {
+      this.expander.deleteDirectory(target);
+      this.expander.deleteDirectory(conflict);
     }
 
-    @Test
-    public void testExpand2() throws Exception {
-        File file = null;
-        File result = null;
-        try {
-            file = new File(new URL(
-                    "classpath:src/test/resources/candidates/scap-11-zip-with-extra" + "-files/R1100-scap11-extra-file.zip")
-                    .getFile());
-            result = this.expander.expand(file);
-            assertTrue(result.exists());
-
-            final File[] children = result.listFiles();
-            assertEquals(7, children.length);
-
-        } finally {
-            // clean up
-            expander.deleteDirectory(result);
-        }
-    }
-
-    @Test
-    public void testZipExceptions() throws Exception {
-        // not a ZIP file
-        final File file = new File(
-                new URL("classpath:src/test/resources/candidates/components/xccdf" + "/xccdf-114-xml/fdcc-winvista-xccdf.xml")
-                        .getFile());
-        try {
-            this.expander.expand(file);
-            fail("Should have throw exception, file is not zip");
-        } catch (IllegalStateException e) {
-            // expected
-        }
-
-        File conflict = null;
-        File target = null;
-        try {
-            // target folder already exists
-            final String name = "classpath:src/test/resources/candidates/scap-11-zip";
-            // TDOD: Do not create test files on the classpath
-            final File parent = new File(new URL(name).getFile());
-            conflict = new File(parent, "SharePoint");
-            conflict.mkdirs();
-            target = this.expander.expand(new File(new URL(String.format("%s/SharePoint.zip", name)).getFile()));
-
-            assertEquals("SharePoint0", target.getName());
-        } finally {
-            this.expander.deleteDirectory(target);
-            this.expander.deleteDirectory(conflict);
-        }
-
-    }
+  }
 
 }

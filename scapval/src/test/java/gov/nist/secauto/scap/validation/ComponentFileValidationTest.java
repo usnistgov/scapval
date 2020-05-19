@@ -23,6 +23,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.secauto.scap.validation;
 
 import gov.nist.secauto.decima.core.assessment.result.BaseRequirementResult;
@@ -45,7 +46,7 @@ public class ComponentFileValidationTest {
   public static void initialize() {
     ClasspathHandler.initialize();
   }
-  
+
   @Test
   public void OVALPassTest() throws Exception {
     String testFile = new File(new URL(

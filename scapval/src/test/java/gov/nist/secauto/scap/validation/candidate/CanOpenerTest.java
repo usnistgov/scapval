@@ -23,6 +23,7 @@
  * PROPERTY OR OTHERWISE, AND WHETHER OR NOT LOSS WAS SUSTAINED FROM, OR AROSE OUT
  * OF THE RESULTS OF, OR USE OF, THE SOFTWARE OR SERVICES PROVIDED HEREUNDER.
  */
+
 package gov.nist.secauto.scap.validation.candidate;
 
 import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
@@ -74,8 +75,9 @@ public class CanOpenerTest {
       final CandidateFile root = candidates.get(0);
 
       assertTrue(root.getAbsolutePath()
-          .endsWith("src"+FileUtils.PATH_SEPERATOR+"test"+FileUtils.PATH_SEPERATOR+"resources"+FileUtils.PATH_SEPERATOR+
-                  "candidates"+FileUtils.PATH_SEPERATOR+"scap-11-zip-with-extra-files"+FileUtils.PATH_SEPERATOR+"Win7-53-1.2.1.0"));
+          .endsWith("src" + FileUtils.PATH_SEPERATOR + "test" + FileUtils.PATH_SEPERATOR + "resources"
+              + FileUtils.PATH_SEPERATOR + "candidates" + FileUtils.PATH_SEPERATOR + "scap-11-zip-with-extra-files"
+              + FileUtils.PATH_SEPERATOR + "Win7-53-1.2.1.0"));
       assertEquals(CandidateFile.Type.UNKNOWN, root.getType());
 
       // the first file is a sample readme file, not SCAP
@@ -92,13 +94,13 @@ public class CanOpenerTest {
       // there are 2 validatable SCAP bundles
       assertEquals(2, result.getValidatableCandidates().size());
 
-      if(result.getValidatableCandidates().get(0).getName().equals("Win7")){
-        //Win7 candidate should contain 6 types
+      if (result.getValidatableCandidates().get(0).getName().equals("Win7")) {
+        // Win7 candidate should contain 6 types
         assertEquals(result.getValidatableCandidates().get(0).getScapContentTypes().size(), 6);
         assertEquals(result.getValidatableCandidates().get(1).getScapContentTypes().size(), 5);
-      }else{
+      } else {
         assertEquals(result.getValidatableCandidates().get(0).getScapContentTypes().size(), 5);
-        //Win7 candidate should contain 6 types
+        // Win7 candidate should contain 6 types
         assertEquals(result.getValidatableCandidates().get(1).getScapContentTypes().size(), 6);
       }
 
@@ -144,8 +146,8 @@ public class CanOpenerTest {
   private void checkScapBundle(final String expectedName, List<CandidateFile> candidates) {
 
     CandidateFile candidate = null;
-    for(CandidateFile candidateFile : candidates){
-      if(candidateFile.getName().equals(expectedName)){
+    for (CandidateFile candidateFile : candidates) {
+      if (candidateFile.getName().equals(expectedName)) {
         candidate = candidateFile;
       }
     }
@@ -179,8 +181,10 @@ public class CanOpenerTest {
 
       final CandidateFile bundle = candidates.get(0);
       assertEquals("R1100-scap11.zip", bundle.getName());
-      assertTrue(bundle.getAbsolutePath().endsWith("src"+FileUtils.PATH_SEPERATOR+"test"+FileUtils.PATH_SEPERATOR+"resources"+
-              FileUtils.PATH_SEPERATOR+"candidates"+FileUtils.PATH_SEPERATOR+"scap-11-zip"+FileUtils.PATH_SEPERATOR+"R1100-scap11"));
+      assertTrue(bundle.getAbsolutePath()
+          .endsWith("src" + FileUtils.PATH_SEPERATOR + "test" + FileUtils.PATH_SEPERATOR + "resources"
+              + FileUtils.PATH_SEPERATOR + "candidates" + FileUtils.PATH_SEPERATOR + "scap-11-zip"
+              + FileUtils.PATH_SEPERATOR + "R1100-scap11"));
       assertTrue(bundle.isExpanded());
       assertEquals(CandidateFile.Type.SCAP_BUNDLE, bundle.getType());
     } finally {
@@ -213,8 +217,9 @@ public class CanOpenerTest {
       final CandidateFile bundle = candidates.get(0);
       assertEquals("R1100-scap11-extra-file.zip", bundle.getName());
       assertTrue(bundle.getAbsolutePath()
-          .endsWith("src"+FileUtils.PATH_SEPERATOR+"test"+FileUtils.PATH_SEPERATOR+"resources"+FileUtils.PATH_SEPERATOR+"candidates"+
-                  FileUtils.PATH_SEPERATOR+"scap-11-zip-with-extra-files"+FileUtils.PATH_SEPERATOR+"R1100-scap11-extra" + "-file"));
+          .endsWith("src" + FileUtils.PATH_SEPERATOR + "test" + FileUtils.PATH_SEPERATOR + "resources"
+              + FileUtils.PATH_SEPERATOR + "candidates" + FileUtils.PATH_SEPERATOR + "scap-11-zip-with-extra-files"
+              + FileUtils.PATH_SEPERATOR + "R1100-scap11-extra" + "-file"));
       assertTrue(bundle.isExpanded());
       assertEquals(CandidateFile.Type.SCAP_BUNDLE, bundle.getType());
     } finally {
