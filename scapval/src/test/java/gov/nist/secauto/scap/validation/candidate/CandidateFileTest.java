@@ -32,21 +32,19 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.Test;
+
 import gov.nist.secauto.scap.validation.SCAPVersion;
-import gov.nist.secauto.scap.validation.candidate.CandidateFile;
 import gov.nist.secauto.scap.validation.component.SCAP11Components;
 import gov.nist.secauto.scap.validation.component.XccdfVersion;
 import gov.nist.secauto.scap.validation.utils.FileUtils;
-
-import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CandidateFileTest {
-  String property = "java.io.tmpdir";
-  String tmpDir = System.getProperty(property);
+  String tmpDir = FileUtils.getTmpDir();
 
   @Test
   public void testTypeUnknown() {
