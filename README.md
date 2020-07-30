@@ -20,7 +20,7 @@ This repository contains the Security Content Automation Protocol Validator (SCA
 
 Requires Java Runtime Environment (JRE) 1.8 or higher.
 
-If the JAVA_HOME variable is set then the JRE which is at that location will be used. Otherwise the JRE available on the path is used.
+If the JAVA_HOME variable is set, the JRE which is at that location will be used. Otherwise the JRE available on the path is used.
 
 ## Build Notes
 
@@ -31,7 +31,7 @@ SCAPVal utilizes Apache Maven to build and has the following dependencies:
 - scap-schematron-rules - included in this repository /scap-schematron-rules
 - Apache Commons Codec - available via Maven Central
 - junit - available via Maven Central
-- mitre-cpe - currently not available in Maven Central
+- mitre-cpe - available in Maven Central
 
 Once all the above dependencies have been acquired and installed in your local maven repository.
 
