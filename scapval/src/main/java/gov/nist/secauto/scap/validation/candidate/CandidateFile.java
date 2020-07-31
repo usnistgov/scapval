@@ -26,24 +26,22 @@
 
 package gov.nist.secauto.scap.validation.candidate;
 
-import gov.nist.secauto.scap.validation.SCAPVersion;
-import gov.nist.secauto.scap.validation.component.SCAP11Components;
-import gov.nist.secauto.scap.validation.component.XccdfVersion;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import gov.nist.secauto.scap.validation.SCAPVersion;
+import gov.nist.secauto.scap.validation.component.SCAP11Components;
+import gov.nist.secauto.scap.validation.component.XccdfVersion;
+
 /**
  * CandidateFile has information about a File (xml, zip, folder, etc) which may or may not be
  * eligible for validation by the SCAPVAL tools.
  *
- * There are four types of CandidateFile:
- * <li>SCAP_BUNDLE is a folder or zip file containing SCAP 1.1 files.</li>
- * <li>SCAP_COMBINED_FILE is an SCAP 1.2/1.3 XML file.</li>
- * <li>STANDALONE_XCCDF is an XCCDF XML file.</li>
- * <li>UNKNOWN is an unrecognized file, not of the above types.</li>
+ * There are four types of CandidateFile: SCAP_BUNDLE is a folder or zip file containing SCAP 1.1
+ * files. SCAP_COMBINED_FILE is an SCAP 1.2/1.3 XML file. STANDALONE_XCCDF is an XCCDF XML file.
+ * UNKNOWN is an unrecognized file, not of the above types.
  * <p>
  * If the type is SCAP_BUNDLE, then it has one or more SCAP content types.
  * <p>
