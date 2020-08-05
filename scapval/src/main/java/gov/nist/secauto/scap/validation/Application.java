@@ -82,6 +82,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -276,7 +277,7 @@ public class Application {
   protected CommandLine parseCLI(String[] args)
       throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
     Objects.requireNonNull(args, "args cannot be null.");
-
+    ValidationNotes.getInstance().createValidationNote("SCAPVal arguments provided: " + Arrays.toString(args));
     cliParser = new CLIParser("scapval <options>");
     cliParser.setVersion(Messages.getVersion());
     // required SCAP source or results content to check

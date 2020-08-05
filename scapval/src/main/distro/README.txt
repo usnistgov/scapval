@@ -102,6 +102,10 @@ comments by email to scap@nist.gov.
 
 Changelog:
 ----------
+Version 1.3.5
+- Including user provided arguments in the SCAPVal report now.
+- Fixes to A-27-1 schematron assert
+
 Version 1.3.4
 - Improved messaging when problems detected with remote components.
 - Removed .xml file extension check for remote references.

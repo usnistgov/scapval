@@ -29,6 +29,9 @@ requirement and derived requirement is separated by a dash (-)) which maps to th
 /requirements, as well as the failed test condition and location of the failed item.
 
 Change Log:
+1.3.5
+- Fixed derived requirement A-27-1 which now properly assesses <cpe:check-fact-ref> in cases where OCIL is used.
+
 1.3.4
 - Added new derived requirement 169-2 which assures An XCCDF patches up-to-date rule uses an OVAL check system only.
 
