@@ -33,6 +33,7 @@ import gov.nist.secauto.decima.xml.schematron.SchematronCompilationException;
 import gov.nist.secauto.scap.validation.Application.ContentType;
 import gov.nist.secauto.scap.validation.exceptions.ConfigurationException;
 import gov.nist.secauto.scap.validation.exceptions.SCAPException;
+import gov.nist.secautotrust.signature.exception.TMSADException;
 
 import org.apache.commons.cli.ParseException;
 import org.jdom2.JDOMException;
@@ -60,7 +61,7 @@ public class SCAPValWrapper {
   public static SCAPValAssessmentResults run(String[] args, URI logFileLocation)
       throws IOException, ConfigurationException, URISyntaxException, AssessmentException, JDOMException,
       SchematronCompilationException, SAXException, RequirementsParserException, SCAPException, TransformerException,
-      ParseException, DocumentException {
+      ParseException, DocumentException, TMSADException {
     Objects.requireNonNull(args, "args can not be null.");
 
     Application application = new Application();

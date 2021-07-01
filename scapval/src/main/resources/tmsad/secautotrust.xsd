@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://scap.nist.gov/tmsad/input"
+  xmlns:tm="http://scap.nist.gov/tmsad/input" jaxb:version="1.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+  elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo>
+      <jaxb:globalBindings>
+        <jaxb:javaType name="java.lang.Integer" xmlType="xs:boolean" parseMethod="gov.nist.scap.signature.BooleanMarshaller.parseMethod" printMethod="gov.nist.scap.signature.BooleanMarshaller.printMethod"/>
+      </jaxb:globalBindings>
+    </xs:appinfo>
+  </xs:annotation>
+
+  <xs:element name="signs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tm:sign" maxOccurs="unbounded"/>
+        <xs:element minOccurs="0" name="xpath-namespace-prefix-map">
+          <xs:annotation>
+            <xs:documentation>A mapping of prefixes to namespaces for all of the xpath expressions in this
+              configuration.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="ns">
+                <xs:annotation>
+                  <xs:documentation>A prefix to namespace map.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="prefix" type="xs:token" use="required"/>
+                  <xs:attribute name="uri" type="xs:anyURI" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="output-file" type="xs:normalizedString" use="required">
+        <xs:annotation>
+          <xs:documentation>The file where the output of the signing process should be written to.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="source-file" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation>The file that will be used to embed each signature. It MUST be an XML document. This file
+            will not overridden, but instead the contents will be written to the output, along with the
+            signature.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sign">
+    <xs:annotation>
+      <xs:documentation>The parent element to initiate a signing request.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="key-info">
+          <xs:annotation>
+            <xs:documentation>Information to get the key to use for signing.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="key-store" use="required">
+              <xs:annotation>
+                <xs:documentation>The path to a Java Keystore Store (JKS), or specify "MSCAPI" to use a certificate
+                  installed in Windows.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="alias" use="required">
+              <xs:annotation>
+                <xs:documentation>The alias of the certificate to use for signing. The certificate MUST have a private
+                  key attached to it.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="insert">
+          <xs:annotation>
+            <xs:documentation>Specify this element if the signature should be embedded in an existing XML
+              document.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="insert-xpath" type="xs:normalizedString" use="required">
+              <xs:annotation>
+                <xs:documentation>The XPath to a single node with the signature will be written. See @insert-as-sibling
+                  for additional information.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="insert-as-sibling" default="false" type="xs:boolean">
+              <xs:annotation>
+                <xs:documentation>If true, the signature will be placed as the immediate preceding sibling of the
+                  element identified in @insert-xpath. If false, the signaturew will be placed as the last child of the
+                  element identified in @insert-xpath. Namespace/prefix maps for this XPath expression MUST be defined
+                  in &lt;xpath-namespace-prefix-map&gt; element.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" ref="tm:reference">
+          <xs:annotation>
+            <xs:documentation>A signature reference. This reference MUST be resolvable, and validate, in order to verify
+              the signature.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="manifest" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>A manifest for the signature. A reference will automatically be created on the signature
+              for the manifest.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" ref="tm:reference">
+                <xs:annotation>
+                  <xs:documentation>A reference on the manifest. This reference need not validate in order to verify the
+                    signature.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="signature-property">
+          <xs:annotation>
+            <xs:documentation>Any arbitrary XML information to be captured about the signature.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any namespace="##other" processContents="lax"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="creators" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The person, organization, or tool that created the signature.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="signature-type" type="tm:signature-type" use="required">
+        <xs:annotation>
+          <xs:documentation>The type of encryption to use for the signature.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="canonicalization" type="tm:canonicalization-type"
+        default="http://www.w3.org/2006/12/xml-c14n11">
+        <xs:annotation>
+          <xs:documentation>The type of canonicalization to use on the signature and any generated references (e.g. to
+            manifests, signature properties, objects).</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="digest-type" type="tm:digest-type" default="http://www.w3.org/2001/04/xmlenc#sha512">
+        <xs:annotation>
+          <xs:documentation>The type of hash algorithm to use for generated reference (e.g. to manifests, signature
+            properties, objects).</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="signature-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+      <xs:enumeration value="http://www.w3.org/2000/09/xmldsig#hmac-sha1"/>
+      <xs:enumeration value="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <xs:enumeration value="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+      <xs:enumeration value="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="canonicalization-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <xs:enumeration value="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/>
+      <xs:enumeration value="http://www.w3.org/2006/12/xml-c14n11"/>
+      <xs:enumeration value="http://www.w3.org/2006/12/xml-c14n11#WithComments"/>
+      <xs:enumeration value="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="digest-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="http://www.w3.org/2000/09/xmldsig#sha1"/>
+      <xs:enumeration value="http://www.w3.org/2001/04/xmlenc#sha256"/>
+      <xs:enumeration value="http://www.w3.org/2001/04/xmlenc#sha512"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="xpath-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INTERSECT"/>
+      <xs:enumeration value="SUBTRACT"/>
+      <xs:enumeration value="UNION"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="reference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="xpath" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>An XPath Filter 2 transform for the reference.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="expression" type="xs:normalizedString" use="required">
+              <xs:annotation>
+                <xs:documentation>The XPath expression to apply to the reference. Namespace/prefix mappings for this
+                  xpath expression MUST be specified in &lt;xpath-namespace-prefix-map&gt; element.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="type" type="tm:xpath-type" use="required">
+              <xs:annotation>
+                <xs:documentation>The type of XPath Filter 2.0 filter to apply.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="uri" type="xs:anyURI" use="required">
+        <xs:annotation>
+          <xs:documentation>The URI for the reference. This MUST NOT be a same-document reference (e.g. "#") if the
+            &lt;insert&gt; element is not specified.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="digest-type" type="tm:digest-type" default="http://www.w3.org/2001/04/xmlenc#sha512">
+        <xs:annotation>
+          <xs:documentation>The type of hash algorithm to use for the reference.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="canonicalization" type="tm:canonicalization-type"
+        default="http://www.w3.org/2006/12/xml-c14n11">
+        <xs:annotation>
+          <xs:documentation>The canonicalization method to use for the reference. If none is specified, a default will
+            be used.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="type" type="tm:reference-type">
+        <xs:annotation>
+          <xs:documentation>Indicates the type of reference. Specify ENVELOPED if the created signature will be within
+            scope of the reference. Choose ENVELOPING if the reference content should be captured as an object on the
+            signature. Leave this unspecified if neither situation applies.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="reference-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ENVELOPED"/>
+      <xs:enumeration value="ENVELOPING"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

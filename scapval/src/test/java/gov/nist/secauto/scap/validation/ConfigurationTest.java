@@ -28,9 +28,9 @@ package gov.nist.secauto.scap.validation;
 
 import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
 import gov.nist.secauto.decima.core.document.DocumentException;
-import gov.nist.secauto.scap.validation.Application;
 import gov.nist.secauto.scap.validation.exceptions.ConfigurationException;
 import gov.nist.secauto.scap.validation.exceptions.SCAPException;
+import gov.nist.secautotrust.signature.exception.TMSADException;
 
 import org.apache.commons.cli.AlreadySelectedException;
 import org.apache.commons.cli.ParseException;
@@ -45,7 +45,9 @@ import java.net.URL;
 import static org.junit.Assert.fail;
 
 public class ConfigurationTest {
-  File testfile1;
+  File scapTestFile;
+  File signedScapTestFile;
+  File testjksFile;
 
   @BeforeClass
   public static void initialize() {
@@ -54,9 +56,12 @@ public class ConfigurationTest {
 
   public ConfigurationTest() {
     try {
-      testfile1 = new File(
+      scapTestFile = new File(
           new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
               .getFile());
+      signedScapTestFile
+          = new File(new URL("classpath:src/test/resources/tmsad/scap-data-stream-signed.xml").getFile());
+      testjksFile = new File(new URL("classpath:src/test/resources/tmsad/test.jks").getFile());
     } catch (MalformedURLException e) {
       fail(e.getMessage());
     }
@@ -66,8 +71,9 @@ public class ConfigurationTest {
   public void testGoodOptions1() {
     try {
       new Application().parseCLI(
-          new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-file", testfile1.getAbsolutePath() });
-    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException e) {
+          new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
+    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException
+        | TMSADException e) {
       fail(e.getMessage());
     }
   }
@@ -75,8 +81,9 @@ public class ConfigurationTest {
   @Test
   public void testGoodOptions2() {
     try {
-      new Application().parseCLI(new String[] { "-scapversion", "1.2", "-file", testfile1.getAbsolutePath() });
-    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException e) {
+      new Application().parseCLI(new String[] { "-scapversion", "1.2", "-file", scapTestFile.getAbsolutePath() });
+    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException
+        | TMSADException e) {
       fail(e.getMessage());
     }
   }
@@ -85,8 +92,9 @@ public class ConfigurationTest {
   public void testGoodOptions3() {
     try {
       new Application()
-          .parseCLI(new String[] { "-scapversion", "1.2", "-file", testfile1.getAbsolutePath(), "-debug" });
-    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException e) {
+          .parseCLI(new String[] { "-scapversion", "1.2", "-file", scapTestFile.getAbsolutePath(), "-debug" });
+    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException
+        | TMSADException e) {
       fail(e.getMessage());
     }
   }
@@ -94,99 +102,108 @@ public class ConfigurationTest {
   @Test
   public void testGoodOptions4() {
     try {
-      new Application().parseCLI(new String[] { "-componentfile", testfile1.getAbsolutePath(), "-debug" });
-    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException e) {
+      new Application().parseCLI(new String[] { "-componentfile", scapTestFile.getAbsolutePath(), "-debug" });
+    } catch (ParseException | ConfigurationException | SCAPException | IOException | DocumentException
+        | TMSADException e) {
       fail(e.getMessage());
     }
   }
 
   @Test(expected = ParseException.class)
   public void testBadOptions1()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(
-        new String[] { "-scapversion", "1.0", "-usecase", "CONFIGURATION", "-file", testfile1.getAbsolutePath() });
+        new String[] { "-scapversion", "1.0", "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions2()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
-    new Application().parseCLI(new String[] { "-usecase", "CONFIGURATION", "-file", testfile1.getAbsolutePath() });
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+    new Application().parseCLI(new String[] { "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ParseException.class)
   public void testBadOptions3()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(new String[] { "-scapversion", "1.0", "-usecase", "CONFIGURATION", "-file",
-        testfile1.getAbsolutePath(), "-dir", testfile1.getAbsolutePath() });
+        scapTestFile.getAbsolutePath(), "-dir", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ParseException.class)
   public void testBadOptions4()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-file",
-        testfile1.getAbsolutePath(), "-cats", testfile1.getAbsolutePath() });
+        scapTestFile.getAbsolutePath(), "-cats", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions5()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application()
-        .parseCLI(new String[] { "-scapversion", "1.3", "-usecase", "CARS", "-file", testfile1.getAbsolutePath() });
+        .parseCLI(new String[] { "-scapversion", "1.3", "-usecase", "CARS", "-file", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions6()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application()
         .parseCLI(new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-file", "whatfile.xml" });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions7()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(
-        new String[] { "-scapversion", "1.1", "-usecase", "CONFIGURATION", "-file", testfile1.getAbsolutePath() });
+        new String[] { "-scapversion", "1.1", "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions8()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(new String[] { "-scapversion", "1.1",
         // "-usecase", "CONFIGURATION",
-        "-file", testfile1.getAbsolutePath() });
+        "-file", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions9()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(
-        new String[] { "-scapversion", "1.3", "-usecase", "OVAL_ONLY", "-file", testfile1.getAbsolutePath() });
+        new String[] { "-scapversion", "1.3", "-usecase", "OVAL_ONLY", "-file", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions10()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(
-        new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-dir", testfile1.getAbsolutePath() });
+        new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-dir", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions11()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-dir",
-        testfile1.getParentFile().getAbsolutePath() });
+        scapTestFile.getParentFile().getAbsolutePath() });
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions12()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
-    new Application().parseCLI(new String[] { "-scapversion", "1.2", "-componentfile", testfile1.getAbsolutePath() });
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+    new Application()
+        .parseCLI(new String[] { "-scapversion", "1.2", "-componentfile", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = AlreadySelectedException.class)
   public void testBadOptions13()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
-    new Application()
-        .parseCLI(new String[] { "-file", testfile1.getAbsolutePath(), "-componentfile", testfile1.getAbsolutePath() });
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+    new Application().parseCLI(
+        new String[] { "-file", scapTestFile.getAbsolutePath(), "-componentfile", scapTestFile.getAbsolutePath() });
   }
+
+  @Test(expected = TMSADException.class)
+  public void testBadOptions14()
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+    new Application().parseCLI(new String[] { "-" + Application.OPTION_LIST_CERTIFICATE_ALIAS, "nothing_here" });
+  }
+
 }

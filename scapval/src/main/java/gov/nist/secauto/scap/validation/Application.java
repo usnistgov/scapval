@@ -55,6 +55,7 @@ import gov.nist.secauto.scap.validation.exceptions.SCAPException;
 import gov.nist.secauto.scap.validation.utils.FileUtils;
 import gov.nist.secauto.scap.validation.utils.SCAPUtils;
 import gov.nist.secauto.scap.validation.utils.XMLUtils;
+import gov.nist.secautotrust.signature.exception.TMSADException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
@@ -90,6 +91,13 @@ import java.util.concurrent.Executors;
 
 import javax.xml.transform.TransformerException;
 
+import static gov.nist.secautotrust.signature.SecAutoTrustMain.createScapSignConfig;
+import static gov.nist.secautotrust.signature.SecAutoTrustMain.listAliases;
+import static gov.nist.secautotrust.signature.SecAutoTrustMain.listTrustChain;
+import static gov.nist.secautotrust.signature.SecAutoTrustMain.sign;
+import static gov.nist.secautotrust.signature.SecAutoTrustMain.validateSignature;
+import static java.lang.System.exit;
+
 public class Application {
 
   private static final String OPTION_COMPONENT_FILE = "componentfile";
@@ -104,6 +112,13 @@ public class Application {
   private static final String OPTION_SOURCE_DS = "sourceds";
   private static final String OPTION_USECASE = "usecase";
 
+  // tmsad options
+  public static final String OPTION_CREATE_SIG_CONFIG = "createsigconfig";
+  public static final String OPTION_SIGN_CONTENT = "signcontent";
+  public static final String OPTION_VALIDATE_SIGNATURE = "validatesignature";
+  public static final String OPTION_SHOW_CERTIFICATE = "showcertificate";
+  public static final String OPTION_LIST_CERTIFICATE_ALIAS = "listcertificatealias";
+
   public enum FileType {
     DIRECTORY,
     ZIP,
@@ -116,7 +131,7 @@ public class Application {
     COMPONENT
   }
 
-  private static CLIParser cliParser;
+  private static CLIParser CLIParser;
   private static SCAPVersion scapVersion;
   private static File contentToCheckFile;
   private static FileType contentToCheckFileType;
@@ -142,6 +157,7 @@ public class Application {
    */
   public static void main(String[] args) {
     Objects.requireNonNull(args, "args cannot be null.");
+    boolean debugModeOn = Arrays.asList(args).contains("-debug");
 
     int result;
     try {
@@ -159,14 +175,45 @@ public class Application {
       if (e.getMessage() != null && !e.getMessage().isEmpty()) {
         log.error(e.getMessage());
       }
+      if (debugModeOn) {
+        e.printStackTrace(System.out);
+      }
       result = 1;
     } catch (SchematronCompilationException | AssessmentException | JDOMException | SAXException | URISyntaxException
         | IOException | RequirementsParserException | TransformerException | RuntimeException e) {
       // These exceptions are runtime issues that prevent scapval from properly running further.
       log.error("SCAPVal has encountered a problem and cannot continue with this validation. - " + e);
+      if (debugModeOn) {
+        e.printStackTrace(System.out);
+      }
+      result = -1;
+    } catch (TMSADException e) {
+      // This runtime exception is related to interactive with content signatures, validation, or
+      // certificates.
+      StringBuilder message = new StringBuilder();
+      if (e.getMessage() != null)
+        message.append(e.getMessage());
+      if (e.getCause() != null)
+        message.append(" " + e.getCause());
+      log.error("SCAPVal has encountered a problem - " + message);
+      if (debugModeOn) {
+        e.printStackTrace(System.out);
+      }
+      result = -1;
+    } catch (Exception e) {
+      // Any other runtime exceptions
+      StringBuilder message = new StringBuilder();
+      if (e.getMessage() != null)
+        message.append(e.getMessage());
+      if (e.getCause() != null)
+        message.append(" " + e.getCause());
+      log.error("SCAPVal has encountered a problem and cannot continue - " + message);
+      if (debugModeOn) {
+        e.printStackTrace(System.out);
+      }
       result = -1;
     }
-    System.exit(result);
+    exit(result);
   }
 
   /**
@@ -180,7 +227,7 @@ public class Application {
 
   public int runCLI(String[] args) throws SchematronCompilationException, DocumentException, AssessmentException,
       JDOMException, SAXException, URISyntaxException, IOException, RequirementsParserException, ParseException,
-      TransformerException, ConfigurationException, SCAPException {
+      TransformerException, ConfigurationException, SCAPException, TMSADException {
 
     Objects.requireNonNull(args, "args cannot be null.");
 
@@ -217,7 +264,7 @@ public class Application {
   protected SCAPValAssessmentResults runProgrammatic(String[] args, URI logFileLocation)
       throws SchematronCompilationException, DocumentException, AssessmentException, JDOMException, SAXException,
       URISyntaxException, IOException, RequirementsParserException, ParseException, TransformerException,
-      ConfigurationException, SCAPException {
+      ConfigurationException, SCAPException, TMSADException {
 
     Objects.requireNonNull(args, "args cannot be null.");
 
@@ -275,12 +322,13 @@ public class Application {
    * @return a CommandLine object containing the parsed params
    */
   protected CommandLine parseCLI(String[] args)
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     Objects.requireNonNull(args, "args cannot be null.");
     ValidationNotes.getInstance().createValidationNote("SCAPVal arguments provided: " + Arrays.toString(args));
-    cliParser = new CLIParser("scapval <options>");
-    cliParser.setVersion(Messages.getVersion());
+    CLIParser = new CLIParser("scapval <options>");
+    CLIParser.setVersion(Messages.getVersion());
     // required SCAP source or results content to check
+    // The OptionGroup ensures only 1 of these can be set (mutually exclusive)
     OptionGroup contentToCheck = new OptionGroup();
     contentToCheck.addOption(Option.builder(OPTION_DIR)
         .desc("Directory of individual component SCAP files. Provide if validating SCAP 1.1 source files only").hasArg()
@@ -297,7 +345,29 @@ public class Application {
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF/OVAL/OCIL is supported").hasArg().build());
-    cliParser.addOptionGroup(contentToCheck);
+
+    // Sign and Validate (TMSAD) Options
+    contentToCheck.addOption(Option.builder(OPTION_CREATE_SIG_CONFIG).desc(
+        "First step to sign content, creates a signing configuration file. Requires 8 arguments, see README.txt for details")
+        .hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_SIGN_CONTENT).desc(
+        "Second and final step to sign content, specify path to the configuration file created in first step by -createsigconfig")
+        .hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_VALIDATE_SIGNATURE).desc(
+        "Checks for validity of signed content. First argument must be a signed XML document. Second argument must be a Java Keystore (JKS) file, or specify \"MSCAPI\" to use a certificate installed in Windows."
+            + " Third argument must be the alias name of the certificate of the trusted root to use in the keystore.")
+        .hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_SHOW_CERTIFICATE)
+        // Java Keystore (JKS) file path, or specify "MSCAPI" to show the certificates installed in Windows
+        // then a second argument with the alias name
+        .desc(
+            "Shows a certificate. First argument is a Java Keystore (JKS) file path, or specify \"MSCAPI\" to show a certificate installed in Windows."
+                + " Second argument is a certificate aliast name.")
+        .hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_LIST_CERTIFICATE_ALIAS).desc(
+        "Lists available certificate by aliases. Provide path to a Java Keystore (JKS) file, \"MSCAPI\" to show the certificates installed in Windows.")
+        .hasArg().build());
+    CLIParser.addOptionGroup(contentToCheck);
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
@@ -306,7 +376,7 @@ public class Application {
     scapVersionValidator.addAllowedValue("1.1");
     scapVersionValidator.addAllowedValue("1.2");
     scapVersionValidator.addAllowedValue("1.3");
-    cliParser.addOption(scapVersionValidator);
+    CLIParser.addOption(scapVersionValidator);
 
     // other various options
     Option optionDatastreamOutput = Option.builder(OPTION_COMBINED_CONTENT_OUTPUT)
@@ -329,7 +399,7 @@ public class Application {
             + "validation of .zip files or a directory of component SCAP files")
         .hasArg().build();
 
-    cliParser.addOption(optionDatastreamOutput).addOption(optionOnline).addOption(optionMaxSize)
+    CLIParser.addOption(optionDatastreamOutput).addOption(optionOnline).addOption(optionMaxSize)
         .addOption(optionSourceDS).addOption(optionUseCase);
 
     if (args.length == 0) {
@@ -338,7 +408,7 @@ public class Application {
 
     // the version will have already been displayed so exit normally
     if (args[0].equals("-v") || args[0].equals("-version")) {
-      System.exit(0);
+      exit(0);
     }
 
     // Decima supports both long and short param option here, version and usage will be displayed
@@ -347,7 +417,7 @@ public class Application {
     }
 
     // parse the args
-    CommandLine commandLine = cliParser.parse(args);
+    CommandLine commandLine = CLIParser.parse(args);
 
     if (commandLine == null) {
       // CLIParser will display an error message before exiting
@@ -368,7 +438,7 @@ public class Application {
    *          the parsed args as a CommandLine from parseCLI(), not null
    */
   protected void validateCLI(CommandLine cmd)
-      throws ConfigurationException, DocumentException, IOException, SCAPException {
+      throws ConfigurationException, DocumentException, IOException, SCAPException, TMSADException {
     Objects.requireNonNull(cmd, "cmd cannot be null.");
     // gather the type of check and file type to check.
     // The OptionGroup ensures only 1 of these can be set (mutually exclusive)
@@ -387,9 +457,105 @@ public class Application {
     } else if (cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
       contentToCheckType = ContentType.COMPONENT;
       contentToCheckFilename = cmd.getOptionValue(OPTION_COMPONENT_FILE);
+    }
+
+    // The below are for tmsad functionality. After validating the args, the relevant method is directly
+    // called then scapval exits
+    // bypassing any preassessment processing or report generation as its not required
+    else if (cmd.getOptionValue(OPTION_CREATE_SIG_CONFIG) != null) {
+      final String[] args = cmd.getArgs();
+      if (cmd.getOptionValues(OPTION_CREATE_SIG_CONFIG).length != 1 || args.length != 7) {
+        throw new ConfigurationException("-" + OPTION_CREATE_SIG_CONFIG + " requires 8 arguments\n"
+            + "        The first argument MUST be a file path where the output configuration file is written.\n"
+            + "        The second argument MUST be an SCAP 1.2 data stream.\n"
+            + "        The third argument MUST be a file path where the signed SCAP data stream will be written to.\n"
+            + "        The fourth argument MUST be the digest algorithm to use. Valid values are SHA1, SHA256, SHA512\n"
+            + "        The fifth argument MUST be the signature algorithm to use. Valid values are DSA_SHA1, RSA_SHA1, RSA_SHA256\n"
+            + "        The sixth argument MUST be a Java Keystore (JKS) file, or specify \"MSCAPI\" to use a certificate installed in Windows.\n"
+            + "        The seventh argument MUST be the alias of the certificate to use to sign the content.\n"
+            + "        The eighth argument MUST be \"true\" or \"false\", to indicate if external references should be signed.\n\n"
+            + "See README.txt for examples.");
+      }
+      try {
+        createScapSignConfig(cmd.getOptionValue(OPTION_CREATE_SIG_CONFIG), args[0], args[1], args[2], args[3], args[4],
+            args[5], args[6]);
+      } catch (Exception e) {
+        if (e.getMessage().startsWith("Cannot overwrite file:")) {
+          throw new TMSADException(
+              ("Configuration file" + e.getMessage().split(":")[1]) + " already exists and cannot be overwritten. "
+                  + "Please remove or specify a new path for the output configuration file to be written.");
+        }
+        throw new TMSADException("Issue running -" + OPTION_CREATE_SIG_CONFIG + ":", e);
+      }
+      // only executing the tmsad functionality and then exiting
+      System.out.println("Configuration file written to: " + cmd.getOptionValue(OPTION_CREATE_SIG_CONFIG));
+      System.out.println("\nYou must now use the -" + OPTION_SIGN_CONTENT + " option to complete the signature.");
+      System.out.println("e.g -" + OPTION_SIGN_CONTENT + " " + cmd.getOptionValue(OPTION_CREATE_SIG_CONFIG));
+      exit(0);
+    } else if (cmd.getOptionValue(OPTION_SIGN_CONTENT) != null) {
+      try {
+        final String[] args = cmd.getArgs();
+        if (cmd.getOptionValues(OPTION_SIGN_CONTENT).length != 1 || args.length > 0) {
+          throw new ConfigurationException(
+              "-" + OPTION_SIGN_CONTENT + " must contain 1 argument containing the path of the "
+                  + "configuration file created with " + OPTION_CREATE_SIG_CONFIG + "");
+        }
+        sign(cmd.getOptions()[0].getValue());
+      } catch (Exception e) {
+        throw new TMSADException("Issue running -" + OPTION_SIGN_CONTENT + ":", e);
+      }
+      System.out.println("Signature Complete.");
+      exit(0);
+
+    } else if (cmd.getOptionValue(OPTION_VALIDATE_SIGNATURE) != null) {
+
+      try {
+        final String[] args = cmd.getArgs();
+        if (cmd.getOptionValues(OPTION_VALIDATE_SIGNATURE).length != 1 || args.length != 2) {
+          throw new ConfigurationException("-" + OPTION_VALIDATE_SIGNATURE + " requires 3 arguments\n"
+              + "        The first argument must be the path to a signed XML document.\n"
+              + "        The second argument must be the path to a Java Keystore (JKS) file, or specify \"MSCAPI\" to use a certificate installed in Windows.\n"
+              + "        The third argument must be the alias name of the certificate of the trusted root to use in the keystore. Provide passwords as required.\n\n"
+              + "See README.txt for examples.");
+        }
+        validateSignature(cmd.getOptions()[0].getValue(), args[0], args[1]);
+      } catch (Exception e) {
+        throw new TMSADException("Issue running -" + OPTION_VALIDATE_SIGNATURE + ":", e);
+      }
+      // validateSignature() already displays results so no need to output anything here
+      exit(0);
+    } else if (cmd.getOptionValue(OPTION_SHOW_CERTIFICATE) != null) {
+      try {
+        final String[] args = cmd.getArgs();
+        if (cmd.getOptionValues(OPTION_SHOW_CERTIFICATE).length != 1 || args.length != 1) {
+          throw new ConfigurationException("-" + OPTION_SHOW_CERTIFICATE + " requires 2 arguments\n"
+              + "        The first argument must be the path to the path to a Java Keystore (JKS) file, or specify \"MSCAPI\" to use a certificate installed in Windows.\n"
+              + "        The second argument must be the alis name of the certificate to view\n\n"
+              + "See README.txt for examples.");
+        }
+        listTrustChain(cmd.getOptions()[0].getValue(), args[0]);
+      } catch (Exception e) {
+        throw new TMSADException("Issue running -" + OPTION_SHOW_CERTIFICATE + ":", e);
+      }
+      // listTrustChain() already displays results so no need to output anything here
+      exit(0);
+    } else if (cmd.getOptionValue(OPTION_LIST_CERTIFICATE_ALIAS) != null) {
+      try {
+        final String[] args = cmd.getArgs();
+        if (cmd.getOptionValues(OPTION_LIST_CERTIFICATE_ALIAS).length != 1 || args.length != 0) {
+          throw new ConfigurationException("-" + OPTION_LIST_CERTIFICATE_ALIAS + " requires 1 argument\n"
+              + "        Include the path to the path to a Java Keystore (JKS) file, or specify \"MSCAPI\" to use a certificate installed in Windows.");
+        }
+        listAliases(cmd.getOptions()[0].getValue());
+      } catch (Exception e) {
+        throw new TMSADException("Issue running -" + OPTION_LIST_CERTIFICATE_ALIAS + ":", e);
+      }
+      // listAliases() already displays results so no need to output anything here
+      exit(0);
     } else {
       throw new ConfigurationException(
-          "Content to validate must be specified with -dir, -resultdir, -file, -resultfile, or -componentfile");
+          "Content to validate must be specified with -dir, -resultdir, -file, -resultfile, -componentfile or "
+              + "for tmsad -signcontent, -validatesignature, -createsigconfig, -showcertificates, -listcertificatealias");
     }
 
     // get the scap version from the command line
@@ -967,7 +1133,7 @@ public class Application {
    * Writes out the command line tool usage.
    */
   public static void showHelp() {
-    cliParser.doShowHelp();
+    CLIParser.doShowHelp();
   }
 
 }
