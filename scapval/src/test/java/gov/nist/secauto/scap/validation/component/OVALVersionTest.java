@@ -26,8 +26,6 @@
 
 package gov.nist.secauto.scap.validation.component;
 
-import gov.nist.secauto.scap.validation.component.OVALVersion;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -58,6 +56,11 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11.getResultSchematron(), "oval-results-schematron-5.11.sch");
     Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(), "oval-results-schematron-5.11.1.sch");
     Assert.assertEquals(OVALVersion.V5_11_2.getResultSchematron(), "oval-results-schematron-5.11.2.sch");
+  }
+
+  @Test
+  public void getSystemCharacteristicsSchematron() throws Exception {
+    Assert.assertEquals(OVALVersion.V5_11_2.getSystemCharacteristicsSchematron(), "oval-system-characteristics-schematron-5.11.2.sch");
   }
 
 }

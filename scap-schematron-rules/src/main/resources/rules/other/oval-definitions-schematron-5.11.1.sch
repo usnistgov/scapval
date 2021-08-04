@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This file was produced from *.definitions-schema.xsd with the provided XSLT ExtractSchFromXSD.xsl from https://github
+.com/OVALProject/Language/tree/5.11.2/tools and modified for SCAPVal specific use (see oval-rules-readme.txt for details)-->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema"
             queryBinding="xslt">
-    <!-- This file was produced from *.definitions-schema.xsd with the provided XSLT ExtractSchFromXSD.xsl from https://github
-    .com/OVALProject/Language/tree/5.11.2/tools and modified for SCAPVal specific use (see oval-rules-readme.txt for details)-->
     <sch:ns xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="oval-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
    <sch:ns xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="aix-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix"/>
    <sch:ns xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsd="http://www.w3.org/2001/XMLSchema" prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>

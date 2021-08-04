@@ -341,8 +341,10 @@ public class AssessmentFactory {
     try {
       Schematron ovalSchematronDefinitions;
       Schematron ovalSchematronResults;
+      Schematron ovalSchematronSystemCharacteristics;
       SchematronAssessment ovalSchematronResultsAssessment;
       SchematronAssessment ovalSchematronDefinitionsAssessment;
+      SchematronAssessment ovalSchematronSystemCharacteristicsAssessment;
       switch (contentType) {
       // this is an SCAP result content validation. Add the OVAL results schematron to check
       case RESULT:
@@ -351,6 +353,16 @@ public class AssessmentFactory {
         ovalSchematronResultsAssessment = new SchematronAssessment(ovalSchematronResults, null,
             new ComponentSchematronHandler(derivedRequirementID));
         ovalComponentAssessments.add(ovalSchematronResultsAssessment);
+
+        try{
+          ovalSchematronSystemCharacteristics
+                  = schematronCompiler.newSchematron(new URL("classpath:rules/other/" + ovalVersion.getSystemCharacteristicsSchematron()));
+          ovalSchematronSystemCharacteristicsAssessment = new SchematronAssessment(ovalSchematronSystemCharacteristics, null,
+                  new ComponentSchematronHandler(derivedRequirementID));
+          ovalComponentAssessments.add(ovalSchematronSystemCharacteristicsAssessment);
+        }catch (SchematronCompilationException e){
+          //there is no avail system chars for this version, move on
+        }
         break;
       // this is an SCAP source content validation. Add the OVAL definitions schematron to check
       case SOURCE:
@@ -359,6 +371,16 @@ public class AssessmentFactory {
         ovalSchematronDefinitionsAssessment = new SchematronAssessment(ovalSchematronDefinitions, null,
             new ComponentSchematronHandler(derivedRequirementID));
         ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
+
+        try{
+          ovalSchematronSystemCharacteristics
+                  = schematronCompiler.newSchematron(new URL("classpath:rules/other/" + ovalVersion.getSystemCharacteristicsSchematron()));
+          ovalSchematronSystemCharacteristicsAssessment = new SchematronAssessment(ovalSchematronSystemCharacteristics, null,
+                  new ComponentSchematronHandler(derivedRequirementID));
+          ovalComponentAssessments.add(ovalSchematronSystemCharacteristicsAssessment);
+        }catch (SchematronCompilationException e){
+          //there is no avail system chars for this version, move on
+        }
         break;
       // this is standalone OVAL content validation. Add both the OVAL results and definitions
       // schematron to check
@@ -373,6 +395,16 @@ public class AssessmentFactory {
         ovalSchematronDefinitionsAssessment = new SchematronAssessment(ovalSchematronDefinitions, null,
             new ComponentSchematronHandler(derivedRequirementID));
         ovalComponentAssessments.add(ovalSchematronDefinitionsAssessment);
+
+        try{
+          ovalSchematronSystemCharacteristics
+                  = schematronCompiler.newSchematron(new URL("classpath:rules/other/" + ovalVersion.getSystemCharacteristicsSchematron()));
+          ovalSchematronSystemCharacteristicsAssessment = new SchematronAssessment(ovalSchematronSystemCharacteristics, null,
+                  new ComponentSchematronHandler(derivedRequirementID));
+          ovalComponentAssessments.add(ovalSchematronSystemCharacteristicsAssessment);
+        }catch (SchematronCompilationException e){
+          //there is no avail system chars for this version, move on
+        }
         break;
       default:
       }
