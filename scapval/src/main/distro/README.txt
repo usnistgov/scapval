@@ -163,6 +163,7 @@ Changelog:
 Version 1.3.6
 - Integrated content signing and validation functionality from https://sourceforge.net/projects/secautotrust/
 - Added OVAL systems characteristics schematron rules for 5.11.2 content
+- Updated several dependencies to resolve security and functionality issues
 
 Version 1.3.5
 - Including user provided arguments in the SCAPVal report now.

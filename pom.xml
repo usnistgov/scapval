@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>gov.nist.secauto</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>17</version>
+		<version>19</version>
 	</parent>
 
 	<groupId>gov.nist.secauto.scap.validation</groupId>
@@ -24,7 +24,7 @@
 		<issueManagement.url>https://github.com/usnistgov/scapval/issues</issueManagement.url>
 
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
-		<version.decima>0.6.5-SNAPSHOT</version.decima>
+		<version.decima>0.7.0</version.decima>
 		<version.cpe-reference-implementation>1.0.8</version.cpe-reference-implementation>
 		<plugin.version.swid-maven-plugin>0.6.1</plugin.version.swid-maven-plugin>
 

@@ -132,9 +132,9 @@ Copyright (c) 2000-2010 Rick Jelliffe and Academia Sinica Computing Center, Taiw
       This product includes software from the Spring Framework, under the Apache
       License 2.0 (see: StringUtils.containsWhitespace())
 
-    log4j-api-2.5.jar
-    log4j-core-2.5.jar
-    log4j-jul-2.5.jar
+    log4j-api-2.17.0.jar
+    log4j-core-2.17.0.jar
+    log4j-jul-2.17.0.jar
 
       Apache Log4j
       Copyright 1999-2016 Apache Software Foundation
@@ -151,7 +151,7 @@ Copyright (c) 2000-2010 Rick Jelliffe and Academia Sinica Computing Center, Taiw
       TypeUtil.java
       Copyright 2002-2012 Ramnivas Laddad, Juergen Hoeller, Chris Beams
 
-    xmlsec-1.5.8.jar
+    xmlsec-2.1.7.jar
 
       Apache Santuario - XML Security for Java
       Copyright 1999-2014 The Apache Software Foundation
