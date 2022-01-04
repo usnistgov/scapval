@@ -33,7 +33,8 @@ import java.net.URI;
 /**
  * This extension is required by Decima in order to use SCAPVals required XML catalog.
  */
-public class ResourceResolverExtension extends AbstractCatalogResourceResolverExtension {
+public class ResourceResolverExtension
+    extends AbstractCatalogResourceResolverExtension {
   public ResourceResolverExtension() {
     super(URI.create("classpath:scapval-xsd/scapval-catalog.xml"));
   }

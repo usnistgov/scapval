@@ -44,7 +44,8 @@ import java.util.List;
  * 
  * @author 540951
  */
-public class RepeatableInputStream extends InputStream {
+public class RepeatableInputStream
+    extends InputStream {
 
   private int pointer;
   private byte[] content;

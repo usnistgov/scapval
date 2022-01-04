@@ -37,7 +37,8 @@ import org.jdom2.Element;
 
 import java.util.Arrays;
 
-public class ComponentResultGeneratingSVRLHandler extends AbstractSVRLHandler {
+public class ComponentResultGeneratingSVRLHandler
+    extends AbstractSVRLHandler {
 
   private String derivedRequirmentID;
 

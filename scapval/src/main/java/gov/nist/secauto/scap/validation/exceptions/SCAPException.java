@@ -26,7 +26,8 @@
 
 package gov.nist.secauto.scap.validation.exceptions;
 
-public class SCAPException extends Exception {
+public class SCAPException
+    extends Exception {
 
   private static final long serialVersionUID = 1L;
 

@@ -31,7 +31,8 @@ import org.apache.maven.model.PatternSet;
 /**
  * Represents a distinct set of resources.
  */
-public class Resource extends PatternSet {
+public class Resource
+    extends PatternSet {
   /**
    * the serial version UID.
    */

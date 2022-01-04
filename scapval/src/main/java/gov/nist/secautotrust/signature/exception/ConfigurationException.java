@@ -29,7 +29,8 @@ package gov.nist.secautotrust.signature.exception;
 /**
  * An exception to denote a signature configuration issue
  */
-public class ConfigurationException extends Exception {
+public class ConfigurationException
+    extends Exception {
 
   private static final long serialVersionUID = 3002277905425696703L;
 

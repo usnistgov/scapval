@@ -29,7 +29,8 @@ package gov.nist.secautotrust.signature.exception;
 /**
  * An exception to denote a signature configuration issue
  */
-public class TMSADException extends Exception {
+public class TMSADException
+    extends Exception {
 
   public TMSADException(String message) {
     super(message);

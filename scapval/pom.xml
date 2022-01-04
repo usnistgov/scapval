@@ -64,10 +64,10 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.santuario</groupId> -->
-<!-- 			<artifactId>xmlsec</artifactId> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.santuario</groupId> -->
+		<!-- <artifactId>xmlsec</artifactId> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 	<build>
@@ -88,6 +88,25 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.14.0</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>src/main/resources/tmsad</schemaDirectory>
+							<schemaIncludes>
+								<include>*.xsd</include>
+							</schemaIncludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -362,6 +381,13 @@
 							<unCheckedPluginList>gov.nist.secauto.scap.validation:create-file-list-mojo</unCheckedPluginList>
 						</requirePluginVersions>
 					</rules>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+				  <excludePackageNames>gov.nist.secauto.trust.tmsad.config</excludePackageNames>
 				</configuration>
 			</plugin>
 		</plugins>

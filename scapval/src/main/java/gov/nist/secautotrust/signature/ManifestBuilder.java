@@ -34,28 +34,30 @@ import gov.nist.secautotrust.signature.enums.HashType;
  */
 public interface ManifestBuilder extends ReferenceBuilderFactory {
   /**
-   * Sets the id of the manifest
+   * Sets the id of the manifest.
    * 
-   * @param id
+   * @param uri
    *          the id of the manifest
    * @return the instance of the {@code ManifestBuilder}
    */
   ManifestBuilder id(String uri);
 
   /**
-   * The canonicalization type of the reference to this manifest
+   * The canonicalization type of the reference to this manifest.
    * 
    * @param canonicalizationType
-   * @return
+   *          the specific canonicalization type to use
+   * @return the instance of the {@code ManifestBuilder}
    */
-  public ManifestBuilder canonicalizationType(CanonicalizationType canonicalizationType);
+  ManifestBuilder canonicalizationType(CanonicalizationType canonicalizationType);
 
   /**
-   * The hash type of the reference to this manifest
+   * The hash type of the reference to this manifest.
    * 
-   * @param canonicalizationType
-   * @return
+   * @param hashType
+   *          the type of digest algorithm to use
+   * @return the instance of the {@code ManifestBuilder}
    */
-  public ManifestBuilder hashType(HashType hashType);
+  ManifestBuilder hashType(HashType hashType);
 
 }

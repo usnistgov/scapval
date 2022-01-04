@@ -28,7 +28,8 @@ package gov.nist.secauto.scap.validation;
 
 import gov.nist.secauto.scap.validation.decima.requirements.ComponentSchematronHandler;
 
-public class Comp1ComponentSchematronHandler extends ComponentSchematronHandler {
+public class Comp1ComponentSchematronHandler
+    extends ComponentSchematronHandler {
 
   public Comp1ComponentSchematronHandler() {
     super("COMP-1");

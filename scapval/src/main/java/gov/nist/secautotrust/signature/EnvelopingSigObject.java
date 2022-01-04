@@ -47,7 +47,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  * Implementation of an enveloping signature object
  */
-class EnvelopingSigObject extends DefaultSigReference implements SigReference, SigObject {
+class EnvelopingSigObject
+    extends DefaultSigReference
+    implements SigReference, SigObject {
 
   public static class Builder {
     private CanonicalizationType canonicalizationType;

@@ -37,7 +37,8 @@ import net.sf.saxon.value.SequenceType;
 this is used in .sch schematron files to extend them with some java functionality
 e.g. within the .sch file "function-available('java:isEqualOrSuperset')"
 */
-public class CPEIsEqualOrSupersetComparator extends AbstractCPEComparator {
+public class CPEIsEqualOrSupersetComparator
+    extends AbstractCPEComparator {
   //
   // private static final long serialVersionUID = 6101524589976041056L;
   private static final String EQUAL_SUPERSET = "isEqualOrSuperset";

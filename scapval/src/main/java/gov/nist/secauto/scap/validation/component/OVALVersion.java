@@ -46,7 +46,8 @@ import javax.xml.transform.stream.StreamSource;
  * Valid OVAL versions and their specifics.
  */
 public enum OVALVersion {
-  // schema dir location, schematron definitions filename, schematron results filename, schematron system char filename
+  // schema dir location, schematron definitions filename, schematron results filename, schematron
+  // system char filename
   V5_3(
       new String[] { "xsd/mitre/oval/oval_5.3/", "oval-definitions-schematron-5.3.sch",
           "oval-results-schematron-5.8.sch" }),
@@ -83,9 +84,9 @@ public enum OVALVersion {
   V5_11_2(
       new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
           "oval-results-schematron-5.11.2.sch", "oval-system-characteristics-schematron-5.11.2.sch" });
-//V5_11_2(
-//        new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
-//                "oval-results-schematron-5.11.2.sch" });
+  // V5_11_2(
+  // new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
+  // "oval-results-schematron-5.11.2.sch" });
 
   private String[] validationFiles;
 

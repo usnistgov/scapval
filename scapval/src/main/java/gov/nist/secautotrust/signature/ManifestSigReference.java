@@ -45,7 +45,9 @@ import org.w3c.dom.Element;
 /**
  * An implementation of the manifest section in a signature
  */
-class ManifestSigReference extends DefaultSigReference implements SigObject {
+class ManifestSigReference
+    extends DefaultSigReference
+    implements SigObject {
   private List<DefaultSigReference> sigReferences;
 
   public ManifestSigReference(String uri, List<DefaultSigReference> sigReferences,

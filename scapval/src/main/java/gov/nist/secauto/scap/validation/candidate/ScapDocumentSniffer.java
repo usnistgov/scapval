@@ -148,7 +148,8 @@ public class ScapDocumentSniffer {
    * Handles an XML document by inspecting the namespace of the root element to determine if it is
    * recognized as an SCAP namespace.
    */
-  static class ScapUriHandler extends DefaultHandler {
+  static class ScapUriHandler
+      extends DefaultHandler {
 
     // short-circuit once root element is parsed
     private boolean isRootElementFound = false;
@@ -204,7 +205,8 @@ public class ScapDocumentSniffer {
    * Handles an XML document by searching for the SCAP 1.2/1.3 namespace, then finding the use-case
    * attribute of the data-stream element.
    */
-  static class ScapUseCaseHandler extends DefaultHandler {
+  static class ScapUseCaseHandler
+      extends DefaultHandler {
 
     // the value of the use-case attribute, if found
     private String useCase = null;
@@ -238,7 +240,8 @@ public class ScapDocumentSniffer {
    * Handles an XML document by searching for the scap-version attribute, then finding the specified
    * SCAP version of the data-stream element.
    */
-  static class ScapVersionHandler extends DefaultHandler {
+  static class ScapVersionHandler
+      extends DefaultHandler {
 
     // the value of the scap-version attribute, if found
     private String scapVersion = null;

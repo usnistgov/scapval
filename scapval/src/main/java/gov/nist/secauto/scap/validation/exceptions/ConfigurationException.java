@@ -28,7 +28,8 @@ package gov.nist.secauto.scap.validation.exceptions;
 
 import gov.nist.secauto.scap.validation.Application;
 
-public class ConfigurationException extends Exception {
+public class ConfigurationException
+    extends Exception {
 
   private static final long serialVersionUID = 1L;
 

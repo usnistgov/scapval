@@ -49,7 +49,9 @@ import org.w3c.dom.Element;
 /**
  * An implementation of the properties section in a signature
  */
-class PropertiesSigReference extends DefaultSigReference implements SigObject {
+class PropertiesSigReference
+    extends DefaultSigReference
+    implements SigObject {
   private static final String DSIG_NAMESPACE = "http://scap.nist.gov/schema/xml-dsig/1.0";
   private static final String DC_NAMESPACE = "http://purl.org/dc/elements/1.1/";
   private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");

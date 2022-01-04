@@ -39,7 +39,8 @@ import org.jdom2.Element;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SCAPResultGeneratingSVRLHandler extends AbstractIdAwareSVRLHandler {
+public class SCAPResultGeneratingSVRLHandler
+    extends AbstractIdAwareSVRLHandler {
   // private static final Pattern PATTERN_DERIVED_REQUIREMENT_ID =
   // Pattern.compile("^\\s*([^|\\s]+).*$");
   //

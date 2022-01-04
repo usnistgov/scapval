@@ -34,7 +34,8 @@ import gov.nist.secauto.decima.xml.assessment.schematron.SVRLHandler;
 import gov.nist.secauto.decima.xml.assessment.schematron.SingleDerivedRequirementSchematronHandler;
 import gov.nist.secauto.decima.xml.document.XMLDocument;
 
-public class ComponentSchematronHandler extends SingleDerivedRequirementSchematronHandler {
+public class ComponentSchematronHandler
+    extends SingleDerivedRequirementSchematronHandler {
 
   public ComponentSchematronHandler(String derivedRequirementId) {
     super(derivedRequirementId);

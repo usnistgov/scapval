@@ -30,7 +30,8 @@ import gov.nist.secauto.decima.xml.assessment.schematron.AbstractDerivedRequirem
 
 import org.jdom2.Element;
 
-public class SCAPDerivedRequirementParsingHandler extends AbstractDerivedRequirementParsingHandler {
+public class SCAPDerivedRequirementParsingHandler
+    extends AbstractDerivedRequirementParsingHandler {
   // private static final Logger log =
   // LogManager.getLogger(SCAPDerivedRequirementParsingHandler.class);
 

@@ -36,7 +36,8 @@ import net.sf.saxon.value.StringValue;
 
 import java.text.ParseException;
 
-public abstract class AbstractCPEComparator extends ExtensionFunctionCall {
+public abstract class AbstractCPEComparator
+    extends ExtensionFunctionCall {
   // private static final long serialVersionUID = 4991578721196222282L;
 
   protected static final String NAMESPACE = "java:gov.nist.secauto.scap.validation.schematron";

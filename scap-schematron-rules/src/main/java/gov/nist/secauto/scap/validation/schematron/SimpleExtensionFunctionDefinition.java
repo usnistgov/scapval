@@ -31,7 +31,8 @@ import net.sf.saxon.lib.ExtensionFunctionDefinition;
 import net.sf.saxon.om.StructuredQName;
 import net.sf.saxon.value.SequenceType;
 
-public class SimpleExtensionFunctionDefinition extends ExtensionFunctionDefinition {
+public class SimpleExtensionFunctionDefinition
+    extends ExtensionFunctionDefinition {
 
   @SuppressWarnings("unused")
   private static final long serialVersionUID = 8301620238792339638L;

@@ -53,7 +53,8 @@ import java.util.List;
  */
 @Mojo(name = "create-list", defaultPhase = LifecyclePhase.PROCESS_RESOURCES,
     requiresDependencyResolution = ResolutionScope.COMPILE)
-public class CreateFileListMojo extends AbstractMojo {
+public class CreateFileListMojo
+    extends AbstractMojo {
   /**
    * Location of the generated list of source files.
    */
