@@ -26,7 +26,7 @@
 		<issueManagement.url>https://github.com/usnistgov/scapval/issues</issueManagement.url>
 
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
-		<version.decima>0.7.1-SNAPSHOT</version.decima>
+		<version.decima>0.7.1</version.decima>
 		<version.cpe-reference-implementation>1.0.8</version.cpe-reference-implementation>
 		<plugin.version.swid-maven-plugin>0.6.1</plugin.version.swid-maven-plugin>
 
