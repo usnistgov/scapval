@@ -26,37 +26,15 @@
 
 package gov.nist.secauto.scap.validation.scapval.services;
 
-import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
+import gov.nist.secauto.decima.xml.service.AbstractCatalogResourceResolverExtension;
 
-import org.apache.xerces.util.XMLCatalogResolver;
-import org.w3c.dom.ls.LSResourceResolver;
-import org.xml.sax.ext.EntityResolver2;
+import java.net.URI;
 
 /**
  * This extension is required by Decima in order to use SCAPVals required XML catalog.
  */
-public class ResourceResolverExtension implements gov.nist.secauto.decima.xml.service.ResourceResolverExtension {
-  private static XMLCatalogResolver instance;
-
-  private static XMLCatalogResolver instance() {
-    Object lock = ResourceResolverExtension.class;
-    synchronized (lock) {
-      if (instance == null) {
-        ClasspathHandler.initialize();
-
-        instance = new XMLCatalogResolver(new String[] { "classpath:scapval-xsd/scapval-catalog.xml" });
-      }
-      return instance;
-    }
-  }
-
-  @Override
-  public EntityResolver2 getEntityResolver() {
-    return instance();
-  }
-
-  @Override
-  public LSResourceResolver getLSResourceResolver() {
-    return instance();
+public class ResourceResolverExtension extends AbstractCatalogResourceResolverExtension {
+  public ResourceResolverExtension() {
+    super(URI.create("classpath:scapval-xsd/scapval-catalog.xml"));
   }
 }

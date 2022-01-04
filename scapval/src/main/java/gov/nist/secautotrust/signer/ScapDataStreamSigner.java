@@ -45,7 +45,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -183,6 +188,5 @@ public class ScapDataStreamSigner {
     }
 
     JAXB.marshal(signs, config.getOutputStream());
-
   }
 }

@@ -36,13 +36,14 @@ import gov.nist.secautotrust.signer.MappedURIDereferencer;
 import gov.nist.secautotrust.util.CustomNamespaceContext;
 import gov.nist.secautotrust.util.Util;
 
-import org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -75,7 +76,6 @@ import javax.xml.xpath.XPathFactory;
  * A class encapsulating the signing logic
  */
 public class Signature {
-
   public static class Builder implements ReferenceBuilderFactory {
     // the id of the signature
     private String id;
@@ -271,7 +271,7 @@ public class Signature {
 
     // Need to specify the provider on xmlsec-1.5.1, otherwise the JDK
     // default is used, which has a bug in certain versions of Java 7
-    xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM", new XMLDSigRI());
+    xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
 
     this.sigType = builder.sigType;
     this.canonicalizationType = builder.canonicalizationType;
@@ -361,6 +361,7 @@ public class Signature {
     } else {
       node = documentBuilderFactory.newDocumentBuilder().newDocument();
     }
+
     DOMSignContext signContext;
     // Create a the signcontext and specify where the signature should go
     // (i.e. as a child or sibling of node)

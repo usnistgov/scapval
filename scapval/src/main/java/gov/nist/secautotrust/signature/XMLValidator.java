@@ -33,21 +33,19 @@ import gov.nist.secautotrust.signature.model.ISignatureValidationResult;
 import gov.nist.secautotrust.signer.MappedURIDereferencer;
 import gov.nist.secautotrust.util.Util;
 
-import org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.*;
+import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PublicKey;
-import java.security.Security;
 import java.security.SignatureException;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathBuilderException;
@@ -82,7 +80,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class XMLValidator {
-
   public static List<ISignatureValidationResult> validateContent(ValidateSigConfig config)
       throws TMSADException, ParserConfigurationException, IOException, SAXException, XMLSignatureException {
     // Instantiate the document to be validated
@@ -118,10 +115,11 @@ public class XMLValidator {
 
   // Create a DOM XMLSignatureFactory that will be used to unmarshall the
   // document containing the XMLSignature
-  private XMLSignatureFactory factory = XMLSignatureFactory.getInstance("DOM", new XMLDSigRI());
+  private XMLSignatureFactory factory;
   private UriResolver resolver;
 
   private XMLValidator(UriResolver resolver) {
+    this.factory = XMLSignatureFactory.getInstance("DOM");
     this.resolver = resolver;
   }
 
@@ -199,8 +197,9 @@ public class XMLValidator {
       return result;
 
     } catch (Exception e) {
-      e.printStackTrace();
-      throw new TMSADException(e.getMessage());
+      TMSADException ex = new TMSADException(e.getMessage());
+      ex.initCause(e);
+      throw ex;
     }
 
   }
@@ -294,7 +293,6 @@ public class XMLValidator {
     // Disable CRL checks
     pkixParams.setRevocationEnabled(false);
     // Specify a list of all certificates (minus the self signed one)
-    Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
     CertStore intermediateCertStore
         = CertStore.getInstance("Collection", new CollectionCertStoreParameters(certList), "BC");
     pkixParams.addCertStore(intermediateCertStore);
