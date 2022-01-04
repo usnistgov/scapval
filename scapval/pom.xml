@@ -387,9 +387,17 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-				  <excludePackageNames>gov.nist.secauto.trust.tmsad.config</excludePackageNames>
+					<excludePackageNames>gov.nist.secauto.trust.tmsad.config</excludePackageNames>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-Xmx1024m</argLine>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
