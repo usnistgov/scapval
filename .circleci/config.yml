@@ -3,7 +3,7 @@ version: 2.1
 executors:
   maven-executor:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:11-jdk
 commands:
   configure-gpg:
     steps:
@@ -33,6 +33,8 @@ jobs:
     executor: maven-executor
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
       - restore-maven-cache
       - configure-gpg
       - run:
@@ -45,7 +47,16 @@ jobs:
             - .
       - store_artifacts:
           path: target
-          destination: artifacts
+          destination: artifacts/framework
+      - store_artifacts:
+          path: create-file-list-mojo/target
+          destination: artifacts/create-file-list-mojo
+      - store_artifacts:
+          path: scap-schematron-rules/target
+          destination: artifacts/scap-schematron-rules
+      - store_artifacts:
+          path: scapval/target
+          destination: artifacts/scapval
   deploy-release:
     executor: maven-executor
     steps:
@@ -58,6 +69,7 @@ jobs:
           command: |
             mvn -s .circleci/maven-release-settings.xml -Prelease clean verify nexus-staging:deploy -DskipRemoteStaging=true
             mvn -s .circleci/maven-release-settings.xml -Prelease nexus-staging:deploy-staged -DstagingDescription="Preparing release"
+            # mvn -s .circleci/maven-release-settings.xml -Prelease deploy
       - save-maven-cache
   deploy-snapshot:
     executor: maven-executor
@@ -87,7 +99,7 @@ jobs:
       - save-maven-cache
       - add_ssh_keys:
           fingerprints:
-            - "9e:e0:a0:10:f3:b7:3e:9c:c3:8c:05:47:22:5a:75:f7"
+            - "ea:c7:28:50:42:74:e2:70:c5:9c:56:a3:1f:82:c1:6a"
       - run:
           name: Create known hosts
           command: |
@@ -139,4 +151,3 @@ workflows:
           filters:
             branches:
               only: master
-
