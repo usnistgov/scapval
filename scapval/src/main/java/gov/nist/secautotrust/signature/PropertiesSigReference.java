@@ -141,22 +141,23 @@ class PropertiesSigReference extends DefaultSigReference implements SigObject {
       ele = element;
     } else {
       DocumentBuilderFactory dbf = signer.getDocumentBuilderFactory();
+
       Document doc = dbf.newDocumentBuilder().newDocument();
-      Element root = doc.createElement("dsig:signature-info");
+      Element root = doc.createElementNS(DSIG_NAMESPACE, "dsig:signature-info");
       root.setAttribute("xmlns:dsig", DSIG_NAMESPACE);
       root.setAttribute("xmlns:dc", DC_NAMESPACE);
       if (creators != null) {
         for (String creator : creators) {
-          Element c = doc.createElement("dc:creator");
+          Element c = doc.createElementNS(DC_NAMESPACE, "dc:creator");
           c.setTextContent(creator);
           root.appendChild(c);
         }
       }
-      Element ts = doc.createElement("dc:date");
+      Element ts = doc.createElementNS(DC_NAMESPACE, "dc:date");
       ts.setTextContent(sdf.format(timestamp));
       root.appendChild(ts);
 
-      Element nonceElement = doc.createElement("dsig:nonce");
+      Element nonceElement = doc.createElementNS(DSIG_NAMESPACE, "dsig:nonce");
       nonceElement.setTextContent(Long.toHexString(nonce));
       root.appendChild(nonceElement);
       ele = root;

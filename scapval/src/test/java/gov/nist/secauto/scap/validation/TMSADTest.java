@@ -26,19 +26,22 @@
 
 package gov.nist.secauto.scap.validation;
 
+import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
 import gov.nist.secautotrust.signature.SecAutoTrustMain;
 
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
 import java.net.URL;
-
-import static org.junit.Assert.fail;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class TMSADTest {
 
   @Test
   public void signAndValidateContentTest() throws Exception {
+    ClasspathHandler.initialize();
     URL src = new URL("classpath:src/test/resources/tmsad/scap-data-stream.xml");
     URL keystore = new URL("classpath:src/test/resources/tmsad/test.jks");
 
@@ -62,8 +65,6 @@ public class TMSADTest {
       // and validate
       SecAutoTrustMain.validateSignature(newTestSignedFile.getAbsolutePath(), keystore.getPath(), "test-alias",
           "123456");
-    } catch (Exception e) {
-      fail(e.getMessage());
     } finally {
       newConfigFile.deleteOnExit();
       newTestSignedFile.deleteOnExit();
