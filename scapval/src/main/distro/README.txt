@@ -16,7 +16,7 @@ SCAPVal produces validation results in a report that conveys all error and warni
 
 For a listing of the SCAP requirements this tool adheres to, refer to the files in the /requirements directory.
 
-Requires Java Runtime Environment (JRE) 1.8 or higher.
+Requires Java Runtime Environment (JRE) 11 or higher.
 If the JAVA_HOME environment variable is set then the scapval launch script will use the version specified.
 Otherwise, it will use whatever version is available from the current working directory.
 

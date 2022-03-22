@@ -18,7 +18,7 @@ This repository contains the Security Content Automation Protocol Validator (SCA
 
 ## Requirements
 
-Requires Java Runtime Environment (JRE) 1.8 or higher.
+Requires Java Runtime Environment (JRE) 11 or higher.
 
 If the JAVA_HOME variable is set, the JRE which is at that location will be used. Otherwise the JRE available on the path is used.
 
