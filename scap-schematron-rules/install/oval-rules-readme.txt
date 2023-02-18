@@ -1,6 +1,12 @@
 To validate OVAL content, SCAP uses OVAL Definition Schematron schemas that have been modified to use XPath 1.0 instead of XPath 2.0.
 To use XPath 1.0, the queryBinding="xslt2" attributes were removed from the root element of the schematron schemas.
 The modification was made to avoid an XPath exception in the floor() function when the current element being processed is not a node.
+Version 1.3.7 Updates:
+- Updates to SCAPVal Embedded OVAL System Characteristics definitions 5.11.2:
+    Modifications:
+        - Updated schematron rule win-sc:lockoutpolicy_item/win-sc:force_logoff to check for >= 0
+        - Updated schematron rule win-sc:lockoutpolicy_item/win-sc:lockout_duration to check for >= 0
+        - Updated schematron rule win-sc:passwordpolicy_item/win-sc:max_passwd_age to check for >= 0
 
 Version 1.3.6 Updates:
 - Include OVAL System Characteristics definitions 5.11.2:

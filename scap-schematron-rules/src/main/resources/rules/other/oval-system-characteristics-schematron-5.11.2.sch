@@ -1257,7 +1257,7 @@
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  id="win-sc_lpi_fl">
         <sch:rule context="win-sc:lockoutpolicy_item/win-sc:force_logoff">
-            <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
+            <sch:assert test="string-length(.) = 0 or number(.) &gt;= 0">
                 <sch:value-of select="../@id"/> - the value of force_logoff must be greater than or equal to zero</sch:assert>
         </sch:rule>
     </sch:pattern>
@@ -1267,7 +1267,7 @@
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  id="win-sc_lpi_ld">
         <sch:rule context="win-sc:lockoutpolicy_item/win-sc:lockout_duration">
-            <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
+            <sch:assert test="string-length(.) = 0 or number(.) &gt;= 0">
                 <sch:value-of select="../@id"/> - the value of lockout_duration must be greater than or equal to zero</sch:assert>
         </sch:rule>
     </sch:pattern>
@@ -1277,7 +1277,7 @@
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  id="win-sc_pwp_mpa">
         <sch:rule context="win-sc:passwordpolicy_item/win-sc:max_passwd_age">
-            <sch:assert test="number(.) &lt; 0">
+            <sch:assert test="number(.) &gt;= 0">
                 <sch:value-of select="../@id"/> - the value of max_passwd_age must be greater than or equal to zero</sch:assert>
         </sch:rule>
     </sch:pattern>
