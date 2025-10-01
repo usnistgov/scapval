@@ -102,6 +102,21 @@ public class AssessmentFactoryTest {
   }
 
   @Test
+  public void createAssessmentFactory14() throws Exception {
+    XMLDocument SCAP14 = new JDOMDocument(new File(
+        new URL("classpath:src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml").getFile()));
+    AssessmentFactory assessmentFactory
+        = new AssessmentFactory(SCAPVersion.V1_4, "CONFIGURATION", Application.ContentType.SOURCE, SCAP14);
+    SchemaAssessment scapDocumentSchemaAssessment = assessmentFactory.createSCAPSchemaAssessment();
+    // currently should expect at least 58 schemas
+    Assert.assertTrue(scapDocumentSchemaAssessment.getSchemaSources().size() > 58);
+
+    Assessment<XMLDocument> scapDocumentSchematronAssessments = assessmentFactory.createSCAPSchematronAssessments();
+    // currently should expect at least 5
+    Assert.assertTrue(scapDocumentSchematronAssessments.getExecutableAssessments(SCAP14).size() > 4);
+  }
+
+  @Test
   public void createAssessmentFactoryResult() throws Exception {
     XMLDocument SCAP12Result = new JDOMDocument(
         new File(new URL("classpath:src/test/resources/candidates/scap-12/arf/ARF-results.xml").getFile()));
@@ -122,6 +137,8 @@ public class AssessmentFactoryTest {
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_1), "scapval-scap-1.1-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_2), "scapval-scap-1.2-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_3), "scapval-scap-1.3-requirements.xml");
+    // TODO GK confirm the expectedName
+    checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_4), "scapval-scap-1.4-requirements.xml");
   }
 
   public void checkRequirementsManager(RequirementsManager requirementsManager, String expectedName) {

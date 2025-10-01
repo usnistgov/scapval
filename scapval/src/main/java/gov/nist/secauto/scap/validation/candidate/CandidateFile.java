@@ -40,7 +40,7 @@ import gov.nist.secauto.scap.validation.component.XccdfVersion;
  * eligible for validation by the SCAPVAL tools.
  *
  * There are four types of CandidateFile: SCAP_BUNDLE is a folder or zip file containing SCAP 1.1
- * files. SCAP_COMBINED_FILE is an SCAP 1.2/1.3 XML file. STANDALONE_XCCDF is an XCCDF XML file.
+ * files. SCAP_COMBINED_FILE is an SCAP 1.2/1.3/1.4 XML file. STANDALONE_XCCDF is an XCCDF XML file.
  * UNKNOWN is an unrecognized file, not of the above types.
  * <p>
  * If the type is SCAP_BUNDLE, then it has one or more SCAP content types.

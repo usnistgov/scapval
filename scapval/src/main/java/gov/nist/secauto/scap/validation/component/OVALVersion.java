@@ -82,8 +82,11 @@ public enum OVALVersion {
       new String[] { "xsd/mitre/oval/oval_5.11.1/", "oval-definitions-schematron-5.11.1.sch",
           "oval-results-schematron-5.11.1.sch" }),
   V5_11_2(
-      new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
-          "oval-results-schematron-5.11.2.sch", "oval-system-characteristics-schematron-5.11.2.sch" });
+          new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
+                  "oval-results-schematron-5.11.2.sch", "oval-system-characteristics-schematron-5.11.2.sch" }),
+  V5_12_2( // TODO GK copied the references as it is, fix it if need to
+      new String[] { "xsd/mitre/oval/oval_5.12.2/", "oval-definitions-schematron-5.11.2.sch",
+          "oval-results-schematron-5.12.2.sch", "oval-system-characteristics-schematron-5.12.2.sch" });
   // V5_11_2(
   // new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
   // "oval-results-schematron-5.11.2.sch" });

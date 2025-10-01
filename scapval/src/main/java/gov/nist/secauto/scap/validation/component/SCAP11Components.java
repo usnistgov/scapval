@@ -32,7 +32,7 @@ import java.util.Objects;
 
 /**
  * Enumerates the valid component files of SCAP 1.1 and their associated characteristics. This is
- * not required for SCAP 1.2/1.3 versions as they implement a native data-stream approach The order
+ * not required for SCAP 1.2/1.3/1.4 versions as they implement a native data-stream approach The order
  * of these matter for some of the methods which iterates the fileSourceNameSuffix with .endswith()
  */
 public enum SCAP11Components {

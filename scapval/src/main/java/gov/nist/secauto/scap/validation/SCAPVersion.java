@@ -66,6 +66,15 @@ public enum SCAPVersion {
       XccdfVersion.V1_2,
       CPEVersion.V2_3,
       CCEVersion.V5,
+      CVSSVersion.V3_0),
+  V1_4(
+      "1.4",
+      new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
+      OVALVersion.V5_12_2,
+      OCILVersion.V2_0,
+      XccdfVersion.V1_2,
+      CPEVersion.V2_3,
+      CCEVersion.V5,
       CVSSVersion.V3_0);
 
   private String name;
@@ -92,7 +101,7 @@ public enum SCAPVersion {
   }
 
   /**
-   * Returns the SCAPVersion enum based on a string version (e.g. "1.3)
+   * Returns the SCAPVersion enum based on a string version (e.g. "1.4)
    *
    * @param stringVersion
    *          a string representation of the version
@@ -188,9 +197,11 @@ public enum SCAPVersion {
       return NamespaceConstants.NS_SOURCE_DS_1_1.getNamespace();
     case V1_2:
       return NamespaceConstants.NS_SOURCE_DS_1_2.getNamespace();
-    case V1_3:
-      return NamespaceConstants.NS_SOURCE_DS_1_3.getNamespace();
-    default:
+      case V1_3:
+        return NamespaceConstants.NS_SOURCE_DS_1_3.getNamespace();
+      case V1_4:
+        return NamespaceConstants.NS_SOURCE_DS_1_4.getNamespace();
+      default:
     }
     return null;
   }

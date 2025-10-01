@@ -77,6 +77,12 @@ public class SCAPUtils {
           + "local-name()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
           + ".gov/schema/scap/source/1.2' and local-name()='component']/*";
       break;
+    case V1_4: // TODO GK Check namespace for 1.4
+      // SCAP 1.4 still uses the 1.2 namespce?
+      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and "
+          + "local-name()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
+          + ".gov/schema/scap/source/1.2' and local-name()='component']/*";
+      break;
     default:
     }
 

@@ -354,7 +354,7 @@ public class ContentCombiner {
 
   /**
    * Includes a SCAP source data-stream into an ARF file using the arf:report-requests element. This
-   * is used for SCAP 1.2 and 1.3 content only.
+   * is used for SCAP 1.2, 1.3 and 1.4 content only.
    *
    * @param arfFile
    *          an XMLDocument of SCAP 1.2+ result content, not null

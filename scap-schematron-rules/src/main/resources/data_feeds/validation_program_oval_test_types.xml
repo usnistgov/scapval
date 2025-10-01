@@ -226,5 +226,121 @@
       <test_type name="userright_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
       <test_type name="volume_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
        -->
+   <test_types style="SCAP_1.4">
+      <test_type name="environmentvariable58_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="environmentvariable_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="family_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="filehash58_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="filehash_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="textfilecontent54_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="textfilecontent_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="unknown_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="variable_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="xmlfilecontent_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <!--
+      <test_type name="ldap_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      <test_type name="ldap57_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/> deprecated
+      <test_type name="sql_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/> deprecated
+      <test_type name="sql57_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
+      -->
+
+      <test_type name="partition_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="rpminfo_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="selinuxboolean_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <!--
+      <test_type name="apparmorstatus_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="iflisteners_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="inetlisteningservers_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="rpmverify_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="rpmverifyfile_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="rpmverifypackage_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="selinuxsecuritycontext_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+      <test_type name="systemdunitproperty_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"/>
+       -->
+
+      <test_type name="accountinfo_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="diskutil_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <!-- <test_type name="inetlisteningservers_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/> deprecated -->
+      <test_type name="inetlisteningserver510_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="nvram_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <!-- <test_type name="plist_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/> deprecated -->
+      <test_type name="plist510_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="plist511_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="pwpolicy59_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="authorizationdb_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="corestorage_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="gatekeeper_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="keychain_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="launchd_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="nvram_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="rlimit_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="softwareupdate_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="systemprofiler_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+      <test_type name="systemsetup_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"/>
+
+      <test_type name="file_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="password_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="process58_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="runlevel_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="shadow_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="sysctl_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="uname_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="xinetd_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <!--
+      <test_type name="dnscache_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="fileextendedattribute_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="gconf_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="interface_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="routingtable_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      <test_type name="symlink_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"/>
+      -->
+
+      <test_type name="accesstoken_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="auditpolicysubcategory_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="auditpolicy_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="cmdlet_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="fileauditpermissions53_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="fileeffectiverights53_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="file_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="group_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="lockoutpolicy_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="passwordpolicy_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="process58_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="registry_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="regkeyeffectiverights53_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="service_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="sidsid_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="sid_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="usersid55_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="usersid_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="user_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="wmi57_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="wmi_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="wuaupdatesearcher_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <!--
+      <test_type name="activedirectory_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="activedirectory57_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="auditeventpolicy_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="dnscache_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="group_sid_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="interface_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="junction_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="license_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="metabase_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="ntuser_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="peheader_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="port_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="printereffectiverights_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="regkeyauditedpermissions53_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="serviceeffectiverights_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="sharedresource_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="sharedresourceauditedpermissions_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="sharedresourceeffectiverights_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="systemmetric_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="uac_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="user_sid55_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="userright_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+      <test_type name="volume_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
+       -->
    </test_types>
 </test-types-collection>

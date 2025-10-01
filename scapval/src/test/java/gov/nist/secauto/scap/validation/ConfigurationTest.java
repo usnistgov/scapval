@@ -206,4 +206,12 @@ public class ConfigurationTest {
     new Application().parseCLI(new String[] { "-" + Application.OPTION_LIST_CERTIFICATE_ALIAS, "nothing_here" });
   }
 
+  @Test(expected = ConfigurationException.class)
+  public void testBadOptions15()
+          throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+    new Application().parseCLI(
+            new String[] { "-scapversion", "1.4", "-usecase", "OVAL_ONLY", "-file", scapTestFile.getAbsolutePath() });
+  }
+
+
 }

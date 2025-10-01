@@ -44,8 +44,18 @@ public class ApplicationFunctionalTest {
   @Test
   public void CompleteSourceRun() {
     try {
-      new Application().runCLI(new String[] { "-scapversion", "1.2", "-file",
-          "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
+      new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
+              "src/test/resources/candidates/scap-14/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void CompleteSourceRun14() {
+    try { // TODO GK scap-12 reference needs to be scap-14?
+      new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
+              "src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -62,10 +72,20 @@ public class ApplicationFunctionalTest {
   }
 
   @Test
+  public void CompleteSourceRunWhitespaceInFileName14() {
+    try { // TODO GK scap-12 reference needs to be scap-14?
+      new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
+          "src/test/resources/candidates/scap-14/source ds whitespace.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
   public void CompleteResultRun() {
-    try {
-      new Application().runCLI(new String[] { "-scapversion", "1.2", "-resultfile",
-          "src/test/resources/candidates/scap-12/arf/ARF-results.xml" });
+    try { // TODO GK scap-12 reference needs to be scap-14?
+      new Application().runCLI(new String[] { "-scapversion", "1.4", "-resultfile",
+          "src/test/resources/candidates/scap-14/ARF-results.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }

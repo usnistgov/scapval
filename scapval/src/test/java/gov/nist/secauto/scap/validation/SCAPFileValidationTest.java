@@ -188,4 +188,46 @@ public class SCAPFileValidationTest {
       Assert.fail("There should have been a failed assessment.");
     }
   }
+
+  @Test
+  public void SCAP14SourceExpectPass() throws Exception {
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml").getFile())
+            .getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_4)
+            .useCase("CONFIGURATION").isOnline(true).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+    for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
+        .getBaseRequirementResults()) {
+      if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
+        // this particular case should have no status FAIL
+        Assert.fail("Should not have had a result with FAIL.");
+      }
+    }
+  }
+
+  @Test
+  public void SCAP14SourceExpectFail() throws Exception {
+    boolean passed = true;
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates/scap-14/source_data_stream_collection_sample-NO-USE-CASE.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_4)
+            .useCase("CONFIGURATION").submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+    for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
+        .getBaseRequirementResults()) {
+      if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
+        passed = false;
+      }
+    }
+    if (passed) {
+      Assert.fail("There should have been a failed assessment.");
+    }
+  }
+
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+<requirement>A27</requirement>
+<description>Check for @href and @id-ref value of &lt;cpe:check-fact-ref&gt; element
+This test adds a CPE platform to include the cpe:check-fact-ref element and corresponding OVAL definition.
+This test should pass.</description>
+<template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+          xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+          xmlns:oval-com="http://oval.mitre.org/XMLSchema/oval-common-5"
+          xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+          xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+          xmlns:cpe2="http://cpe.mitre.org/language/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          template="classpath:scap-1.3/templates/configuration-single-data-stream-base.xml">
+  <insert-child xpath="//xccdf:Benchmark[@id='xccdf_gov.nist.scap_benchmark_fdcc-ie-7']" >
+    <cpe2:platform-specification>
+      <cpe2:platform id="Windows_Server_2016_DC">
+        <cpe2:logical-test operator="AND" negate="true">
+          <cpe2:check-fact-ref
+                  id-ref="oval:mil.disa.stig.windows:def:1010"
+                  system="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+                  href="fdcc-ie7-oval.xml"/>
+        </cpe2:logical-test>
+      </cpe2:platform>
+    </cpe2:platform-specification>
+  </insert-child>
+
+  <insert-child xpath="//ds:component[@id='scap_gov.nist_comp_2000']/oval-def:oval_definitions/oval-def:definitions" >
+    <oval-def:definition id="oval:mil.disa.stig.windows:def:1010" version="1" class="inventory">
+      <metadata>
+        <title>The system is a DC.</title>
+        <affected family="windows">
+          <platform>Microsoft Windows Server 2016</platform>
+        </affected>
+        <reference source="CPE" ref_id="cpe:/o:microsoft:windows_server_2016:-"/>
+        <description>The Windows Server 2016 system is a domain controller.</description>
+      </metadata>
+      <criteria>
+        <criterion test_ref="oval:mil.disa.stig.windows:tst:101000" comment="System is a DC"/>
+      </criteria>
+    </oval-def:definition>
+  </insert-child>
+
+</template>
+<assessments>
+  <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.3.sch" handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler">
+    <parameter name="datafiles_directory">classpath:data_feeds</parameter>
+  </schematron-assessment>
+</assessments>
+<assertions>
+  <assert-derived-requirement requirement-id="A-27-1" result="PASS" />
+  <!--The introduced CPE is just for testing purposes, expect SRC-209-1 to Fail -->
+  <assert-derived-requirement requirement-id="SRC-209-1" result="FAIL" />
+  <assert-remaining quantifier="ALL" result="PASS" />
+</assertions>
+</content-unit-test>

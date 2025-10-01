@@ -47,7 +47,7 @@ import javax.xml.parsers.SAXParserFactory;
  * Takes an XML file and determines the content type (SCAP or XCCDF) by looking at XML namespace of
  * the root element.
  * <p>
- * For SCAP 1.2/1.3 content, can also find the SCAP use case by looking at the use-case attribute of
+ * For SCAP 1.2/1.3/1.4 content, can also find the SCAP use case by looking at the use-case attribute of
  * the data-stream element.
  */
 public class ScapDocumentSniffer {
@@ -74,11 +74,11 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * For an SCAP 1.2/1.3 file, returns the scap-version attribute of the data-stream element.
+   * For an SCAP 1.2/1.3/1.4 file, returns the scap-version attribute of the data-stream element.
    *
    * @param filename
    *          The SCAP file.
-   * @return The SCAP version e.g., 1.2 / 1.3.
+   * @return The SCAP version e.g., 1.2 / 1.3 / 1.4.
    */
   public String findSCAPVersion(final String filename) {
 
@@ -93,7 +93,7 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * For an SCAP 1.2/1.3 file, returns the use-case attribute of the data-stream element.
+   * For an SCAP 1.2/1.3/1.4 file, returns the use-case attribute of the data-stream element.
    *
    * @param filename
    *          The SCAP file.
@@ -163,6 +163,7 @@ public class ScapDocumentSniffer {
         NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString(),
         NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(),
         NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(),
+        NamespaceConstants.NS_SOURCE_DS_1_4.getNamespaceString(),
         NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString(), NamespaceConstants.NS_ARF_1_1.getNamespaceString(),
         NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString(), NamespaceConstants.NS_XCCDF_1_2.getNamespaceString(), };
 
@@ -202,7 +203,7 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * Handles an XML document by searching for the SCAP 1.2/1.3 namespace, then finding the use-case
+   * Handles an XML document by searching for the SCAP 1.2/1.3/1.4 namespace, then finding the use-case
    * attribute of the data-stream element.
    */
   static class ScapUseCaseHandler
@@ -216,9 +217,10 @@ public class ScapDocumentSniffer {
         throws SAXException {
 
       // short-circuit for performance
-      // if stream is SCAP 1.2/1.3 and element is data-stream
+      // if stream is SCAP 1.2/1.3/1.4 and element is data-stream
       if (useCase == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(uri)
-          || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri))
+          || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)
+          || NamespaceConstants.NS_SOURCE_DS_1_4.getNamespaceString().equals(uri))
           && "data-stream".equals(localName))) {
 
         // get value of the use-case attribute
@@ -251,9 +253,10 @@ public class ScapDocumentSniffer {
         throws SAXException {
 
       // short-circuit for performance
-      // if stream is SCAP 1.2/1.3 and element is data-stream
+      // if stream is SCAP 1.2/1.3/1.4 and element is data-stream
       if (scapVersion == null && ((NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString().equals(uri)
-          || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri))
+          || NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(uri)
+          || NamespaceConstants.NS_SOURCE_DS_1_4.getNamespaceString().equals(uri))
           && "data-stream".equals(localName))) {
 
         // get value of the scap-version attribute

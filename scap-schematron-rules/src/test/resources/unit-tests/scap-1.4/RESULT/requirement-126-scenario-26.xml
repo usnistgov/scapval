@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+    <requirement>126</requirement>
+    <description>If the xccdf:result value for a xccdf:rule-result is 'notapplicable' and OVAL definitions apply,
+        then the OVAL definition referenced by that rule is expected to be 'not applicable' or 'not evaluated'
+        This test for req 126-3 should pass.
+    </description>
+    <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+              xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+              xmlns:oval-res="http://oval.mitre.org/XMLSchema/oval-results-5"
+              xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+              xmlns:arf="http://scap.nist.gov/schema/asset-reporting-format/1.1"
+              xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/result-base.xml">
+
+        <replace xpath="//*:rule-result[@idref='xccdf_gov.nist_rule_test_rule6']/xccdf:result">
+            <xccdf:result>notapplicable</xccdf:result>
+        </replace>
+
+        <modify-attribute xpath="//*:definition[@definition_id='oval:gov.nist.test.compliance:def:1']/@result" value="not evaluated"/>
+
+    </template>
+    <assessments>
+        <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.3.sch"
+                               handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler"/>
+    </assessments>
+    <assertions>
+        <assert-derived-requirement requirement-id="RES-126-3" result="PASS"/>
+        <!-- Can expect 126-1 to fail. We are modifying just enough attributes to test 126-3 -->
+        <assert-derived-requirement requirement-id="RES-126-1" result="FAIL"/>
+        <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
+        <assert-derived-requirement requirement-id="RES-258-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>
+        <assert-remaining quantifier="ALL" result="PASS"/>
+    </assertions>
+</content-unit-test>

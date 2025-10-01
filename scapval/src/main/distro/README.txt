@@ -4,7 +4,7 @@ Overview:
 ---------
 Security Content Automation Protocol Validator (SCAPVal) is a Java Command Line Application that provides information
 about whether SCAP content conforms to conventions and recommendations outlined in NIST Special Publication 800-126,
-The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.1, 1.2, and 1.3
+The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.1, 1.2, 1.3, and 1.4
 
 SCAPVal validates the data stream according to one of the use cases for an SCAP-validated tool listed in 800-126,
 namely Compliance Checking, Vulnerability Scanning, Inventory Scanning, and Other.
@@ -24,8 +24,14 @@ The provided scapval.bat file should be used to run the tool in Windows and the 
 
 Example Usage:
 --------------
+For a 1.4 Source Data Stream running in Windows:
+    "scapval.bat -scapversion 1.4 -file source_data_stream_collection_sample.xml"
+
 For a 1.3 Source Data Stream running in Windows:
     "scapval.bat -scapversion 1.3 -file source_data_stream_collection_sample.xml"
+
+For a 1.4 Result Data Stream running in macOS:
+    "./scapval.sh -scapversion 1.4 -resultfile arf-result.xml"
 
 For a 1.3 Result Data Stream running in macOS:
     "./scapval.sh -scapversion 1.3 -resultfile arf-result.xml"
@@ -53,7 +59,7 @@ scapval <options>
  -dir <arg>                    Directory of individual component SCAP
                                files. Provide if validating SCAP 1.1
                                source files only
- -file <arg>                   SCAP Source XML file (SCAP 1.2, 1.3) or ZIP
+ -file <arg>                   SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP
                                file (SCAP 1.1). Only provide if validating
                                source files
  -h,--help                     Display the available cli arguments
@@ -69,11 +75,11 @@ scapval <options>
  -resultdir <arg>              Directory of individual component SCAP
                                result files. Provide if validating SCAP
                                1.1 result files only
- -resultfile <arg>             SCAP result XML file (SCAP 1.2, 1.3) or ZIP
+ -resultfile <arg>             SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP
                                file (SCAP 1.1). Only provide if validating
                                result files
- -scapversion <arg>            The SCAP version to validate. 1.1, 1.2, and
-                               1.3 are supported
+ -scapversion <arg>            The SCAP version to validate. 1.1, 1.2, 1.3, and
+                               1.4 are supported
  -showcertificate <arg>        Shows a certificate. First argument is a
                                Java Keystore (JKS) file path, or specify
                                "MSCAPI" to show a certificate installed in
@@ -85,11 +91,11 @@ scapval <options>
  -sourceds <arg>               Specifies the location of the source data
                                stream to include with results. For SCAP
                                1.1 it will be included in the 1.1 Data
-                               Stream, for SCAP 1.2 and 1.3 it will
+                               Stream, for SCAP 1.2, 1.3, and 1.4 it will
                                included in ARF Report
  -usecase <arg>                The SCAP use case. For 1.1 content
                                CONFIGURATION, VULNERABILITY_XCCDF_OVAL,
-                               SYSTEM_INVENTORY, OVAL_ONLY For 1.2/1.3
+                               SYSTEM_INVENTORY, OVAL_ONLY For 1.2/1.3/1.4
                                content CONFIGURATION, VULNERABILITY,
                                INVENTORY, OTHER This is required for
                                validation of .zip files or a directory of

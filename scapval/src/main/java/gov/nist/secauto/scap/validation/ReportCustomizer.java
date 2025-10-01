@@ -100,6 +100,9 @@ public class ReportCustomizer {
       case V1_3:
         scapVersionString = "1.3";
         break;
+      case V1_4:
+        scapVersionString = "1.4";
+        break;
       default:
       }
     }

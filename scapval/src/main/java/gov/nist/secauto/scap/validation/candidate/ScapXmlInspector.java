@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 /**
- * Inspects an XML file to see if it is an SCAP 1.2/1.3 file, or an XCCDF file.
+ * Inspects an XML file to see if it is an SCAP 1.2/1.3/1.4 file, or an XCCDF file.
  */
 public class ScapXmlInspector implements ICandidateFileCreator {
 
@@ -66,6 +66,12 @@ public class ScapXmlInspector implements ICandidateFileCreator {
     if (NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString().equals(contentType)
         && this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.3")) {
       return createScap13Candidate(builder);
+    }
+
+    // SCAP 1.4 XML
+    if (NamespaceConstants.NS_SOURCE_DS_1_4.getNamespaceString().equals(contentType)
+        && this.xmlSniffer.findSCAPVersion(builder.getFile().getAbsolutePath()).equals("1.4")) {
+      return createScap14Candidate(builder);
     }
 
     // XCCDF 1.2 XML
@@ -124,6 +130,27 @@ public class ScapXmlInspector implements ICandidateFileCreator {
   }
 
   /**
+   * Builds an SCAP 1.4 candidate file, including the use case, if found in document.
+   *
+   * @param builder
+   *          The CandidateFile.Builder which represents the file.
+   * @return The candidate file.
+   */
+  private CandidateFile createScap14Candidate(final CandidateFile.Builder builder) {
+    final SCAPVersion version = SCAPVersion.V1_4;
+
+    if (log.isDebugEnabled()) {
+      log.debug(String.format("%s is %s", builder.getFile().getName(), version.name()));
+    }
+
+    // search for use case in SCAP document
+    final String useCase = findUseCase(builder.getFile(), SCAPVersion.V1_4);
+
+    // create candidate file
+    return builder.setTypeScapCombinedFile(version, useCase).createCandidateFile();
+  }
+
+  /**
    * Inspects an SCAP file to determine the use case.
    *
    * @param file
@@ -157,6 +184,7 @@ public class ScapXmlInspector implements ICandidateFileCreator {
    * @param version
    *          The XCCDF version.
    * @return The candidate file.
+   * @return The candidate file.13
    */
   private CandidateFile createXccdfCandidate(final CandidateFile.Builder builder, final XccdfVersion version) {
     if (log.isDebugEnabled()) {

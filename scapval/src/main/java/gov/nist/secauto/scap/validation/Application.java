@@ -335,13 +335,13 @@ public class Application {
         .build());
     contentToCheck.addOption(Option.builder(OPTION_FILE)
         .desc(
-            "SCAP Source XML file (SCAP 1.2, 1.3) or ZIP file " + "(SCAP 1.1). Only provide if validating source files")
+            "SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file " + "(SCAP 1.1). Only provide if validating source files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_DIR).desc(
         "Directory of individual component SCAP " + "result files. Provide if validating SCAP 1.1 result files only")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_FILE)
-        .desc("SCAP result XML file (SCAP 1.2, 1.3) or ZIP file (SCAP 1.1). Only provide if validating result files")
+        .desc("SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF/OVAL/OCIL is supported").hasArg().build());
@@ -371,11 +371,12 @@ public class Application {
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
-        .desc("The SCAP version to validate. 1.1, 1.2, and 1.3 are supported").hasArg().build();
+        .desc("The SCAP version to validate. 1.1, 1.2, 1.3 and 1.4 are supported").hasArg().build();
     OptionEnumerationValidator scapVersionValidator = new OptionEnumerationValidator(optionScapVersion);
     scapVersionValidator.addAllowedValue("1.1");
     scapVersionValidator.addAllowedValue("1.2");
     scapVersionValidator.addAllowedValue("1.3");
+    scapVersionValidator.addAllowedValue("1.4");
     CLIParser.addOption(scapVersionValidator);
 
     // other various options
@@ -391,11 +392,11 @@ public class Application {
     Option optionSourceDS
         = Option.builder(OPTION_SOURCE_DS)
             .desc("Specifies the location of the source data stream to include with results. For SCAP 1.1 it will be "
-                + "included in the 1.1 Data Stream, for SCAP 1.2 and 1.3 it will included in ARF Report")
+                + "included in the 1.1 Data Stream, for SCAP 1.2, 1.3 and 1.4 it will included in ARF Report")
             .hasArg().build();
     Option optionUseCase = Option.builder(OPTION_USECASE)
         .desc("The SCAP use case. For 1.1 content CONFIGURATION, VULNERABILITY_XCCDF_OVAL, SYSTEM_INVENTORY, "
-            + "OVAL_ONLY For 1.2/1.3 content CONFIGURATION, VULNERABILITY, INVENTORY, OTHER This is required for "
+            + "OVAL_ONLY For 1.2/1.3/1.4 content CONFIGURATION, VULNERABILITY, INVENTORY, OTHER This is required for "
             + "validation of .zip files or a directory of component SCAP files")
         .hasArg().build();
 
@@ -604,9 +605,9 @@ public class Application {
         }
 
       } else {
-        // sourceds for 1.2 and 1.3 must be an xml file
+        // sourceds for 1.2, 1.3 and 1.4 must be a xml file
         if (!sourcedsFileType.equals(FileType.XML)) {
-          throw new ConfigurationException("For SCAP 1.2 or 1.3 content the specified -sourceds must be a XML file");
+          throw new ConfigurationException("For SCAP 1.2, 1.3 or 1.4 content the specified -sourceds must be a XML file");
         }
       }
     }
@@ -721,7 +722,7 @@ public class Application {
           throw new ConfigurationException("-sourceds for 1.1 content must be an ZIP file or Directory");
         }
       } else {
-        // 1.2 and 1.3 source ds must be an xml file
+        // 1.2, 1.3 and 1.4 source ds must be an xml file
         if (!FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.XML)) {
           throw new ConfigurationException("-sourceds must be an .XML file containing a source-data-stream");
         }
@@ -755,7 +756,7 @@ public class Application {
 
     // All specified args should be validated now, load the SCAP doc/docs to assess
     switch (contentToCheckFileType) {
-    case XML: // xml source for 1.2 and 1.3 only
+    case XML: // xml source for 1.2,1.3 and 1.4 only
       if (contentToCheckType.equals(ContentType.COMPONENT)) {
         log.info("Validating Component File: " + contentToCheckFilename + " (SHA-256: "
             + FileUtils.getFileHash(contentToCheckFile, FileUtils.DEFAULT_HASH_ALGORITHM) + ")");
@@ -765,7 +766,7 @@ public class Application {
             + scapVersion.getVersion());
       }
       XMLContentToValidate = new JDOMDocument(new File(contentToCheckFilename));
-      // check for -sourceds (it will be an XML file will be 1.2 and 1.3 content only)
+      // check for -sourceds (it will be an XML file will be 1.2, 1.3 and 1.4 content only)
       if (sourcedsFile != null && contentToCheckType.equals(ContentType.RESULT)) {
         log.info("Including -sourceds File: " + sourcedsFilename + " (SHA-256: "
             + FileUtils.getFileHash(sourcedsFile, FileUtils.DEFAULT_HASH_ALGORITHM) + ")");
@@ -944,6 +945,12 @@ public class Application {
                 + NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString());
           }
           break;
+        case V1_4:
+          if (!namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_4.getNamespaceString())) {
+            throw new SCAPException("Unable to find the expected namespace for source content: "
+                + NamespaceConstants.NS_SOURCE_DS_1_4.getNamespaceString());
+          }
+          break;
         default:
           throw new SCAPException(
               "Unable to find the expected namespace for source content: " + contentToCheckFilename);
@@ -960,6 +967,12 @@ public class Application {
           }
           break;
         case V1_3:
+          if (!namespace.equals(NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString())) {
+            throw new SCAPException("Unable to find the expected namespace for result content: "
+                + NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString());
+          }
+          break;
+        case V1_4:
           if (!namespace.equals(NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString())) {
             throw new SCAPException("Unable to find the expected namespace for result content: "
                 + NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString());

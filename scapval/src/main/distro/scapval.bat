@@ -13,7 +13,7 @@ goto BUILD_COMMAND
 set JAVA="%JAVA_HOME%\bin\java.exe"
 
 :BUILD_COMMAND
-set COMMAND=%JAVA% -Djava.protocol.handler.pkgs=sun.net.www.protocol -jar "%~dp0${project.build.finalName}.${project.packaging}"
+set COMMAND=%JAVA% -Djava.protocol.handler.pkgs=sun.net.www.protocol -jar "%~dp0scapval-1.4-SNAPSHOT.jar"
 
 rem uncomment below to display the java version used to launch scapval
 rem %JAVA% -version

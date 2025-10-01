@@ -30,6 +30,7 @@ import org.jdom2.Namespace;
 
 /** Namespaces used throughout SCAPVal. */
 public enum NamespaceConstants {
+  NS_SOURCE_DS_1_4("http://scap.nist.gov/schema/scap/source/1.2"),
   NS_SOURCE_DS_1_3("http://scap.nist.gov/schema/scap/source/1.2"),
   NS_SOURCE_DS_1_2("http://scap.nist.gov/schema/scap/source/1.2"),
   NS_SOURCE_DS_1_1("http://scap.nist.gov/schema/data-stream/0.2"),

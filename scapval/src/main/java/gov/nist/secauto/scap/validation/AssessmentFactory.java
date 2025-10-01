@@ -42,10 +42,7 @@ import gov.nist.secauto.decima.xml.schematron.SchematronCompilationException;
 import gov.nist.secauto.decima.xml.schematron.SchematronCompiler;
 import gov.nist.secauto.scap.validation.component.IndividualComponent;
 import gov.nist.secauto.scap.validation.component.OVALVersion;
-import gov.nist.secauto.scap.validation.datastream.IScapDataStream;
-import gov.nist.secauto.scap.validation.datastream.SCAP11DataStream;
-import gov.nist.secauto.scap.validation.datastream.SCAP12DataStream;
-import gov.nist.secauto.scap.validation.datastream.SCAP13DataStream;
+import gov.nist.secauto.scap.validation.datastream.*;
 import gov.nist.secauto.scap.validation.decima.requirements.ComponentSchematronHandler;
 import gov.nist.secauto.scap.validation.exceptions.SCAPException;
 
@@ -113,6 +110,9 @@ public class AssessmentFactory {
         break;
       case V1_3:
         this.dataStream = new SCAP13DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
+        break;
+      case V1_4: // TODO GK Test SCAP14DataStream
+        this.dataStream = new SCAP14DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
         break;
       default:
         throw new SCAPException("Unsupported SCAP Version: " + scapVersion);
@@ -195,7 +195,7 @@ public class AssessmentFactory {
    * Creates schema assessments for Individual Component file validation.
    *
    * @param component
-   *          an Individual component seperate from an SCAP check, not null
+   *          an Individual component separate from an SCAP check, not null
    * @return an component SchemaAssessment based on the IndividualComponent
    */
   protected SchemaAssessment createStandaloneComponentSchemaAssessment(IndividualComponent component)

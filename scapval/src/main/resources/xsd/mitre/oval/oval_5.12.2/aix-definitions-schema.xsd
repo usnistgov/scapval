@@ -1,0 +1,2345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
+            xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+            xmlns:aix-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix"
+            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+            targetNamespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix"
+            elementFormDefault="qualified" version="5.12.1">
+      <xsd:import namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5" schemaLocation="oval-definitions-schema.xsd"/>
+      <xsd:annotation>
+            <xsd:documentation>The following is a description of the elements, types, and attributes that compose the AIX specific tests found in Open Vulnerability and Assessment Language (OVAL). Each test is an extension of the standard test element defined in the Core Definition Schema. Through extension, each test inherits a set of elements and attributes that are shared amongst all OVAL tests. Each test is described in detail and should provide the information necessary to understand what each element and attribute represents. This document is intended for developers and assumes some familiarity with XML. A high level description of the interaction between the different tests and their relationship to the Core Definition Schema is not outlined here.</xsd:documentation>
+            <xsd:documentation>This schema was originally developed by Yuzheng Zhou and Todd Dolinsky at Hewlett-Packard. The OVAL Schema is maintained by the OVAL Community. For more information, including how to get involved in the project and how to submit change requests, please visit the OVAL website at https://github.com/OVAL-Community/.</xsd:documentation>
+            <xsd:appinfo>
+                  <schema>AIX Definition</schema>
+                  <version>5.12.1</version>
+                  <date>05/23/2025 09:00:00 AM</date>
+                  <terms_of_use>This software is an open standard developed by multiple parties, including the United States Government (Government). The Government hereby grants you a non-exclusive, royalty-free, worldwide license to use, modify, and/or reproduce the software for any lawful purpose provided that you reproduce this License/Disclaimer language with any use/modification/copy of the software. The Government assumes no responsibility whatsoever for this software's use by other parties, and the software is provided "AS IS" without warranty or guarantee of any kind, express or implied, including, but not limited to, the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the Government be liable for any claim, damages or other liability, whether in an action of contract, tort or other dealings in the software. The Government has no obligation hereunder to provide maintenance, support, updates, enhancements, or modifications to the software. Users may submit proposals and/or updates regarding the software, which proposals and/or updates the Government, at its sole discretion, can choose to incorporate into the software. Proposals and/or updates submitted to the Government by users must be accompanied by a license to such proposals and/or updates that is no more restrictive than this License/Disclaimer.</terms_of_use>
+                  <sch:ns prefix="oval-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
+                  <sch:ns prefix="aix-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5#aix"/>
+                  <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+            </xsd:appinfo>
+      </xsd:annotation>
+      <!-- =============================================================================== -->
+      <!-- ================================  INTERIM FIX TEST  =========================== -->
+      <!-- =============================================================================== -->
+      <xsd:element name="interim_fix_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>The interim fix test is used to check information associated with different interim or emergency fixes installed on the system. The information being tested is based off the emgr -l -u VUID command. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references an interim_fix_object and the optional state element specifies the information to check.</xsd:documentation>
+                  <xsd:appinfo>
+                        <oval:element_mapping>
+                              <oval:test>interim_fix_test</oval:test>
+                              <oval:object>interim_fix_object</oval:object>
+                              <oval:state>interim_fix_state</oval:state>
+                              <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#aix">interim_fix_item</oval:item>
+                        </oval:element_mapping>
+                  </xsd:appinfo>
+                  <xsd:appinfo>
+                        <oval:deprecated_info>
+                              <oval:version>5.12</oval:version>
+                              <oval:comment>This test has been deprecated due to lack of documented usage and will be removed in version 6.0 of the language.</oval:comment>
+                        </oval:deprecated_info>
+                  </xsd:appinfo>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_interimfixtst">
+                              <sch:rule context="aix-def:interim_fix_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:interim_fix_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a interim_fix_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:interim_fix_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:interim_fix_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a interim_fix_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="interim_fix_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>The interim_fix_object element is used by a interim_fix_test to define the specific fix to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+                  <xsd:documentation>An interim_fix_object consists of a single vuid entity that identifies the fix to be used.</xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_interim_fix_object_verify_filter_state">
+                              <sch:rule context="aix-def:interim_fix_object//oval-def:filter">
+                                    <sch:let name="parent_object" value="ancestor::aix-def:interim_fix_object"/>
+                                    <sch:let name="parent_object_id" value="$parent_object/@id"/>
+                                    <sch:let name="state_ref" value="."/>
+                                    <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id=$state_ref]"/>
+                                    <sch:let name="state_name" value="local-name($reffed_state)"/>
+                                    <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
+                                    <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#aix') and ($state_name='interim_fix_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="vuid" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>Virtually Unique ID. A combination of time and cpuid, this ID can be used to differentiate fixes that are otherwise identical.</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="interim_fix_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>The interim_fix_state element defines the different information associated with a specific interim fix installed on the system. Please refer to the individual elements in the schema for more details about what each represents.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="vuid" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Virtually Unique ID. A combination of time and cpuid, this ID can be used to differentiate fixes that are otherwise identical.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="label" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Each efix that is installed on a given system has a unique efix label.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="abstract" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Describes the efix package.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="state" type="aix-def:EntityStateInterimFixStateType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The the emergency fix state.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>      
+      <!-- =============================================================================== -->
+      <!-- ===============================  FILESET TEST  ================================ -->
+      <!-- =============================================================================== -->
+      <xsd:element name="fileset_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>The fileset_test is used to check information associated with different filesets installed on the system. The information used by this test is modeled after the /usr/bin/lslpp -l command. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references an inetd_object and the optional state element specifies the information to check.</xsd:documentation>
+                  <xsd:appinfo>
+                        <oval:element_mapping>
+                              <oval:test>fileset_test</oval:test>
+                              <oval:object>fileset_object</oval:object>
+                              <oval:state>fileset_state</oval:state>
+                              <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#aix">fileset_item</oval:item>
+                        </oval:element_mapping>
+                  </xsd:appinfo>
+                  <xsd:appinfo>
+                    <sch:pattern id="aix-def_filesettst">
+                        <sch:rule context="aix-def:fileset_test/aix-def:object">
+                            <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:fileset_object/@id"><sch:value-of select="../@id"/> - the object child element of a fileset_test must reference a fileset_object</sch:assert>
+                        </sch:rule>
+                        <sch:rule context="aix-def:fileset_test/aix-def:state">
+                            <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:fileset_state/@id"><sch:value-of select="../@id"/> - the state child element of a fileset_test must reference a fileset_state</sch:assert>
+                        </sch:rule>
+                    </sch:pattern>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fileset_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>The fileset_object element is used by a fileset_test to define the fileset to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+                  <xsd:documentation>A fileset_object consists of a single flstinst entity that identifies the fileset to be used.</xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_fileset_object_verify_filter_state">
+                              <sch:rule context="aix-def:fileset_object//oval-def:filter">
+                                    <sch:let name="parent_object" value="ancestor::aix-def:fileset_object"/>
+                                    <sch:let name="parent_object_id" value="$parent_object/@id"/>
+                                    <sch:let name="state_ref" value="."/>
+                                    <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id=$state_ref]"/>
+                                    <sch:let name="state_name" value="local-name($reffed_state)"/>
+                                    <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
+                                    <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#aix') and ($state_name='fileset_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="flstinst" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The flstinst entity represents the fileset name we want to check. For example, if we want to check the status of the fileset 'bos.rte', we can use fileset test and the flstinst entity will be 'bos.rte' or 'bot.*' or etc.</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fileset_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>The fileset_state element defines the different information associated with filesets installed on the system. Please refer to the individual elements in the schema for more details about what each represents.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="flstinst" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Represents the name of a fileset.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="level" type="oval-def:EntityStateVersionType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Maintenance level (also known as version in Solaris or Linux) of a fileset. For example, "5.3.0.10" is the level for 'bos.txt.tfs' fileset in one AIX machine.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="state" type="aix-def:EntityStateFilesetStateType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>This gives the state of a fileset. The state can be 'APPLIED', 'APPLYING','BROKEN', 'COMMITTED', 'EFIX LOCKED', 'OBSOLETE', 'COMMITTING','REJECTING'. See the manpage of the 'lslpp' command more information.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="description" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Short description of a fileset.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <!-- =============================================================================== -->
+      <!-- ================================  FIX TEST  =================================== -->
+      <!-- =============================================================================== -->
+      <xsd:element name="fix_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>The fix test is used to check information associated with different fixes installed on the system. The information being tested is based off the /usr/sbin/instfix -iavk command. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references an fix_object and the optional state element specifies the information to check.</xsd:documentation>
+                  <xsd:appinfo>
+                        <oval:element_mapping>
+                              <oval:test>fix_test</oval:test>
+                              <oval:object>fix_object</oval:object>
+                              <oval:state>fix_state</oval:state>
+                              <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#aix">fix_item</oval:item>
+                        </oval:element_mapping>
+                  </xsd:appinfo>
+                  <xsd:appinfo>
+                    <sch:pattern id="aix-def_fixtst">
+                        <sch:rule context="aix-def:fix_test/aix-def:object">
+                            <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:fix_object/@id"><sch:value-of select="../@id"/> - the object child element of a fix_test must reference a fix_object</sch:assert>
+                        </sch:rule>
+                        <sch:rule context="aix-def:fix_test/aix-def:state">
+                            <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:fix_state/@id"><sch:value-of select="../@id"/> - the state child element of a fix_test must reference a fix_state</sch:assert>
+                        </sch:rule>
+                    </sch:pattern>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fix_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>The fix_object element is used by a fix test to define the specific fix to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+                  <xsd:documentation>A fix object consists of a single apar_number entity that identifies the fix to be used.</xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_fix_object_verify_filter_state">
+                              <sch:rule context="aix-def:fix_object//oval-def:filter">
+                                    <sch:let name="parent_object" value="ancestor::aix-def:fix_object"/>
+                                    <sch:let name="parent_object_id" value="$parent_object/@id"/>
+                                    <sch:let name="state_ref" value="."/>
+                                    <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id=$state_ref]"/>
+                                    <sch:let name="state_name" value="local-name($reffed_state)"/>
+                                    <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
+                                    <sch:assert test="(($state_namespace='http://oval.mitre.org/XMLSchema/oval-definitions-5#aix') and ($state_name='fix_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="apar_number" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>APAR is the short for 'Authorized Program Analysis Report'. APAR identifies and describes a software product defect. An APAR number can obtain a PTF (Program Temporary Fix) for the defect, if a PTF is available. An example of an apar_number is 'IY78751', it includes two alphabetic characters and a 5-digit integer.</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fix_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>The fix_state element defines the different information associated with a specific fix installed on the system. Please refer to the individual elements in the schema for more details about what each represents.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="apar_number" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>APAR is the short for 'Authorized Program Analysis Report'. APAR identifies and describes a software product defect. An APAR number can obtain a PTF (Program Temporary Fix) for the defect, if a PTF is available. An example of an apar_number is 'IY78751', it includes two alphabetic characters and a 5-digit integer.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="abstract" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The abstract of an APAR. For instance, 'LL syas rXct are available even when not susea' is the abstract of APAR 'IY78751'.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="symptom" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The symptom text related to an APAR. For example, the symptom text for 'IY75211' is 'Daylight savings change for year 2007 and beyond'.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="installation_status" type="aix-def:EntityStateFixInstallationStatusType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The installation status of files associated with the APAR. This cannot be got from the output of the instfix command directly. The last line of the output is 'All filesets for XXXXXXX were found', or 'Not all filesets for XXXXXXX were found' or 'No filesets which have fixes for XXXXXXX are currently installed.'. These can be translated to the correct value as defined by the EntityStateFixInstallationStatusType.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <!-- =============================================================================== -->
+      <!-- =========================  DEVICE ATTRIBUTE TEST  ============================= -->
+      <!-- =============================================================================== -->
+      <xsd:element name="deviceattribute_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The deviceattribute_test is used to hold information related to the execution of the 
+                        /usr/sbin/lsattr -EOl [device] -a [attribute] command. It extends the standard TestType 
+                        as defined in the oval-definitions-schema and one should refer to the TestType description 
+                        for more information. The required object element references a deviceattribute_object and 
+                        the optional state element specifies the value to check.
+                  </xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_deviceattributetst">
+                              <sch:rule context="aix-def:deviceattribute_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:deviceattribute_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a deviceattribute_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:deviceattribute_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:deviceattribute_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a deviceattribute_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deviceattribute_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The deviceattribute_object element is used by a deviceattribute_test to determine the collection of 
+                        information related to the execution of the /usr/sbin/lsattr -EOl [device] -a [attribute] command. 
+                        Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the 
+                        ObjectType description for more information. The common set element allows complex objects to be created using filters 
+                        and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="device_name" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>Specifies the device logical name in the Customized Devices object class whose attribute names or values you want displayed</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="attribute_name" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The name of the attribute of a specific device or type of device.</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deviceattribute_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The deviceattribute_state element defines the different information associated with a specific call 
+                        to /usr/sbin/lsattr -EOl [device] -a [attribute]. Please refer to the individual elements in the schema 
+                        for more details about what each represents.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="device_name" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Specifies the device logical name in the Customized Devices object class whose attribute names or values you want displayed</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="attribute_name" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The name of the attribute of a specific device or type of device.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="value" type="oval-def:EntityStateAnySimpleType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The value entity defines the value to check against the device attribute being examined.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      
+      <!-- =============================================================================== -->
+      <!-- ============================ INITTAB TEST  ==================================== -->
+      <!-- =============================================================================== -->
+      <xsd:element name="inittab_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The inittab_item is used to hold information related to the /usr/sbin/lsitab command and information stored in /etc/inittab. 
+                        Currently, /usr/sbin/lsitab is used to configure records in the /etc/inittab file which controls the initialization process.
+                        It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description 
+                        for more information. The required object element references a inittab_object and the optional state element specifies the value 
+                        to check.
+                  </xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_inittabtst">
+                              <sch:rule context="aix-def:inittab_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:inittab_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a inittab_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:inittab_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:inittab_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a inittab_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="inittab_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The inittab_object element is used by an inittab_test to determine the collection of entries in the /etc/inittab file. 
+                        Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the 
+                        ObjectType description for more information. The common set element allows complex objects to be created using filters 
+                        and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="identifier" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>A string (one or more than one character) that uniquely identifies an object</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="inittab_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The inittab_state element defines the different information associated with a specific call to /usr/bin/lsitab. 
+                        Please refer to the individual elements in the schema for more details about what each represents.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="identifier" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>A string (one or more than one character) that uniquely identifies an object</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="runlevel" type="aix-def:EntityStateInittabRunlevelType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>
+                                                      The run level in which this entry can be processed. Run levels effectively correspond to a 
+                                                      configuration of processes in the system. Run levels are represented by the numbers 0 through 9. 
+                                                      There are three other values that appear in the runlevel field, even though they are not true 
+                                                      run levels: a, b, and c. Entries that have these characters in the runlevel field are processed 
+                                                      only when the telinit command requests them to be run (regardless of the current run level of the system).
+                                                </xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="action" type="aix-def:EntityStateInittabActionType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Tells the init command how to treat the process specified in the identifier field.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="command" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>A shell command to execute.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      
+      <!-- =============================================================================== -->
+      <!-- =========================== SECURITY STANZA TEST  ============================= -->
+      <!-- =============================================================================== -->
+      <xsd:element name="securitystanza_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The securitystanza_test is used to check information related to the /usr/bin/lssec command and the parameters it manages. 
+                        The lssec command lists attributes stored in the security configuration stanza files. The following security configuration 
+                        files contain attributes that you can specify with the Attribute parameter.  The information being tested is based off the 
+                        /usr/bin/lssec [ -f File ] [ -s Stanza ] [ -a Attribute ] command. It extends the standard TestType as defined in the 
+                        oval-definitions-schema and one should refer to the TestType description for more information. The required object 
+                        element references a securitystanza_object and the optional state element specifies the value to check.
+                  </xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_securitystanzatst">
+                              <sch:rule context="aix-def:securitystanza_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:securitystanza_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a securitystanza_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:securitystanza_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:securitystanza_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a securitystanza_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="securitystanza_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The securitystanza_object element is used by a securitystanza_test to determine the 
+                        collection of attributes in the security stanza files. Each object extends the standard 
+                        ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType 
+                        description for more information. The common set element allows complex objects to be created 
+                        using filters and set logic. Again, please refer to the description of the set element in the 
+                        oval-definitions-schema.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="stanza_file" type="aix-def:EntityObjectStanzaFileType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The stanza_file entity is an enumeration of values representing the security configuration file containing the desired attributes.</xsd:documentation>                                                            
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="stanza_name" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>Specifies the name of the stanza to list.</xsd:documentation>                                                            
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="attribute_name" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>Specifies the attribute to list.</xsd:documentation>                                                            
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="securitystanza_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The securitystanza_state element defines the different information associated with a specific 
+                        call to /usr/bin/lssec. Please refer to the individual elements in the schema for more details 
+                        about what each represents.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="stanza_file" type="aix-def:EntityStateStanzaFileType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The stanza_file entity is an enumeration of values representing the security configuration file containing the desired attributes.</xsd:documentation>                                                            
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="stanza_name" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Specifies the name of the stanza to list.</xsd:documentation>                                                            
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="attribute_name" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>Specifies the attribute to list.</xsd:documentation>                                                            
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="value" type="oval-def:EntityStateAnySimpleType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The value entity defines the value to check against the security parameter being examined.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      
+      <!-- =============================================================================== -->
+      <!-- ===========================  USER ACCOUNT TEST  =============================== -->
+      <!-- =============================================================================== -->
+      <xsd:element name="useraccount_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The useraccount_test is used to assess information related to the /usr/sbin/lsuser command and the attributes it manages. 
+                        Currently, /usr/sbin/lsuser is used to display user account attributes. The /usr/sbin/lsuser command queries the named 
+                        attribute for the provided user account(s). It extends the standard TestType as defined in the 
+                        oval-definitions-schema and one should refer to the TestType description for more information. The required object 
+                        element references a useraccount_object and the optional state element specifies the value to check.
+                  </xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_useraccounttst">
+                              <sch:rule context="aix-def:useraccount_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:useraccount_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a useraccount_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:useraccount_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:useraccount_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a useraccount_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="useraccount_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The useraccount_object is used to collect information related to the /usr/sbin/lsuser command and 
+                        the user account attributes it manages. Each object extends the standard ObjectType as defined 
+                        in the oval-definitions-schema and one should refer to the ObjectType description for more 
+                        information. The common set element allows complex objects to be created using filters and 
+                        set logic. Again, please refer to the description of the set element in the oval-definitions-schema.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="username" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The name of the user to be queried by the /usr/sbin/lsuser command.</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element name="account_attribute" type="aix-def:EntityObjectUserAccountAttributeType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The name of the user attribute to be queried by the /usr/sbin/lsuser command. This value can include any attribute that is defined by the /usr/bin/chuser command.</xsd:documentation>
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="useraccount_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The useraccount_state element defines the different information associated with a specific call to /usr/sbin/lsuser. 
+                        Please refer to the individual elements in the schema for more details about what each represents.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="username" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The name of the user to be queried by the /usr/sbin/lsuser command.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="account_attribute" type="aix-def:EntityStateUserAccountAttributeType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The name of the user attribute to be queried by the /usr/sbin/lsuser command. This value can include any attribute that is defined by the /usr/bin/chuser command.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="value" type="oval-def:EntityStateAnySimpleType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The value entity defines the value assigned to the user attribute being examined.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      
+      <!-- =============================================================================== -->
+      <!-- =================================  NFSO TEST  ================================= -->
+      <!-- =============================================================================== -->
+      <xsd:element name="nfso_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The nfso test is used to check information related to the /usr/sbin/nfso command and the parameters it manages. 
+                        The nfso command sets or displays current or next boot values for network file system (NFS) tuning parameters.  
+                        The information being tested is based off the /usr/sbin/nfso -o command. It extends the standard TestType as 
+                        defined in the oval-definitions-schema and one should refer to the TestType description for more information. 
+                        The required object element references a nfso_object and the optional state element specifies the value to check for.
+                  </xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_nfsotst">
+                              <sch:rule context="aix-def:nfso_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:nfso_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a nfso_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:nfso_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:nfso_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a nfso_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="nfso_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The nfso_object element is used by a nfso_test to define the specific parameter to be evaluated. Each object extends 
+                        the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description 
+                        for more information. The common set element allows complex objects to be created using filters and set logic. Again, 
+                        please refer to the description of the set element in the oval-definitions-schema.
+                  </xsd:documentation>
+                  <xsd:documentation>A nfso_object consists of a single tunable entity that identifies the parameter to be looked at.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="tunable" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The tunable entity holds the name of the tunable parameter to be queried by the /usr/sbin/nfso command.  Examples include nfs_max_read_size and nfs_max_write_size.</xsd:documentation>                                                            
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="nfso_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The nfso_state element defines the different information associated with a specific call to /usr/sbin/nfso. 
+                        Please refer to the individual elements in the schema for more details about what each represents.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="tunable" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The tunable entity is used to check the name of the tunable parameter that was used by the /usr/sbin/nfso command.  Examples include nfs_max_read_size and nfs_max_write_size.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="value" type="oval-def:EntityStateAnySimpleType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The value entity defines the value to check against the tunable parameter being examined.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <!-- =============================================================================== -->
+      <!-- ===================================  NO TEST  ================================= -->
+      <!-- =============================================================================== -->
+      <xsd:element name="no_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>The no test is used to check information related to the /usr/sbin/no command and the parameters it manages. The no command sets or displays current or next boot values for network tuning parameters.  The information being tested is based off the /usr/sbin/no -o command. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a no_object and the optional state element specifies the value to check for.</xsd:documentation>
+                  <xsd:appinfo>
+                        <sch:pattern id="aix-def_notst">
+                              <sch:rule context="aix-def:no_test/aix-def:object">
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:no_object/@id"><sch:value-of select="../@id"/> - the object child element of a <sch:name path=".."/> must reference a no_object</sch:assert>
+                              </sch:rule>
+                              <sch:rule context="aix-def:no_test/aix-def:state">
+                                    <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:no_state/@id"><sch:value-of select="../@id"/> - the state child element of a <sch:name path=".."/> must reference a no_state</sch:assert>
+                              </sch:rule>
+                        </sch:pattern>
+                  </xsd:appinfo>
+                  <xsd:appinfo>
+                        <oval:deprecated_info>
+                              <oval:version>5.12</oval:version>
+                              <oval:comment>This test has been deprecated due to lack of documented usage and will be removed in version 6.0 of the language.</oval:comment>
+                        </oval:deprecated_info>
+                  </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="no_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>The no_object element is used by a no_test to define the specific parameter to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+                  <xsd:documentation>A no_object consists of a single tunable entity that identifies the parameter to be looked at.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType">
+                              <xsd:sequence>
+                                    <xsd:choice>
+                                          <xsd:element ref="oval-def:set"/>
+                                          <xsd:sequence>
+                                                <xsd:element name="tunable" type="oval-def:EntityObjectStringType">
+                                                      <xsd:annotation>
+                                                            <xsd:documentation>The tunable entity holds the name of the tunable parameter to be queried by the /usr/sbin/no command.  Examples include ip_forwarding and tcp_keepalive_interval.</xsd:documentation>                                                            
+                                                      </xsd:annotation>
+                                                </xsd:element>
+                                                <xsd:element ref="oval-def:filter" minOccurs="0" maxOccurs="unbounded"/>
+                                          </xsd:sequence>
+                                    </xsd:choice>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="no_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>The no_state element defines the different information associated with a specific call to /usr/sbin/no. Please refer to the individual elements in the schema for more details about what each represents.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="tunable" type="oval-def:EntityStateStringType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The tunable entity is used to check the name of the tunable parameter that was used by the /usr/sbin/no command.  Examples include ip_forwarding and tcp_keepalive_interval.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="value" type="oval-def:EntityStateAnySimpleType" minOccurs="0" maxOccurs="1">
+                                          <xsd:annotation>
+                                                <xsd:documentation>The value entity defines the value to check against the tunable parameter being examined.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <!-- =============================================================================== -->
+      <!-- ===============================  OSLEVEL TEST  ================================ -->
+      <!-- =============================================================================== -->
+      <xsd:element name="oslevel_test" substitutionGroup="oval-def:test">
+            <xsd:annotation>
+                  <xsd:documentation>The oslevel test reveals information about the release and maintenance level of AIX operating system. This information can be retrieved by the /usr/bin/oslevel -r command. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references an oslevel_object and the optional state element specifies the metadata to check.</xsd:documentation>
+                <xsd:appinfo>
+                    <sch:pattern id="aix-def_osleveltst">
+                        <sch:rule context="aix-def:oslevel_test/aix-def:object">
+                            <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/aix-def:oslevel_object/@id"><sch:value-of select="../@id"/> - the object child element of a oslevel_test must reference a oslevel_object</sch:assert>
+                        </sch:rule>
+                        <sch:rule context="aix-def:oslevel_test/aix-def:state">
+                            <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/aix-def:oslevel_state/@id"><sch:value-of select="../@id"/> - the state child element of a oslevel_test must reference a oslevel_state</sch:assert>
+                        </sch:rule>
+                    </sch:pattern>
+                </xsd:appinfo>
+				<xsd:appinfo>
+					<oval:deprecated_info>
+						<oval:version>5.12</oval:version>
+						<oval:comment>This test has been deprecated due to lack of documented usage and will be removed in version 6.0 of the language.</oval:comment>
+					</oval:deprecated_info>
+				</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:TestType">
+                              <xsd:sequence>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
+                                    <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="oslevel_object" substitutionGroup="oval-def:object">
+            <xsd:annotation>
+                  <xsd:documentation>The oslevel_object element is used by an oslevel test to define those objects to be evaluated based on a specified state. There is actually only one object relating to oslevel and this is the system as a whole. Therefore, there are no child entities defined. Any OVAL Test written to check oslevel will reference the same oslevel_object which is basically an empty object element.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:ObjectType"/>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="oslevel_state" substitutionGroup="oval-def:state">
+            <xsd:annotation>
+                  <xsd:documentation>The oslevel_state element defines the information about maintenance level (system version). Please refer to the individual elements in the schema for more details about what each represents.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                  <xsd:complexContent>
+                        <xsd:extension base="oval-def:StateType">
+                              <xsd:sequence>
+                                    <xsd:element name="maintenance_level" type="oval-def:EntityStateVersionType">
+                                          <xsd:annotation>
+                                                <xsd:documentation>This is the maintenance level (system version) of current AIX operating system.</xsd:documentation>
+                                          </xsd:annotation>
+                                    </xsd:element>
+                              </xsd:sequence>
+                        </xsd:extension>
+                  </xsd:complexContent>
+            </xsd:complexType>
+      </xsd:element>
+      <!-- =============================================================================== -->
+      <!-- =============================================================================== -->
+      <!-- =============================================================================== -->
+      <xsd:complexType name="EntityStateFilesetStateType">
+            <xsd:annotation>
+                  <xsd:documentation>The EntityStateFilesetStateType complex type defines the different values that are valid for the state entity of a fileset state. The empty string is also allowed as a valid value to support an empty element that is found when a variable reference is used within the state entity. Note that when using pattern matches and variables care must be taken to ensure that the regular expression and variable values align with the enumerated values.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="APPLIED">
+                              <xsd:annotation>
+                                    <xsd:documentation>The specified fileset is installed on the system. The APPLIED state means that the fileset can be rejected with the installp command and the previous level of the fileset restored. This state is only valid for Version 4 fileset updates and 3.2 migrated filesets.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="APPLYING">
+                              <xsd:annotation>
+                                    <xsd:documentation>An attempt was made to apply the specified fileset, but it did not complete successfully, and cleanup was not performed.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="BROKEN">
+                              <xsd:annotation>
+                                    <xsd:documentation>The specified fileset or fileset update is broken and should be reinstalled before being used.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="COMMITTED">
+                              <xsd:annotation>
+                                    <xsd:documentation>The specified fileset is installed on the system. The COMMITTED state means that a commitment has been made to this level of the software. A committed fileset update cannot be rejected, but a committed fileset base level and its updates (regardless of state) can be removed or deinstalled by the installp command.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="COMMITTING">
+                              <xsd:annotation>
+                                    <xsd:documentation>An attempt was made to commit the specified fileset, but it did not complete successfully, and cleanup was not performed.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFIX LOCKED">
+                              <xsd:annotation>
+                                    <xsd:documentation>The specified fileset was installed sucessfully and locked by the interim fix (interim fix) manager.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="OBSOLETE">
+                              <xsd:annotation>
+                                    <xsd:documentation>The specified fileset was installed with an earlier version of the operating system but has been replaced by a repackaged (renamed) newer version. Some of the files that belonged to this fileset have been replaced by versions from the repackaged fileset.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="REJECTING">
+                              <xsd:annotation>
+                                    <xsd:documentation>An attempt was made to reject the specified fileset, but it did not complete successfully, and cleanup was not performed.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="">
+                              <xsd:annotation>
+                                    <xsd:documentation>The empty string value is permitted here to allow for empty elements associated with variable references.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityStateFixInstallationStatusType">
+            <xsd:annotation>
+                  <xsd:documentation>The EntityStateFixInstallationStatusType complex type defines the different values that are valid for the installation_status entity of a fix_state state. The empty string is also allowed as a valid value to support an empty element that is found when a variable reference is used within the installation_status entity. Note that when using pattern matches and variables care must be taken to ensure that the regular expression and variable values align with the enumerated values.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="ALL_INSTALLED">
+                              <xsd:annotation>
+                                    <xsd:documentation>All filesets for XXXXXXX were found</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SOME_INSTALLED">
+                              <xsd:annotation>
+                                    <xsd:documentation>Not all filesets for XXXXXXX were found</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NONE_INSTALLED">
+                              <xsd:annotation>
+                                    <xsd:documentation>No filesets which have fixes for XXXXXXX are currently installed.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="">
+                              <xsd:annotation>
+                                    <xsd:documentation>The empty string value is permitted here to allow for empty elements associated with variable references.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityStateInterimFixStateType">
+            <xsd:annotation>
+                  <xsd:documentation>The EntityStateInterimFixStateType complex type defines the different values that are valid for the state entity of a interim_fix_state state. Please refer to the AIX documentation of Emergency Fix States. The empty string is also allowed as a valid value to support an empty element that is found when a variable reference is used within the state entity. Note that when using pattern matches and variables care must be taken to ensure that the regular expression and variable values align with the enumerated values.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="STABLE">
+                              <xsd:annotation>
+                                    <xsd:documentation>The efix was installed with a standard installation, and successfully completed the last installation operation.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MOUNTED">
+                              <xsd:annotation>
+                                    <xsd:documentation>The efix was installed with a mount installation operation, and successfully completed the last installation or mount operation.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="UNMOUNTED">
+                              <xsd:annotation>
+                                    <xsd:documentation>The efix was installed with a mount installation operation and one or more efix files were unmounted in a previous emgr command operation.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="BROKEN">
+                              <xsd:annotation>
+                                    <xsd:documentation>An unrecoverable error occurred during an installation or removal operation. The status of the efix is unreliable.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="INSTALLING">
+                              <xsd:annotation>
+                                    <xsd:documentation>The efix is in the process of installing.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="REBOOT_REQUIRED">
+                              <xsd:annotation>
+                                    <xsd:documentation>The efix was installed successfully and requires a reboot to fully integrate into the target system.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="REMOVING">
+                              <xsd:annotation>
+                                    <xsd:documentation>The efix is in the process of being removed.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="">
+                              <xsd:annotation>
+                                    <xsd:documentation>The empty string value is permitted here to allow for empty elements associated with variable references.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityObjectStanzaFileType">
+            <xsd:annotation>
+                  <xsd:documentation>The lssec command lists attributes stored in the security configuration stanza files. The following security configuration files contain attributes that you can specify with the Attribute parameter.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityObjectStringType">
+                        <xsd:enumeration value="ENVIRON">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/environ</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="GROUP">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/group</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HOSTS">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/audit/hosts</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LASTLOG">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/lastlog</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LIMITS">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/limits</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGIN">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/login.cfg</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MKUSER">
+                              <xsd:annotation>
+                                    <xsd:documentation>/usr/lib/security/mkuser.default</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NSCONTROL">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/nscontrol.conf</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PASSWD">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/passwd</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PORTLOG">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/portlog</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PWDALG">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/pwdalg.cfg</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ROLES">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/roles</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SMITACL_USER">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/smitacl.user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SMITACL_GROUP">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/smitacl.group</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="USER">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="USER_ROLES">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/user.roles</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RTCD_POLICY">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/rtc/rtcd_policy.conf</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="">
+                              <xsd:annotation>
+                                    <xsd:documentation>The empty string value is permitted here to allow for empty elements associated with variable references.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityStateStanzaFileType">
+            <xsd:annotation>
+                  <xsd:documentation>The lssec command lists attributes stored in the security configuration stanza files. The following security configuration files contain attributes that you can specify with the Attribute parameter.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="ENVIRON">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/environ</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="GROUP">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/group</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HOSTS">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/audit/hosts</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LASTLOG">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/lastlog</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LIMITS">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/limits</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGIN">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/login.cfg</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MKUSER">
+                              <xsd:annotation>
+                                    <xsd:documentation>/usr/lib/security/mkuser.default</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NSCONTROL">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/nscontrol.conf</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PASSWD">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/passwd</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PORTLOG">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/portlog</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PWDALG">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/pwdalg.cfg</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ROLES">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/roles</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SMITACL_USER">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/smitacl.user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SMITACL_GROUP">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/smitacl.group</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="USER">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="USER_ROLES">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/user.roles</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RTCD_POLICY">
+                              <xsd:annotation>
+                                    <xsd:documentation>/etc/security/rtc/rtcd_policy.conf</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="">
+                              <xsd:annotation>
+                                    <xsd:documentation>The empty string value is permitted here to allow for empty elements associated with variable references.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityObjectUserAccountAttributeType">
+            <xsd:annotation>
+                  <xsd:documentation>The name of the user attribute to be queried by the /usr/sbin/lsuser command. This value can include any attribute that is defined by the /usr/bin/chuser command.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityObjectStringType">
+                        <xsd:enumeration value="ACCOUNT_LOCKED">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates if the user account is locked</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ADMIN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the administrative status of the user.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ADMGROUPS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the groups that the user administrates</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="AUDITCLASSES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the user's audit classes</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="AUTH1">
+                              <xsd:annotation>
+                                    <xsd:documentation>Defines the primary methods for authenticating the user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="AUTH2">
+                              <xsd:annotation>
+                                    <xsd:documentation>Defines the secondary methods for authenticating the user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CAPABILITIES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the system privileges (capabilities) which are granted to a user by the login or su commands</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest core file a user's process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_COMPRESS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Enables or disables core file compression</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest core file a user's process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_NAMING">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Selects a choice of core file naming strategies. Valid values for this attribute are On and Off</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_PATH">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Enables or disables core file path specification</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_PATHNAME">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies a location to be used to place core files, if the core_path attribute is set to On</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CPU">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the soft limit for the largest amount of system unit time (in seconds) that a user's process can use</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CPU_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the largest amount of system unit time (in seconds) that a user's process can use</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DAEMON">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates whether the user specified by the Name parameter can run programs using the cron daemon or the src (system resource controller) daemon</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DATA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest data segment for a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DATA_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest data segment for a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DCE_EXPORT">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Allows the DCE registry to overwrite the local user information with the DCE user information during a DCE export operation</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DEFAULT_ROLES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the default roles for the user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DICTIONLIST">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the password dictionaries used by the composition restrictions when checking new passwords</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DOMAINS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the list of domains that the user belongs to</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EXPIRES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the expiration date of the account</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="FSIZE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the soft limit for the largest file a user's process can create or extend</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="FSIZE_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the largest file a user's process can create or extend</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="GECOS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Supplies general information about the user specified by the Name parameter</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="GROUPS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the groups to which user belongs</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HISTEXPIRE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the period of time (in weeks) that a user cannot reuse a password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HISTSIZE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the number of previous passwords that a user cannot reuse</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HOME">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the home directory of the user specified by the Name parameter</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ID">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the user ID</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGIN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates whether the user can log in to the system with the login command</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGINRETRIES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the number of unsuccessful login attempts allowed after the last successful login before the system locks the account</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGINTIMES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the days and times that the user is allowed to access the system</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXAGE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum age (in weeks) of a password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXEXPIRED">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum time (in weeks) beyond the maxage value that a user can change an expired password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXREPEATS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum number of times a character can be repeated in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXULOGS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the maximum number of concurrent logins per user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINAGE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum age (in weeks) a password must be before it can be changed</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINALPHA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINDIFF">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of characters required in a new password that were not in the old password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINLEN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum length of a password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINOTHER">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of non-alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NOFILES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the soft limit for the number of file descriptors a user process may have open at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NOFILES_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the hard limit for the number of file descriptors a user process may have open at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NPROC">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the soft limit on the number of processes a user can have running at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NPROC_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the hard limit on the number of processes a user can have running at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PGRP">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the primary group of the user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PROJECTS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the list of projects to which the user's processes can be assigned</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PWDCHECKS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the password restriction methods enforced on new passwords</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PWDWARNTIME">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the number of days before the system issues a warning that a password change is required</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RCMDS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Controls the remote execution of the r-commands (rsh, rexec, and rcp)</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RLOGIN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Permits access to the account from a remote location with the telnet orrlogin commands</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ROLES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the administrative roles for this user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RSS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>The soft limit for the largest amount of physical memory a user's process can allocate</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RSS_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>The largest amount of physical memory a user's process can allocate</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SHELL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the program run for the user at session initiation</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="STACK">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest process stack segment for a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="STACK_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest process stack segment of a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SU">
+                              <xsd:annotation>
+                                    <xsd:documentation>Indicates whether another user can switch to the specified user account with the su command</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SUGROUPS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the groups that can use the su command to switch to the specified user account</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SYSENV">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the system-state (protected) environment</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="THREADS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest number of threads that a user process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="THREADS_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest possible number of threads that a user process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="TPATH">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates the user's trusted path status</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="TTYS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the terminals that can access the account specified by the Name parameter</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="UMASK">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Determines file permissions</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="USRENV">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the user-state (unprotected) environment</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_KEYSTORE_ACCESS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the database type of the user keystore. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_ADMINKS_ACCESS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Represents the database type for the efs_admin keystore. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_INITIALKS_MODE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the initial mode of the user keystore. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_ALLOWKSMODECHANGEBYUSER">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies whether the mode can be changed. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_KEYSTORE_ALGO">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the algorithm that is used to generate the private key of the user during the keystore creation. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_FILE_ALGO">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the encryption algorithm for user files. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINSL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum sensitivity-clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXSL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum sensitivity-clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DEFSL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the default sensitivity level that the user is assigned during login. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINTL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum integrity clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXTL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum integrity clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DEFTL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the default integrity clearance level that the user is assigned during login. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINLOWERALPHA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of lower case alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINUPPERALPHA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of upper case alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINDIGIT">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of digits that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINSPECIALCHAR">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of special characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityStateUserAccountAttributeType">
+            <xsd:annotation>
+                  <xsd:documentation>The name of the user attribute to be queried by the /usr/sbin/lsuser command. This value can include any attribute that is defined by the /usr/bin/chuser command.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="ACCOUNT_LOCKED">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates if the user account is locked</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ADMIN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the administrative status of the user.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ADMGROUPS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the groups that the user administrates</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="AUDITCLASSES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the user's audit classes</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="AUTH1">
+                              <xsd:annotation>
+                                    <xsd:documentation>Defines the primary methods for authenticating the user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="AUTH2">
+                              <xsd:annotation>
+                                    <xsd:documentation>Defines the secondary methods for authenticating the user</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CAPABILITIES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the system privileges (capabilities) which are granted to a user by the login or su commands</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest core file a user's process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_COMPRESS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Enables or disables core file compression</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest core file a user's process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_NAMING">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Selects a choice of core file naming strategies. Valid values for this attribute are On and Off</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_PATH">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Enables or disables core file path specification</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CORE_PATHNAME">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies a location to be used to place core files, if the core_path attribute is set to On</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CPU">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the soft limit for the largest amount of system unit time (in seconds) that a user's process can use</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="CPU_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the largest amount of system unit time (in seconds) that a user's process can use</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DAEMON">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates whether the user specified by the Name parameter can run programs using the cron daemon or the src (system resource controller) daemon</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DATA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest data segment for a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DATA_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest data segment for a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DCE_EXPORT">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Allows the DCE registry to overwrite the local user information with the DCE user information during a DCE export operation</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DEFAULT_ROLES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the default roles for the user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DICTIONLIST">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the password dictionaries used by the composition restrictions when checking new passwords</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DOMAINS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the list of domains that the user belongs to</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EXPIRES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the expiration date of the account</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="FSIZE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the soft limit for the largest file a user's process can create or extend</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="FSIZE_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the largest file a user's process can create or extend</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="GECOS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Supplies general information about the user specified by the Name parameter</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="GROUPS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the groups to which user belongs</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HISTEXPIRE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the period of time (in weeks) that a user cannot reuse a password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HISTSIZE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the number of previous passwords that a user cannot reuse</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="HOME">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the home directory of the user specified by the Name parameter</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ID">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the user ID</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGIN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates whether the user can log in to the system with the login command</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGINRETRIES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the number of unsuccessful login attempts allowed after the last successful login before the system locks the account</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="LOGINTIMES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the days and times that the user is allowed to access the system</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXAGE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum age (in weeks) of a password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXEXPIRED">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum time (in weeks) beyond the maxage value that a user can change an expired password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXREPEATS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum number of times a character can be repeated in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXULOGS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the maximum number of concurrent logins per user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINAGE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum age (in weeks) a password must be before it can be changed</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINALPHA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINDIFF">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of characters required in a new password that were not in the old password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINLEN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum length of a password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINOTHER">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of non-alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NOFILES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the soft limit for the number of file descriptors a user process may have open at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NOFILES_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the hard limit for the number of file descriptors a user process may have open at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NPROC">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the soft limit on the number of processes a user can have running at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="NPROC_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the hard limit on the number of processes a user can have running at one time</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PGRP">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the primary group of the user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PROJECTS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the list of projects to which the user's processes can be assigned</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PWDCHECKS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the password restriction methods enforced on new passwords</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="PWDWARNTIME">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the number of days before the system issues a warning that a password change is required</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RCMDS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Controls the remote execution of the r-commands (rsh, rexec, and rcp)</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RLOGIN">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Permits access to the account from a remote location with the telnet orrlogin commands</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ROLES">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the administrative roles for this user</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RSS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>The soft limit for the largest amount of physical memory a user's process can allocate</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="RSS_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>The largest amount of physical memory a user's process can allocate</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SHELL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the program run for the user at session initiation</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="STACK">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest process stack segment for a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="STACK_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest process stack segment of a user's process</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SU">
+                              <xsd:annotation>
+                                    <xsd:documentation>Indicates whether another user can switch to the specified user account with the su command</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SUGROUPS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the groups that can use the su command to switch to the specified user account</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="SYSENV">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Identifies the system-state (protected) environment</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="THREADS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the soft limit for the largest number of threads that a user process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="THREADS_HARD">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the largest possible number of threads that a user process can create</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="TPATH">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Indicates the user's trusted path status</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="TTYS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the terminals that can access the account specified by the Name parameter</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="UMASK">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Determines file permissions</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="USRENV">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the user-state (unprotected) environment</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_KEYSTORE_ACCESS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the database type of the user keystore. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_ADMINKS_ACCESS">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Represents the database type for the efs_admin keystore. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_INITIALKS_MODE">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the initial mode of the user keystore. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_ALLOWKSMODECHANGEBYUSER">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies whether the mode can be changed. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_KEYSTORE_ALGO">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the algorithm that is used to generate the private key of the user during the keystore creation. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="EFS_FILE_ALGO">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Specifies the encryption algorithm for user files. The attribute is valid only when the system is EFS-enabled</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINSL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum sensitivity-clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXSL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum sensitivity-clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DEFSL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the default sensitivity level that the user is assigned during login. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINTL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum integrity clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MAXTL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the maximum integrity clearance level that the user can have. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="DEFTL">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the default integrity clearance level that the user is assigned during login. This attribute is valid only for Trusted AIX.</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINLOWERALPHA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of lower case alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINUPPERALPHA">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of upper case alphabetic characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINDIGIT">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of digits that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="MINSPECIALCHAR">
+                        	<xsd:annotation>
+                        		<xsd:documentation>Defines the minimum number of special characters that must be in a new password</xsd:documentation>
+                        	</xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityStateInittabRunlevelType">
+            <xsd:annotation>
+                  <xsd:documentation>
+                        The EntityStateInittabRunlevelType describes the enumeration of runlevel values present in /etc/inittab. 
+                        The empty string value is permitted here to allow for detailed error reporting and variable references.
+                  </xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="0">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="1">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="2">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="3">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="4">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="5">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="6">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="7">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="8">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="9">
+                              <xsd:annotation>
+                                    <xsd:documentation>Run levels are represented by the numbers 0 through 9</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="a">
+                              <xsd:annotation>
+                                    <xsd:documentation>There are three other values that appear in the runlevel field, even though they are not true run levels: a, b, and c. Entries that have these characters in the runlevel field are processed only when the telinit command requests them to be run (regardless of the current run level of the system).</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="b">
+                              <xsd:annotation>
+                                    <xsd:documentation>There are three other values that appear in the runlevel field, even though they are not true run levels: a, b, and c. Entries that have these characters in the runlevel field are processed only when the telinit command requests them to be run (regardless of the current run level of the system).</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="c">
+                              <xsd:annotation>
+                                    <xsd:documentation>There are three other values that appear in the runlevel field, even though they are not true run levels: a, b, and c. Entries that have these characters in the runlevel field are processed only when the telinit command requests them to be run (regardless of the current run level of the system).</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="">
+                              <xsd:annotation>
+                                    <xsd:documentation>The empty string is allowed for variable references</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:complexType name="EntityStateInittabActionType">
+            <xsd:annotation>
+                  <xsd:documentation>The EntityStateInittabActionType indicates how to treat the process specified in the identifier field. The empty string value is permitted here to allow for detailed error reporting.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleContent>
+                  <xsd:restriction base="oval-def:EntityStateStringType">
+                        <xsd:enumeration value="respawn">
+                              <xsd:annotation>
+                                    <xsd:documentation>If the process does not exist, start the process. Do not wait for its termination (continue scanning the /etc/inittab file). Restart the process when it dies. If the process exists, do nothing and continue scanning the /etc/inittab file.</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="wait">
+                              <xsd:annotation>
+                                    <xsd:documentation>When the init command enters the run level that matches the entry's run level, start the process and wait for its termination</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="once">
+                              <xsd:annotation>
+                                    <xsd:documentation>When the init command enters a run level that matches the entry's run level, start the process, and do not wait for its termination</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="boot">
+                              <xsd:annotation>
+                                    <xsd:documentation>Process the entry only during system boot, which is when the init command reads the /etc/inittab file during system startup</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="bootwait">
+                              <xsd:annotation>
+                                    <xsd:documentation>Process the entry the first time that the init command goes from single-user to multi-user state after the system is booted</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="powerfail">
+                              <xsd:annotation>
+                                    <xsd:documentation>Execute the process associated with this entry only when the init command receives a power fail signal (SIGPWR)</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="powerwait">
+                              <xsd:annotation>
+                                    <xsd:documentation>Execute the process associated with this entry only when the init command receives a power fail signal (SIGPWR), and wait until it terminates</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="off">
+                              <xsd:annotation>
+                                    <xsd:documentation>If the process associated with this entry is currently running, send the warning signal (SIGTERM), and wait 20 seconds before terminating the process with the kill signal (SIGKILL)</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="ondemand">
+                              <xsd:annotation>
+                                    <xsd:documentation>Functionally identical to respawn, except this action applies to the a, b, or c values, not to run levels</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="initdefault">
+                              <xsd:annotation>
+                                    <xsd:documentation>An entry with this action is only scanned when the init command is initially invoked</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="sysinit">
+                              <xsd:annotation>
+                                    <xsd:documentation>Entries of this type are executed before the init command tries to access the console before login</xsd:documentation>
+                              </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value=""/>
+                  </xsd:restriction>
+            </xsd:simpleContent>
+      </xsd:complexType>
+</xsd:schema>
