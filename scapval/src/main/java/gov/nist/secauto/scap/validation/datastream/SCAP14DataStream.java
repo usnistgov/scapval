@@ -56,9 +56,8 @@ public class SCAP14DataStream implements IScapDataStream {
     private String id;
     private SCAPVersion scapVersion;
     private Application.ContentType contentType;
-    // TODO GK Get source-data-stream-1.4.sch  and result-data-stream-1.4.sch
-    private static final String SOURCE_SCHEMATRON_LOCATION = "classpath:rules/scap/source-data-stream-1.3.sch";
-    private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.3.sch";
+    private static final String SOURCE_SCHEMATRON_LOCATION = "classpath:rules/scap/source-data-stream-1.4.sch";
+    private static final String RESULT_SCHEMATRON_LOCATION = "classpath:rules/scap/result-data-stream-1.4.sch";
     private static final String TMSAD_SCHEMATRON_LOCATION = "classpath:rules/other/tmsad-1.0.sch";
     // all schemas for 1.4 as specified in the 800-126Ar4 Annex Document
     private static final String[] Schemas = { "classpath:xsd/nist/cpe/2.3/cpe-language_2.3.xsd",
