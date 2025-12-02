@@ -5,7 +5,7 @@
             xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
             xmlns:sch="http://purl.oclc.org/dsdl/schematron"
             targetNamespace="http://oval.mitre.org/XMLSchema/oval-definitions-5"
-            elementFormDefault="qualified" version="5.12.1">
+            elementFormDefault="qualified" version="5.12.2">
     <xsd:import namespace="http://oval.mitre.org/XMLSchema/oval-common-5" schemaLocation="oval-common-schema.xsd"/>
     <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
     <xsd:annotation>
@@ -13,8 +13,8 @@
         <xsd:documentation>The OVAL Schema is maintained by OVAL Community. For more information, including how to get involved in the project and how to submit change requests, please visit the OVAL website at https://github.com/OVAL-Community/.</xsd:documentation>
         <xsd:appinfo>
             <schema>Core Definition</schema>
-            <version>5.12.1</version>
-            <date>05/23/2025 09:00:00 AM</date>
+            <version>5.12.2</version>
+            <date>11/25/2025 09:00:00 AM</date>
             <terms_of_use>This software is an open standard developed by multiple parties, including the United States Government (Government). The Government hereby grants you a non-exclusive, royalty-free, worldwide license to use, modify, and/or reproduce the software for any lawful purpose provided that you reproduce this License/Disclaimer language with any use/modification/copy of the software. The Government assumes no responsibility whatsoever for this software's use by other parties, and the software is provided "AS IS" without warranty or guarantee of any kind, express or implied, including, but not limited to, the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the Government be liable for any claim, damages or other liability, whether in an action of contract, tort or other dealings in the software. The Government has no obligation hereunder to provide maintenance, support, updates, enhancements, or modifications to the software. Users may submit proposals and/or updates regarding the software, which proposals and/or updates the Government, at its sole discretion, can choose to incorporate into the software. Proposals and/or updates submitted to the Government by users must be accompanied by a license to such proposals and/or updates that is no more restrictive than this License/Disclaimer.</terms_of_use>
             <sch:ns prefix="oval-def" uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
             <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
@@ -1400,7 +1400,7 @@
         </xsd:attribute>
         <xsd:attribute name="var_check" type="oval:CheckEnumeration" use="optional">
             <xsd:annotation>
-                <xsd:documentation>The optional var_check attribute specifies how data collection or state evaluation should proceed when an element uses a var_ref attribute, and the associated variable defines more than one value. For example, if an object entity 'filename' with an operation of 'not equal' references a variable that returns five different values, and the var_check attribute has a value of 'all', then an actual file on the system matches only if the actual filename does not equal any of the variable values. As another example, if a state entity 'size' with an operation of 'less than' references a variable that has five different integer values, and the var_check attribute has a value of 'all', then the 'size' state entity evaluates to true only if the corresponding 'size' item entity is less than each of the five integers defined by the variable. If a variable does not have any value value when referenced by an OVAL Object the object should be considered to not exist.
+                <xsd:documentation>The optional var_check attribute specifies how data collection or state evaluation should proceed when an element uses a var_ref attribute, and the associated variable defines more than one value. For example, if an object entity 'filename' with an operation of 'not equal' references a variable that returns five different values, and the var_check attribute has a value of 'all', then an actual file on the system matches only if the actual filename does not equal any of the variable values. As another example, if a state entity 'size' with an operation of 'less than' references a variable that has five different integer values, and the var_check attribute has a value of 'all', then the 'size' state entity evaluates to true only if the corresponding 'size' item entity is less than each of the five integers defined by the variable. If a variable does not have any value when referenced by an OVAL Object the object should be considered to not exist.
                     If a variable does not have any value when referenced by an OVAL State an error should be reported during OVAL analysis. When an OVAL State uses a var_ref, if both the state entity and a corresponding item entity are collections of values, the var_check is applied to each value of the item entity individually, and all must evaluate to true for the state entity to evaluate to true. In this condition, there is no value of var_check which enables an element-wise comparison, and so there is no way to determine whether the two entities are truly 'equal' in that sense. If var_ref is present but var_check is not, the element should be processed as if var_check has the value "all".</xsd:documentation>        
             </xsd:annotation>
         </xsd:attribute>
