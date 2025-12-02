@@ -226,6 +226,7 @@
       <test_type name="userright_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
       <test_type name="volume_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"/>
        -->
+   </test_types>
    <test_types style="SCAP_1.4">
       <test_type name="environmentvariable58_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
       <test_type name="environmentvariable_test" namespace="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"/>
