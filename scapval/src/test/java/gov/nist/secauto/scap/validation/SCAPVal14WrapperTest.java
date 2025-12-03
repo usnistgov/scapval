@@ -55,9 +55,8 @@ public class SCAPVal14WrapperTest {
 
     @Test
     public void runSCAP() throws Exception {
-        // TODO GK - checking this file from scap-12 - check if need to be copied to scap-14
         final String datastream = new File(
-                new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
+                new URL("classpath:src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml")
                         .getFile()).getAbsolutePath();
 
         SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
