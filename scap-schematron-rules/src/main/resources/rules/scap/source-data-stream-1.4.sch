@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--These rules are for informational purposes only and DO NOT supersede the requirements in NIST SP 800-126 Rev 3.-->
+<!--These rules are for informational purposes only and DO NOT supersede the requirements in NIST SP 800-126 Rev 4.-->
 <!--These rules may be revised at anytime. Comments/feedback on these rules are welcome.-->
 <!--Private comments may be sent to scap@nist.gov.  Public comments may be sent to scap-dev@nist.gov.-->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -29,7 +29,7 @@
   <sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
   <sch:ns prefix="xml" uri="http://www.w3.org/XML/1998/namespace"/>
   <sch:ns prefix="xsd" uri="http://www.w3.org/2001/XMLSchema"/>
-
+  
   <sch:let name="datafiles_directory" value="'datafiles'"/>
 
   <sch:pattern id="scap-general">
@@ -43,7 +43,7 @@
       <sch:assert id="scap-general-xccdf-benchmark-version-update-req" test="exists(//xccdf:version[string(@update)])">SRC-341-1</sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-no-set-complex-value" test="not(exists(.//xccdf:set-complex-value))">SRC-343-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-no-group-extension" test="every $m in .//xccdf:Group satisfies not(exists($m/@extends))">SRC-354-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
-      <sch:assert id="scap-general-xccdf-style" test="@style eq 'SCAP_1.3'">SRC-4-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
+      <sch:assert id="scap-general-xccdf-style" test="@style eq 'SCAP_1.4'">SRC-4-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-metadata-missing" test="exists(xccdf:metadata)">SRC-8-2|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-metadata-populated" test="if( exists(xccdf:metadata) ) then exists(xccdf:metadata/dc:creator/text()) and exists(xccdf:metadata/dc:publisher/text()) and exists(xccdf:metadata/dc:contributor/text()) and exists(xccdf:metadata/dc:source/text()) else false()">SRC-8-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-title-1" test="every $m in (. union .//xccdf:Profile union .//xccdf:Value union .//xccdf:Group union .//xccdf:Rule) satisfies exists($m/xccdf:title)">SRC-9-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
@@ -65,7 +65,7 @@
       <sch:assert id="scap-general-xccdf-check-patches-ref-oval-only" test="if(current()/parent::xccdf:Rule[ends-with(@id,'security_patches_up_to_date')]) then current()/@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' else true()">SRC-169-2|xccdf:Rule <sch:value-of select="parent::xccdf:Rule/@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-scap-data-stream-collection" context="scap:data-stream-collection ">
-      <sch:assert id="scap-general-latest-schematron-rules" test="exists(current()[@schematron-version='1.3'])">SRC-330-2|scap:data-stream-collection</sch:assert>
+      <sch:assert id="scap-general-latest-schematron-rules" test="exists(current()[@schematron-version='1.4'])">SRC-330-2|scap:data-stream-collection</sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-scap-content" context="scap:data-stream">
       <sch:assert id="scap-general-scap-content-every-cpe-equal-subset2" test="if( function-available('java:isEqualOrSuperset') ) then (every $m in ds:checklists/ds:component-ref satisfies ((every $n in xcf:get-component($m)//xccdf:platform[not(starts-with(@idref,'#'))] satisfies some $o in ds:dictionaries/ds:component-ref satisfies some $p in xcf:get-component($o)//cpe-dict:cpe-item satisfies java:isEqualOrSuperset($n/@idref,$p/@name)) and (every $q in xcf:get-component($m)//cpe-lang:fact-ref satisfies some $r in ds:dictionaries/ds:component-ref satisfies some $s in xcf:get-component($r)//cpe-dict:cpe-item satisfies java:isEqualOrSuperset($q/@name,$s/@name)))) else true()">SRC-15-1|scap:data-stream <sch:value-of select="@id"/></sch:assert>
@@ -116,8 +116,8 @@
       <sch:assert id="scap-general-oval-def-vulnerability-extension" test="if(@class eq 'vulnerability') then every $m in xcf:get-all-parents(ancestor::oval-def:definitions,.) satisfies (if( generate-id(current()) ne generate-id($m) ) then matches($m/@class,'^(inventory|vulnerability)$') else true() ) else true()">SRC-215-1|oval-def:definition <sch:value-of select="@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-oval-generator" context="oval-def:generator">
-      <sch:assert id="scap-general-oval-version" test="every $m in oval-com:schema_version satisfies if (not(exists($m/@platform))) then matches($m,'^5\.(3|4|5|6|7|8|9|10(\.1)?|11(\.1|\.2)?)$') else true()">SRC-216-1</sch:assert>
-      <sch:assert id="scap-general-oval-platform-version" test="every $m in oval-com:schema_version satisfies if (exists($m/@platform)) then matches($m,'^5\.11(\.1|\.2):1(\.0|\.1|\.2)$') else true()">SRC-216-2</sch:assert>
+      <sch:assert id="scap-general-oval-version" test="every $m in oval-com:schema_version satisfies if (not(exists($m/@platform))) then matches($m,'^5\\.(3|4|5|6|7|8|9|10(\\.1)?|11(\\.1|\\.2)?|12(\\.\\d+)?)$') else true()">SRC-216-1</sch:assert>
+      <sch:assert id="scap-general-oval-platform-version" test="every $m in oval-com:schema_version satisfies if (exists($m/@platform)) then matches($m,'^5\\.(11(\\.1|\\.2)?|12(\\.\\d+)?):1(\\.\\d+)?$') else true()">SRC-216-2</sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-signature-sig" context="dsig:Signature">
       <sch:assert id="scap-general-signature-sig-one-ds-ref" test="every $m in dsig:SignedInfo/dsig:Reference satisfies ((not(exists(ancestor::ds:data-stream-collection[1]/ds:data-stream[concat('#',@id) eq $m/@URI]))) or (every $n in $m/preceding-sibling::dsig:Reference satisfies not(exists(ancestor::ds:data-stream-collection[1]/ds:data-stream[concat('#',@id) eq $n/@URI]))))">SRC-282-1|dsig:Signature <sch:value-of select="@Id"/></sch:assert>
@@ -152,7 +152,7 @@
       <sch:assert flag="ERROR" test="if(matches(@content-type,'^(OVAL_COMPLIANCE|OVAL_PATCH|CPE_INVENTORY|OVAL_VULNERABILITY)$')) then exists(oval-def:oval_definitions) else true()" id="scap-check-system-content-match-assert-1">A-18-1</sch:assert>
       <sch:assert flag="ERROR" test="if(matches(@content-type,'^(OCIL_QUESTIONS)$')) then exists(ocil:ocil) else true()" id="scap-check-system-content-match-assert-2">A-18-1</sch:assert>
     </sch:rule>
-    <!--
+    <!--        
         <sch:rule id="scap-xccdf-profile-check-rule" context="xccdf:Benchmark">
         <sch:assert flag="ERROR"
         test="if($profile ne '') then exists(current()//xccdf:Profile[@id eq $profile]) else true()"
@@ -160,7 +160,7 @@
         </sch:rule>
     -->
     <sch:rule id="scap-oval-tests" context="oval-def:tests/*">
-      <sch:assert flag="INFO" test="exists(document(concat($datafiles_directory,'/validation_program_oval_test_types.xml'))/test-types-collection/test_types[@style='SCAP_1.3']/test_type[@namespace eq namespace-uri(current()) and @name eq local-name(current())])" id="scap-oval-tests-validation-program-test-types">A-21-1|OVAL test <sch:value-of select="@id"/></sch:assert>
+      <sch:assert flag="INFO" test="exists(document(concat($datafiles_directory,'/validation_program_oval_test_types.xml'))/test-types-collection/test_types[@style='SCAP_1.4']/test_type[@namespace eq namespace-uri(current()) and @name eq local-name(current())])" id="scap-oval-tests-validation-program-test-types">A-21-1|OVAL test <sch:value-of select="@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-collection" context="scap:data-stream-collection">
       <sch:assert flag="WARNING" test="function-available('java:isEqualOrSuperset')" id="scap-collection-java-functions">A-22-1</sch:assert>

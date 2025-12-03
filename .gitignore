@@ -43,3 +43,6 @@ bootstrap
 validation-report.html
 validation-result.xml
 /release.properties
+
+#Other files
+.DS_Store

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--These rules are for informational purposes only and DO NOT supersede the requirements in NIST SP 800-126 Rev 3.-->
+<!--These rules are for informational purposes only and DO NOT supersede the requirements in NIST SP 800-126 Rev 4.-->
 <!--These rules may be revised at anytime. Comments/feedback on these rules are welcome.-->
 <!--Private comments may be sent to scap@nist.gov.  Public comments may be sent to scap-dev@nist.gov.-->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2">
