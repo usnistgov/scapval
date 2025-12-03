@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>gov.nist.secauto.scap.validation</groupId>
 		<artifactId>scapval-parent</artifactId>
-		<version>1.3.7-SNAPSHOT</version>
+		<version>1.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>scapval</artifactId>
@@ -101,6 +101,32 @@
 							<schemaIncludes>
 								<include>*.xsd</include>
 							</schemaIncludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>jaxb-no-unsafe-opt</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>set-system-properties</goal>
+						</goals>
+						<configuration>
+							<properties>
+								<property>
+									<name>com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize</name>
+									<value>true</value>
+								</property>
+								<property>
+									<name>com.sun.xml.bind.v2.runtime.reflect.AccessorInjector.noOptimize</name>
+									<value>true</value>
+								</property>
+							</properties>
 						</configuration>
 					</execution>
 				</executions>
