@@ -116,8 +116,8 @@
       <sch:assert id="scap-general-oval-def-vulnerability-extension" test="if(@class eq 'vulnerability') then every $m in xcf:get-all-parents(ancestor::oval-def:definitions,.) satisfies (if( generate-id(current()) ne generate-id($m) ) then matches($m/@class,'^(inventory|vulnerability)$') else true() ) else true()">SRC-215-1|oval-def:definition <sch:value-of select="@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-oval-generator" context="oval-def:generator">
-      <sch:assert id="scap-general-oval-version" test="every $m in oval-com:schema_version satisfies if (not(exists($m/@platform))) then matches($m,'^5\\.(3|4|5|6|7|8|9|10(\\.1)?|11(\\.1|\\.2)?|12(\\.\\d+)?)$') else true()">SRC-216-1</sch:assert>
-      <sch:assert id="scap-general-oval-platform-version" test="every $m in oval-com:schema_version satisfies if (exists($m/@platform)) then matches($m,'^5\\.(11(\\.1|\\.2)?|12(\\.\\d+)?):1(\\.\\d+)?$') else true()">SRC-216-2</sch:assert>
+      <sch:assert id="scap-general-oval-version" test="every $m in oval-com:schema_version satisfies if (not(exists($m/@platform))) then matches($m,'^5\.(3|4|5|6|7|8|9|10(\.1)?|11(\.1|\.2)?|12(\.\d+)?)$') else true()">SRC-216-1</sch:assert>
+      <sch:assert id="scap-general-oval-platform-version" test="every $m in oval-com:schema_version satisfies if (exists($m/@platform)) then matches($m,'^5\.(11(\.1|\.2)?|12(\.\d+)?):1(\.\d+)?$') else true()">SRC-216-2</sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-signature-sig" context="dsig:Signature">
       <sch:assert id="scap-general-signature-sig-one-ds-ref" test="every $m in dsig:SignedInfo/dsig:Reference satisfies ((not(exists(ancestor::ds:data-stream-collection[1]/ds:data-stream[concat('#',@id) eq $m/@URI]))) or (every $n in $m/preceding-sibling::dsig:Reference satisfies not(exists(ancestor::ds:data-stream-collection[1]/ds:data-stream[concat('#',@id) eq $n/@URI]))))">SRC-282-1|dsig:Signature <sch:value-of select="@Id"/></sch:assert>
@@ -130,7 +130,7 @@
       <sch:assert id="scap-general-signature-sig-key-info" test="exists(dsig:KeyInfo)">SRC-290-1|dsig:Signature <sch:value-of select="@Id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-xccdf-status-rule-value-date" context="xccdf:status">
-      <sch:assert id="scap-general-xccdf-status-rule-value-date-1" test=". eq 'draft' or . eq 'accepted'">SRC-5-1</sch:assert>
+      <sch:assert id="scap-general-xccdf-status-rule-value-date-1" test="matches(normalize-space(.), '^(draft|accepted|interim|incomplete|deprecated)$')">SRC-5-1</sch:assert>
       <sch:assert id="scap-general-xccdf-status-rule-value-date-2" test="@date ne ''">SRC-5-2</sch:assert>
     </sch:rule>
   </sch:pattern>
