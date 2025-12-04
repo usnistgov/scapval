@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<requirements xmlns="http://csrc.nist.gov/ns/decima/requirements/1.0" xmlns:scapval-ext="https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.3"
+<requirements xmlns="http://csrc.nist.gov/ns/decima/requirements/1.0" xmlns:scapval-ext="https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.4"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://csrc.nist.gov/ns/decima/requirements/1.0 ../../../../../decima/xml/src/main/xsd/decima/decima-requirements.xsd https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.4 ../../xsd/scapval-requirements-ext.xsd">
     <resource id="NIST800-126Ar4" name="The Technical Specification for the Security Content Automation Protocol (SCAP): SCAP Version 1.4"
-              href="http://csrc.nist.gov/publications/drafts/800-126-rev3/sp800_126_r4_draft.pdf"/>
+              href="http://csrc.nist.gov/publications/drafts/800-126-rev4/sp800_126_r4_draft.pdf"/>
     <resource id="NISTIR-7698"
               name="Common Platform Enumeration: Applicability Language Specification Version 2.3"
               href="http://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir7698.pdf"/>
@@ -1397,7 +1397,7 @@
                 <message>''{0}''</message>
             </derived-requirement>
             <derived-requirement id="SRC-216-2" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>OVAL platform schema versions shall be approved for SCAP 1.4 (Annex to NIST Special Publication 800-126 Revision 3)</statement>
+                <statement>OVAL platform schema versions shall be approved for SCAP 1.4 (Annex to NIST Special Publication 800-126 Revision 4)</statement>
                 <message>''{0}''</message>
             </derived-requirement>
         </derived-requirements>

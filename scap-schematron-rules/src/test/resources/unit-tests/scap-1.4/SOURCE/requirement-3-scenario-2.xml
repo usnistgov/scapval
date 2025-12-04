@@ -9,7 +9,19 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.4/templates/configuration-single-data-stream-base.xml">
     <insert-sibling before="true" xpath="//scap:component[1]">
       <scap:component id="scap_gov.nist_comp_2718" timestamp="2011-08-05T10:03:38">
-        <xccdf12:Benchmark xmlns:xccdf12="http://checklists.nist.gov/xccdf/1.2" xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:cdf="http://checklists.nist.gov/xccdf/1.1" xmlns:cpe="http://cpe.mitre.org/dictionary/2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xhtml="http://www.w3.org/1999/xhtml" id="xccdf_gov.nist.scap_benchmark_fdcc-ie-7" resolved="0" xml:lang="en" style="SCAP_1.3" xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.2 http://scap.nist.gov/schema/xccdf/1.2/xccdf_1.2.xsd http://cpe.mitre.org/dictionary/2.0 http://scap.nist.gov/schema/cpe/2.3/cpe-dictionary_2.3.xsd ">
+        <xccdf12:Benchmark xmlns:xccdf12="http://checklists.nist.gov/xccdf/1.2" 
+        xmlns="http://checklists.nist.gov/xccdf/1.1" 
+        xmlns:cdf="http://checklists.nist.gov/xccdf/1.1" 
+        xmlns:cpe="http://cpe.mitre.org/dictionary/2.0"
+         xmlns:dc="http://purl.org/dc/elements/1.1/" 
+         xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+          xmlns:xhtml="http://www.w3.org/1999/xhtml"
+           id="xccdf_gov.nist.scap_benchmark_fdcc-ie-7"
+           resolved="0" 
+           xml:lang="en" 
+           style="SCAP_1.4" 
+           xsi:schemaLocation="http://checklists.nist.gov/xccdf/1.2 http://scap.nist.gov/schema/xccdf/1.2/xccdf_1.2.xsd 
+           http://cpe.mitre.org/dictionary/2.0 http://scap.nist.gov/schema/cpe/2.3/cpe-dictionary_2.3.xsd">
           <xccdf12:status date="2009-04-08">accepted</xccdf12:status>
           <xccdf12:title>FDCC: Guidance for Securing Microsoft Internet Explorer 7 for IT
 					Professionals</xccdf12:title>

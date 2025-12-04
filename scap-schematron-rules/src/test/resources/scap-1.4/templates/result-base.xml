@@ -100,7 +100,7 @@
                         </checks>
                     </data-stream>
                     <component id="scap_gov.nist_comp_minimal-xccdf.xml" timestamp="2011-09-26T04:36:47">
-                        <xccdf:Benchmark id="xccdf_gov.nist_benchmark_minimal-xccdf" style="SCAP_1.3" xml:lang="en-US">
+                        <xccdf:Benchmark id="xccdf_gov.nist_benchmark_minimal-xccdf" style="SCAP_1.4" xml:lang="en-US">
                             <xccdf:status date="2009-12-01">draft</xccdf:status>
                             <xccdf:title>Test Title</xccdf:title>
                             <xccdf:description>
