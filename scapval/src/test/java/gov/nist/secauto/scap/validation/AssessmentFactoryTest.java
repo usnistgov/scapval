@@ -137,7 +137,6 @@ public class AssessmentFactoryTest {
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_1), "scapval-scap-1.1-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_2), "scapval-scap-1.2-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_3), "scapval-scap-1.3-requirements.xml");
-    // TODO GK confirm the expectedName
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_4), "scapval-scap-1.4-requirements.xml");
   }
 

@@ -52,7 +52,6 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class SCAP14DataStream implements IScapDataStream {
 
-    // TODO GK Check all the values
     private String id;
     private SCAPVersion scapVersion;
     private Application.ContentType contentType;
