@@ -84,8 +84,8 @@ public enum OVALVersion {
   V5_11_2(
           new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
                   "oval-results-schematron-5.11.2.sch", "oval-system-characteristics-schematron-5.11.2.sch" }),
-  V5_12_2( // TODO GK copied the references as it is, fix it if need to
-      new String[] { "xsd/mitre/oval/oval_5.12.2/", "oval-definitions-schematron-5.11.2.sch",
+  V5_12_2(
+      new String[] { "xsd/mitre/oval/oval_5.12.2/", "oval-definitions-schematron-5.12.2.sch",
           "oval-results-schematron-5.12.2.sch", "oval-system-characteristics-schematron-5.12.2.sch" });
   // V5_11_2(
   // new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
@@ -106,10 +106,16 @@ public enum OVALVersion {
    */
   public static OVALVersion getByString(String stringVersion) {
     Objects.requireNonNull(stringVersion, "name cannot be null.");
+    String normalizedVersion = stringVersion.trim();
     for (OVALVersion version : OVALVersion.values()) {
-      if (version.getVersionString().equals(stringVersion)) {
+      if (version.getVersionString().equals(normalizedVersion)) {
         return version;
       }
+    }
+    // Accept any 5.12.* variants (e.g., 5.12, 5.12.1, 5.12.x) by mapping them to 5.12.2 since
+    // SCAP 1.4 requires the 5.12 schema family and 5.12.2 is the newest release bundled.
+    if (normalizedVersion.startsWith("5.12")) {
+      return OVALVersion.V5_12_2;
     }
     return null;
   }
