@@ -51,7 +51,6 @@ public class SCAPValReqManager {
   private static final String SCAP11_REQUIREMENTS = "classpath:requirements/scapval-scap-1.1-requirements.xml";
   private static final String SCAP12_REQUIREMENTS = "classpath:requirements/scapval-scap-1.2-requirements.xml";
   private static final String SCAP13_REQUIREMENTS = "classpath:requirements/scapval-scap-1.3-requirements.xml";
-    // TODO GK get the file
   private static final String SCAP14_REQUIREMENTS = "classpath:requirements/scapval-scap-1.4-requirements.xml";
 
   /**

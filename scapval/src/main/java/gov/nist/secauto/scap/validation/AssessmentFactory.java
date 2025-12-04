@@ -111,7 +111,7 @@ public class AssessmentFactory {
       case V1_3:
         this.dataStream = new SCAP13DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
         break;
-      case V1_4: // TODO GK Test SCAP14DataStream
+      case V1_4:
         this.dataStream = new SCAP14DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
         break;
       default:

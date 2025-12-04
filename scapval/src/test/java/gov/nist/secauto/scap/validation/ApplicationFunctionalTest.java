@@ -53,7 +53,7 @@ public class ApplicationFunctionalTest {
 
   @Test
   public void CompleteSourceRun14() {
-    try { // TODO GK scap-12 reference needs to be scap-14?
+    try {
       new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
               "src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml" });
     } catch (Exception e) {
@@ -73,7 +73,7 @@ public class ApplicationFunctionalTest {
 
   @Test
   public void CompleteSourceRunWhitespaceInFileName14() {
-    try { // TODO GK scap-12 reference needs to be scap-14?
+    try {
       new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
           "src/test/resources/candidates/scap-14/source ds whitespace.xml" });
     } catch (Exception e) {
@@ -83,7 +83,7 @@ public class ApplicationFunctionalTest {
 
   @Test
   public void CompleteResultRun() {
-    try { // TODO GK scap-12 reference needs to be scap-14?
+    try {
       new Application().runCLI(new String[] { "-scapversion", "1.4", "-resultfile",
           "src/test/resources/candidates/scap-14/ARF-results.xml" });
     } catch (Exception e) {
