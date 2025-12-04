@@ -12,14 +12,14 @@
   xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
   xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/configuration-single-data-stream-base.xml">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.4/templates/configuration-single-data-stream-base.xml">
 
     <!-- fdcc-ie7-oval.xml has no oval-def:definition[@class eq 'patch'] elements so SRC-169-1 should fail -->
     <modify-attribute value="fdcc-ie7-oval.xml" xpath="//xccdf:Rule[@id='xccdf_gov.nist.scap_rule_security_patches_up_to_date']//xccdf:check-content-ref[1]/@href" />
 
   </template>
   <assessments>
-    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.3.sch" handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler">
+    <schematron-assessment ruleset="classpath:rules/scap/source-data-stream-1.4.sch" handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler">
       <parameter name="datafiles_directory">classpath:data_feeds</parameter>
     </schematron-assessment>
   </assessments>

@@ -1551,12 +1551,16 @@
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~The &lt;xccdf:check-content&gt; element SHALL NOT be
             used to embed check content directly into XCCDF content.
         </statement>
+        
         <derived-requirements>
-            <derived-requirement id="SRC-25-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>A XCCDF document SHALL NOT contain an &lt;xccdf:check-content&gt; element</statement>
+            <derived-requirement id="SRC-25-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+            <!--<derived-requirement id="SRC-25-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
+                <statement>A XCCDF document SHALL NOT contain an &lt;xccdf:check-content&gt; element</statement>-->
+                <statement>A XCCDF document SHOULD NOT contain an &lt;xccdf:check-content&gt; element</statement>
                 <message>''{0}''</message>
             </derived-requirement>
         </derived-requirements>
+        
     </requirement>
     <requirement id="SRC-251">
         <summary/>
