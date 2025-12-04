@@ -142,8 +142,8 @@
       <generator>
         <oval:product_name>NIST Validation Content Generation Script</oval:product_name>
         <oval:product_version>1.0</oval:product_version>
-        <oval:schema_version>5.11.2</oval:schema_version> <!-- if @platform is omited, it indicates the core version -->
-        <oval:schema_version platform="Unix">5.11.1:1.2</oval:schema_version>
+        <oval:schema_version>5.12.2</oval:schema_version> <!-- if @platform is omited, it indicates the core version -->
+        <oval:schema_version platform="Unix">5.12.2:1.0</oval:schema_version>
         <oval:timestamp>2016-05-25T14:00:00-05:00</oval:timestamp>
       </generator>
       <definitions>

@@ -13,7 +13,7 @@
     </replace>
     <modify-attribute value="SCAP_1.4" xpath="//xccdf:Benchmark/@style" />
     <replace xpath="//oval-com:schema_version">
-      <oval-com:schema_version>5.11.2</oval-com:schema_version>
+      <oval-com:schema_version>5.12.2</oval-com:schema_version>
     </replace>
   </template>
   <assessments>

@@ -9,8 +9,8 @@
   xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.4/templates/configuration-single-data-stream-base.xml">
     <replace xpath="//oval-com:schema_version">
-      <oval-com:schema_version>5.11.2</oval-com:schema_version>
-      <oval-com:schema_version platform="Unix">5.11.1:1.2</oval-com:schema_version>
+      <oval-com:schema_version>5.12.2</oval-com:schema_version>
+      <oval-com:schema_version platform="Unix">5.12.2:1.0</oval-com:schema_version>
     </replace>
   </template>
   <assessments>
