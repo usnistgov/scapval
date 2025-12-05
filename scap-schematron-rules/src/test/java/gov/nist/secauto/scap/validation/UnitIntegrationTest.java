@@ -45,6 +45,19 @@ public class UnitIntegrationTest {
   }
 
   public static List<File> paths() {
-    return Collections.singletonList(new File("src/test/resources/unit-tests/"));
+    File unitTestDir = new File("src/test/resources/unit-tests/");
+    if (!unitTestDir.exists() || !unitTestDir.isDirectory()) {
+      return Collections.emptyList();
+    }
+    try {
+      return java.nio.file.Files.walk(unitTestDir.toPath())
+          .filter(java.nio.file.Files::isRegularFile)
+                    // Change: Filter by extension instead of excluding specific system files
+          .filter(p -> p.toString().endsWith(".xml"))      
+          .map(java.nio.file.Path::toFile)
+          .collect(java.util.stream.Collectors.toList());
+    } catch (java.io.IOException e) {
+      throw new RuntimeException("Failed to walk unit test directory", e);
+    }
   }
 }

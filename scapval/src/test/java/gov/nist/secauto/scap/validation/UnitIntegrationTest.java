@@ -36,10 +36,22 @@ import java.util.List;
 
 @RunWith(PathRunner.class)
 @PathRunner.Paths("src/test/resources/unit-tests")
-@PathRunner.Requirements(value = "classpath:requirements/scapval-scap-1.2-requirements.xml",
-    extensions = "classpath:scapval-xsd/scapval-requirements-ext.xsd")
+@PathRunner.Requirements(value = "classpath:requirements/scapval-scap-1.4-requirements.xml", extensions = "classpath:scapval-xsd/scapval-requirements-ext.xsd")
 public class UnitIntegrationTest {
   public static List<File> paths() {
-    return Collections.singletonList(new File("src/test/resources/unit-tests"));
+    File unitTestDir = new File("src/test/resources/unit-tests/");
+    if (!unitTestDir.exists() || !unitTestDir.isDirectory()) {
+      return Collections.emptyList();
+    }
+    try {
+      return java.nio.file.Files.walk(unitTestDir.toPath())
+          .filter(java.nio.file.Files::isRegularFile)
+          // Change: Filter by extension instead of excluding specific system files
+          .filter(p -> p.toString().endsWith(".xml"))
+          .map(java.nio.file.Path::toFile)
+          .collect(java.util.stream.Collectors.toList());
+    } catch (java.io.IOException e) {
+      throw new RuntimeException("Failed to walk unit test directory", e);
+    }
   }
 }
