@@ -42,6 +42,8 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.xml.transform.TransformerException;
@@ -195,14 +197,15 @@ public class SCAPValWrapper {
 
       // to specify where result/report files are written
       // if null, they will not be created
+      Path filename = Paths.get(submissionFilePath).getFileName();
       if (reportDirPath != null) {
         // the xml result file
         args.add("-valresultfile");
-        args.add(reportDirPath + "validation-result.xml");
+        args.add(reportDirPath + filename + "-validation-result.xml");
 
         // the html report file
         args.add("-valreportfile");
-        args.add(reportDirPath + "validation-report.html");
+        args.add(reportDirPath + filename + "-validation-report.html");
       }
 
       args.add("-maxsize");
