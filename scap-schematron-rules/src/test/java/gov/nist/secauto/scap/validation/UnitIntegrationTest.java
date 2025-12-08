@@ -44,16 +44,48 @@ public class UnitIntegrationTest {
     ClasspathHandler.initialize();
   }
 
+  private static final String UNIT_TEST_INCLUDE_PROPERTY = "scap.unittest.include";
+
+  private static List<String> getIncludeFilters() {
+    String property = System.getProperty(UNIT_TEST_INCLUDE_PROPERTY);
+    if (property == null) {
+      return Collections.emptyList();
+    }
+    property = property.trim();
+    if (property.isEmpty()) {
+      return Collections.emptyList();
+    }
+    return java.util.Arrays.stream(property.split(","))
+        .map(String::trim)
+        .filter(s -> !s.isEmpty())
+        .collect(java.util.stream.Collectors.toList());
+  }
+
+  private static boolean passesFilters(java.nio.file.Path path, List<String> includeFilters) {
+    if (includeFilters.isEmpty()) {
+      return true;
+    }
+    String normalized = path.toString();
+    for (String filter : includeFilters) {
+      if (normalized.contains(filter)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static List<File> paths() {
     File unitTestDir = new File("src/test/resources/unit-tests/");
     if (!unitTestDir.exists() || !unitTestDir.isDirectory()) {
       return Collections.emptyList();
     }
+    List<String> includeFilters = getIncludeFilters();
     try {
       return java.nio.file.Files.walk(unitTestDir.toPath())
           .filter(java.nio.file.Files::isRegularFile)
                     // Change: Filter by extension instead of excluding specific system files
-          .filter(p -> p.toString().endsWith(".xml"))      
+          .filter(p -> p.toString().endsWith(".xml"))
+          .filter(p -> passesFilters(p, includeFilters))
           .map(java.nio.file.Path::toFile)
           .collect(java.util.stream.Collectors.toList());
     } catch (java.io.IOException e) {
