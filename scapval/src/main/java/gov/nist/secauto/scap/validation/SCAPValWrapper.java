@@ -197,7 +197,14 @@ public class SCAPValWrapper {
 
       // to specify where result/report files are written
       // if null, they will not be created
-      Path filename = Paths.get(submissionFilePath).getFileName();
+      Path filename;
+      if (submissionFilePath != null) {
+        filename = Paths.get(submissionFilePath).getFileName();
+      } else if (submissionDirPath != null) {
+        filename = Paths.get(submissionDirPath).getFileName();
+      } else {
+        filename = Paths.get("scapval");
+      }
       if (reportDirPath != null) {
         // the xml result file
         args.add("-valresultfile");
