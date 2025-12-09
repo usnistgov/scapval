@@ -6,11 +6,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   id="scap_gov.nist_collection_ind_family_test-datastream.zip" 
   schematron-version="1.4"
-  xsi:schemaLocation="http://scap.nist.gov/schema/scap/source/1.2 scap-source-data-stream_1.2.xsd">
+  xsi:schemaLocation="http://scap.nist.gov/schema/scap/source/1.2 scap-source-data-stream_1.4.xsd">
   
   <data-stream id="scap_gov.nist_datastream_ind_family_test-datastream.zip" scap-version="1.4" timestamp="2016-05-25T14:00:00" use-case="CONFIGURATION">
     <dictionaries>
-      <component-ref id="scap_gov.nist_cref_family_validation_content-cpe-dictionary.xml" xlink:href="#scap_gov.nist_comp_family_validation_content-cpe-dictionary.xml">
+      <component-ref id="scap_gov.nist_cref_family_validation_content-cpe-dictionary.xml" 
+        xlink:href="#scap_gov.nist_comp_family_validation_content-cpe-dictionary.xml">
         <cat:catalog>
           <cat:uri name="family_validation_content-cpe-oval.xml" uri="#scap_gov.nist_cref_family_validation_content-cpe-oval.xml"/>
         </cat:catalog>
@@ -132,18 +133,19 @@
       xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
       xsi:schemaLocation="
       http://oval.mitre.org/XMLSchema/oval-definitions-5#windows 
-      https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/windows-definitions-schema.xsd
+      windows-definitions-schema.xsd
       http://oval.mitre.org/XMLSchema/oval-definitions-5#independent 
-      https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/independent-definitions-schema.xsd
+      independent-definitions-schema.xsd
       http://oval.mitre.org/XMLSchema/oval-definitions-5
-      https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/oval-definitions-schema.xsd
-      http://oval.mitre.org/XMLSchema/oval-common-5 https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/oval-common-schema.xsd
-      ">
+      oval-definitions-schema.xsd
+      http://oval.mitre.org/XMLSchema/oval-common-5 
+      oval-common-schema.xsd">
       <generator>
         <oval:product_name>NIST Validation Content Generation Script</oval:product_name>
         <oval:product_version>1.0</oval:product_version>
-        <oval:schema_version>5.12.2</oval:schema_version> <!-- if @platform is omited, it indicates the core version -->
-        <oval:schema_version platform="Unix">5.12.2:1.0</oval:schema_version>
+        <oval:schema_version>5.12.2</oval:schema_version> 
+        <!-- if @platform is omited, it indicates the core version -->
+        <!-- <oval:schema_version platform="Unix">5.12.2:1.0</oval:schema_version>-->
         <oval:timestamp>2016-05-25T14:00:00-05:00</oval:timestamp>
       </generator>
       <definitions>
@@ -410,17 +412,22 @@
       xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
       xmlns:macos="http://oval.mitre.org/XMLSchema/oval-definitions-5#macos"
       xsi:schemaLocation="
-      http://oval.mitre.org/XMLSchema/oval-definitions-5#windows https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/windows-definitions-schema.xsd
-      http://oval.mitre.org/XMLSchema/oval-definitions-5#independent https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/independent-definitions-schema.xsd
-      http://oval.mitre.org/XMLSchema/oval-definitions-5 https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/oval-definitions-schema.xsd
-      http://oval.mitre.org/XMLSchema/oval-common-5 https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/oval-common-schema.xsd
-      http://oval.mitre.org/XMLSchema/oval-definitions-5#linux https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/linux-definitions-schema.xsd
-      http://oval.mitre.org/XMLSchema/oval-definitions-5#macos https://raw.githubusercontent.com/OVALProject/Language/5.11.2/schemas/macos-definitions-schema.xsd      
-      ">
+      http://oval.mitre.org/XMLSchema/oval-definitions-5#windows 
+      windows-definitions-schema.xsd
+      http://oval.mitre.org/XMLSchema/oval-definitions-5#independent 
+      independent-definitions-schema.xsd
+      http://oval.mitre.org/XMLSchema/oval-definitions-5 
+      oval-definitions-schema.xsd
+      http://oval.mitre.org/XMLSchema/oval-common-5 
+      oval-common-schema.xsd
+      http://oval.mitre.org/XMLSchema/oval-definitions-5#linux 
+      linux-definitions-schema.xsd
+      http://oval.mitre.org/XMLSchema/oval-definitions-5#macos 
+      macos-definitions-schema.xsd">
       
       <generator>
         <oval:product_name>National Institute of Standards and Technology</oval:product_name>
-        <oval:schema_version>5.10.1</oval:schema_version>
+        <oval:schema_version>5.12.2</oval:schema_version>
         <oval:timestamp>2016-05-25T14:00:00-05:00</oval:timestamp>
       </generator>
       <!-- ==================================================================================================== -->

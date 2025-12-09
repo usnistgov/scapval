@@ -105,7 +105,7 @@ public class ApplicationFunctionalTest {
   public void IncompleteRun() {
     boolean failed = false;
     try {
-      new Application().runCLI(new String[] { "-scapversion", ".4", "-file",
+      new Application().runCLI(new String[] { "-scapversion", ".99", "-file",
           "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
     } catch (Exception e) {
       // expected an exception, test passed

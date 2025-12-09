@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<requirements xmlns="http://csrc.nist.gov/ns/decima/requirements/1.0" xmlns:scapval-ext="https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.3"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://csrc.nist.gov/ns/decima/requirements/1.0 ../../../../../decima/xml/src/main/xsd/decima/decima-requirements.xsd https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.3 ../../xsd/scapval-requirements-ext.xsd">
-    <resource id="NIST800-126r4" name="The Technical Specification for the Security Content Automation Protocol (SCAP): SCAP Version 1.4"
-              href="http://csrc.nist.gov/publications/drafts/800-126-rev4/sp800_126_r4_draft.pdf"/>
-    <resource id="NISTIR-7698"
-              name="Common Platform Enumeration: Applicability Language Specification Version 2.3"
-              href="http://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir7698.pdf"/>
-    <resource id="NISTIR-8085" name="Security Content Automation Protocol (SCAP) Version 1.2 Content Style Guide (Draft): Best Practices for Creating and Maintaining SCAP 1.2 Content"
-              href="http://csrc.nist.gov/publications/drafts/nistir-8058/nistir_8058_draft.pdf"/>
-    <resource id="SCAPVAL1.3" name="SCAP Content Validation Tool"
-              href="https://scap.nist.gov/revision/1.3/index.html"/>
+<requirements xmlns="http://csrc.nist.gov/ns/decima/requirements/1.0" 
+    xmlns:scapval-ext="https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.3"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://csrc.nist.gov/ns/decima/requirements/1.0 
+             ../../../../../decima/xml/src/main/xsd/decima/decima-requirements.xsd 
+             https://csrc.nist.gov/ns/scapval/scapval-requirements-ext/1.3 
+             ../../xsd/scapval-requirements-ext.xsd">
+    <resource id="NIST-SP800-126r4" name="The Technical Specification for the Security Content Automation Protocol (SCAP): SCAP Version 1.4" href="http://csrc.nist.gov/publications/drafts/800-126-rev4/sp800_126_r4_draft.pdf"/>
+    <resource id="NISTIR-7698" name="Common Platform Enumeration: Applicability Language Specification Version 2.3" href="http://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir7698.pdf"/>
+    <resource id="NISTIR-8085" name="Security Content Automation Protocol (SCAP) Version 1.2 Content Style Guide (Draft): Best Practices for Creating and Maintaining SCAP 1.2 Content" href="http://csrc.nist.gov/publications/drafts/nistir-8058/nistir_8058_draft.pdf"/>
+    <resource id="SCAPVAL1.4" name="SCAP Content Validation Tool" href="https://scap.nist.gov/revision/1.4/index.html"/>
     <requirement id="RES-126">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.2"/>
         <statement>Content consumers SHALL apply the mapping illustrated in Table 23 when deriving &lt;xccdf:check&gt; results from OVAL Definition processing.
             The corresponding result value SHALL be recorded based on the @class attribute of the OVAL Definition and the @negate attribute of the &lt;xccdf:check&gt;
             element where applicable. ~Table 23: Deriving XCCDF Check Results from OVAL Definition Results~OVAL Definition Result~XCCDF Check Result~(@negate is
@@ -60,7 +59,7 @@
     </requirement>
     <requirement id="RES-133">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~The @start-time and @end-time attributes SHALL
             be provided to indicate when the scan started and completed, respectively.
@@ -74,7 +73,7 @@
     </requirement>
     <requirement id="RES-134">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~The @test-system attribute SHALL be provided,
             and it SHALL be a CPE name value indicating the product that was responsible for generating the results.
@@ -88,7 +87,7 @@
     </requirement>
     <requirement id="RES-136">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~Each IP address(es) associated with the &lt;xccdf:target&gt;
             SHALL be enumerated using the &lt;xccdf:target-address&gt; element.
@@ -106,7 +105,7 @@
     </requirement>
     <requirement id="RES-137">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~Where applicable to the target system, each of
             the &lt;xccdf:fact&gt; elements in Table 22 SHALL be provided. Previous versions of SCAP required additional facts; these have been incorporated
@@ -133,7 +132,7 @@
     </requirement>
     <requirement id="RES-138">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.1"/>
         <statement>If the &lt;xccdf:ident&gt; element is included, for tracking purposes it is important that produced XCCDF results have specific meanings. If
             an &lt;xccdf:ident&gt; element is present and it identifies a CVE, CCE, or CPE entry, then an &lt;xccdf:rule-result&gt; of "pass" SHALL indicate
             that the check content evaluated within the rule complied with one of the following:~For a CVE entry, the target platform satisfies all the
@@ -170,7 +169,7 @@
     </requirement>
     <requirement id="RES-179">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>data results SHALL be expressed as Single Machine Without System Characteristics, Single Machine With System Characteristics, or Single
             Machine With Thin Results
         </statement>
@@ -191,7 +190,7 @@
     </requirement>
     <requirement id="RES-180">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>Single Machine Without System Characteristics – A single result file that includes the results of all OVAL Definitions evaluated and "full"
             results types as described in the &lt;oval-res:ContentEnumeration&gt; element, without system characteristics. ~For this format, the values for the
             &lt;oval-res:directives&gt; element SHALL be:~&lt;oval-res:directives include_source_definitions="false"&gt;~ &lt;oval-res:definition_true
@@ -213,7 +212,7 @@
     </requirement>
     <requirement id="RES-181">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>Single Machine With System Characteristics – A single result file that includes the results of all OVAL Definitions evaluated and "full"
             results types as described in the &lt;oval-res:ContentEnumeration&gt; element and the System Characteristics of the target evaluated.~For this
             format, the values for the &lt;oval-res:directives&gt; element SHALL be:~~&lt;oval-res:directives include_source_definitions="false"&gt;~ &lt;oval-res:definition_true
@@ -234,7 +233,7 @@
     </requirement>
     <requirement id="RES-182">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>Single Machine With Thin Results – A single result file that includes the results of all OVAL Definitions evaluated and "thin" results types
             as described in the OVAL Results schema. A value of "thin" means only the minimal amount of information will be provided.~For this format, the
             values for the &lt;oval-res:directives&gt; element SHALL be:~&lt;oval-res:directives include_source_definitions="false"&gt;~ &lt;oval-res:definition_true
@@ -257,7 +256,7 @@
     </requirement>
     <requirement id="RES-235">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.7"/>
+        <reference ref="NIST-SP800-126r4" section="4.7"/>
         <statement>The following requirements and recommendations pertain to content consumers generating OCIL result data stream components.~An SCAP OCIL
             result data stream component SHALL include the results of every &lt;ocil:questionnaire&gt;, &lt;ocil:question_test_action&gt;, and &lt;ocil:question&gt;
             element used to generate the reported results.
@@ -274,7 +273,7 @@
     </requirement>
     <requirement id="RES-253">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~When the &lt;xccdf:TestResult&gt;
             is the root XCCDF element, then it will include an &lt;xccdf:benchmark&gt; element [XCCDF:6.6.2]. ~The &lt;xccdf:benchmark&gt; element SHALL have an
@@ -301,7 +300,7 @@
     </requirement>
     <requirement id="RES-255">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.2"/>
         <statement>When evaluating an &lt;xccdf:Rule&gt; element that references an OVAL Definition, the &lt;xccdf:rule-result&gt; element SHALL be used to
             capture the result of this evaluation. This result SHALL be determined by evaluating the referenced OVAL Definition on a target host. The result
             value of an individual &lt;xccdf:check&gt; SHALL be mapped from the OVAL Definition result produced during evaluation.
@@ -318,7 +317,7 @@
     </requirement>
     <requirement id="RES-258">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.2"/>
         <statement>If the &lt;xccdf:Rule&gt; element under evaluation has an &lt;xccdf:check-content-ref&gt; element with the @name attribute omitted and an
             &lt;xccdf:check&gt; element with its @multi-check attribute set to "true", then the result of each evaluated OVAL Definition SHALL be recorded as a
             separate &lt;xccdf:rule-result&gt; element.
@@ -333,7 +332,7 @@
     </requirement>
     <requirement id="RES-260">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~~The &lt;xccdf:rule-result&gt;
             elements report the result of the application of each selected rule [XCCDF:6.6.2].~The &lt;xccdf:check/xccdf:check-content-ref&gt; element SHALL
@@ -352,7 +351,7 @@
     </requirement>
     <requirement id="RES-271">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.2"/>
         <statement>In this case the &lt;xccdf:rule-result/xccdf:check-content-ref&gt; element SHALL identify the specific check result of each evaluated OVAL
             Definition using the @href and @name attributes as described in Section 4.5, item 8.
         </statement>
@@ -367,7 +366,7 @@
     </requirement>
     <requirement id="RES-299">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.2"/>
         <statement>The target asset SHALL be represented in the ARF report using the &lt;ai:assets&gt; part of ARF. The &lt;ai:asset&gt; element populated about
             a target asset SHOULD include the fields specified in Table 20, where applicable
         </statement>
@@ -382,7 +381,7 @@
     </requirement>
     <requirement id="RES-300">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.3"/>
         <statement>The source data stream collection that was used to generate the results against the target SHOULD be included in the ARF report as an &lt;arf:report-request&gt;.
             If the source data stream collection is included in the ARF report and an &lt;xccdf:Tailoring&gt; component was used during processing, the
             tailoring component SHALL be included as well.
@@ -410,7 +409,7 @@
     </requirement>
     <requirement id="RES-301">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.4"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.4"/>
         <statement>Table 21 outlines the relationships that SHALL be specified in the ARF report if the stated condition is satisfied.</statement>
         <derived-requirements>
             <derived-requirement id="RES-301-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -421,7 +420,7 @@
     </requirement>
     <requirement id="RES-304">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~An &lt;xccdf:target-id-ref&gt; SHALL be
             specified with a @system attribute of "http://scap.nist.gov/schema/asset-identification/1.1", an @href attribute value of "", and a @name attribute
@@ -439,7 +438,7 @@
     </requirement>
     <requirement id="RES-306">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>When specifying OVAL system characteristics, a reference SHOULD be made to the target asset in the ARF report collection. Specifically, the
             &lt;oval-sc:oval_system_characteristics>/&lt;oval-sc:system_info> SHOULD be populated with a &lt;con:asset-identification> element.
             That element SHALL be populated with a single &lt;arf:object-ref> element that points to the &lt;ai:asset> element in the ARF report collection
@@ -458,7 +457,7 @@
     </requirement>
     <requirement id="RES-307">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>One XML digital signature MAY be included in an &lt;arf:extended-info&gt; element in the ARF report.</statement>
         <derived-requirements>
             <derived-requirement id="RES-307-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -469,7 +468,7 @@
     </requirement>
     <requirement id="RES-309">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>The &lt;dsig:Signature&gt; element SHALL sign the ARF report collection root element.</statement>
         <derived-requirements>
             <derived-requirement id="RES-309-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -482,7 +481,7 @@
     </requirement>
     <requirement id="RES-311">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>A &lt;dsig:SignatureProperties&gt; element SHALL be included in the &lt;dsig:Signature&gt; element. At least one &lt;dsig:SignatureProperty&gt;
             element SHALL be populated with &lt;dt:signature-info&gt; as specified in [TMSAD].
         </statement>
@@ -497,7 +496,7 @@
     </requirement>
     <requirement id="RES-312">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>The first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;arf:asset-report-collection&gt; element. The
             element SHALL be referenced in the @URI attribute using the empty string convention "".
         </statement>
@@ -512,7 +511,7 @@
     </requirement>
     <requirement id="RES-313">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>Two XPath Filter 2 transforms SHALL exist on the first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element. Both SHALL specify a
             filter type of "subtract". The first transform SHALL specify the XPath
             "/arf:asset-report-collection/arf:extended-infos[count(arf:extended-info[dsig:Signature]) = count(*)]". The second transform SHALL specify the XPath
@@ -533,7 +532,7 @@
     </requirement>
     <requirement id="RES-315">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>Key information SHOULD be provided on the &lt;dsig:Signature&gt; element.</statement>
         <derived-requirements>
             <derived-requirement id="RES-315-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
@@ -544,7 +543,7 @@
     </requirement>
     <requirement id="RES-316">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~The &lt;arf:extended-info&gt; element containing the
             original signature SHALL be removed from the resulting document.
@@ -561,7 +560,7 @@
     </requirement>
     <requirement id="RES-318">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~The first &lt;dsig:Reference&gt; element on the new &lt;dsig:Signature&gt;
             element SHALL reference the &lt;dsig:Object&gt; element containing the original signature. The &lt;dsig:Object&gt; element SHALL be referenced in the
@@ -580,7 +579,7 @@
     </requirement>
     <requirement id="RES-319">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~The second &lt;dsig:Reference&gt; element SHALL be to the
             &lt;dsig:SignatureProperties&gt; element captured in a &lt;dsig:Object&gt; element with the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt;
@@ -599,7 +598,7 @@
     </requirement>
     <requirement id="RES-320">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~A &lt;dsig:SignatureProperties&gt; element SHALL be
             included in the &lt;dsig:Signature&gt; element. At least one &lt;dsig:SignatureProperty&gt; element SHALL be populated with &lt;dt:signature-info&gt;
@@ -618,7 +617,7 @@
     </requirement>
     <requirement id="RES-321">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~Key information SHOULD be provided on the &lt;dsig:Signature&gt;
             element in accordance with [TMSAD].
@@ -635,7 +634,7 @@
     </requirement>
     <requirement id="RES-322">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~The new &lt;dsig:Signature&gt; element SHALL be placed in
             a new &lt;arf:extended-info&gt; element in the ARF report collection.
@@ -652,7 +651,7 @@
     </requirement>
     <requirement id="RES-323">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>When signing a result data stream, the source data stream collection SHOULD be captured in the ARF report being signed.</statement>
         <derived-requirements>
             <derived-requirement id="RES-323-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
@@ -663,7 +662,7 @@
     </requirement>
     <requirement id="RES-363">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4"/>
+        <reference ref="NIST-SP800-126r4" section="4.4"/>
         <statement>An SCAP result data stream SHALL conform to the [ARF] specification.</statement>
         <derived-requirements>
             <derived-requirement id="RES-363-1" type="MUST" scapval-ext:check-type="APPLICATION">
@@ -683,7 +682,7 @@
     </requirement>
     <requirement id="RES-364">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4"/>
+        <reference ref="NIST-SP800-126r4" section="4.4"/>
         <statement>In all situations, one or more component results (e.g., XCCDF, check results), the target asset, and/or the SCAP source data stream
             collection represented as a report request in ARF MAY be represented either as a local component in the ARF or as a remote resource, leveraging the
             remote resource capability built into ARF.
@@ -700,7 +699,7 @@
     </requirement>
     <requirement id="RES-365">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.1"/>
         <statement>It MAY contain additional report objects for other results, such as &lt;oval-var:oval_variables&gt; or extended component results.
         </statement>
         <derived-requirements>
@@ -713,7 +712,7 @@
     </requirement>
     <requirement id="RES-366">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.1"/>
         <statement>Each component result SHALL be captured as a separate &lt;arf:report&gt; element in the &lt;arf:asset-report-collection&gt; element, and when
             reporting on XCCDF, OVAL, or OCIL, each component report SHALL use the element specified in Table 19 as its root element.
         </statement>
@@ -730,7 +729,7 @@
     </requirement>
     <requirement id="RES-367">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.1"/>
         <statement>Each SCAP result data stream component SHOULD NOT use any deprecated constructs in its associated specification.</statement>
         <derived-requirements>
             <derived-requirement id="RES-367-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -741,7 +740,7 @@
     </requirement>
     <requirement id="RES-369">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.2"/>
         <statement>Additional identification information MAY be captured in the &lt;ai:asset&gt; element (asset tag, system GUID, etc.) The guidelines specified
             in [AI] SHALL be followed when populating the asset identification information.
         </statement>
@@ -756,7 +755,7 @@
     </requirement>
     <requirement id="RES-370">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~~The &lt;xccdf:rule-result&gt; elements report
             the result of the application of each selected rule [XCCDF:6.6.2].~The @href attribute SHALL contain "#" + the @id of the &lt;arf:report&gt;
@@ -779,7 +778,7 @@
     </requirement>
     <requirement id="RES-371">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~~The &lt;xccdf:rule-result&gt; elements report
             the result of the application of each selected rule [XCCDF:6.6.2].~Note that if @multi-check is not set to "true" and the &lt;xccdf:rule-result&gt;
@@ -796,7 +795,7 @@
     </requirement>
     <requirement id="RES-388">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~If a child profile of an &lt;xccdf:Tailoring&gt;
             element was applied during processing, then the &lt;xccdf:tailoring-file&gt; element SHALL be present and SHALL provide the following information
@@ -815,7 +814,7 @@
     </requirement>
     <requirement id="RES-389">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~The &lt;xccdf:Profile&gt; element SHALL be
             included if a profile was applied during processing. This is also applicable to selected profiles part of &lt;xccdf:Tailoring&gt;.
@@ -830,7 +829,7 @@
     </requirement>
     <requirement id="RES-390">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~Regarding the definition and use of &lt;xccdf:Profile&gt;
             elements, reported &lt;xccdf:set-value&gt; elements SHALL include all those values that are exported by the reported rules. The specific settings
@@ -846,7 +845,7 @@
     </requirement>
     <requirement id="RES-391">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.2"/>
         <statement>According to [XCCDF:Table 9;Table 35;Table 39], if the &lt;xccdf:Rule&gt; element under evaluation is selected and its @role attribute is set
             to "unchecked", then the rule result SHALL be set to "notchecked". If the &lt;xccdf:Rule&gt; element under evaluation is selected and its @role
             attribute is set to "unscored", then the rule result SHALL be set to "informational".
@@ -866,7 +865,7 @@
     </requirement>
     <requirement id="RES-392">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~~The &lt;xccdf:rule-result&gt; elements report
             the result of the application of each selected rule [XCCDF:6.6.2].~The @role, @severity, and @weight attributes of the &lt;xccdf:rule-result&gt;
@@ -882,7 +881,7 @@
     </requirement>
     <requirement id="RES-42">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~~To be considered
             valid SCAP result content, the &lt;xccdf:TestResult&gt; element SHALL meet the following conditions~The &lt;xccdf:identity&gt; element SHALL
             identify the security principal used to access rule evaluation on the target(s). This will include the identity name or username used to perform the
@@ -897,7 +896,7 @@
     </requirement>
     <requirement id="RES-44">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.1"/>
         <statement>If the target &lt;xccdf:Rule&gt; identified by the &lt;xccdf:rule-result&gt; element's @idref attribute has one or more &lt;xccdf:ident&gt;
             elements with a @system attribute value listed in Section 3.2.4.1, then each &lt;xccdf:ident&gt; element SHALL also appear within the &lt;xccdf:rule-result&gt;
             element.
@@ -914,7 +913,7 @@
     </requirement>
     <requirement id="RES-68">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.5.2"/>
         <statement>SCAP-conformant content SHALL include full status reporting, including Error, Unknown, Not Applicable, Not Evaluated, True, and False.
         </statement>
         <derived-requirements>
@@ -928,7 +927,7 @@
     </requirement>
     <requirement id="RES-69">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>An SCAP OVAL result data stream component SHALL include the results of every OVAL Definition used to generate the reported results.
         </statement>
         <derived-requirements>
@@ -941,7 +940,7 @@
     </requirement>
     <requirement id="RES-70">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>In order to support SCAP instances where OVAL thin content (only the ID of the definition and the results) is preferred, SCAP content
             consumers SHALL support all valid values for the &lt;oval-res:directives&gt; controlling the expected content of the results file.
         </statement>
@@ -956,7 +955,7 @@
     </requirement>
     <requirement id="SRC-10">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.1"/>
         <statement>The following requirements and conventions apply to the &lt;xccdf:Benchmark&gt;, &lt;xccdf:Profile&gt;, &lt;xccdf:Value&gt;, &lt;xccdf:Group&gt;,
             and &lt;xccdf:Rule&gt; elements:~One or more instances of the &lt;xccdf:description&gt; element SHALL be provided. Each instance SHALL contain a text
             value that describes the purpose of the containing element.
@@ -972,7 +971,7 @@
     </requirement>
     <requirement id="SRC-118">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the
             use of checking systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with
             regards to SCAP.~~OVAL checking system~Use of the OVAL checking system SHALL be indicated by setting the
@@ -1000,7 +999,7 @@
     </requirement>
     <requirement id="SRC-119">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems
             other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~Use of
             the OCIL checking system SHALL be indicated by setting the &lt;xccdf:check&gt; element's @system attribute to "http://scap.nist.gov/schema/ocil/2".
@@ -1017,7 +1016,7 @@
     </requirement>
     <requirement id="SRC-125">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.5"/>
         <statement>One or more &lt;xccdf:check-export&gt; elements MAY be used to define the binding of &lt;xccdf:Value&gt; elements to OVAL variables. The
             format of the &lt;xccdf:check-export&gt; element is:~&lt;xccdf:check-export value-id="XCCDF_Value_id" _x000B_
             export-name="OVAL_External_Variable_id"/&gt;
@@ -1034,7 +1033,7 @@
     </requirement>
     <requirement id="SRC-131">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~XCCDF test
             results SHALL be documented as the contents of an &lt;xccdf:TestResult&gt; element.
         </statement>
@@ -1047,7 +1046,7 @@
     </requirement>
     <requirement id="SRC-149">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>A &lt;cpe2_dict:cpe-item&gt; element MAY contain one or more &lt;cpe2-dict:check&gt; elements that reference OVAL inventory class definitions
             using the following format:~&lt;cpe2_dict:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5"~[href="oval_URL"]&gt;oval_inventory_definition_id&lt;/cpe2_dict:check&gt;
         </statement>
@@ -1062,7 +1061,7 @@
     </requirement>
     <requirement id="SRC-15">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>Each CPE name [CPE-N] in an &lt;xccdf:platform&gt; or &lt;cpe2:fact-ref&gt; element within an XCCDF document SHALL match at least one CPE
             entry in a dictionary referenced by the data stream. A match is considered an EQUAL or SUPERSET result when matching the CPE name to a dictionary
             entry, as defined in the CPE Name Matching specification [CPE-M]. Only non-deprecated names SHOULD be used.
@@ -1078,7 +1077,7 @@
     </requirement>
     <requirement id="SRC-150">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.8"/>
+        <reference ref="NIST-SP800-126r4" section="3.8"/>
         <statement>CVE references in SCAP content MAY include both "candidate" and "entry" status identifiers.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-150-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -1089,7 +1088,7 @@
     </requirement>
     <requirement id="SRC-151">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.8"/>
+        <reference ref="NIST-SP800-126r4" section="3.8"/>
         <statement>Deprecated CVE identifiers SHALL NOT be used.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-151-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -1100,7 +1099,7 @@
     </requirement>
     <requirement id="SRC-152">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.8"/>
+        <reference ref="NIST-SP800-126r4" section="3.8"/>
         <statement>If a CVE identifier exists for a particular vulnerability, the official CVE identifier SHALL be used. If no CVE exists for the software flaw,
             an alternate identifier MAY be used, but the user SHOULD seek to have a CVE identifier issued for the vulnerability.
         </statement>
@@ -1115,7 +1114,7 @@
     </requirement>
     <requirement id="SRC-154">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>Each SCAP source data stream component SHALL use one of the elements specified in Table 14 as its document element.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-154-1" type="MUST" scapval-ext:check-type="SCHEMA">
@@ -1126,7 +1125,7 @@
     </requirement>
     <requirement id="SRC-169">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>An OVAL source data stream component MAY be used to represent a series of checks to verify that patches have been installed. Historically, an
             XCCDF convention has been used to identify such a reference. An XCCDF benchmark MAY include a patches up-to-date rule that SHALL reference an OVAL
             source data stream component. ~When implementing a patches up-to-date XCCDF rule that checks for patches via numerous OVAL patch class definitions,
@@ -1151,7 +1150,7 @@
     </requirement>
     <requirement id="SRC-171">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>An OVAL source data stream component MAY be used to represent a series of checks to verify that patches have been installed. Historically, an
             XCCDF convention has been used to identify such a reference. An XCCDF benchmark MAY include a patches up-to-date rule that SHALL reference an OVAL
             source data stream component. ~When implementing a patches up-to-date XCCDF rule that checks for patches via numerous OVAL patch class definitions,
@@ -1168,7 +1167,7 @@
     </requirement>
     <requirement id="SRC-175">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~At least one &lt;xccdf:check-content-ref&gt; element
             SHALL be provided for each &lt;xccdf:check&gt;
         </statement>
@@ -1181,19 +1180,21 @@
     </requirement>
     <requirement id="SRC-2">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:Benchmark&gt; element:~The &lt;xccdf:Benchmark&gt; element SHALL have
             an @xml:lang attribute.
         </statement>
+
         <derived-requirements>
-                <derived-requirement id="SRC-2-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
+            <derived-requirement id="SRC-2-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
                 <statement>@xml:lang attribute SHALL be provided on &lt;xccdf:Benchmark&gt; elements.</statement>
                 <message>''{0}''</message>
+            </derived-requirement>
         </derived-requirements>
     </requirement>
     <requirement id="SRC-206">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.4"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.4"/>
         <statement>During scoring, current CVSS scores acquired dynamically, such as from a data feed, SHOULD be used in place of the @weight attribute within
             XCCDF vulnerability-related rules.
         </statement>
@@ -1208,7 +1209,7 @@
     </requirement>
     <requirement id="SRC-207">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1227,7 +1228,7 @@
     </requirement>
     <requirement id="SRC-208">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1244,7 +1245,7 @@
     </requirement>
     <requirement id="SRC-209">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1263,7 +1264,7 @@
     </requirement>
     <requirement id="SRC-210">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1280,7 +1281,7 @@
     </requirement>
     <requirement id="SRC-211">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1301,7 +1302,7 @@
     </requirement>
     <requirement id="SRC-212">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1328,7 +1329,7 @@
     </requirement>
     <requirement id="SRC-213">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1345,7 +1346,7 @@
     </requirement>
     <requirement id="SRC-214">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1364,7 +1365,7 @@
     </requirement>
     <requirement id="SRC-215">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).~"vulnerability" if
             it represents a check for the presence of a particular software flaw vulnerability on a system.~"patch" if it represents a check for whether a
@@ -1381,7 +1382,7 @@
     </requirement>
     <requirement id="SRC-216">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.1"/>
         <statement>
             Within the SCAP component specifications, certain constructs can be deprecated. SCAP content consumers SHALL support all deprecated constructs,
             unless specifically noted in the annex, because they are still valid within SCAP 1.3 and supported legacy SCAP versions.
@@ -1403,7 +1404,7 @@
     </requirement>
     <requirement id="SRC-227">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"compliance" if it represents a check for the system's
             configuration complying with policy requirements (for example, having the required value for a specific configuration setting).
         </statement>
@@ -1418,7 +1419,7 @@
     </requirement>
     <requirement id="SRC-228">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"vulnerability" if it represents a check for the presence of a
             particular software flaw vulnerability on a system.
         </statement>
@@ -1433,7 +1434,7 @@
     </requirement>
     <requirement id="SRC-229">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"patch" if it represents a check for whether a discrete patch
             needs to be installed on the system.
         </statement>
@@ -1448,7 +1449,7 @@
     </requirement>
     <requirement id="SRC-230">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>Required values for the @class attribute of an OVAL Definition are as follows:~"inventory" if it represents a check for the presence of a
             product of interest on the system.
         </statement>
@@ -1463,7 +1464,7 @@
     </requirement>
     <requirement id="SRC-236">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.1"/>
+        <reference ref="NIST-SP800-126r4" section="5.1"/>
         <statement>The SCAP source data stream component that SHALL be included for compliance checking is the XCCDF benchmark, which expresses the checklist.
             Each rule in the XCCDF benchmark SHALL reference one of the following:~An OVAL compliance definition. This definition SHALL be contained in an OVAL
             component, which holds definitions of compliance checks used by the checklist. An XCCDF benchmark's rules MAY reference one or more OVAL compliance
@@ -1491,7 +1492,7 @@
     </requirement>
     <requirement id="SRC-242">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.2"/>
+        <reference ref="NIST-SP800-126r4" section="5.2"/>
         <statement>The SCAP source data stream component that SHALL be included for vulnerability scanning is the XCCDF benchmark, which expresses the checklist of
             the flaws to be checked for. Each rule in the XCCDF benchmark SHALL reference one of the following:~An OVAL vulnerability definition. This definition
             SHALL be contained in an OVAL component, which holds definitions of vulnerability checks used by the checklist. An XCCDF benchmark's rules MAY reference
@@ -1521,7 +1522,7 @@
     </requirement>
     <requirement id="SRC-248">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.3"/>
+        <reference ref="NIST-SP800-126r4" section="5.3"/>
         <statement>The SCAP source data stream component that SHALL be included for inventory scanning is the XCCDF benchmark, which references the inventory
             checks and captures the results. Each rule in the XCCDF benchmark SHALL reference one of the following:~An OVAL inventory definition. This
             definition SHALL be contained in an OVAL component, which holds definitions of technical procedures for determining whether or not a specific target
@@ -1546,7 +1547,7 @@
     </requirement>
     <requirement id="SRC-25">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~The &lt;xccdf:check-content&gt; element SHALL NOT be
             used to embed check content directly into XCCDF content.
         </statement>
@@ -1559,7 +1560,7 @@
     </requirement>
     <requirement id="SRC-251">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.1"/>
         <statement>Each &lt;xccdf:Rule&gt; element SHALL include an &lt;xccdf:ident&gt; element containing a CVE, CCE, or CPE identifier reference if an
             appropriate identifier exists. The meaning of the identifier SHALL be consistent with the recommendation implemented by the &lt;xccdf:Rule&gt;
             element. If the rule references an OVAL Definition, then &lt;xccdf:ident&gt; element content SHALL match the corresponding CVE, CCE, or CPE
@@ -1581,7 +1582,7 @@
     </requirement>
     <requirement id="SRC-257">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.1"/>
         <statement>An &lt;xccdf:ident&gt; element referencing a CVE, CCE, or CPE identifier SHALL be ordered before other &lt;xccdf:ident&gt; elements
             referencing non-SCAP identifiers. Identifiers from previous revisions of CCE or CPE MAY also be specified following the SCAP identifiers.
         </statement>
@@ -1596,7 +1597,7 @@
     </requirement>
     <requirement id="SRC-262">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.1"/>
+        <reference ref="NIST-SP800-126r4" section="5.1"/>
         <statement>Each XCCDF benchmark SHALL have at least one rule that references either an OVAL compliance class definition in an OVAL component or an OCIL
             questionnaire in an OCIL component.
         </statement>
@@ -1612,7 +1613,7 @@
     </requirement>
     <requirement id="SRC-263">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.1"/>
+        <reference ref="NIST-SP800-126r4" section="5.1"/>
         <statement>All OVAL components and OCIL components referenced by the XCCDF benchmark SHALL be included in the SCAP source data stream.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-263-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -1624,7 +1625,7 @@
     </requirement>
     <requirement id="SRC-265">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.2"/>
+        <reference ref="NIST-SP800-126r4" section="5.2"/>
         <statement>Each XCCDF benchmark SHALL have at least one rule that references either an OVAL vulnerability class definition in an OVAL component or an
             OCIL questionnaire in an OCIL component.
         </statement>
@@ -1639,7 +1640,7 @@
     </requirement>
     <requirement id="SRC-266">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.2"/>
+        <reference ref="NIST-SP800-126r4" section="5.2"/>
         <statement>All OVAL components and OCIL components referenced by the XCCDF benchmark SHALL be included in the SCAP source data stream.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-266-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -1651,7 +1652,7 @@
     </requirement>
     <requirement id="SRC-267">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>Each SCAP source data stream component SHOULD NOT use any constructs that are deprecated in its associated specification.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-267-1" type="SHOULD" scapval-ext:check-type="NOT_CHECKED">
@@ -1662,7 +1663,7 @@
     </requirement>
     <requirement id="SRC-275">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>An OVAL source data stream component MAY be used to represent a series of checks to verify that patches have been installed. Historically, an
             XCCDF convention has been used to identify such a reference. An XCCDF benchmark MAY include a patches up-to-date rule that SHALL reference an OVAL
             source data stream component. ~When implementing a patches up-to-date XCCDF rule that checks for patches via numerous OVAL patch class definitions,
@@ -1680,7 +1681,7 @@
     </requirement>
     <requirement id="SRC-276">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.5"/>
         <statement>Use of the &lt;xccdf:source&gt;, &lt;xccdf:complex-value&gt;, and &lt;xccdf:complex-default&gt; elements within the &lt;xccdf:Value&gt;
             element SHALL NOT be allowed. Within the &lt;xccdf:choices&gt; element of the &lt;xccdf:Value&gt; element, use of the &lt;xccdf:complex-choice&gt;
             element SHALL NOT be allowed.
@@ -1697,7 +1698,7 @@
     </requirement>
     <requirement id="SRC-278">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>This section lists requirements and recommendations for using Common Platform Enumeration (CPE) to express a CPE component of an SCAP source
             data stream (see Table 14). ~The Official CPE Dictionary data feed MAY be used by SCAP components to reference CPE names. If use of the Official CPE
             Dictionary is impractical, a subset of the dictionary MAY be used instead. Creating the reduced official dictionary involves first identifying every
@@ -1716,7 +1717,7 @@
     </requirement>
     <requirement id="SRC-279">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>One or more third-party dictionaries MAY be included in a data stream as well. All such third-party dictionaries SHOULD follow the
             requirements of the CPE Dictionary specification [CPE-D]. If including an entire third-party dictionary is impractical, a subset of the dictionary
             MAY be used instead. The reduced dictionary SHALL be created using the same procedure outlined for creating a subset of the official dictionary. ~In
@@ -1731,7 +1732,7 @@
     </requirement>
     <requirement id="SRC-280">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>When creating a subset of the Official CPE Dictionary or a third-party dictionary, a &lt;cpe2_dict:check&gt; element on an entry MAY be added
             or modified if the existing check does not provide satisfactory content to test the presence of the CPE name.
         </statement>
@@ -1746,7 +1747,7 @@
     </requirement>
     <requirement id="SRC-281">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>Each signature SHALL be represented as a &lt;dsig:Signature&gt; element and follow the W3C recommendation [DSIG].</statement>
         <derived-requirements>
             <derived-requirement id="SRC-281-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -1757,7 +1758,7 @@
     </requirement>
     <requirement id="SRC-282">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>Each &lt;dsig:Signature&gt; element SHALL sign only one data stream</statement>
         <derived-requirements>
             <derived-requirement id="SRC-282-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -1768,7 +1769,7 @@
     </requirement>
     <requirement id="SRC-284">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>A &lt;dsig:Manifest&gt; element SHALL be included within the &lt;dsig:Signature&gt; element as a &lt;dsig:Object&gt; element. The &lt;dsig:Manifest&gt;
             element SHALL have a &lt;dsig:Reference&gt; element for each local component referenced by the data stream being signed. External components MAY be
             omitted from the &lt;dsig:Manifest&gt; element. Each &lt;dsig:Reference&gt; element referencing a &lt;ds:component&gt; or &lt;ds:extended-component&gt;
@@ -1788,7 +1789,7 @@
     </requirement>
     <requirement id="SRC-285">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>A &lt;dsig:SignatureProperties&gt; element SHALL be included within the &lt;dsig:Signature&gt; element as a &lt;dsig:Object&gt; element. At
             least one &lt;dsig:SignatureProperty&gt; element SHALL be populated with &lt;dt:signature-info&gt; as specified in [TMSAD]
         </statement>
@@ -1803,7 +1804,7 @@
     </requirement>
     <requirement id="SRC-286">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>The first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;ds:data-stream&gt; element being signed. The
             &lt;ds:data-stream&gt; element SHALL be referenced in the @URI attribute using "#" + @Id of the &lt;ds:data-stream&gt;
         </statement>
@@ -1818,7 +1819,7 @@
     </requirement>
     <requirement id="SRC-287">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>The second &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;dsig:SignatureProperties&gt; element
             captured in a &lt;dsig:Object&gt; element within the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt; element SHALL be referenced
             in the @URI attribute using "#" + @Id of the&lt;dsig:SignatureProperties&gt; element.
@@ -1835,7 +1836,7 @@
     </requirement>
     <requirement id="SRC-288">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>The third &lt;dsig:Reference&gt; element SHALL be to the &lt;dsig:Manifest&gt; element captured in a &lt;dsig:Object&gt; element with the &lt;dsig:Signature&gt;
             element. The &lt;dsig:Manifest&gt; element SHALL be referenced in the @URI attribute using "#" + @Id attribute of the &lt;dsig:Manifest&gt;
         </statement>
@@ -1851,7 +1852,7 @@
     </requirement>
     <requirement id="SRC-289">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>&lt;dsig:Reference&gt; elements on the &lt;dsig:Manifest&gt; element SHOULD be in the same order as the &lt;ds:component-ref&gt; elements on
             the data stream being signed
         </statement>
@@ -1866,7 +1867,7 @@
     </requirement>
     <requirement id="SRC-290">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>Cryptographic key information SHOULD be provided in the &lt;dsig:Signature&gt; element through use of the &lt;dsig:KeyInfo&gt; subelement.
         </statement>
         <derived-requirements>
@@ -1879,7 +1880,7 @@
     </requirement>
     <requirement id="SRC-3">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:Benchmark&gt; element:~The &lt;xccdf:version&gt; element and the @id
             attribute SHALL be used together to uniquely identify all revisions of a benchmark.~Multiple revisions of a single benchmark SHOULD have the same
             @id attribute value and different &lt;xccdf:version&gt; element values, so that someone who reviews the revisions can readily identify them as
@@ -1908,7 +1909,7 @@
     </requirement>
     <requirement id="SRC-30">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.1"/>
+        <reference ref="NIST-SP800-126r4" section="5.1"/>
         <statement>If the XCCDF benchmark component references any CPE names, then the SCAP source data stream SHALL include a CPE component, which specifies the
             products or platforms of interest, and SHALL include one or more OVAL inventory class definitions in an OVAL component that contain the technical
             procedures for determining whether or not a specific target asset has a product or platform of interest.
@@ -1924,7 +1925,7 @@
     </requirement>
     <requirement id="SRC-31">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>When evaluating an &lt;xccdf:check-content-ref&gt; element within an &lt;xccdf:check&gt; element, its @href attribute either SHALL contain a
             "#" + @id of a &lt;ds:component-ref&gt; element or SHALL be resolved in the context of the XML Catalog specified as part of the &lt;ds:component-ref&gt;
             element that is referencing this benchmark. In either case, the @href attribute SHALL ultimately resolve to a &lt;ds:component-ref&gt; element in the
@@ -1946,7 +1947,7 @@
     </requirement>
     <requirement id="SRC-314">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>The second &lt;dsig:Reference&gt; element SHALL be to the &lt;dsig:SignatureProperties&gt; element captured in a &lt;dsig:Object&gt; element
             with the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt; element SHALL be referenced in the @URI attribute using "#" + @Id of
             the &lt;dsig:SignatureProperties&gt;
@@ -1963,7 +1964,7 @@
     </requirement>
     <requirement id="SRC-317">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>In situations where it is desirable to countersign a result data stream (e.g., when a content consumer automatically signs a result data
             stream and then a person also wants to sign the results), the following requirements apply.~The original signature SHALL be captured as a &lt;dsig:Object&gt;
             element on the new &lt;dsig:Signature&gt;
@@ -1980,7 +1981,7 @@
     </requirement>
     <requirement id="SRC-324">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.1"/>
+        <reference ref="NIST-SP800-126r4" section="5.1"/>
         <statement>The @use-case attribute in the &lt;ds:data-stream&gt; element SHALL be set to "CONFIGURATION".</statement>
         <derived-requirements>
             <derived-requirement id="SRC-324-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -1993,7 +1994,7 @@
     </requirement>
     <requirement id="SRC-325">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.2"/>
+        <reference ref="NIST-SP800-126r4" section="5.2"/>
         <statement>The @use-case attribute in the &lt;ds:data-stream&gt; element SHALL be set to "VULNERABILITY".</statement>
         <derived-requirements>
             <derived-requirement id="SRC-325-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -2005,7 +2006,7 @@
     </requirement>
     <requirement id="SRC-327">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.3"/>
+        <reference ref="NIST-SP800-126r4" section="5.3"/>
         <statement>The @use-case attribute in the &lt;ds:data-stream&gt; element SHALL be set to "INVENTORY".</statement>
         <derived-requirements>
             <derived-requirement id="SRC-327-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -2017,7 +2018,7 @@
     </requirement>
     <requirement id="SRC-329">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>The SCAP source data stream collection SHALL validate against the XML schema representation for the source data stream,
             as well as all associated Schematron schemas.
         </statement>
@@ -2035,7 +2036,7 @@
     </requirement>
     <requirement id="SRC-33">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.2"/>
+        <reference ref="NIST-SP800-126r4" section="5.2"/>
         <statement>If the XCCDF benchmark component references any CPE names, then the SCAP source data stream SHALL include a CPE component, which specifies the
             products or platforms of interest, and SHALL include one or more OVAL inventory class definitions in an OVAL component that contain the technical
             procedures for determining whether or not a specific target asset has a product or platform of interest.
@@ -2051,7 +2052,7 @@
     </requirement>
     <requirement id="SRC-330">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>If applicable, each component SHALL validate against its associated Schematron schema. For the SCAP source data stream collection,
             it SHALL validate against the version of the SCAP Schematron rules as specified on the &lt;ds:data-stream-collection&gt; element's @schematron-version
             attribute, and it SHOULD also validate against the latest Schematron rules.
@@ -2078,7 +2079,7 @@
     </requirement>
     <requirement id="SRC-331">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.1"/>
         <statement>When referencing a CVE, CCE, or CPE identifier, an &lt;xccdf:Rule&gt; element SHALL have a purpose consistent with one of the rows in ~Table
             17. Based on the purpose of the &lt;xccdf:Rule&gt; element, the &lt;xccdf:Rule&gt; SHALL define its &lt;xccdf:ident&gt; element's @system attribute using the corresponding
             value from Table 17. Also, if the &lt;xccdf:Rule&gt; element references an OVAL Definition, it SHALL reference an OVAL Definition of the specified class.
@@ -2109,7 +2110,7 @@
     </requirement>
     <requirement id="SRC-332">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.1"/>
         <statement>Content authors MAY place components in any order.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-332-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -2120,7 +2121,7 @@
     </requirement>
     <requirement id="SRC-333">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>Any single data stream in a data stream collection SHALL NOT reference any component in the collection more than once.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-333-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -2131,7 +2132,7 @@
     </requirement>
     <requirement id="SRC-334">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>The SCAP components referenced by each &lt;ds:component&gt; and &lt;ds:extended-component&gt; element SHALL validate against the
             corresponding component schema and its embedded Schematron rules.
         </statement>
@@ -2147,7 +2148,7 @@
     </requirement>
     <requirement id="SRC-338">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.3"/>
         <statement>The elements listed in Table 15 have special conventions around the format of their identifiers (@id attribute). Authors SHALL follow these
             conventions because they preserve the global uniqueness of the resulting identifiers. In Table 15, namespace contains a valid reverse-DNS style
             string (limited to letters, numbers, periods, and the hyphen character) that is associated with the content author. Examples include
@@ -2170,7 +2171,7 @@
     </requirement>
     <requirement id="SRC-339">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.1"/>
         <statement>XInclude elements SHALL NOT be included in XCCDF content [XINCLUDE].</statement>
         <derived-requirements>
             <derived-requirement id="SRC-339-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -2181,7 +2182,7 @@
     </requirement>
     <requirement id="SRC-341">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:Benchmark&gt; element:~The @update attribute of the &lt;xccdf:version&gt;
             element SHOULD be used for a URI that specifies where updates to the benchmark can be obtained.
         </statement>
@@ -2194,7 +2195,7 @@
     </requirement>
     <requirement id="SRC-343">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.3"/>
         <statement>Use of the &lt;xccdf:set-complex-value&gt; element within the &lt;xccdf:Profile&gt; element SHALL NOT be allowed.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-343-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
@@ -2205,7 +2206,7 @@
     </requirement>
     <requirement id="SRC-345">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking
             systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL checking
             system~The @href attribute in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OVAL source data stream component using
@@ -2222,7 +2223,7 @@
     </requirement>
     <requirement id="SRC-346">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking
             systems other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OVAL checking
             system~Use of the @name attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OVAL
@@ -2241,7 +2242,7 @@
     </requirement>
     <requirement id="SRC-348">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
             than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~The @href attribute
             in the &lt;xccdf:check-content-ref&gt; element SHALL reference an OCIL source data stream component using the &lt;ds:component-ref&gt; approach defined above.
@@ -2258,7 +2259,7 @@
     </requirement>
     <requirement id="SRC-349">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
             than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~Use of the @name
             attribute in the &lt;xccdf:check-content-ref&gt; element is OPTIONAL. If present, it SHALL reference an OCIL questionnaire in the designated
@@ -2277,7 +2278,7 @@
     </requirement>
     <requirement id="SRC-358">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>Checklist authors SHOULD ensure that each CPE name [CPE-N] they specify in an &lt;xccdf:platform&gt; or &lt;cpe2:fact-ref&gt; element within
             an XCCDF document has a check associated with its CPE name. If a corresponding check does not exist, then it will not be possible to fully detect
             the presence of the product and determine platform applicability. Because there may be a lag between the time that a new product is available and
@@ -2295,7 +2296,7 @@
     </requirement>
     <requirement id="SRC-360">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>One or more XML digital signatures MAY be included as the last elements in the SCAP source data stream collection root element.</statement>
         <derived-requirements>
             <derived-requirement id="SRC-360-1" type="MUST" scapval-ext:check-type="SCHEMA">
@@ -2307,7 +2308,7 @@
     </requirement>
     <requirement id="SRC-376">
         <summary/>
-        <reference ref="NIST800-126r4" section="5.0"/>
+        <reference ref="NIST-SP800-126r4" section="5.0"/>
         <statement>Note that as stated in Table 3 in Section 3.1, each data stream is required to have a @use-case attribute in its &lt;ds:data-stream&gt;
             element with a value corresponding either to one of the content types defined in this section or to "OTHER", for data streams not corresponding to a
             defined use case.
@@ -2324,7 +2325,7 @@
     </requirement>
     <requirement id="SRC-377">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>When implementing a patches up-to-date XCCDF rule that checks for patches via a single OVAL patch class definition, the following approach
             SHALL be used:~The source data stream SHALL include the OVAL source data stream component referenced by the patches up-to-date rule, which contains
             one or more OVAL patch class definitions, and MAY contain other class definitions.
@@ -2341,7 +2342,7 @@
     </requirement>
     <requirement id="SRC-379">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>When implementing a patches up-to-date XCCDF rule that checks for patches via a single OVAL definition, the following approach SHALL be
             used:~Each &lt;xccdf:check-content-ref&gt; element SHALL refer to the single OVAL definition performing the patches up-to-date check.
         </statement>
@@ -2356,7 +2357,7 @@
     </requirement>
     <requirement id="SRC-380">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>When implementing a patches up-to-date XCCDF rule that checks for patches via a single OVAL definition, the following approach SHALL be
             used:~The @multi-check attribute of the &lt;xccdf:check&gt; element SHALL be set to "false", which is the default value.
         </statement>
@@ -2371,7 +2372,7 @@
     </requirement>
     <requirement id="SRC-381">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.4"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.4"/>
         <statement>Since the required CVSS version has been updated in SCAP 1.3 to CVSS v3, CVSS v3 scores SHOULD be used instead of CVSS v2 scores when a v3
             score is available.
         </statement>
@@ -2386,7 +2387,7 @@
     </requirement>
     <requirement id="SRC-38">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.5"/>
         <statement>
             The type and value binding of the specified &lt;xccdf:Value&gt; is constrained to match that lexical representation of the indicated OVAL
             Variable data type. Table 18 summarizes the constraints regarding data type usage. Additional information regarding OVAL data types can be found in
@@ -2415,7 +2416,7 @@
     </requirement>
     <requirement id="SRC-4">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:Benchmark&gt; element:~The @style attribute SHOULD have the value
             "SCAP_1.3".
         </statement>
@@ -2428,7 +2429,7 @@
     </requirement>
     <requirement id="SRC-5">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:Benchmark&gt; element:~The &lt;xccdf:status&gt; element SHALL indicate
             the current status of the benchmark document. The associated text value SHALL be "draft" for documents released in public draft state and "accepted"
             for documents that have been officially released by an organization. The @date attribute SHALL be populated with the date of the status change.
@@ -2447,7 +2448,7 @@
     </requirement>
     <requirement id="SRC-52">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>The version of any particular OVAL document instance SHALL be specified using the &lt;oval:schema_version&gt; content element of the &lt;oval:generator&gt;
             element, as in this example: ~ &lt;oval:generator&gt;~ &lt;oval:product_name&gt;The OVAL Repository&lt;/oval:product_name&gt;~ &lt;oval:schema_version&gt;5.11&lt;/oval:schema_version&gt;~
             &lt;/oval:generator&gt;
@@ -2461,7 +2462,7 @@
     </requirement>
     <requirement id="SRC-54">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>If an &lt;oval-var:oval_variables&gt; element is used to carry variable values between an XCCDF processor and an OVAL processor, the &lt;oval:schema_version&gt;
             of the &lt;oval-var:oval_variables&gt; element SHALL be the same as that of the &lt;oval-def:oval_definitions&gt; element whose external variables
             are bound by the &lt;oval-var:oval_variables&gt; element.
@@ -2477,7 +2478,7 @@
     </requirement>
     <requirement id="SRC-71">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>The referenced OVAL inventory class definition SHALL specify the technical procedure for determining whether or not a specific target asset
             is an instance of the CPE name specified by the &lt;cpe2_dict:cpe-item&gt; element. This usage is encouraged for CPE components.
         </statement>
@@ -2492,7 +2493,7 @@
     </requirement>
     <requirement id="SRC-72">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.5"/>
+        <reference ref="NIST-SP800-126r4" section="3.5"/>
         <statement>If a &lt;cpe2_dict:cpe-item&gt; element contained in a CPE component references an OVAL inventory class definition, then that definition
             SHALL be resolved by an @href attribute referencing an OVAL source data stream component in the same data stream.
         </statement>
@@ -2507,7 +2508,7 @@
     </requirement>
     <requirement id="SRC-74">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.7"/>
+        <reference ref="NIST-SP800-126r4" section="3.7"/>
         <statement>SCAP content referencing a configuration setting SHALL use the official CCE identifier if a CCE entry for a particular configuration setting
             exists in the official CCE list.
         </statement>
@@ -2520,7 +2521,7 @@
     </requirement>
     <requirement id="SRC-8">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:Benchmark&gt; element:~The &lt;xccdf:metadata&gt; element SHALL be
             provided and SHALL, at minimum, contain the Dublin Core [DCES] terms from Table 16. If provided, additional Dublin Core terms SHALL follow the
             required terms within the element sequence.~Table 16: Use of Dublin Core Terms in &lt;xccdf:metadata&gt;~Dublin Core Term~Description of Use~~&lt;dc:creator&gt;~The
@@ -2543,7 +2544,7 @@
     </requirement>
     <requirement id="SRC-9">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.1"/>
         <statement>The following requirements and conventions apply to the &lt;xccdf:Benchmark&gt;, &lt;xccdf:Profile&gt;, &lt;xccdf:Value&gt;, &lt;xccdf:Group&gt;,
             and &lt;xccdf:Rule&gt; elements:~One or more instances of the &lt;xccdf:title&gt; element SHALL be provided. Each instance SHALL contain a text value
             that briefly indicates the purpose of the containing element.
@@ -2571,7 +2572,7 @@
     </requirement>
     <requirement id="TOOL-110">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.1"/>
         <statement>Content consumers supporting SCAP 1.3 SHALL be capable of processing SCAP 1.3 content and the legacy SCAP 1.2 and 1.1 content versions.
             Content consumers SHALL process SCAP content as defined under the corresponding version of NIST SP 800-126
             (for SCAP 1.3, this revision; for SCAP 1.2, revision 2; for SCAP 1.1, revision 1).
@@ -2588,7 +2589,7 @@
     </requirement>
     <requirement id="TOOL-141">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>In order to be SCAP conformant, an SCAP content consumer SHALL be able to produce all the types of OVAL Results output described below. The
             specific result output SHALL be configurable within the SCAP content consumer.
         </statement>
@@ -2604,7 +2605,7 @@
     <requirement id="TOOL-202">
         <!-- This is implemented in AssessmentFactory.createSCAPDocumentSchemaAssessment() -->
         <summary/>
-        <reference ref="NIST800-126r4" section="4.6"/>
+        <reference ref="NIST-SP800-126r4" section="4.6"/>
         <statement>Each OVAL result data stream component SHALL validate against at least one version of the OVAL Results schema that corresponds to an OVAL
             component specification version specified in Section 2 of the annex, regardless of the version of the OVAL Definitions document that was evaluated.
         </statement>
@@ -2621,7 +2622,7 @@
     </requirement>
     <requirement id="TOOL-218">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.2"/>
         <statement>Content consumers SHALL be capable of validating SCAP content against the appropriate schemas and Schematron stylesheets, detecting and
             reporting errors, and failing gracefully if there are errors.
         </statement>
@@ -2636,7 +2637,7 @@
     </requirement>
     <requirement id="TOOL-232">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.3.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.3.2"/>
         <statement>If an XCCDF component has multiple &lt;xccdf:check-content-ref&gt; elements, then check processing SHALL be performed according to
             [XCCDF:7.2.3.5.1] with the following changes:~For each &lt;xccdf:check-content-ref&gt; element, a content consumer either SHALL attempt to retrieve
             the document referenced by the &lt;ds:component-ref&gt; element that is referenced directly by the &lt;xccdf:check-content-ref&gt; element's @href
@@ -2661,7 +2662,7 @@
     </requirement>
     <requirement id="TOOL-233">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.3.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.3.2"/>
         <statement>If an XCCDF component has multiple &lt;xccdf:check-content-ref&gt; elements, then check processing SHALL be performed according
             to [XCCDF:7.2.3.5.1] with the following changes:~Once a resolvable &lt;xccdf:check-content-ref&gt; element is found, then checking system
             processing SHALL proceed. When evaluating a rule, an &lt;xccdf:rule-result/xccdf:message&gt; with the @severity attribute value of "info"
@@ -2680,7 +2681,7 @@
     </requirement>
     <requirement id="TOOL-254">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.5"/>
+        <reference ref="NIST-SP800-126r4" section="4.5"/>
         <statement>The following requirements and recommendations pertain to content consumers generating XCCDF result data stream components.~Each XCCDF result
             data stream component SHALL comply with the XCCDF Results schema.
         </statement>
@@ -2696,7 +2697,7 @@
     </requirement>
     <requirement id="TOOL-269">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.7"/>
+        <reference ref="NIST-SP800-126r4" section="3.7"/>
         <statement>If no CCE entry exists for the configuration setting of interest, the content author SHOULD seek to have a CCE identifier issued for the
             configuration setting.
         </statement>
@@ -2711,7 +2712,7 @@
     </requirement>
     <requirement id="TOOL-270">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.3.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.3.2"/>
         <statement>When processing a patches up-to-date rule, only OVAL patch class definitions SHALL be evaluated; all other classes of definitions (e.g.,
             inventory class definitions) SHALL NOT be evaluated except when they serve, directly or indirectly, as criteria (extended definitions) of patch
             definitions.
@@ -2728,7 +2729,7 @@
     </requirement>
     <requirement id="TOOL-283">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>The &lt;dsig:Signature&gt; element SHALL follow the recommendations in [TMSAD]</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-283-1" type="MUST" scapval-ext:check-type="APPLICATION">
@@ -2741,7 +2742,7 @@
     </requirement>
     <requirement id="TOOL-291">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.2"/>
         <statement>Content consumers SHOULD validate XML digital signatures if they exist in the content. Validating a signature includes confirming that the
             signature value is valid, all of the reference hashes in the signature and manifest are correct, and the public key used to verify the signature is
             from a trusted source. A data stream with a signature that does not validate SHOULD NOT be evaluated by a content consumer.
@@ -2758,7 +2759,7 @@
     </requirement>
     <requirement id="TOOL-293">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.2"/>
         <statement>If more than one &lt;ds:data-stream&gt; element is specified on the &lt;ds:data-stream-collection&gt;, the ID of the &lt;ds:data-stream&gt;
             to execute SHALL be indicated to the content consumer, and the content consumer SHALL use the specified &lt;ds:data-stream&gt;
         </statement>
@@ -2773,7 +2774,7 @@
     </requirement>
     <requirement id="TOOL-294">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.2"/>
         <statement>If more than one &lt;xccdf:Benchmark&gt; is referenced by a &lt;ds:data-stream&gt;, the ID of the &lt;xccdf:Benchmark&gt; to execute SHALL be
             indicated to the content consumer, and the content consumer SHALL process the indicated &lt;xccdf:Benchmark&gt;
         </statement>
@@ -2788,7 +2789,7 @@
     </requirement>
     <requirement id="TOOL-295">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.3.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.3.1"/>
         <statement>CPEs referenced in an &lt;xccdf:platform&gt; element directly or by a &lt;cpe2:fact-ref&gt; contained within a referenced &lt;cpe2:platform-specification&gt;
             element SHALL be evaluated as follows to determine their presence on a machine:~The CPE SHALL be matched against all CPEs in all of the dictionaries
             referenced by the &lt;ds:data-stream&gt; element. All CPEs that return an EQUAL or SUPERSET result as defined in CPE Name Matching [CPE-M] SHALL be
@@ -2807,7 +2808,7 @@
     </requirement>
     <requirement id="TOOL-296">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.3.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.3.1"/>
         <statement>CPEs referenced in an &lt;xccdf:platform&gt; element directly or by a &lt;cpe2:fact-ref&gt; contained within a referenced &lt;cpe2:platform-specification&gt;
             element SHALL be evaluated as follows to determine their presence on a machine:~Either a list of CPEs found on the target asset MUST be known before
             the scan, or a list SHALL be generated. If a previously known list is used, it MUST be equivalent to a newly generated list. To generate the list,
@@ -2830,7 +2831,7 @@
     </requirement>
     <requirement id="TOOL-297">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.3.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.3.1"/>
         <statement>CPEs referenced in an &lt;xccdf:platform&gt; element directly or by a &lt;cpe2:fact-ref&gt; contained within a referenced &lt;cpe2:platform-specification&gt;
             element SHALL be evaluated as follows to determine their presence on a machine:~The list of CPEs found on the target asset, along with the &lt;xccdf:platform&gt;
             or &lt;cpe2:platform-specification&gt; SHALL be used as input to the CPE Applicability Language [CPE-L] algorithm to determine the XCCDF Benchmark
@@ -2849,7 +2850,7 @@
     </requirement>
     <requirement id="TOOL-298">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.1"/>
         <statement>The ARF report SHALL contain a report object for each XCCDF, OVAL, and OCIL component executed when a source data stream is evaluated against
             a target
         </statement>
@@ -2864,7 +2865,7 @@
     </requirement>
     <requirement id="TOOL-308">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>The signature MUST be represented as a &lt;dsig:Signature&gt; element and MUST follow the W3C recommendation [DSIG].</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-308-1" type="MUST" scapval-ext:check-type="APPLICATION">
@@ -2877,7 +2878,7 @@
     </requirement>
     <requirement id="TOOL-310">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.8"/>
+        <reference ref="NIST-SP800-126r4" section="4.8"/>
         <statement>The &lt;dsig:Signature&gt; element SHALL follow the recommendations in [TMSAD]</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-310-1" type="MUST" scapval-ext:check-type="APPLICATION">
@@ -2890,7 +2891,7 @@
     </requirement>
     <requirement id="TOOL-335">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>Schematron rules to check well-formed SCAP content. The Schematron schemas for the SCAP specification and its applicable component
             specifications are located at https://scap.nist.gov/revision/1.3/#schematron. Source content SHOULD pass all Schematron assertions in the
             Schematron rule files. When creating source content, failed assertions with a "WARNING" or "INFO" flag MAY be disregarded if the assertion
@@ -2911,7 +2912,7 @@
     </requirement>
     <requirement id="TOOL-336">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>The latest Schematron schema SHOULD be used in place of any earlier versions. If the latest file is unavailable, the version
             specified on the &lt;ds:data-stream-collection&gt; element's @schematron-version attribute SHALL be used instead.
         </statement>
@@ -2926,7 +2927,7 @@
     </requirement>
     <requirement id="TOOL-337">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.1.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.1.2"/>
         <statement>Also, for the component specifications, the Schematron schema on the SCAP website SHALL be used in place of any corresponding Schematron
             schema available elsewhere.
         </statement>
@@ -2941,7 +2942,7 @@
     </requirement>
     <requirement id="TOOL-340">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.1"/>
         <statement>All remaining OPTIONAL elements in the XCCDF schema MAY be included at the author's discretion unless otherwise noted in this document.
         </statement>
         <derived-requirements>
@@ -2955,7 +2956,7 @@
     </requirement>
     <requirement id="TOOL-342">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.3"/>
         <statement>As stated in the XCCDF specification, the use of an &lt;xccdf:Profile&gt; element is not required.</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-342-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -2966,7 +2967,7 @@
     </requirement>
     <requirement id="TOOL-344">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.1"/>
         <statement>See Section 4.5.1 for information on the meaning of a "pass/fail" rule result relating to each of the identifier types in Table 17. All rules
             that contain CCE, CPE, or CVE entries in their &lt;xccdf:ident&gt; elements SHALL obey these meanings. As a result, such &lt;xccdf:ident&gt; elements
             SHALL only be included either if the recommendation is identical to these associated meanings or if they have a @con:negate attribute (as described
@@ -2988,7 +2989,7 @@
     </requirement>
     <requirement id="TOOL-347">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems
             other than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system
             ~OCIL questionnaires SHOULD NOT be used if OVAL can perform the same check correctly.
@@ -3005,7 +3006,7 @@
     </requirement>
     <requirement id="TOOL-350">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.2"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.2"/>
         <statement>The following requirements and recommendations apply to the &lt;xccdf:check&gt; element:~~Content containing the use of checking systems other
             than the OVAL and OCIL checking systems SHALL NOT be considered well-formed with regards to SCAP.~~OCIL checking system~All requirements in
             Appendix B of NIST IR 7692, Specifications for the Open Checklist Interactive Language (OCIL) [OCIL] SHALL be followed.
@@ -3023,7 +3024,7 @@
     </requirement>
     <requirement id="TOOL-352">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>An OVAL source data stream component MAY be used to represent a series of checks to verify that patches have been installed. Historically, an
             XCCDF convention has been used to identify such a reference. An XCCDF benchmark MAY include a patches up-to-date rule that SHALL reference an OVAL
             source data stream component. ~When implementing a patches up-to-date XCCDF rule that checks for patches via numerous OVAL patch class definitions,
@@ -3046,7 +3047,7 @@
     </requirement>
     <requirement id="TOOL-353">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.4"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.4"/>
         <statement>CCSS scores are more stable than CVSS scores, but they still may change over time. Accordingly, during scoring, current CCSS scores acquired
             dynamically, such as from a data feed, MAY be used in place of the @weight attribute within XCCDF configuration setting-related rules.
         </statement>
@@ -3062,7 +3063,7 @@
     </requirement>
     <requirement id="TOOL-354">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.6"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.6"/>
         <statement>XCCDF group extension SHALL NOT be allowed.</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-354-1" type="MUST" scapval-ext:check-type="APPLICATION">
@@ -3075,7 +3076,7 @@
     </requirement>
     <requirement id="TOOL-356">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.4"/>
+        <reference ref="NIST-SP800-126r4" section="3.4"/>
         <statement>OCIL content SHOULD be used for checking rules that cannot be fully automated with OVAL.</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-356-1" type="INFORMATIONAL" scapval-ext:check-type="NOT_CHECKED">
@@ -3086,7 +3087,7 @@
     </requirement>
     <requirement id="TOOL-357">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.4"/>
+        <reference ref="NIST-SP800-126r4" section="3.4"/>
         <statement>If an &lt;ocil:questionnaire&gt; element maps to one or more CCE, CVE, and/or CPE identifiers, it SHOULD include &lt;ocil:reference&gt;
             elements that reference those identifiers using the corresponding following format:~&lt;ocil:reference href="http://cce.mitre.org"&gt;CCE_identifier&lt;/ocil:reference&gt;_x000B__x000B_&lt;ocil:reference
             href="http://cve.mitre.org"&gt;CVE_identifier&lt;/ocil:reference&gt;_x000B__x000B_&lt;ocil:reference href="http://cpe.mitre.org"&gt;CPE_identifier&lt;/ocil:reference&gt;
@@ -3103,7 +3104,7 @@
     </requirement>
     <requirement id="TOOL-359">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.11"/>
+        <reference ref="NIST-SP800-126r4" section="3.11"/>
         <statement>As such, content authors MAY digitally sign source content following the guidelines in [TMSAD], along with the following requirements.
         </statement>
         <derived-requirements>
@@ -3117,7 +3118,7 @@
     </requirement>
     <requirement id="TOOL-361">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.1"/>
         <statement>Content consumers that process legacy SCAP content SHALL be capable of outputting results in the current SCAP revision. Additionally, content
             consumers MAY output results in the same SCAP version as the source content. For producers of results in legacy formats, legacy results MAY also be
             converted into results based on the current SCAP revision.
@@ -3134,7 +3135,7 @@
     </requirement>
     <requirement id="TOOL-362">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.2"/>
+        <reference ref="NIST-SP800-126r4" section="4.2"/>
         <statement>Whenever a &lt;ds:extended-component&gt; that is not recognized by the tool is referenced from a &lt;ds:data-stream&gt;, &lt;ds:component&gt;,
             or &lt;ds:extended-component&gt; element, the tool SHALL issue a warning.
         </statement>
@@ -3149,7 +3150,7 @@
     </requirement>
     <requirement id="TOOL-368">
         <summary/>
-        <reference ref="NIST800-126r4" section="4.4.1"/>
+        <reference ref="NIST-SP800-126r4" section="4.4.1"/>
         <statement>Validation of each component SHALL be done in accordance with the portions of this document that define requirements for the component.
         </statement>
         <derived-requirements>
@@ -3163,7 +3164,7 @@
     </requirement>
     <requirement id="TOOL-378">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.2.4.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.2.4.3"/>
         <statement>When implementing a patches up-to-date XCCDF rule that checks for patches via a single OVAL definition, the following approach SHALL be
             used:~The &lt;xccdf:Rule&gt; element that references an OVAL source data stream component SHALL have the @id attribute value of
             "xccdf_NAMESPACE_rule_security_patches_up_to_date", where NAMESPACE is the reverse DNS format namespace associated with the content maintainer.
@@ -3180,7 +3181,7 @@
     </requirement>
     <requirement id="TOOL-382">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.3"/>
+        <reference ref="NIST-SP800-126r4" section="3.3"/>
         <statement>The version(s) that is specified using the &lt;oval:schema_version> content element SHALL correspond to the version(s) specified by
             the @xsi:schemaLocation attribute value for the OVAL schema, if an @xsi:schemaLocation attribute is specified.
         </statement>
@@ -3196,7 +3197,7 @@
     </requirement>
     <requirement id="TOOL-383">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.6"/>
+        <reference ref="NIST-SP800-126r4" section="3.6"/>
         <statement>A SWID tag installed on a target asset SHALL be identified by an OVAL inventory class definition.</statement>
         <derived-requirements>
             <derived-requirement id="TOOL-383-1" type="MUST" scapval-ext:check-type="NOT_CHECKED">
@@ -3208,7 +3209,7 @@
     </requirement>
     <requirement id="TOOL-384">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.6"/>
+        <reference ref="NIST-SP800-126r4" section="3.6"/>
         <statement>The definition SHOULD use the &lt;independent-def:xmlfilecontent_object&gt; to search the file system for one or more SWID tags expressed in
             XML that match a desired XPath expression.
         </statement>
@@ -3223,7 +3224,7 @@
     </requirement>
     <requirement id="TOOL-385">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.6"/>
+        <reference ref="NIST-SP800-126r4" section="3.6"/>
         <statement>If a SWID tag has been installed on the target endpoint for a software product or patch, then one of the following methods SHALL be used to
             detect the SWID tag on the target asset:~One or more &lt;cpe2-dict:check&gt; elements that reference an OVAL inventory class definition that
             searches for the presence of a matching SWID tag.
@@ -3240,7 +3241,7 @@
     </requirement>
     <requirement id="TOOL-386">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.6"/>
+        <reference ref="NIST-SP800-126r4" section="3.6"/>
         <statement>If a SWID tag has been installed on the target endpoint for a software product or patch, then one of the following methods SHALL be used to
             detect the SWID tag on the target asset:~A &lt;cpe:check-fact-ref&gt; element that references an OVAL inventory class definition that searches for
             the presence of a matching SWID tag.
@@ -3257,7 +3258,7 @@
     </requirement>
     <requirement id="TOOL-387">
         <summary/>
-        <reference ref="NIST800-126r4" section="3.6"/>
+        <reference ref="NIST-SP800-126r4" section="3.6"/>
         <statement>If a SWID tag has been installed on the target endpoint for a software product or patch, then one of the following methods SHALL be used to
             detect the SWID tag on the target asset:~An OVAL definition that references another OVAL inventory class definition using the &lt;oval-def:extend_definition&gt;
             element where the extended definition searches for the presence of a matching SWID tag.
@@ -3273,24 +3274,24 @@
         </derived-requirements>
     </requirement>
     <!-- These are additional requirements which may not have a direct mapping to SP800-126 but provide clarity to results or are required for SCAPVal -->
-  <requirement id="A-10">
-    <summary />
-    <reference ref="SCAPVAL1.3" section="N/A" />
-    <statement>The SCAP content must conform to all associated XML schemas.
+    <requirement id="A-10">
+        <summary/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
+        <statement>The SCAP content must conform to all associated XML schemas.
         This requirement covers SCAP Component schema validation.
         SCAP Source Data Stream schema validation is covered under requirement SRC-329-1
         SCAP Result Data Stream schema validation is covered under requirement RES-363-1
     </statement>
-    <derived-requirements>
-      <derived-requirement id="A-10-1" type="MUST" scapval-ext:check-type="APPLICATION">
-        <statement>XML content failed schema validation.</statement>
-        <message>''{0}''</message>
-      </derived-requirement>
-    </derived-requirements>
-  </requirement>
+        <derived-requirements>
+            <derived-requirement id="A-10-1" type="MUST" scapval-ext:check-type="APPLICATION">
+                <statement>XML content failed schema validation.</statement>
+                <message>''{0}''</message>
+            </derived-requirement>
+        </derived-requirements>
+    </requirement>
     <requirement id="A-15">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>Check for unused OVAL definitions.
         </statement>
         <derived-requirements>
@@ -3302,7 +3303,7 @@
     </requirement>
     <requirement id="A-16">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>CCE number is expected, but missing as a reference.</statement>
         <derived-requirements>
             <derived-requirement id="A-16-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
@@ -3313,7 +3314,7 @@
     </requirement>
     <requirement id="A-17">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>CCE number is in an invalid format or the check-digit does not match. It should be of format CCE-XXXX-X or CCE-XXXXX-X where each X
             is a digit, and the final X is a check-digit.</statement>
         <derived-requirements>
@@ -3327,7 +3328,7 @@
     </requirement>
     <requirement id="A-18">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>The attribute @content-type on &lt;scap:check-system-content&gt; must match the content as such: OVAL_COMPLIANCE, OVAL_PATCH,
             CPE_INVENTORY, OVAL_VULNERABILITY must contain an &lt;oval-def:oval_definitions&gt; element; OCIL_QUESTIONS must contain an &lt;ocil:ocil&gt;
             element.</statement>
@@ -3343,7 +3344,7 @@
     </requirement>
     <requirement id="A-21">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>The OVAL test type is not checked in the NIST SCAP Validation Program.</statement>
         <derived-requirements>
             <derived-requirement id="A-21-1" type="INFORMATIONAL" scapval-ext:check-type="SCHEMATRON">
@@ -3354,7 +3355,7 @@
     </requirement>
     <requirement id="A-22">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>A custom XPath function is not available.</statement>
         <derived-requirements>
             <derived-requirement id="A-22-1" type="INFORMATIONAL" scapval-ext:check-type="SCHEMATRON">
@@ -3365,7 +3366,7 @@
     </requirement>
     <requirement id="A-23">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>The content contains an XML element in a namespace that is not governed by one of the officially supported SCAP specifications.
         </statement>
         <derived-requirements>
@@ -3379,9 +3380,9 @@
     </requirement>
     <requirement id="A-25">
         <summary/>
-        <reference ref="SCAPVAL1.3" section="N/A"/>
+        <reference ref="SCAPVAL1.4" section="N/A"/>
         <statement>This requirement for unique xccdf:Profile @id cannot be handled by the XCCDF schema in SCAP source data streams. There is no direct reference
-            to the req in 800-126r2 but this still needs to be checked.
+            to the req in SP800-126r4 but this still needs to be checked.
         </statement>
         <derived-requirements>
             <derived-requirement id="A-25-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
