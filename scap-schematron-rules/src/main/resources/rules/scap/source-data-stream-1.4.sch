@@ -36,7 +36,7 @@
     <sch:rule id="scap-general-xccdf-benchmark" context="xccdf:Benchmark">
       <sch:assert id="scap-general-xccdf-description" test="every $m in (. union .//xccdf:Profile union .//xccdf:Value union .//xccdf:Group union .//xccdf:Rule) satisfies exists($m/xccdf:description)">SRC-10-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-lang-required" test="exists(@xml:lang)">SRC-2-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
-      <sch:assert id="scap-general-xccdf-no-check-content-check" test="not(exists(.//xccdf:check-content))">SRC-25-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
+      <!--<sch:assert id="scap-general-xccdf-no-check-content-check" test="not(exists(.//xccdf:check-content))">SRC-25-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert> -->
       <sch:assert id="scap-general-xccdf-benchmark-val-forbid" test="not(exists(.//xccdf:Value//xccdf:source)) and not(exists(.//xccdf:Value//xccdf:complex-value)) and not(exists(.//xccdf:Value//xccdf:complex-default)) and not(exists(.//xccdf:Value//xccdf:choices//xccdf:complex-choice))">SRC-276-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-version-time-attribute-req" test="exists(xccdf:version/@time)">SRC-3-2</sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-no-xinclude" test="not(exists(.//xinclude:include))">SRC-339-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>

@@ -63,7 +63,7 @@ public class SCAP14DataStream implements IScapDataStream {
             "classpath:xsd/nist/cpe/2.3/cpe-dictionary_2.3.xsd",
             "classpath:xsd/nist/cpe/2.3/cpe-dictionary-extension_2.3.xsd", "classpath:xsd/nist/cpe/2.3/cpe-naming_2.3.xsd",
             "classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd", "classpath:xsd/nist/scap/1.2/scap-constructs_1.2.xsd",
-            "classpath:xsd/nist/scap/1.3/scap-source-data-stream_1.3.xsd", "classpath:xsd/iso/19770-2-SWID/schema.xsd",
+            "classpath:xsd/nist/scap/1.4/scap-source-data-stream_1.4.xsd", "classpath:xsd/iso/19770-2-SWID/schema.xsd",
             "classpath:xsd/nist/tmsad/1.0/tmsad_1.0.xsd", "classpath:xsd/nist/xccdf/1.2/xccdf_1.2.xsd" };
     private static final String[] AdditionalResultSchemas
             = { "classpath:xsd/nist/asset-identification/1.1/asset-identification_1.1.0.xsd",
@@ -128,7 +128,7 @@ public class SCAP14DataStream implements IScapDataStream {
             Schematron tmsadSchematron = Factory.newSchematron(new URL(TMSAD_SCHEMATRON_LOCATION));
             SchematronHandler tmsadSchematronHandler
                     = new ComponentSchematronHandler(SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
-                    .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT));
+                            .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT));
             SchematronSet tmsadSchematronSet = new SchematronSet(tmsadSchematron, tmsadSchematronHandler, null, null);
             schematronSetList.add(tmsadSchematronSet);
 
@@ -137,8 +137,8 @@ public class SCAP14DataStream implements IScapDataStream {
             // have been used for all content and versions
             Schematron xccdfSchematron = Factory.newSchematron(new URL("classpath:rules/other/xccdf-1.2.sch"));
             SchematronHandler xccdfSchematronHandler
-                    = new ComponentSchematronHandler(SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
-                    .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT));
+                     = new ComponentSchematronHandler(SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
+                            .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT));
             // XCCDF schematron requires a phase
             String xccdfPhase = contentType.equals(Application.ContentType.RESULT) ? "ARF-Check" : "Benchmark";
             SchematronSet xccdfSchematronSet = new SchematronSet(xccdfSchematron, xccdfSchematronHandler, xccdfPhase, null);
@@ -146,8 +146,8 @@ public class SCAP14DataStream implements IScapDataStream {
 
             Schematron ocilSchematron = Factory.newSchematron(new URL("classpath:rules/other/ocil-2.0.sch"));
             SchematronHandler ocilSchematronHandler
-                    = new ComponentSchematronHandler(SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
-                    .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT));
+                     = new ComponentSchematronHandler(SCAPValReqManager.RequirementMappings.SCHEMATRON_VALIDATION
+                            .getSCAPReqID(scapVersion, Application.ContentType.COMPONENT));
             SchematronSet ocilSchematronSet = new SchematronSet(ocilSchematron, ocilSchematronHandler, null, null);
             schematronSetList.add(ocilSchematronSet);
 
