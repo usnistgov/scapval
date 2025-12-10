@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>gov.nist.secauto.scap.validation</groupId>
 		<artifactId>scapval-parent</artifactId>
-		<version>1.5-rc1-SNAPSHOT</version>
+		<version>1.4-rc1</version>
 	</parent>
 
 	<artifactId>scap-schematron-rules</artifactId>

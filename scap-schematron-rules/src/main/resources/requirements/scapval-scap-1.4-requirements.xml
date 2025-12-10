@@ -1770,18 +1770,18 @@
     <requirement id="SRC-284">
         <summary/>
         <reference ref="NIST-SP800-126r4" section="3.11"/>
-        <statement>A &lt;dsig:Manifest&gt; element SHALL be included within the &lt;dsig:Signature&gt; element as a &lt;dsig:Object&gt; element. The &lt;dsig:Manifest&gt;
-            element SHALL have a &lt;dsig:Reference&gt; element for each local component referenced by the data stream being signed. External components MAY be
+        <statement>A &lt;dsig:Manifest&gt; element SHOULD be included within the &lt;dsig:Signature&gt; element as a &lt;dsig:Object&gt; element. The &lt;dsig:Manifest&gt;
+            element SHOULD have a &lt;dsig:Reference&gt; element for each local component referenced by the data stream being signed. External components MAY be
             omitted from the &lt;dsig:Manifest&gt; element. Each &lt;dsig:Reference&gt; element referencing a &lt;ds:component&gt; or &lt;ds:extended-component&gt;
-            element SHALL point to the component being signed by identifying the component in the @URI attribute using "#" + @Id of the component.
+            element SHOULD point to the component being signed by identifying the component in the @URI attribute using "#" + @Id of the component.
         </statement>
         <derived-requirements>
-            <derived-requirement id="SRC-284-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>A &lt;dsig:Manifest&gt; SHALL be included in the &lt;dsig:Signature&gt; as a &lt;dsig:Object&gt;</statement>
+            <derived-requirement id="SRC-284-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>A &lt;dsig:Manifest&gt; SHOULD be included in the &lt;dsig:Signature&gt; as a &lt;dsig:Object&gt;</statement>
                 <message>''{0}''</message>
             </derived-requirement>
-            <derived-requirement id="SRC-284-2" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The &lt;dsig:Manifest&gt; SHALL have a &lt;dsig:Reference&gt; for each local component referenced by the data stream being signed.
+            <derived-requirement id="SRC-284-2" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>The &lt;dsig:Manifest&gt; SHOULD have a &lt;dsig:Reference&gt; for each local component referenced by the data stream being signed.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -1790,12 +1790,12 @@
     <requirement id="SRC-285">
         <summary/>
         <reference ref="NIST-SP800-126r4" section="3.11"/>
-        <statement>A &lt;dsig:SignatureProperties&gt; element SHALL be included within the &lt;dsig:Signature&gt; element as a &lt;dsig:Object&gt; element. At
-            least one &lt;dsig:SignatureProperty&gt; element SHALL be populated with &lt;dt:signature-info&gt; as specified in [TMSAD]
+        <statement>A &lt;dsig:SignatureProperties&gt; element SHOULD be included within the &lt;dsig:Signature&gt; element as a &lt;dsig:Object&gt; element. At
+            least one &lt;dsig:SignatureProperty&gt; element SHOULD be populated with &lt;dt:signature-info&gt; as specified in [TMSAD]
         </statement>
         <derived-requirements>
-            <derived-requirement id="SRC-285-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>A &lt;dsig:SignatureProperties&gt; SHALL be included in the &lt;dsig:Signature&gt; as a &lt;dsig:Object&gt; with a
+            <derived-requirement id="SRC-285-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>A &lt;dsig:SignatureProperties&gt; SHOULD be included in the &lt;dsig:Signature&gt; as a &lt;dsig:Object&gt; with a
                     dsig:SignatureProperty populated with tmsad:signature-info
                 </statement>
                 <message>''{0}''</message>
@@ -1805,13 +1805,13 @@
     <requirement id="SRC-286">
         <summary/>
         <reference ref="NIST-SP800-126r4" section="3.11"/>
-        <statement>The first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;ds:data-stream&gt; element being signed. The
-            &lt;ds:data-stream&gt; element SHALL be referenced in the @URI attribute using "#" + @Id of the &lt;ds:data-stream&gt;
+        <statement>The first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHOULD be to the &lt;ds:data-stream&gt; element being signed. The
+            &lt;ds:data-stream&gt; element SHOULD be referenced in the @URI attribute using "#" + @Id of the &lt;ds:data-stream&gt;
         </statement>
         <derived-requirements>
-            <derived-requirement id="SRC-286-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;ds:data-stream&gt; element being
-                    signed. The &lt;ds:data-stream&gt; element SHALL be referenced in the @URI attribute using "#" + @Id of the &lt;ds:data-stream&gt;
+            <derived-requirement id="SRC-286-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>The first &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHOULD be to the &lt;ds:data-stream&gt; element being
+                    signed. The &lt;ds:data-stream&gt; element SHOULD be referenced in the @URI attribute using "#" + @Id of the &lt;ds:data-stream&gt;
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>
@@ -1820,14 +1820,14 @@
     <requirement id="SRC-287">
         <summary/>
         <reference ref="NIST-SP800-126r4" section="3.11"/>
-        <statement>The second &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;dsig:SignatureProperties&gt; element
-            captured in a &lt;dsig:Object&gt; element within the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt; element SHALL be referenced
+        <statement>The second &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHOULD be to the &lt;dsig:SignatureProperties&gt; element
+            captured in a &lt;dsig:Object&gt; element within the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt; element SHOULD be referenced
             in the @URI attribute using "#" + @Id of the&lt;dsig:SignatureProperties&gt; element.
         </statement>
         <derived-requirements>
-            <derived-requirement id="SRC-287-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The second &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHALL be to the &lt;dsig:SignatureProperties&gt; element
-                    captured in a &lt;dsig:Object&gt; element within the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt; element SHALL be
+            <derived-requirement id="SRC-287-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>The second &lt;dsig:Reference&gt; element in a &lt;dsig:Signature&gt; element SHOULD be to the &lt;dsig:SignatureProperties&gt; element
+                    captured in a &lt;dsig:Object&gt; element within the &lt;dsig:Signature&gt; element. The &lt;dsig:SignatureProperties&gt; element SHOULD be
                     referenced in the @URI attribute using "#" + @Id of the&lt;dsig:SignatureProperties&gt; element.
                 </statement>
                 <message>''{0}''</message>
@@ -1837,13 +1837,13 @@
     <requirement id="SRC-288">
         <summary/>
         <reference ref="NIST-SP800-126r4" section="3.11"/>
-        <statement>The third &lt;dsig:Reference&gt; element SHALL be to the &lt;dsig:Manifest&gt; element captured in a &lt;dsig:Object&gt; element with the &lt;dsig:Signature&gt;
-            element. The &lt;dsig:Manifest&gt; element SHALL be referenced in the @URI attribute using "#" + @Id attribute of the &lt;dsig:Manifest&gt;
+        <statement>The third &lt;dsig:Reference&gt; element SHOULD be to the &lt;dsig:Manifest&gt; element captured in a &lt;dsig:Object&gt; element with the &lt;dsig:Signature&gt;
+            element. The &lt;dsig:Manifest&gt; element SHOULD be referenced in the @URI attribute using "#" + @Id attribute of the &lt;dsig:Manifest&gt;
         </statement>
         <derived-requirements>
-            <derived-requirement id="SRC-288-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The third &lt;dsig:Reference&gt; element SHALL be to the &lt;dsig:Manifest&gt; element captured in a &lt;dsig:Object&gt; element with
-                    the &lt;dsig:Signature&gt; element. The &lt;dsig:Manifest&gt; element SHALL be referenced in the @URI attribute using "#" + @Id attribute of
+            <derived-requirement id="SRC-288-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>The third &lt;dsig:Reference&gt; element SHOULD be to the &lt;dsig:Manifest&gt; element captured in a &lt;dsig:Object&gt; element with
+                    the &lt;dsig:Signature&gt; element. The &lt;dsig:Manifest&gt; element SHOULD be referenced in the @URI attribute using "#" + @Id attribute of
                     the &lt;dsig:Manifest&gt;
                 </statement>
                 <message>''{0}''</message>

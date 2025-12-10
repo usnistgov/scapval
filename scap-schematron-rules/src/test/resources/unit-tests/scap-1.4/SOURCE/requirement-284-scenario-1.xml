@@ -19,10 +19,10 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-284-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-284-2" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-284-1" result="WARNING" />
+    <assert-derived-requirement requirement-id="SRC-284-2" result="WARNING" />
     <!-- Also expect 288-1 to fail due to the dsig modification for this test -->
-    <assert-derived-requirement requirement-id="SRC-288-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-288-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>
