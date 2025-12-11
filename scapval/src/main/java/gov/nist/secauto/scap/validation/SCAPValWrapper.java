@@ -208,11 +208,11 @@ public class SCAPValWrapper {
       if (reportDirPath != null) {
         // the xml result file
         args.add("-valresultfile");
-        args.add(reportDirPath + filename + "-validation-result.xml");
+        args.add(reportDirPath + "-validation-result.xml");
 
         // the html report file
         args.add("-valreportfile");
-        args.add(reportDirPath + filename + "-validation-report.html");
+        args.add(reportDirPath + "-validation-report.html");
       }
 
       args.add("-maxsize");
