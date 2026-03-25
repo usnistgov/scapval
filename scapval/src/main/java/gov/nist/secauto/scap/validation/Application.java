@@ -99,6 +99,7 @@ import static gov.nist.secautotrust.signature.SecAutoTrustMain.validateSignature
 import static java.lang.System.exit;
 
 public class Application {
+  private static final String DIAGNOSTICS_PROPERTY = "scapval.diagnostics";
 
   private static final String OPTION_COMPONENT_FILE = "componentfile";
   private static final String OPTION_COMBINED_CONTENT_OUTPUT = "combinedoutput";
@@ -158,6 +159,8 @@ public class Application {
   public static void main(String[] args) {
     Objects.requireNonNull(args, "args cannot be null.");
     boolean debugModeOn = Arrays.asList(args).contains("-debug");
+
+    logRuntimeDiagnostics("main-entry");
 
     int result;
     try {
@@ -234,6 +237,8 @@ public class Application {
     // print scapval version initially
     Messages.printVersion();
 
+    logRuntimeDiagnostics("runCLI");
+
     // parse and validate the CLI args. var 'cmd' will be used later for report generation
     CommandLine cmd = parseCLI(args);
 
@@ -288,6 +293,8 @@ public class Application {
 
     // print scapval version initially
     Messages.printVersion();
+
+    logRuntimeDiagnostics("runProgrammatic");
 
     // parse and validate the CLI args.
     CommandLine cmd = parseCLI(args);
@@ -1024,6 +1031,14 @@ public class Application {
    * @return the results of the combined assessments
    */
   protected static SCAPValAssessmentResults executeAssessments() throws SCAPException, DocumentException, IOException {
+    logRuntimeDiagnostics("executeAssessments-start");
+    if (isDiagnosticsEnabled()) {
+      log.info(
+          "SCAPVal diagnostics [executeAssessments-start]: contentType={}, scapVersion={}, scapUseCase={}, contentToCheckFilename={}, originalLocation={}",
+          contentToCheckType, scapVersion, scapUseCase, contentToCheckFilename,
+          XMLContentToValidate == null ? "<null>" : XMLContentToValidate.getOriginalLocation());
+    }
+
     // First create the AssessmentFactory to manage requirements and assessments based on target
     // content
     AssessmentFactory assessmentFactory
@@ -1033,6 +1048,11 @@ public class Application {
     ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     AssessmentExecutor<XMLDocument> assessmentExecutor = assessmentFactory.newAssessmentExecutor(executorService);
+
+    if (isDiagnosticsEnabled()) {
+      log.info("SCAPVal diagnostics [executeAssessments-start]: executorService={}, assessmentExecutor={}",
+          executorService.getClass().getName(), assessmentExecutor.getClass().getName());
+    }
 
     try {
       // The AssessmentReactor handles the execution of the assessments
@@ -1053,6 +1073,8 @@ public class Application {
         // optionally write out the final content used in validation
         XMLContentToValidate.copyTo(combinedOutput);
       }
+
+      logRuntimeDiagnostics("assessment-reactor-before-react");
 
       AssessmentResults assessmentResults = assessmentReactor.react(builder);
       if (assessmentResults == null) {
@@ -1147,6 +1169,74 @@ public class Application {
    */
   public static void showHelp() {
     CLIParser.doShowHelp();
+  }
+
+  static boolean isDiagnosticsEnabled() {
+    String value = System.getProperty(DIAGNOSTICS_PROPERTY);
+    if (value == null || value.isEmpty()) {
+      value = System.getenv("SCAPVAL_DIAGNOSTICS");
+    }
+    return value != null
+        && ("1".equals(value) || Boolean.parseBoolean(value) || "yes".equalsIgnoreCase(value)
+            || "on".equalsIgnoreCase(value));
+  }
+
+  private static void logRuntimeDiagnostics(String stage) {
+    if (!isDiagnosticsEnabled()) {
+      return;
+    }
+
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    ClassLoader applicationClassLoader = Application.class.getClassLoader();
+    String classPath = System.getProperty("java.class.path");
+    int classPathEntryCount = classPath == null || classPath.isEmpty()
+        ? 0
+        : classPath.split(java.util.regex.Pattern.quote(File.pathSeparator)).length;
+
+    log.info(
+        "SCAPVal diagnostics [{}]: thread={}, java.version={}, java.vendor={}, java.home={}, user.dir={}, java.protocol.handler.pkgs={}, classpath.entries={}, classpath={}, JAVA_HOME={}, JDK_JAVA_OPTIONS={}, JAVA_TOOL_OPTIONS={}, SHELL={}",
+        stage, Thread.currentThread().getName(), valueOrUnset(System.getProperty("java.version")),
+        valueOrUnset(System.getProperty("java.vendor")), valueOrUnset(System.getProperty("java.home")),
+        valueOrUnset(System.getProperty("user.dir")), valueOrUnset(System.getProperty("java.protocol.handler.pkgs")),
+        classPathEntryCount, abbreviate(classPath), valueOrUnset(System.getenv("JAVA_HOME")),
+        valueOrUnset(System.getenv("JDK_JAVA_OPTIONS")), valueOrUnset(System.getenv("JAVA_TOOL_OPTIONS")),
+        valueOrUnset(System.getenv("SHELL")));
+    log.info("SCAPVal diagnostics [{}]: contextClassLoader={}, applicationClassLoader={}", stage,
+        valueOrUnset(contextClassLoader == null ? null : contextClassLoader.toString()),
+        valueOrUnset(applicationClassLoader == null ? null : applicationClassLoader.toString()));
+
+    logClasspathResource(stage, "META-INF/services/gov.nist.secauto.decima.xml.service.ResourceResolverExtension");
+    logClasspathResource(stage, "scapval-xsd/scapval-catalog.xml");
+    logClasspathResource(stage, "xsd/oasis/catalog1.1.xsd");
+    logClasspathResource(stage, "xsd/nist/scap/1.4/scap-source-data-stream_1.4.xsd");
+  }
+
+  private static void logClasspathResource(String stage, String resourcePath) {
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    ClassLoader applicationClassLoader = Application.class.getClassLoader();
+
+    URL contextResource = contextClassLoader == null ? null : contextClassLoader.getResource(resourcePath);
+    URL applicationResource = applicationClassLoader == null ? null : applicationClassLoader.getResource(resourcePath);
+
+    log.info("SCAPVal diagnostics [{}]: resource='{}', contextLoaderUrl={}, applicationLoaderUrl={}", stage,
+        resourcePath, valueOrUnset(contextResource == null ? null : contextResource.toExternalForm()),
+        valueOrUnset(applicationResource == null ? null : applicationResource.toExternalForm()));
+  }
+
+  private static String valueOrUnset(String value) {
+    return value == null || value.isEmpty() ? "<unset>" : value;
+  }
+
+  private static String abbreviate(String value) {
+    if (value == null || value.isEmpty()) {
+      return "<unset>";
+    }
+
+    final int maxLength = 512;
+    if (value.length() <= maxLength) {
+      return value;
+    }
+    return value.substring(0, maxLength) + "... <truncated, length=" + value.length() + ">";
   }
 
 }

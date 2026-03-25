@@ -21,7 +21,13 @@ For a listing of the SCAP requirements this tool adheres to, refer to the files 
 
 Requires Java Runtime Environment (JRE) 11 or higher.
 If the JAVA_HOME environment variable is set, then the scapval launch script will use the version specified.
-Otherwise, it will use whatever version is available from the current working directory.
+Otherwise, it will use the java executable available on your PATH.
+On macOS and Linux/Unix, `scapval.sh` verifies that the selected Java runtime is version 11 or higher before launch and fails fast with an error if the runtime is missing, invalid, or too old.
+On Windows, `scapval.bat` verifies that the selected Java runtime is version 11 or higher before launch and fails fast with an error if the runtime is missing, invalid, or too old.
+
+Diagnostics:
+Optional diagnostics output can be enabled for troubleshooting startup and runtime issues by setting SCAPVAL_DIAGNOSTICS (or system property scapval.diagnostics) to `1`, `true`, `yes`, or `on`.
+When enabled, SCAPVal prints Java/runtime, classpath, and launch-context information.
 
 The provided scapval.bat file should be used to run the tool in Windows and the scapval.sh for macOS or Linux/Unix.
 

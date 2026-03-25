@@ -148,10 +148,13 @@ public class AssessmentFactory {
    */
 
   protected SchemaAssessment createSCAPSchemaAssessment() throws SCAPException {
+    LinkedList<StreamSource> schemaList = dataStream.getSchemas();
+
+    logSchemaDiagnostics("SCAP schema assessment " + scapVersion + " " + contentToCheckType, schemaList);
 
     SchemaAssessment scapSchemaAssessment = Factory.newSchemaAssessment(
         SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getSCAPReqID(scapVersion, contentToCheckType),
-        this.dataStream.getSchemas());
+        schemaList);
 
     return scapSchemaAssessment;
   }
@@ -233,6 +236,9 @@ public class AssessmentFactory {
       throw new SCAPException("Unsupported component found. SCAPVal will validate components with namespace of: "
           + IndividualComponent.getAllComponentNamespaces());
     }
+
+    logSchemaDiagnostics("Standalone component schema assessment " + component, schemaList);
+
     return new SchemaAssessment(SCAPValReqManager.RequirementMappings.SCHEMA_VALIDATION.getIndividualComponentReqID(),
         schemaList);
   }
@@ -454,6 +460,8 @@ public class AssessmentFactory {
           Application.ContentType.COMPONENT);
     }
 
+    logSchemaDiagnostics("OVAL schema assessment " + ovalVersion + " " + contentToCheckType, schemaList);
+
     return new SchemaAssessment(derivedRequirementID, schemaList);
   }
 
@@ -471,8 +479,32 @@ public class AssessmentFactory {
 
     assessments.add(schemaAssessment);
     assessments.add(schematronAssessments);
+    if (Application.isDiagnosticsEnabled()) {
+      log.info(
+          "SCAPVal diagnostics [assessment executor]: assessmentCount={}, schemaAssessmentType={}, schematronAssessmentType={}, target={}",
+          assessments.size(), schemaAssessment.getClass().getName(), schematronAssessments.getClass().getName(),
+          xmlContentToValidate == null ? "<null>" : xmlContentToValidate.getOriginalLocation());
+    }
     AssessmentExecutor<XMLDocument> executor = new ConcurrentAssessmentExecutor<>(executorService, assessments);
     return executor;
+  }
+
+  private void logSchemaDiagnostics(String stage, List<StreamSource> schemaList) {
+    if (!Application.isDiagnosticsEnabled()) {
+      return;
+    }
+
+    log.info("SCAPVal diagnostics [{}]: schemaCount={}", stage, schemaList.size());
+
+    int index = 0;
+    for (StreamSource schema : schemaList) {
+      log.info("SCAPVal diagnostics [{}]: schema[{}] systemId='{}' publicId='{}'", stage, index++,
+          nullToPlaceholder(schema.getSystemId()), nullToPlaceholder(schema.getPublicId()));
+    }
+  }
+
+  private String nullToPlaceholder(String value) {
+    return value == null || value.isEmpty() ? "<null>" : value;
   }
 
   public XMLDocument getXmlContentToValidate() {
