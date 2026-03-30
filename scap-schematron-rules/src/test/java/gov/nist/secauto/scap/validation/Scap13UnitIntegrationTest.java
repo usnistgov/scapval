@@ -36,84 +36,36 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * SCAP 1.3 unit integration tests with version-specific requirements.
+ * Uses the SCAP 1.3 requirements definition so that requirement types
+ * (MUST, SHOULD, etc.) are correctly resolved during result compilation.
+ */
 @RunWith(PathRunner.class)
-public class UnitIntegrationTest {
-
-  /**
-   * Directories that have their own version-specific test classes with proper
-   * {@code @Requirements} annotations for correct requirement type resolution.
-   * These are excluded from this generic test runner to avoid duplicate execution
-   * and to ensure requirement types (MUST vs SHOULD) are correctly applied.
-   */
-  private static final java.util.Set<String> VERSION_SPECIFIC_DIRS = java.util.Set.of(
-      "scap-1.2", "scap-1.3", "scap-1.4");
+@PathRunner.Requirements(value = "classpath:requirements/scapval-scap-1.3-requirements.xml",
+    extensions = "classpath:xsd/scapval-requirements-ext.xsd")
+public class Scap13UnitIntegrationTest {
 
   @BeforeClass
   public static void initialize() {
     ClasspathHandler.initialize();
   }
 
-  private static final String UNIT_TEST_INCLUDE_PROPERTY = "scap.unittest.include";
-
-  static List<String> getIncludeFilters() {
-    String property = System.getProperty(UNIT_TEST_INCLUDE_PROPERTY);
-    if (property == null) {
-      return Collections.emptyList();
-    }
-    property = property.trim();
-    if (property.isEmpty()) {
-      return Collections.emptyList();
-    }
-    return java.util.Arrays.stream(property.split(","))
-        .map(String::trim)
-        .filter(s -> !s.isEmpty())
-        .collect(java.util.stream.Collectors.toList());
-  }
-
-  static boolean passesFilters(java.nio.file.Path path, List<String> includeFilters) {
-    if (includeFilters.isEmpty()) {
-      return true;
-    }
-    String normalized = path.toString();
-    for (String filter : includeFilters) {
-      if (normalized.contains(filter)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Returns test files for directories that do NOT have version-specific test classes.
-   * SCAP 1.2, 1.3, and 1.4 tests are handled by their own test classes
-   * (UnitIntegrationTestScap12, etc.) which load version-specific requirements
-   * for correct requirement type resolution.
-   */
   public static List<File> paths() {
-    File unitTestDir = new File("src/test/resources/unit-tests/");
+    File unitTestDir = new File("src/test/resources/unit-tests/scap-1.3/");
     if (!unitTestDir.exists() || !unitTestDir.isDirectory()) {
       return Collections.emptyList();
     }
-    List<String> includeFilters = getIncludeFilters();
+    List<String> includeFilters = UnitIntegrationTest.getIncludeFilters();
     try {
       return java.nio.file.Files.walk(unitTestDir.toPath())
           .filter(java.nio.file.Files::isRegularFile)
           .filter(p -> p.toString().endsWith(".xml"))
-          .filter(p -> !isInVersionSpecificDir(p))
-          .filter(p -> passesFilters(p, includeFilters))
+          .filter(p -> UnitIntegrationTest.passesFilters(p, includeFilters))
           .map(java.nio.file.Path::toFile)
           .collect(java.util.stream.Collectors.toList());
     } catch (java.io.IOException e) {
       throw new RuntimeException("Failed to walk unit test directory", e);
     }
-  }
-
-  private static boolean isInVersionSpecificDir(java.nio.file.Path path) {
-    for (java.nio.file.Path component : path) {
-      if (VERSION_SPECIFIC_DIRS.contains(component.toString())) {
-        return true;
-      }
-    }
-    return false;
   }
 }
