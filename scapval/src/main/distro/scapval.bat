@@ -35,7 +35,8 @@ if errorlevel 1 (
   exit /b 1
 )
 
-for /f "tokens=2 delims=\" %%V in ("%JAVA_VERSION_LINE%") do (
+set "JAVA_VERSION_NOQUOTES=%JAVA_VERSION_LINE:"=%"
+for /f "tokens=3" %%V in ("%JAVA_VERSION_NOQUOTES%") do (
   if not defined JAVA_VERSION set "JAVA_VERSION=%%V"
 )
 if not defined JAVA_VERSION (
