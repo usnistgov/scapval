@@ -81,8 +81,7 @@ echo %COMMAND%
 %COMMAND%
 
 endlocal
-@echo on
-goto :EOF
+@goto :EOF
 
 :FAIL
 echo %~1 1>&2
