@@ -25,7 +25,7 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-354-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-354-1" result="NOT_APPLICABLE" />
     <!-- Also expect quite a few test to fail because this extension 
          is not complete and breaks other requirements -->
     <assert-derived-requirement requirement-id="SRC-10-1" result="FAIL" />

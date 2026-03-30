@@ -48,6 +48,7 @@
         <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">National Institute of Standards and Technology</dc:creator>
         <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">http://scap.nist.gov</dc:source>
       </xccdf:metadata>
+      <xccdf:platform idref="cpe:2.3:o:*:*:*:*:*:*:*:*:*:*"/>
       <xccdf:Profile id="xccdf_gov.nist_profile_family-validation" prohibitChanges="1">
         <xccdf:title>XCCDF Profile That References the Validation Content for the family_test</xccdf:title>
         <xccdf:description>a profile</xccdf:description>

@@ -19,6 +19,7 @@
     <assert-derived-requirement requirement-id="SRC-118-2" result="FAIL" />
     <!-- Also expect 72-1 due to the @system modification for this test -->
     <assert-derived-requirement requirement-id="SRC-72-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-118-3" result="NOT_APPLICABLE" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

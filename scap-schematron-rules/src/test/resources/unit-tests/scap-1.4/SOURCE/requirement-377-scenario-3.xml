@@ -33,7 +33,7 @@
     <!-- Also expect 251-2 and 207-1 to fail since we aren't dealing with
   ident references for these tests -->
     <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-207-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-207-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

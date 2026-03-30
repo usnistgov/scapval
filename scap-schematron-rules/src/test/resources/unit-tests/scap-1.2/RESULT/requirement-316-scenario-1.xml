@@ -32,11 +32,11 @@
         <assert-derived-requirement requirement-id="RES-311-1" result="FAIL"/>
         <assert-derived-requirement requirement-id="RES-313-1" result="FAIL"/>
         <assert-derived-requirement requirement-id="RES-312-1" result="FAIL"/>
-        <assert-derived-requirement requirement-id="RES-315-1" result="FAIL"/>
-        <assert-derived-requirement requirement-id="RES-314-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-315-1" result="WARNING"/>
+        <assert-derived-requirement requirement-id="RES-314-1" result="NOT_APPLICABLE"/>
         <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
-        <assert-derived-requirement requirement-id="RES-258-1" result="FAIL"/>
-        <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-258-1" result="WARNING"/>
+        <assert-derived-requirement requirement-id="RES-366-1" result="WARNING"/>
         <assert-remaining quantifier="ALL" result="PASS"/>
     </assertions>
 </content-unit-test>

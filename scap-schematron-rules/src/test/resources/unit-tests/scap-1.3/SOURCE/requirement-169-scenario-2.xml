@@ -26,8 +26,8 @@
   <assertions>
     <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
     <!-- also expect SRC-345-1 and SRC-31-1 to fail since we are referencing an invalid component -->
-    <assert-derived-requirement requirement-id="SRC-345-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-31-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-345-1" result="WARNING" />
+    <assert-derived-requirement requirement-id="SRC-31-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

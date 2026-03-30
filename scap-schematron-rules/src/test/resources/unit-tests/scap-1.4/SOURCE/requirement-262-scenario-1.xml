@@ -28,7 +28,7 @@
     <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-30-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-214-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-214-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

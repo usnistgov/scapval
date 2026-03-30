@@ -24,7 +24,8 @@
   <xs:import namespace="http://cpe.mitre.org/dictionary/2.0" schemaLocation="https://scap.nist.gov/schema/cpe/2.3/cpe-dictionary_2.3.xsd"/>
   <xs:import namespace="http://scap.nist.gov/schema/ocil/2.0" schemaLocation="https://scap.nist.gov/schema/ocil/2.0/ocil-2.0.xsd"/>
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="https://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
-  <xs:import namespace="urn:oasis:names:tc:entity:xmlns:xml:catalog" schemaLocation="http://www.oasis-open.org/committees/entity/release/1.1/catalog.xsd"/>
+  <xs:import namespace="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+    schemaLocation="../../oasis/catalog1.1.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="https://www.w3.org/1999/xlink.xsd"/>
   <xs:element name="data-stream-collection">
     <xs:annotation>
@@ -182,7 +183,8 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" ref="cat:catalog"/>
+        <!-- Use xs:any with lax processing to avoid hard dependency on catalog XSD resolution -->
+        <xs:any minOccurs="0" namespace="urn:oasis:names:tc:entity:xmlns:xml:catalog" processContents="lax"/>
       </xs:sequence>
       <xs:attribute name="id" use="required">
         <xs:annotation>

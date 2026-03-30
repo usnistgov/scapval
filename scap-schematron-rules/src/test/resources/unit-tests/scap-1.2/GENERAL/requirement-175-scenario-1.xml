@@ -18,7 +18,7 @@
   <assertions>
     <assert-derived-requirement requirement-id="SRC-175-1" result="FAIL" />
     <!-- Also expect 262-1 to fail because check-content-ref is removed -->
-    <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-262-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

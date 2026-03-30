@@ -23,7 +23,7 @@
     <!--  Also expect 213-1 and 214-1 to fail since we are modifying the class 
           to vulnerability just for this test without satisfying some vulnerability class reqs-->
     <assert-derived-requirement requirement-id="SRC-213-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-214-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-214-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

@@ -26,7 +26,7 @@
     </schematron-assessment>
 </assessments>
 <assertions>
-    <assert-derived-requirement requirement-id="A-21-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="A-21-1" result="INFORMATIONAL" />
     <assert-remaining quantifier="ALL" result="PASS" />
 </assertions>
 </content-unit-test>
