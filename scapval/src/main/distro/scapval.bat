@@ -63,7 +63,7 @@ if %JAVA_MAJOR_VERSION% LSS %MINIMUM_JAVA_VERSION% (
 )
 
 :BUILD_COMMAND
-set COMMAND="%JAVA%" -Djava.protocol.handler.pkgs=sun.net.www.protocol -jar "%~dp0scapval-1.4.1.jar"
+set COMMAND="%JAVA%" -Djava.protocol.handler.pkgs=sun.net.www.protocol -jar "%~dp0scapval-1.4.2.jar"
 
 rem uncomment below to display the java version used to launch scapval
 rem "%JAVA%" -version
