@@ -43,7 +43,7 @@
       <sch:assert id="scap-general-xccdf-benchmark-version-update-req" test="exists(//xccdf:version[string(@update)])">SRC-341-1</sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-no-set-complex-value" test="not(exists(.//xccdf:set-complex-value))">SRC-343-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-no-group-extension" test="every $m in .//xccdf:Group satisfies not(exists($m/@extends))">SRC-354-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
-      <sch:assert id="scap-general-xccdf-style" test="@style eq 'SCAP_1.4'">SRC-4-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
+      <sch:assert id="scap-general-xccdf-style" test="@style eq 'SCAP_1.4'">SRC-4-1|xccdf:Benchmark <sch:value-of select="@id"/> (expected @style='SCAP_1.4', found '<sch:value-of select="@style"/>')</sch:assert>
       <sch:assert id="scap-general-xccdf-metadata-missing" test="exists(xccdf:metadata)">SRC-8-2|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-metadata-populated" test="if( exists(xccdf:metadata) ) then exists(xccdf:metadata/dc:creator/text()) and exists(xccdf:metadata/dc:publisher/text()) and exists(xccdf:metadata/dc:contributor/text()) and exists(xccdf:metadata/dc:source/text()) else false()">SRC-8-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-title-1" test="every $m in (. union .//xccdf:Profile union .//xccdf:Value union .//xccdf:Group union .//xccdf:Rule) satisfies exists($m/xccdf:title)">SRC-9-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
@@ -65,7 +65,7 @@
       <sch:assert id="scap-general-xccdf-check-patches-ref-oval-only" test="if(current()/parent::xccdf:Rule[ends-with(@id,'security_patches_up_to_date')]) then current()/@system eq 'http://oval.mitre.org/XMLSchema/oval-definitions-5' else true()">SRC-169-2|xccdf:Rule <sch:value-of select="parent::xccdf:Rule/@id"/></sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-scap-data-stream-collection" context="scap:data-stream-collection ">
-      <sch:assert id="scap-general-latest-schematron-rules" test="exists(current()[@schematron-version='1.4'])">SRC-330-2|scap:data-stream-collection</sch:assert>
+      <sch:assert id="scap-general-latest-schematron-rules" test="exists(current()[@schematron-version='1.4'])">SRC-330-2|scap:data-stream-collection (expected @schematron-version='1.4', found '<sch:value-of select="@schematron-version"/>')</sch:assert>
     </sch:rule>
     <sch:rule id="scap-general-scap-content" context="scap:data-stream">
       <sch:assert id="scap-general-scap-content-every-cpe-equal-subset2" test="if( function-available('java:isEqualOrSuperset') ) then (every $m in ds:checklists/ds:component-ref satisfies ((every $n in xcf:get-component($m)//xccdf:platform[not(starts-with(@idref,'#'))] satisfies some $o in ds:dictionaries/ds:component-ref satisfies some $p in xcf:get-component($o)//cpe-dict:cpe-item satisfies java:isEqualOrSuperset($n/@idref,$p/@name)) and (every $q in xcf:get-component($m)//cpe-lang:fact-ref satisfies some $r in ds:dictionaries/ds:component-ref satisfies some $s in xcf:get-component($r)//cpe-dict:cpe-item satisfies java:isEqualOrSuperset($q/@name,$s/@name)))) else true()">SRC-15-1|scap:data-stream <sch:value-of select="@id"/></sch:assert>

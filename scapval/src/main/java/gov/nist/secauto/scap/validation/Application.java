@@ -774,6 +774,50 @@ public class Application {
   }
 
   /**
+   * Checks internal version markers (@style on xccdf:Benchmark and @schematron-version on
+   * data-stream-collection) and logs a warning if they don't match the specified SCAP version.
+   * This helps users understand why validation failures occur when they modify the scap-version
+   * attribute without updating other version-specific attributes in the content.
+   *
+   * @param document
+   *          the XML document to check
+   * @param scapVersion
+   *          the specified SCAP version
+   */
+  private static void warnOnVersionMarkerMismatch(XMLDocument document, SCAPVersion scapVersion) {
+    String expectedVersion = scapVersion.getVersion();
+
+    // Check @style on xccdf:Benchmark
+    String styleXpath = "//*[local-name()='Benchmark']/@style";
+    List<Attribute> styleResults = XMLUtils.getXpathAttributes(document, styleXpath);
+    if (styleResults != null) {
+      for (Attribute attr : styleResults) {
+        String expectedStyle = "SCAP_" + expectedVersion;
+        if (!expectedStyle.equals(attr.getValue())) {
+          log.warn("Content has xccdf:Benchmark @style='" + attr.getValue() + "' but is being validated as SCAP "
+              + expectedVersion + " (expected @style='" + expectedStyle
+              + "'). Validation failures related to version-specific attributes are expected.");
+          break;
+        }
+      }
+    }
+
+    // Check @schematron-version on data-stream-collection
+    String schVerXpath = "//*[local-name()='data-stream-collection']/@schematron-version";
+    List<Attribute> schVerResults = XMLUtils.getXpathAttributes(document, schVerXpath);
+    if (schVerResults != null) {
+      for (Attribute attr : schVerResults) {
+        if (!expectedVersion.equals(attr.getValue())) {
+          log.warn("Content has data-stream-collection @schematron-version='" + attr.getValue()
+              + "' but is being validated as SCAP " + expectedVersion + " (expected @schematron-version='"
+              + expectedVersion + "'). Validation failures related to version-specific attributes are expected.");
+          break;
+        }
+      }
+    }
+  }
+
+  /**
    * Starts loading user specified content to check for errors, updates online files and combines
    * remote resources in before validation assessments begin.
    */
@@ -949,6 +993,10 @@ public class Application {
             + results.get(0).getValue() + "'");
       }
     }
+
+    // Warn if internal version markers don't match the specified SCAP version.
+    // This catches cases where a user changes scap-version but not the internal attributes.
+    warnOnVersionMarkerMismatch(XMLContentToValidate, scapVersion);
 
     // Additional SCAP content checks
     if (!contentToCheckType.equals(ContentType.COMPONENT)) {
