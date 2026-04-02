@@ -308,10 +308,9 @@ public class Application {
     // create and execute all the assessments for the submitted content
     SCAPValAssessmentResults scapValAssessmentResults = executeAssessments();
 
-    // optionally generate XML results and HTML report
-    if (cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE) != null) {
-      generateResultsReport(scapValAssessmentResults, cmd);
-    }
+    // generate XML results and HTML report (always generated, filenames derived from input if not
+    // specified)
+    generateResultsReport(scapValAssessmentResults, cmd);
 
     // close any logging resources
     if (logFileLocation != null) {
@@ -1234,10 +1233,15 @@ public class Application {
     Objects.requireNonNull(scapValAssessmentResults, "scapValAssessmentResults cannot be null.");
     Objects.requireNonNull(cmd, "cmd cannot be null.");
 
+    // Derive output filenames from the input filename when not explicitly specified
+    String inputPrefix = FileUtils.getFilenamePrefix(contentToCheckFilename);
+
     File validationResultFile;
     {
-      String fileValue
-          = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_RESULT_FILE, CLIParser.DEFAULT_VALIDATION_RESULT_FILE);
+      String fileValue = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_RESULT_FILE);
+      if (fileValue == null) {
+        fileValue = inputPrefix + "-validation-result.xml";
+      }
       validationResultFile = new File(fileValue);
       File parentDir = validationResultFile.getParentFile();
       if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
@@ -1247,8 +1251,10 @@ public class Application {
 
     File validationReportFile;
     {
-      String fileValue
-          = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE, CLIParser.DEFAULT_VALIDATION_REPORT_FILE);
+      String fileValue = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE);
+      if (fileValue == null) {
+        fileValue = inputPrefix + "-validation-report.html";
+      }
       validationReportFile = new File(fileValue);
       File parentDir = validationReportFile.getParentFile();
       if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
