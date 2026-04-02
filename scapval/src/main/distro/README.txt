@@ -52,9 +52,10 @@ Auto-detect content type (source, result, or component) and SCAP version:
     "scapval.bat -auto any-scap-file.xml"
     "./scapval.sh -auto arf-result.xml"
 
-Validate all XML files in a directory:
+Validate all XML files in a directory (auto-detect each file):
+    "scapval.bat -auto /path/to/scap-content/"
+    "./scapval.sh -auto /path/to/scap-content/"
     "scapval.bat -batchdir /path/to/scap-content/"
-    "./scapval.sh -batchdir /path/to/scap-content/"
 
 For a Source Data Stream with resolution of remote resources and verbose output running in Linux:
      "./scapval.sh -file datastream.xml -online -debug"

@@ -150,6 +150,7 @@ public class Application {
   private static Integer maxDownloadSize = 50; // default max download size in MiB
   private static File combinedOutput;
   private static boolean isOnline = false;
+  private static boolean isBatchDir = false;
 
   private static final Logger log = LogManager.getLogger(Application.class);
 
@@ -245,9 +246,12 @@ public class Application {
     // parse and validate the CLI args. var 'cmd' will be used later for report generation
     CommandLine cmd = parseCLI(args);
 
-    // handle batch directory mode
+    // handle batch directory mode (-batchdir or -auto with a directory)
     if (cmd.getOptionValue(OPTION_BATCH_DIR) != null) {
       return runBatchDir(cmd.getOptionValue(OPTION_BATCH_DIR));
+    }
+    if (isBatchDir) {
+      return runBatchDir(contentToCheckFilename);
     }
 
     // prepare things like updating data feeds, hashing submitted content, gathering validation
@@ -409,8 +413,8 @@ public class Application {
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF/OVAL/OCIL is supported").hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_AUTO)
-        .desc("Validate an SCAP XML file with auto-detection of content type (source, result, or component) "
-            + "and SCAP version")
+        .desc("Validate an SCAP XML file or a directory of XML files with auto-detection of content type "
+            + "(source, result, or component) and SCAP version")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_BATCH_DIR)
         .desc("Validate all XML files in a directory. Each file is auto-detected for content type and SCAP version")
@@ -537,6 +541,10 @@ public class Application {
       contentToCheckFilename = cmd.getOptionValue(OPTION_COMPONENT_FILE);
     } else if (cmd.getOptionValue(OPTION_AUTO) != null) {
       contentToCheckFilename = cmd.getOptionValue(OPTION_AUTO);
+      if (new File(contentToCheckFilename).isDirectory()) {
+        isBatchDir = true;
+        return;
+      }
       contentToCheckType = detectContentType(contentToCheckFilename);
       if (contentToCheckType == null) {
         throw new SCAPException(
