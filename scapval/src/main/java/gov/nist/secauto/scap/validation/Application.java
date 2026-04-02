@@ -113,6 +113,7 @@ public class Application {
   private static final String OPTION_SCAP_VERSION = "scapversion";
   private static final String OPTION_SOURCE_DS = "sourceds";
   private static final String OPTION_USECASE = "usecase";
+  private static final String OPTION_AUTO = "auto";
 
   // tmsad options
   public static final String OPTION_CREATE_SIG_CONFIG = "createsigconfig";
@@ -343,16 +344,22 @@ public class Application {
         .build());
     contentToCheck.addOption(Option.builder(OPTION_FILE)
         .desc(
-            "SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file " + "(SCAP 1.1). Only provide if validating source files")
+            "SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file "
+                + "(SCAP 1.1). Only provide if validating source files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_DIR).desc(
         "Directory of individual component SCAP " + "result files. Provide if validating SCAP 1.1 result files only")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_FILE)
-        .desc("SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
+        .desc(
+            "SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF/OVAL/OCIL is supported").hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_AUTO)
+        .desc("Validate an SCAP XML file with auto-detection of content type (source, result, or component) "
+            + "and SCAP version")
+        .hasArg().build());
 
     // Sign and Validate (TMSAD) Options
     contentToCheck.addOption(Option.builder(OPTION_CREATE_SIG_CONFIG).desc(
@@ -379,7 +386,8 @@ public class Application {
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
-        .desc("The SCAP version to validate (auto-detected if not specified). 1.2, 1.3 and 1.4 are supported").hasArg().build();
+        .desc("The SCAP version to validate (auto-detected if not specified). 1.2, 1.3 and 1.4 are supported").hasArg()
+        .build();
     OptionEnumerationValidator scapVersionValidator = new OptionEnumerationValidator(optionScapVersion);
     scapVersionValidator.addAllowedValue("1.1");
     scapVersionValidator.addAllowedValue("1.2");
@@ -466,6 +474,16 @@ public class Application {
     } else if (cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
       contentToCheckType = ContentType.COMPONENT;
       contentToCheckFilename = cmd.getOptionValue(OPTION_COMPONENT_FILE);
+    } else if (cmd.getOptionValue(OPTION_AUTO) != null) {
+      contentToCheckFilename = cmd.getOptionValue(OPTION_AUTO);
+      contentToCheckType = detectContentType(contentToCheckFilename);
+      if (contentToCheckType == null) {
+        throw new SCAPException(
+            "Unable to auto-detect the content type of: " + contentToCheckFilename
+                + ". The file does not appear to be SCAP source, result, or component content."
+                + " Use -file, -resultfile, or -componentfile to specify the content type explicitly.");
+      }
+      log.info("Content type auto-detected: " + contentToCheckType);
     }
 
     // The below are for tmsad functionality. After validating the args, the relevant method is directly
@@ -563,7 +581,7 @@ public class Application {
       exit(0);
     } else {
       throw new ConfigurationException(
-          "Content to validate must be specified with -dir, -resultdir, -file, -resultfile, -componentfile or "
+          "Content to validate must be specified with -auto, -dir, -resultdir, -file, -resultfile, -componentfile or "
               + "for tmsad -signcontent, -validatesignature, -createsigconfig, -showcertificates, -listcertificatealias");
     }
 
@@ -579,10 +597,10 @@ public class Application {
     // For validating individual XCCDF, OVAL, and OCIL component files.
     if (contentToCheckType.equals(ContentType.COMPONENT)) {
       if (cmd.getOptionValue(OPTION_SCAP_VERSION) != null) {
-        throw new ConfigurationException("-scapversion cannot be specified with -componentfile");
+        throw new ConfigurationException("-scapversion cannot be specified when validating component content");
       }
       if (cmd.getOptionValue(OPTION_SOURCE_DS) != null) {
-        throw new ConfigurationException("-sourceds cannot be specified with -componentfile");
+        throw new ConfigurationException("-sourceds cannot be specified when validating component content");
       }
     } else {
       if (scapVersion == null) {
@@ -621,7 +639,8 @@ public class Application {
       } else {
         // sourceds for 1.2, 1.3 and 1.4 must be a xml file
         if (!sourcedsFileType.equals(FileType.XML)) {
-          throw new ConfigurationException("For SCAP 1.2, 1.3 or 1.4 content the specified -sourceds must be a XML file");
+          throw new ConfigurationException(
+              "For SCAP 1.2, 1.3 or 1.4 content the specified -sourceds must be a XML file");
         }
       }
     }
@@ -631,6 +650,10 @@ public class Application {
 
     switch (contentToCheckFileType) {
     case DIRECTORY:
+      if (cmd.getOptionValue(OPTION_AUTO) != null) {
+        throw new ConfigurationException(
+            "-auto requires an XML file, not a directory. Use -dir or -resultdir for directory content.");
+      }
       if (cmd.getOptionValue(OPTION_FILE) != null || cmd.getOptionValue(OPTION_RESULT_FILE) != null
           || cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
         throw new ConfigurationException(
@@ -647,6 +670,10 @@ public class Application {
       }
       break;
     case ZIP:
+      if (cmd.getOptionValue(OPTION_AUTO) != null) {
+        throw new ConfigurationException(
+            "-auto requires an XML file, not a ZIP. Use -file or -resultfile for ZIP content.");
+      }
       if (cmd.getOptionValue(OPTION_FILE) == null && cmd.getOptionValue(OPTION_RESULT_FILE) == null
           && scapVersion != SCAPVersion.V1_1) {
         throw new ConfigurationException(
@@ -754,8 +781,8 @@ public class Application {
   }
 
   /**
-   * Attempts to detect the SCAP version from the content file by reading the scap-version
-   * attribute from the data-stream element.
+   * Attempts to detect the SCAP version from the content file by reading the scap-version attribute
+   * from the data-stream element.
    *
    * @param filename
    *          the path to the SCAP content file
@@ -775,9 +802,9 @@ public class Application {
 
   /**
    * Checks internal version markers (@style on xccdf:Benchmark and @schematron-version on
-   * data-stream-collection) and logs a warning if they don't match the specified SCAP version.
-   * This helps users understand why validation failures occur when they modify the scap-version
-   * attribute without updating other version-specific attributes in the content.
+   * data-stream-collection) and logs a warning if they don't match the specified SCAP version. This
+   * helps users understand why validation failures occur when they modify the scap-version attribute
+   * without updating other version-specific attributes in the content.
    *
    * @param document
    *          the XML document to check
@@ -815,6 +842,31 @@ public class Application {
         }
       }
     }
+  }
+
+  /**
+   * Attempts to detect the content type (SOURCE, RESULT, or COMPONENT) from the root element
+   * namespace of the given file.
+   *
+   * @param filename
+   *          the path to the SCAP content file
+   * @return the detected ContentType, or null if detection fails
+   */
+  private static ContentType detectContentType(String filename) {
+    String namespace = new ScapDocumentSniffer().findContentType(filename);
+    if (namespace != null) {
+      // Check for SCAP 1.1 content which is no longer supported
+      if (namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
+        log.error("SCAP 1.1 content is not supported.");
+        return null;
+      }
+      ContentType type = ScapDocumentSniffer.mapNamespaceToContentType(namespace);
+      if (type != null) {
+        return type;
+      }
+      log.warn("Found namespace '" + namespace + "' but could not determine content type");
+    }
+    return null;
   }
 
   /**
