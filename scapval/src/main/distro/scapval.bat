@@ -64,11 +64,31 @@ if %JAVA_MAJOR_VERSION% LSS %MINIMUM_JAVA_VERSION% (
 )
 
 :BUILD_COMMAND
-set COMMAND="%JAVA%" -Djava.protocol.handler.pkgs=sun.net.www.protocol -jar "%~dp0scapval-1.4.2.jar"
+set "JAVA_OPTS=-Djava.protocol.handler.pkgs=sun.net.www.protocol"
 
-rem uncomment below to display the java version used to launch scapval
-rem "%JAVA%" -version
-rem echo:
+if /i "%SCAPVAL_DIAGNOSTICS%" == "1" goto DIAGNOSTICS
+if /i "%SCAPVAL_DIAGNOSTICS%" == "true" goto DIAGNOSTICS
+if /i "%SCAPVAL_DIAGNOSTICS%" == "yes" goto DIAGNOSTICS
+if /i "%SCAPVAL_DIAGNOSTICS%" == "on" goto DIAGNOSTICS
+goto BUILD_FINAL_COMMAND
+
+:DIAGNOSTICS
+echo SCAPVal launch diagnostics: 1>&2
+echo   script=%~f0 1>&2
+echo   JAVA=%JAVA% 1>&2
+echo   JAVA_HOME=%JAVA_HOME% 1>&2
+echo   JAVA_VERSION=%JAVA_VERSION% 1>&2
+echo   JAVA_MAJOR_VERSION=%JAVA_MAJOR_VERSION% 1>&2
+echo   JDK_JAVA_OPTIONS=%JDK_JAVA_OPTIONS% 1>&2
+echo   JAVA_TOOL_OPTIONS=%JAVA_TOOL_OPTIONS% 1>&2
+echo   CLASSPATH=%CLASSPATH% 1>&2
+echo   PATH=%PATH% 1>&2
+"%JAVA%" -version 2>&1 1>&2
+echo: 1>&2
+set "JAVA_OPTS=%JAVA_OPTS% -Dscapval.diagnostics=true"
+
+:BUILD_FINAL_COMMAND
+set COMMAND="%JAVA%" %JAVA_OPTS% -jar "%~dp0scapval-1.4.2.jar"
 
 :COMMAND_REPEAT
   if "%~1" == "" GOTO RUN
