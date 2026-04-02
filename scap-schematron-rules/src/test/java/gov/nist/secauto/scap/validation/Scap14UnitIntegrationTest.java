@@ -37,10 +37,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * SCAP 1.4 unit integration tests with version-specific requirements.
- * Uses the SCAP 1.4 requirements definition so that requirement types
- * (MUST, SHOULD, etc.) are correctly resolved during result compilation.
- * This is critical because SCAP 1.4 changed several requirements from
+ * SCAP 1.4 unit integration tests with version-specific requirements. Uses the SCAP 1.4
+ * requirements definition so that requirement types (MUST, SHOULD, etc.) are correctly resolved
+ * during result compilation. This is critical because SCAP 1.4 changed several requirements from
  * MUST (FAIL on violation) to SHOULD (WARNING on violation), e.g. SRC-284.
  */
 @RunWith(PathRunner.class)

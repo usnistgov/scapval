@@ -40,10 +40,10 @@ import java.util.List;
 public class UnitIntegrationTest {
 
   /**
-   * Directories that have their own version-specific test classes with proper
-   * {@code @Requirements} annotations for correct requirement type resolution.
-   * These are excluded from this generic test runner to avoid duplicate execution
-   * and to ensure requirement types (MUST vs SHOULD) are correctly applied.
+   * Directories that have their own version-specific test classes with proper {@code @Requirements}
+   * annotations for correct requirement type resolution. These are excluded from this generic test
+   * runner to avoid duplicate execution and to ensure requirement types (MUST vs SHOULD) are
+   * correctly applied.
    */
   private static final java.util.Set<String> VERSION_SPECIFIC_DIRS = java.util.Set.of(
       "scap-1.1", "scap-1.2", "scap-1.3", "scap-1.4");
@@ -84,10 +84,9 @@ public class UnitIntegrationTest {
   }
 
   /**
-   * Returns test files for directories that do NOT have version-specific test classes.
-   * SCAP 1.2, 1.3, and 1.4 tests are handled by their own test classes
-   * (UnitIntegrationTestScap12, etc.) which load version-specific requirements
-   * for correct requirement type resolution.
+   * Returns test files for directories that do NOT have version-specific test classes. SCAP 1.2, 1.3,
+   * and 1.4 tests are handled by their own test classes (UnitIntegrationTestScap12, etc.) which load
+   * version-specific requirements for correct requirement type resolution.
    */
   public static List<File> paths() {
     File unitTestDir = new File("src/test/resources/unit-tests/");

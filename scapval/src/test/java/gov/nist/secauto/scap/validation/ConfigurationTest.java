@@ -209,10 +209,9 @@ public class ConfigurationTest {
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions15()
-          throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(
-            new String[] { "-scapversion", "1.4", "-usecase", "OVAL_ONLY", "-file", scapTestFile.getAbsolutePath() });
+        new String[] { "-scapversion", "1.4", "-usecase", "OVAL_ONLY", "-file", scapTestFile.getAbsolutePath() });
   }
-
 
 }

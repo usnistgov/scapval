@@ -37,9 +37,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * SCAP 1.3 unit integration tests with version-specific requirements.
- * Uses the SCAP 1.3 requirements definition so that requirement types
- * (MUST, SHOULD, etc.) are correctly resolved during result compilation.
+ * SCAP 1.3 unit integration tests with version-specific requirements. Uses the SCAP 1.3
+ * requirements definition so that requirement types (MUST, SHOULD, etc.) are correctly resolved
+ * during result compilation.
  */
 @RunWith(PathRunner.class)
 @PathRunner.Requirements(value = "classpath:requirements/scapval-scap-1.3-requirements.xml",
