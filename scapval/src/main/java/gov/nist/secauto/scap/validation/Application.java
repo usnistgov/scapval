@@ -47,6 +47,7 @@ import gov.nist.secauto.decima.xml.assessment.result.XMLResultBuilder;
 import gov.nist.secauto.decima.xml.document.JDOMDocument;
 import gov.nist.secauto.decima.xml.document.XMLDocument;
 import gov.nist.secauto.decima.xml.schematron.SchematronCompilationException;
+import gov.nist.secauto.scap.validation.candidate.ScapDocumentSniffer;
 import gov.nist.secauto.scap.validation.candidate.ZipExpander;
 import gov.nist.secauto.scap.validation.component.IndividualComponent;
 import gov.nist.secauto.scap.validation.component.OVALVersion;
@@ -378,7 +379,7 @@ public class Application {
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
-        .desc("The SCAP version to validate. 1.1, 1.2, 1.3 and 1.4 are supported").hasArg().build();
+        .desc("The SCAP version to validate (auto-detected if not specified). 1.2, 1.3 and 1.4 are supported").hasArg().build();
     OptionEnumerationValidator scapVersionValidator = new OptionEnumerationValidator(optionScapVersion);
     scapVersionValidator.addAllowedValue("1.1");
     scapVersionValidator.addAllowedValue("1.2");
@@ -569,6 +570,12 @@ public class Application {
     // get the scap version from the command line
     scapVersion = SCAPVersion.getByString(cmd.getOptionValue(OPTION_SCAP_VERSION));
 
+    // first make sure we can read the specified content to check
+    contentToCheckFile = new File(contentToCheckFilename);
+    if (!contentToCheckFile.canRead()) {
+      throw new ConfigurationException("Unable to read the specified content to validate: " + contentToCheckFilename);
+    }
+
     // For validating individual XCCDF, OVAL, and OCIL component files.
     if (contentToCheckType.equals(ContentType.COMPONENT)) {
       if (cmd.getOptionValue(OPTION_SCAP_VERSION) != null) {
@@ -579,14 +586,14 @@ public class Application {
       }
     } else {
       if (scapVersion == null) {
-        throw new ConfigurationException("-scapversion must be specified");
+        scapVersion = detectScapVersion(contentToCheckFilename);
+        if (scapVersion != null) {
+          log.info("SCAP version not specified, auto-detected: " + scapVersion.getVersion());
+        } else {
+          throw new ConfigurationException(
+              "-scapversion could not be determined from the content. Please specify it explicitly.");
+        }
       }
-    }
-
-    // first make sure we can read the specified content to check
-    contentToCheckFile = new File(contentToCheckFilename);
-    if (!contentToCheckFile.canRead()) {
-      throw new ConfigurationException("Unable to read the specified content to validate: " + contentToCheckFilename);
     }
 
     // per scapval 1.2, is SCAP 1.1 results are checked a -sourceds must be present
@@ -744,6 +751,26 @@ public class Application {
             + "combined file to");
       }
     }
+  }
+
+  /**
+   * Attempts to detect the SCAP version from the content file by reading the scap-version
+   * attribute from the data-stream element.
+   *
+   * @param filename
+   *          the path to the SCAP content file
+   * @return the detected SCAPVersion, or null if detection fails
+   */
+  private static SCAPVersion detectScapVersion(String filename) {
+    String version = new ScapDocumentSniffer().findSCAPVersion(filename);
+    if (version != null) {
+      SCAPVersion scapVer = SCAPVersion.getByString(version);
+      if (scapVer != null) {
+        return scapVer;
+      }
+      log.warn("Found scap-version='" + version + "' but it is not a supported SCAP version");
+    }
+    return null;
   }
 
   /**
@@ -917,8 +944,8 @@ public class Application {
     // check each data-stream for the specified scap version.
     for (Attribute attribute : results) {
       if (!scapVersion.getVersion().equals(attribute.getValue())) {
-        throw new SCAPException("SCAP version specified on command line '" + scapVersion.getVersion() + "' "
-            + "Does not match what was found in the specified content " + results.get(0).getName() + "='"
+        throw new SCAPException("SCAP version '" + scapVersion.getVersion() + "' "
+            + "does not match what was found in the specified content " + results.get(0).getName() + "='"
             + results.get(0).getValue() + "'");
       }
     }

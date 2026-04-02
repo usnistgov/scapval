@@ -30,20 +30,23 @@ The provided scapval.bat file should be used to run the tool in Windows and the 
 
 Example Usage:
 --------------
-For a 1.4 Source Data Stream running in Windows:
+The -scapversion parameter is optional. SCAPVal will auto-detect the SCAP version from the content if not specified.
+
+For a Source Data Stream running in Windows (version auto-detected):
+    "scapval.bat -file source_data_stream_collection_sample.xml"
+
+For a Source Data Stream running in macOS (version auto-detected):
+    "./scapval.sh -file source_data_stream_collection_sample.xml"
+
+For a Result Data Stream running in macOS (version auto-detected):
+    "./scapval.sh -resultfile arf-result.xml"
+
+The -scapversion parameter can still be specified explicitly if desired:
     "scapval.bat -scapversion 1.4 -file source_data_stream_collection_sample.xml"
-
-For a 1.3 Source Data Stream running in Windows:
-    "scapval.bat -scapversion 1.3 -file source_data_stream_collection_sample.xml"
-
-For a 1.4 Result Data Stream running in macOS:
-    "./scapval.sh -scapversion 1.4 -resultfile arf-result.xml"
-
-For a 1.3 Result Data Stream running in macOS:
     "./scapval.sh -scapversion 1.3 -resultfile arf-result.xml"
 
-For a 1.2 Source Data Stream with resolution of remote resources and verbose output running in Linux:
-     "./scapval.sh -scapversion 1.2 -file datastream-12.xml -online -debug"
+For a Source Data Stream with resolution of remote resources and verbose output running in Linux:
+     "./scapval.sh -file datastream.xml -online -debug"
 
 Results for the above are provided in validation-report.html and validation-result.xml
 
@@ -84,8 +87,9 @@ scapval <options>
  -resultfile <arg>             SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP
                                file (SCAP 1.1). Only provide if validating
                                result files
- -scapversion <arg>            The SCAP version to validate. 1.1, 1.2, 1.3, and
-                               1.4 are supported
+ -scapversion <arg>            The SCAP version to validate (auto-detected
+                               if not specified). 1.2, 1.3, and 1.4 are
+                               supported
  -showcertificate <arg>        Shows a certificate. First argument is a
                                Java Keystore (JKS) file path, or specify
                                "MSCAPI" to show a certificate installed in

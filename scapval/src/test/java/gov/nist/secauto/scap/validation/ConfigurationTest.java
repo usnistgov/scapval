@@ -116,9 +116,10 @@ public class ConfigurationTest {
         new String[] { "-scapversion", "1.0", "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
   }
 
-  @Test(expected = ConfigurationException.class)
-  public void testBadOptions2()
+  @Test
+  public void testAutoDetectScapVersion()
       throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
+    // -scapversion is optional and should be auto-detected from the content
     new Application().parseCLI(new String[] { "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
   }
 
