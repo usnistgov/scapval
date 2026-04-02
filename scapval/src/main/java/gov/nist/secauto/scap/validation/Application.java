@@ -114,6 +114,7 @@ public class Application {
   private static final String OPTION_SOURCE_DS = "sourceds";
   private static final String OPTION_USECASE = "usecase";
   private static final String OPTION_AUTO = "auto";
+  private static final String OPTION_BATCH_DIR = "batchdir";
 
   // tmsad options
   public static final String OPTION_CREATE_SIG_CONFIG = "createsigconfig";
@@ -244,6 +245,11 @@ public class Application {
     // parse and validate the CLI args. var 'cmd' will be used later for report generation
     CommandLine cmd = parseCLI(args);
 
+    // handle batch directory mode
+    if (cmd.getOptionValue(OPTION_BATCH_DIR) != null) {
+      return runBatchDir(cmd.getOptionValue(OPTION_BATCH_DIR));
+    }
+
     // prepare things like updating data feeds, hashing submitted content, gathering validation
     // variables
     preAssessmentProcessing();
@@ -322,6 +328,53 @@ public class Application {
   }
 
   /**
+   * Processes all XML files in a directory by running validation on each one individually. Each file
+   * is auto-detected for content type and SCAP version using the -auto option. A summary is printed
+   * at the end with pass/fail counts.
+   *
+   * @param dirPath
+   *          the path to the directory containing XML files
+   * @return 0 if all files passed, 1 if any file failed or had errors
+   */
+  private int runBatchDir(String dirPath) {
+    File dir = new File(dirPath);
+    if (!dir.isDirectory()) {
+      log.error("-batchdir requires a directory path, but '" + dirPath + "' is not a directory.");
+      return 1;
+    }
+
+    File[] xmlFiles = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".xml"));
+    if (xmlFiles == null || xmlFiles.length == 0) {
+      log.error("No XML files found in directory: " + dirPath);
+      return 1;
+    }
+
+    Arrays.sort(xmlFiles);
+    int total = xmlFiles.length;
+    int passed = 0;
+    int failed = 0;
+
+    log.info("Batch validation: found " + total + " XML file(s) in " + dirPath);
+
+    for (File xmlFile : xmlFiles) {
+      String filePath = xmlFile.getAbsolutePath();
+      log.info("--- Batch [" + (passed + failed + 1) + "/" + total + "] Validating: " + xmlFile.getName() + " ---");
+      try {
+        new Application().runCLI(new String[] { "-auto", filePath });
+        passed++;
+      } catch (Exception e) {
+        log.error("Validation failed for " + xmlFile.getName() + ": " + e.getMessage());
+        failed++;
+      }
+    }
+
+    log.info("=== Batch validation complete: " + total + " files processed, "
+        + passed + " passed, " + failed + " failed ===");
+
+    return failed > 0 ? 1 : 0;
+  }
+
+  /**
    * Performs the initial parsing and validation of command line arguments. Several options are
    * provided or handled by Decima
    *
@@ -358,6 +411,9 @@ public class Application {
     contentToCheck.addOption(Option.builder(OPTION_AUTO)
         .desc("Validate an SCAP XML file with auto-detection of content type (source, result, or component) "
             + "and SCAP version")
+        .hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_BATCH_DIR)
+        .desc("Validate all XML files in a directory. Each file is auto-detected for content type and SCAP version")
         .hasArg().build());
 
     // Sign and Validate (TMSAD) Options
@@ -456,6 +512,12 @@ public class Application {
   protected void validateCLI(CommandLine cmd)
       throws ConfigurationException, DocumentException, IOException, SCAPException, TMSADException {
     Objects.requireNonNull(cmd, "cmd cannot be null.");
+
+    // batch mode is handled separately in runBatchDir() — skip all single-file validation
+    if (cmd.getOptionValue(OPTION_BATCH_DIR) != null) {
+      return;
+    }
+
     // gather the type of check and file type to check.
     // The OptionGroup ensures only 1 of these can be set (mutually exclusive)
     if (cmd.getOptionValue(OPTION_DIR) != null) {

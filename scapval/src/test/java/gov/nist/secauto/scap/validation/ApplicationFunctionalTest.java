@@ -132,6 +132,16 @@ public class ApplicationFunctionalTest {
   }
 
   @Test
+  public void BatchDirRun() {
+    try {
+      new Application().runCLI(new String[] { "-batchdir",
+          "src/test/resources/candidates/scap-14" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
   public void IncompleteRun() {
     boolean failed = false;
     try {

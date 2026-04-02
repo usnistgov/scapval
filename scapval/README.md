@@ -13,6 +13,9 @@ Additionally, SCAPVal checks components and data streams against appropriate sch
 
 Stand-alone XCCDF, OVAL, and OCIL files, separate from SCAP can also be validated using -componentfile.
 
+The `-auto` option accepts any SCAP XML file and automatically detects whether it is source content, result content, or a standalone component.
+The `-batchdir` option validates all XML files in a directory, auto-detecting the content type and SCAP version of each file.
+
 SCAP XML content can be signed and signatures verified as well, see usage -h for details.
 
 SCAPVal produces validation results in a report that conveys all error and warning conditions detected; results are output in both XML and HTML formats.
@@ -51,11 +54,22 @@ The `-scapversion` parameter can still be specified explicitly if desired:
     `scapval.bat -scapversion 1.4 -file source_data_stream_collection_sample.xml`
     `./scapval.sh -scapversion 1.3 -resultfile arf-result.xml`
 
+Auto-detect content type (source, result, or component) and SCAP version:
+
+    `scapval.bat -auto any-scap-file.xml`
+    `./scapval.sh -auto arf-result.xml`
+
+Validate all XML files in a directory:
+
+    `scapval.bat -batchdir /path/to/scap-content/`
+    `./scapval.sh -batchdir /path/to/scap-content/`
+
 For a Source Data Stream with resolution of remote resources and verbose output running in Linux:
 
      `./scapval.sh -file datastream.xml -online -debug`
 
-Results for the above are provided in validation-report.html and validation-result.xml
+Output filenames are derived from the input filename (e.g., `my-content-validation-result.xml` and `my-content-validation-report.html`).
+Use `-valresultfile` and `-valreportfile` to override the output filenames.
 
 Usage Details:
 ----
@@ -63,12 +77,14 @@ Usage Details:
 
 Use Notes:
 ----
-Once the validation is complete, two result files will be created:
+Once the validation is complete, two result files will be created based on the input filename:
 
-  *validation-result.xml* - An XML file containing the set of requirements used
+  *\<input-filename\>-validation-result.xml* - An XML file containing the set of requirements used
       for validation, and the status of each requirement.
-  *validation-report.html* - A human-readable report based on the validations
+  *\<input-filename\>-validation-report.html* - A human-readable report based on the validations
       results.
+
+Use `-valresultfile` and `-valreportfile` to specify custom output filenames.
 
 If remote resources are defined in content, SCAPVal will attempt to resolve them when ran with the -online parameter.
 The remote content will be downloaded and automatically combined with the local content before validation begins.
