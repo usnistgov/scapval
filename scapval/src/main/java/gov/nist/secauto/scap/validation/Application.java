@@ -246,10 +246,7 @@ public class Application {
     // parse and validate the CLI args. var 'cmd' will be used later for report generation
     CommandLine cmd = parseCLI(args);
 
-    // handle batch directory mode (-batchdir or -auto with a directory)
-    if (cmd.getOptionValue(OPTION_BATCH_DIR) != null) {
-      return runBatchDir(cmd.getOptionValue(OPTION_BATCH_DIR));
-    }
+    // handle directory validation (from -auto with directory, or deprecated -batchdir)
     if (isBatchDir) {
       return runBatchDir(contentToCheckFilename);
     }
@@ -343,7 +340,7 @@ public class Application {
   private int runBatchDir(String dirPath) {
     File dir = new File(dirPath);
     if (!dir.isDirectory()) {
-      log.error("-batchdir requires a directory path, but '" + dirPath + "' is not a directory.");
+      log.error("A valid directory path is required, but '" + dirPath + "' is not a directory.");
       return 1;
     }
 
@@ -417,7 +414,8 @@ public class Application {
             + "(source, result, or component) and SCAP version")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_BATCH_DIR)
-        .desc("Validate all XML files in a directory. Each file is auto-detected for content type and SCAP version")
+        .desc("[Deprecated: use -auto instead] Validate all XML files in a directory. "
+            + "Each file is auto-detected for content type and SCAP version")
         .hasArg().build());
 
     // Sign and Validate (TMSAD) Options
@@ -517,8 +515,11 @@ public class Application {
       throws ConfigurationException, DocumentException, IOException, SCAPException, TMSADException {
     Objects.requireNonNull(cmd, "cmd cannot be null.");
 
-    // batch mode is handled separately in runBatchDir() — skip all single-file validation
+    // -batchdir is deprecated — route through the same path as -auto with a directory
     if (cmd.getOptionValue(OPTION_BATCH_DIR) != null) {
+      log.warn("-batchdir is deprecated and will be removed in a future release. Use -auto instead.");
+      contentToCheckFilename = cmd.getOptionValue(OPTION_BATCH_DIR);
+      isBatchDir = true;
       return;
     }
 
@@ -719,10 +720,6 @@ public class Application {
 
     switch (contentToCheckFileType) {
     case DIRECTORY:
-      if (cmd.getOptionValue(OPTION_AUTO) != null) {
-        throw new ConfigurationException(
-            "-auto requires an XML file, not a directory. Use -dir or -resultdir for directory content.");
-      }
       if (cmd.getOptionValue(OPTION_FILE) != null || cmd.getOptionValue(OPTION_RESULT_FILE) != null
           || cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
         throw new ConfigurationException(

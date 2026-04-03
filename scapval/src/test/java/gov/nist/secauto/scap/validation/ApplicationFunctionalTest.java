@@ -132,6 +132,16 @@ public class ApplicationFunctionalTest {
   }
 
   @Test
+  public void AutoDetectDirectory() {
+    try {
+      new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/scap-14" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
   public void BatchDirRun() {
     try {
       new Application().runCLI(new String[] { "-batchdir",

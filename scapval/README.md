@@ -13,8 +13,7 @@ Additionally, SCAPVal checks components and data streams against appropriate sch
 
 Stand-alone XCCDF, OVAL, and OCIL files, separate from SCAP can also be validated using -componentfile.
 
-The `-auto` option accepts any SCAP XML file and automatically detects whether it is source content, result content, or a standalone component.
-The `-batchdir` option validates all XML files in a directory, auto-detecting the content type and SCAP version of each file.
+The `-auto` option accepts any SCAP XML file or a directory of XML files and automatically detects content type (source, result, or component) and SCAP version.
 
 SCAP XML content can be signed and signatures verified as well, see usage -h for details.
 
@@ -63,7 +62,8 @@ Validate all XML files in a directory (auto-detect each file):
 
     `scapval.bat -auto /path/to/scap-content/`
     `./scapval.sh -auto /path/to/scap-content/`
-    `scapval.bat -batchdir /path/to/scap-content/`
+
+Note: `-batchdir` is a deprecated alias for `-auto` with a directory and will be removed in a future release.
 
 For a Source Data Stream with resolution of remote resources and verbose output running in Linux:
 
