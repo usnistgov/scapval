@@ -32,6 +32,8 @@ import gov.nist.secauto.decima.core.assessment.AssessmentExecutor;
 import gov.nist.secauto.decima.core.assessment.AssessmentReactor;
 import gov.nist.secauto.decima.core.assessment.result.AssessmentResultBuilder;
 import gov.nist.secauto.decima.core.assessment.result.AssessmentResults;
+import gov.nist.secauto.decima.core.assessment.result.BaseRequirementResult;
+import gov.nist.secauto.decima.core.assessment.result.ResultStatus;
 import gov.nist.secauto.decima.core.assessment.util.AssessmentLoggingHandler;
 import gov.nist.secauto.decima.core.assessment.util.AssessmentSummarizingLoggingHandler;
 import gov.nist.secauto.decima.core.assessment.util.LoggingHandler;
@@ -84,6 +86,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -283,7 +286,23 @@ public class Application {
     // create the XML and HTML results files.
     generateResultsReport(scapValAssessmentResults, cmd);
 
-    return 0;
+    return hasAnyFailure(scapValAssessmentResults) ? 1 : 0;
+  }
+
+  /**
+   * Checks if any base requirement in the assessment results has a FAIL status.
+   *
+   * @param results
+   *          the SCAPVal assessment results to check
+   * @return true if any base requirement has FAIL status
+   */
+  private boolean hasAnyFailure(SCAPValAssessmentResults results) {
+    for (BaseRequirementResult req : results.getAssessmentResults().getBaseRequirementResults()) {
+      if (req.getStatus().equals(ResultStatus.FAIL)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -376,28 +395,65 @@ public class Application {
     int total = xmlFiles.length;
     int passed = 0;
     int failed = 0;
+    List<BatchSummaryReportGenerator.BatchFileResult> fileResults = new ArrayList<>();
 
     log.info("Batch validation: found " + total + " XML file(s) in " + dirPath);
 
     for (File xmlFile : xmlFiles) {
       String filePath = xmlFile.getAbsolutePath();
       log.info("--- Batch [" + (passed + failed + 1) + "/" + total + "] Validating: " + xmlFile.getName() + " ---");
+      boolean filePassed = false;
       try {
         int rc = new Application().runCLI(new String[] { "-auto", filePath });
-        if (rc == 0) {
-          passed++;
-        } else {
-          log.error("Validation returned non-zero exit code (" + rc + ") for " + xmlFile.getName());
-          failed++;
-        }
+        filePassed = (rc == 0);
       } catch (Exception e) {
         log.error("Validation failed for " + xmlFile.getName() + ": " + e.getMessage());
+      }
+
+      if (filePassed) {
+        passed++;
+      } else {
         failed++;
       }
+
+      String prefix = FileUtils.getFilenamePrefix(xmlFile.getName());
+      fileResults.add(new BatchSummaryReportGenerator.BatchFileResult(
+          xmlFile.getName(), filePassed,
+          prefix + "-validation-report.html",
+          prefix + "-validation-result.xml"));
     }
 
-    log.info("=== Batch validation complete: " + total + " files processed, "
-        + passed + " passed, " + failed + " failed ===");
+    // Console output: categorized file list
+    log.info("");
+    log.info("Overall Pass:");
+    boolean anyPassed = false;
+    boolean anyFailed = false;
+    for (BatchSummaryReportGenerator.BatchFileResult r : fileResults) {
+      if (r.isPassed()) {
+        log.info("  " + r.getFileName());
+        anyPassed = true;
+      }
+    }
+    if (!anyPassed) {
+      log.info("  (none)");
+    }
+    log.info("");
+    log.info("Overall Fail:");
+    for (BatchSummaryReportGenerator.BatchFileResult r : fileResults) {
+      if (!r.isPassed()) {
+        log.info("  " + r.getFileName());
+        anyFailed = true;
+      }
+    }
+    if (!anyFailed) {
+      log.info("  (none)");
+    }
+    log.info("");
+    log.info("Batch Validation Complete: " + total + " files, "
+        + passed + " passed, " + failed + " failed.");
+
+    // Generate HTML batch summary report
+    BatchSummaryReportGenerator.generate(fileResults, new File("."), Messages.getVersion(), dirPath);
 
     return failed > 0 ? 1 : 0;
   }
