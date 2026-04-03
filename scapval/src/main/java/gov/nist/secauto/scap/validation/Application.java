@@ -155,6 +155,28 @@ public class Application {
   private static final Logger log = LogManager.getLogger(Application.class);
 
   /**
+   * Resets all mutable static state to defaults. Called at the start of each parseCLI() invocation
+   * so that recursive calls from runBatchDir() begin with a clean slate.
+   */
+  private static void resetState() {
+    scapVersion = null;
+    contentToCheckFile = null;
+    contentToCheckFileType = null;
+    contentToCheckType = null;
+    contentToCheckFilename = null;
+    sourcedsFile = null;
+    sourcedsFileType = null;
+    sourcedsFilename = null;
+    scapUseCase = null;
+    XMLContentToValidate = null;
+    XMLSourceDS = null;
+    maxDownloadSize = 50;
+    combinedOutput = null;
+    isOnline = false;
+    isBatchDir = false;
+  }
+
+  /**
    * Runs the application.
    *
    * @param args
@@ -361,8 +383,13 @@ public class Application {
       String filePath = xmlFile.getAbsolutePath();
       log.info("--- Batch [" + (passed + failed + 1) + "/" + total + "] Validating: " + xmlFile.getName() + " ---");
       try {
-        new Application().runCLI(new String[] { "-auto", filePath });
-        passed++;
+        int rc = new Application().runCLI(new String[] { "-auto", filePath });
+        if (rc == 0) {
+          passed++;
+        } else {
+          log.error("Validation returned non-zero exit code (" + rc + ") for " + xmlFile.getName());
+          failed++;
+        }
       } catch (Exception e) {
         log.error("Validation failed for " + xmlFile.getName() + ": " + e.getMessage());
         failed++;
@@ -386,6 +413,7 @@ public class Application {
   protected CommandLine parseCLI(String[] args)
       throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     Objects.requireNonNull(args, "args cannot be null.");
+    resetState();
     ValidationNotes.getInstance().createValidationNote("SCAPVal arguments provided: " + Arrays.toString(args));
     CLIParser = new CLIParser("scapval <options>");
     CLIParser.setVersion(Messages.getVersion());
