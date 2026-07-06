@@ -75,6 +75,10 @@ public class FileUtils {
 
     int sep = filename.lastIndexOf(PATH_SEPERATOR);
     int dot = filename.lastIndexOf('.');
+    // No dot in the final path segment (e.g., a directory) -> return the whole segment.
+    if (dot <= sep) {
+      return filename.substring(sep + 1);
+    }
     return filename.substring(sep + 1, dot);
   }
 
@@ -102,7 +106,13 @@ public class FileUtils {
   public static String getFilenameFromURLNoExtension(String url) {
     Objects.requireNonNull(url, "filename can not be null.");
 
-    return url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    int sep = url.lastIndexOf('/');
+    int dot = url.lastIndexOf('.');
+    // No dot in the final URL segment -> return the whole segment.
+    if (dot <= sep) {
+      return url.substring(sep + 1);
+    }
+    return url.substring(sep + 1, dot);
   }
 
   /**

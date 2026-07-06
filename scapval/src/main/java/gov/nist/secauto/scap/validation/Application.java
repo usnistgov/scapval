@@ -962,6 +962,10 @@ public class Application {
    *          the specified SCAP version
    */
   private static void warnOnVersionMarkerMismatch(XMLDocument document, SCAPVersion scapVersion) {
+    if (scapVersion == null) {
+      // No specified/detected SCAP version (e.g., standalone component content) -> nothing to compare.
+      return;
+    }
     String expectedVersion = scapVersion.getVersion();
 
     // Check @style on xccdf:Benchmark
