@@ -42,6 +42,9 @@ test-results
 bootstrap
 validation-report.html
 validation-result.xml
+*-validation-report.html
+*-validation-result.xml
+batch-validation-summary.html
 /release.properties
 
 #Other files
