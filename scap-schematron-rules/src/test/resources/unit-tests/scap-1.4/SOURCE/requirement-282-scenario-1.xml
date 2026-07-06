@@ -57,7 +57,7 @@
     <assert-derived-requirement requirement-id="SRC-282-1" result="FAIL" />
     <!-- Also expect a few other related tests to warn  -->
     <assert-derived-requirement requirement-id="SRC-288-1" result="WARNING" />
-    <assert-derived-requirement requirement-id="SRC-236-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-236-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-287-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>

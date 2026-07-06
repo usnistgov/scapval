@@ -39,6 +39,15 @@ import java.util.List;
 @RunWith(PathRunner.class)
 public class UnitIntegrationTest {
 
+  /**
+   * Directories that have their own version-specific test classes with proper {@code @Requirements}
+   * annotations for correct requirement type resolution. These are excluded from this generic test
+   * runner to avoid duplicate execution and to ensure requirement types (MUST vs SHOULD) are
+   * correctly applied.
+   */
+  private static final java.util.Set<String> VERSION_SPECIFIC_DIRS = java.util.Set.of(
+      "scap-1.1", "scap-1.2", "scap-1.3", "scap-1.4");
+
   @BeforeClass
   public static void initialize() {
     ClasspathHandler.initialize();
@@ -46,7 +55,7 @@ public class UnitIntegrationTest {
 
   private static final String UNIT_TEST_INCLUDE_PROPERTY = "scap.unittest.include";
 
-  private static List<String> getIncludeFilters() {
+  static List<String> getIncludeFilters() {
     String property = System.getProperty(UNIT_TEST_INCLUDE_PROPERTY);
     if (property == null) {
       return Collections.emptyList();
@@ -61,7 +70,7 @@ public class UnitIntegrationTest {
         .collect(java.util.stream.Collectors.toList());
   }
 
-  private static boolean passesFilters(java.nio.file.Path path, List<String> includeFilters) {
+  static boolean passesFilters(java.nio.file.Path path, List<String> includeFilters) {
     if (includeFilters.isEmpty()) {
       return true;
     }
@@ -74,6 +83,11 @@ public class UnitIntegrationTest {
     return false;
   }
 
+  /**
+   * Returns test files for directories that do NOT have version-specific test classes. SCAP 1.2, 1.3,
+   * and 1.4 tests are handled by their own test classes (UnitIntegrationTestScap12, etc.) which load
+   * version-specific requirements for correct requirement type resolution.
+   */
   public static List<File> paths() {
     File unitTestDir = new File("src/test/resources/unit-tests/");
     if (!unitTestDir.exists() || !unitTestDir.isDirectory()) {
@@ -83,13 +97,22 @@ public class UnitIntegrationTest {
     try {
       return java.nio.file.Files.walk(unitTestDir.toPath())
           .filter(java.nio.file.Files::isRegularFile)
-                    // Change: Filter by extension instead of excluding specific system files
           .filter(p -> p.toString().endsWith(".xml"))
+          .filter(p -> !isInVersionSpecificDir(p))
           .filter(p -> passesFilters(p, includeFilters))
           .map(java.nio.file.Path::toFile)
           .collect(java.util.stream.Collectors.toList());
     } catch (java.io.IOException e) {
       throw new RuntimeException("Failed to walk unit test directory", e);
     }
+  }
+
+  private static boolean isInVersionSpecificDir(java.nio.file.Path path) {
+    for (java.nio.file.Path component : path) {
+      if (VERSION_SPECIFIC_DIRS.contains(component.toString())) {
+        return true;
+      }
+    }
+    return false;
   }
 }

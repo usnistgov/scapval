@@ -32,6 +32,8 @@ import gov.nist.secauto.decima.core.assessment.AssessmentExecutor;
 import gov.nist.secauto.decima.core.assessment.AssessmentReactor;
 import gov.nist.secauto.decima.core.assessment.result.AssessmentResultBuilder;
 import gov.nist.secauto.decima.core.assessment.result.AssessmentResults;
+import gov.nist.secauto.decima.core.assessment.result.BaseRequirementResult;
+import gov.nist.secauto.decima.core.assessment.result.ResultStatus;
 import gov.nist.secauto.decima.core.assessment.util.AssessmentLoggingHandler;
 import gov.nist.secauto.decima.core.assessment.util.AssessmentSummarizingLoggingHandler;
 import gov.nist.secauto.decima.core.assessment.util.LoggingHandler;
@@ -47,6 +49,7 @@ import gov.nist.secauto.decima.xml.assessment.result.XMLResultBuilder;
 import gov.nist.secauto.decima.xml.document.JDOMDocument;
 import gov.nist.secauto.decima.xml.document.XMLDocument;
 import gov.nist.secauto.decima.xml.schematron.SchematronCompilationException;
+import gov.nist.secauto.scap.validation.candidate.ScapDocumentSniffer;
 import gov.nist.secauto.scap.validation.candidate.ZipExpander;
 import gov.nist.secauto.scap.validation.component.IndividualComponent;
 import gov.nist.secauto.scap.validation.component.OVALVersion;
@@ -83,6 +86,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -99,6 +103,7 @@ import static gov.nist.secautotrust.signature.SecAutoTrustMain.validateSignature
 import static java.lang.System.exit;
 
 public class Application {
+  private static final String DIAGNOSTICS_PROPERTY = "scapval.diagnostics";
 
   private static final String OPTION_COMPONENT_FILE = "componentfile";
   private static final String OPTION_COMBINED_CONTENT_OUTPUT = "combinedoutput";
@@ -111,6 +116,8 @@ public class Application {
   private static final String OPTION_SCAP_VERSION = "scapversion";
   private static final String OPTION_SOURCE_DS = "sourceds";
   private static final String OPTION_USECASE = "usecase";
+  private static final String OPTION_AUTO = "auto";
+  private static final String OPTION_BATCH_DIR = "batchdir";
 
   // tmsad options
   public static final String OPTION_CREATE_SIG_CONFIG = "createsigconfig";
@@ -146,8 +153,31 @@ public class Application {
   private static Integer maxDownloadSize = 50; // default max download size in MiB
   private static File combinedOutput;
   private static boolean isOnline = false;
+  private static boolean isBatchDir = false;
 
   private static final Logger log = LogManager.getLogger(Application.class);
+
+  /**
+   * Resets all mutable static state to defaults. Called at the start of each parseCLI() invocation
+   * so that recursive calls from runBatchDir() begin with a clean slate.
+   */
+  private static void resetState() {
+    scapVersion = null;
+    contentToCheckFile = null;
+    contentToCheckFileType = null;
+    contentToCheckType = null;
+    contentToCheckFilename = null;
+    sourcedsFile = null;
+    sourcedsFileType = null;
+    sourcedsFilename = null;
+    scapUseCase = null;
+    XMLContentToValidate = null;
+    XMLSourceDS = null;
+    maxDownloadSize = 50;
+    combinedOutput = null;
+    isOnline = false;
+    isBatchDir = false;
+  }
 
   /**
    * Runs the application.
@@ -158,6 +188,8 @@ public class Application {
   public static void main(String[] args) {
     Objects.requireNonNull(args, "args cannot be null.");
     boolean debugModeOn = Arrays.asList(args).contains("-debug");
+
+    logRuntimeDiagnostics("main-entry");
 
     int result;
     try {
@@ -234,8 +266,15 @@ public class Application {
     // print scapval version initially
     Messages.printVersion();
 
+    logRuntimeDiagnostics("runCLI");
+
     // parse and validate the CLI args. var 'cmd' will be used later for report generation
     CommandLine cmd = parseCLI(args);
+
+    // handle directory validation (from -auto with directory, or deprecated -batchdir)
+    if (isBatchDir) {
+      return runBatchDir(contentToCheckFilename);
+    }
 
     // prepare things like updating data feeds, hashing submitted content, gathering validation
     // variables
@@ -247,7 +286,23 @@ public class Application {
     // create the XML and HTML results files.
     generateResultsReport(scapValAssessmentResults, cmd);
 
-    return 0;
+    return hasAnyFailure(scapValAssessmentResults) ? 1 : 0;
+  }
+
+  /**
+   * Checks if any base requirement in the assessment results has a FAIL status.
+   *
+   * @param results
+   *          the SCAPVal assessment results to check
+   * @return true if any base requirement has FAIL status
+   */
+  private boolean hasAnyFailure(SCAPValAssessmentResults results) {
+    for (BaseRequirementResult req : results.getAssessmentResults().getBaseRequirementResults()) {
+      if (req.getStatus().equals(ResultStatus.FAIL)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -289,6 +344,8 @@ public class Application {
     // print scapval version initially
     Messages.printVersion();
 
+    logRuntimeDiagnostics("runProgrammatic");
+
     // parse and validate the CLI args.
     CommandLine cmd = parseCLI(args);
 
@@ -299,10 +356,9 @@ public class Application {
     // create and execute all the assessments for the submitted content
     SCAPValAssessmentResults scapValAssessmentResults = executeAssessments();
 
-    // optionally generate XML results and HTML report
-    if (cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE) != null) {
-      generateResultsReport(scapValAssessmentResults, cmd);
-    }
+    // generate XML results and HTML report (always generated, filenames derived from input if not
+    // specified)
+    generateResultsReport(scapValAssessmentResults, cmd);
 
     // close any logging resources
     if (logFileLocation != null) {
@@ -311,6 +367,95 @@ public class Application {
     }
 
     return scapValAssessmentResults;
+  }
+
+  /**
+   * Processes all XML files in a directory by running validation on each one individually. Each file
+   * is auto-detected for content type and SCAP version using the -auto option. A summary is printed
+   * at the end with pass/fail counts.
+   *
+   * @param dirPath
+   *          the path to the directory containing XML files
+   * @return 0 if all files passed, 1 if any file failed or had errors
+   */
+  private int runBatchDir(String dirPath) {
+    File dir = new File(dirPath);
+    if (!dir.isDirectory()) {
+      log.error("A valid directory path is required, but '" + dirPath + "' is not a directory.");
+      return 1;
+    }
+
+    File[] xmlFiles = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".xml"));
+    if (xmlFiles == null || xmlFiles.length == 0) {
+      log.error("No XML files found in directory: " + dirPath);
+      return 1;
+    }
+
+    Arrays.sort(xmlFiles);
+    int total = xmlFiles.length;
+    int passed = 0;
+    int failed = 0;
+    List<BatchSummaryReportGenerator.BatchFileResult> fileResults = new ArrayList<>();
+
+    log.info("Batch validation: found " + total + " XML file(s) in " + dirPath);
+
+    for (File xmlFile : xmlFiles) {
+      String filePath = xmlFile.getAbsolutePath();
+      log.info("--- Batch [" + (passed + failed + 1) + "/" + total + "] Validating: " + xmlFile.getName() + " ---");
+      boolean filePassed = false;
+      try {
+        int rc = new Application().runCLI(new String[] { "-auto", filePath });
+        filePassed = (rc == 0);
+      } catch (Exception e) {
+        log.error("Validation failed for " + xmlFile.getName() + ": " + e.getMessage());
+      }
+
+      if (filePassed) {
+        passed++;
+      } else {
+        failed++;
+      }
+
+      String prefix = FileUtils.getFilenamePrefix(xmlFile.getName());
+      fileResults.add(new BatchSummaryReportGenerator.BatchFileResult(
+          xmlFile.getName(), filePassed,
+          prefix + "-validation-report.html",
+          prefix + "-validation-result.xml"));
+    }
+
+    // Console output: categorized file list
+    log.info("");
+    log.info("Overall Pass:");
+    boolean anyPassed = false;
+    boolean anyFailed = false;
+    for (BatchSummaryReportGenerator.BatchFileResult r : fileResults) {
+      if (r.isPassed()) {
+        log.info("  " + r.getFileName());
+        anyPassed = true;
+      }
+    }
+    if (!anyPassed) {
+      log.info("  (none)");
+    }
+    log.info("");
+    log.info("Overall Fail:");
+    for (BatchSummaryReportGenerator.BatchFileResult r : fileResults) {
+      if (!r.isPassed()) {
+        log.info("  " + r.getFileName());
+        anyFailed = true;
+      }
+    }
+    if (!anyFailed) {
+      log.info("  (none)");
+    }
+    log.info("");
+    log.info("Batch Validation Complete: " + total + " files, "
+        + passed + " passed, " + failed + " failed.");
+
+    // Generate HTML batch summary report
+    BatchSummaryReportGenerator.generate(fileResults, new File("."), Messages.getVersion(), dirPath);
+
+    return failed > 0 ? 1 : 0;
   }
 
   /**
@@ -324,6 +469,7 @@ public class Application {
   protected CommandLine parseCLI(String[] args)
       throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     Objects.requireNonNull(args, "args cannot be null.");
+    resetState();
     ValidationNotes.getInstance().createValidationNote("SCAPVal arguments provided: " + Arrays.toString(args));
     CLIParser = new CLIParser("scapval <options>");
     CLIParser.setVersion(Messages.getVersion());
@@ -335,16 +481,26 @@ public class Application {
         .build());
     contentToCheck.addOption(Option.builder(OPTION_FILE)
         .desc(
-            "SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file " + "(SCAP 1.1). Only provide if validating source files")
+            "SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file "
+                + "(SCAP 1.1). Only provide if validating source files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_DIR).desc(
         "Directory of individual component SCAP " + "result files. Provide if validating SCAP 1.1 result files only")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_FILE)
-        .desc("SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
+        .desc(
+            "SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF/OVAL/OCIL is supported").hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_AUTO)
+        .desc("Validate an SCAP XML file or a directory of XML files with auto-detection of content type "
+            + "(source, result, or component) and SCAP version")
+        .hasArg().build());
+    contentToCheck.addOption(Option.builder(OPTION_BATCH_DIR)
+        .desc("[Deprecated: use -auto instead] Validate all XML files in a directory. "
+            + "Each file is auto-detected for content type and SCAP version")
+        .hasArg().build());
 
     // Sign and Validate (TMSAD) Options
     contentToCheck.addOption(Option.builder(OPTION_CREATE_SIG_CONFIG).desc(
@@ -371,7 +527,8 @@ public class Application {
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
-        .desc("The SCAP version to validate. 1.1, 1.2, 1.3 and 1.4 are supported").hasArg().build();
+        .desc("The SCAP version to validate (auto-detected if not specified). 1.2, 1.3 and 1.4 are supported").hasArg()
+        .build();
     OptionEnumerationValidator scapVersionValidator = new OptionEnumerationValidator(optionScapVersion);
     scapVersionValidator.addAllowedValue("1.1");
     scapVersionValidator.addAllowedValue("1.2");
@@ -441,6 +598,15 @@ public class Application {
   protected void validateCLI(CommandLine cmd)
       throws ConfigurationException, DocumentException, IOException, SCAPException, TMSADException {
     Objects.requireNonNull(cmd, "cmd cannot be null.");
+
+    // -batchdir is deprecated — route through the same path as -auto with a directory
+    if (cmd.getOptionValue(OPTION_BATCH_DIR) != null) {
+      log.warn("-batchdir is deprecated and will be removed in a future release. Use -auto instead.");
+      contentToCheckFilename = cmd.getOptionValue(OPTION_BATCH_DIR);
+      isBatchDir = true;
+      return;
+    }
+
     // gather the type of check and file type to check.
     // The OptionGroup ensures only 1 of these can be set (mutually exclusive)
     if (cmd.getOptionValue(OPTION_DIR) != null) {
@@ -458,6 +624,20 @@ public class Application {
     } else if (cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
       contentToCheckType = ContentType.COMPONENT;
       contentToCheckFilename = cmd.getOptionValue(OPTION_COMPONENT_FILE);
+    } else if (cmd.getOptionValue(OPTION_AUTO) != null) {
+      contentToCheckFilename = cmd.getOptionValue(OPTION_AUTO);
+      if (new File(contentToCheckFilename).isDirectory()) {
+        isBatchDir = true;
+        return;
+      }
+      contentToCheckType = detectContentType(contentToCheckFilename);
+      if (contentToCheckType == null) {
+        throw new SCAPException(
+            "Unable to auto-detect the content type of: " + contentToCheckFilename
+                + ". The file does not appear to be SCAP source, result, or component content."
+                + " Use -file, -resultfile, or -componentfile to specify the content type explicitly.");
+      }
+      log.info("Content type auto-detected: " + contentToCheckType);
     }
 
     // The below are for tmsad functionality. After validating the args, the relevant method is directly
@@ -555,31 +735,37 @@ public class Application {
       exit(0);
     } else {
       throw new ConfigurationException(
-          "Content to validate must be specified with -dir, -resultdir, -file, -resultfile, -componentfile or "
+          "Content to validate must be specified with -auto, -dir, -resultdir, -file, -resultfile, -componentfile or "
               + "for tmsad -signcontent, -validatesignature, -createsigconfig, -showcertificates, -listcertificatealias");
     }
 
     // get the scap version from the command line
     scapVersion = SCAPVersion.getByString(cmd.getOptionValue(OPTION_SCAP_VERSION));
 
-    // For validating individual XCCDF, OVAL, and OCIL component files.
-    if (contentToCheckType.equals(ContentType.COMPONENT)) {
-      if (cmd.getOptionValue(OPTION_SCAP_VERSION) != null) {
-        throw new ConfigurationException("-scapversion cannot be specified with -componentfile");
-      }
-      if (cmd.getOptionValue(OPTION_SOURCE_DS) != null) {
-        throw new ConfigurationException("-sourceds cannot be specified with -componentfile");
-      }
-    } else {
-      if (scapVersion == null) {
-        throw new ConfigurationException("-scapversion must be specified");
-      }
-    }
-
     // first make sure we can read the specified content to check
     contentToCheckFile = new File(contentToCheckFilename);
     if (!contentToCheckFile.canRead()) {
       throw new ConfigurationException("Unable to read the specified content to validate: " + contentToCheckFilename);
+    }
+
+    // For validating individual XCCDF, OVAL, and OCIL component files.
+    if (contentToCheckType.equals(ContentType.COMPONENT)) {
+      if (cmd.getOptionValue(OPTION_SCAP_VERSION) != null) {
+        throw new ConfigurationException("-scapversion cannot be specified when validating component content");
+      }
+      if (cmd.getOptionValue(OPTION_SOURCE_DS) != null) {
+        throw new ConfigurationException("-sourceds cannot be specified when validating component content");
+      }
+    } else {
+      if (scapVersion == null) {
+        scapVersion = detectScapVersion(contentToCheckFilename);
+        if (scapVersion != null) {
+          log.info("SCAP version not specified, auto-detected: " + scapVersion.getVersion());
+        } else {
+          throw new ConfigurationException(
+              "-scapversion could not be determined from the content. Please specify it explicitly.");
+        }
+      }
     }
 
     // per scapval 1.2, is SCAP 1.1 results are checked a -sourceds must be present
@@ -607,7 +793,8 @@ public class Application {
       } else {
         // sourceds for 1.2, 1.3 and 1.4 must be a xml file
         if (!sourcedsFileType.equals(FileType.XML)) {
-          throw new ConfigurationException("For SCAP 1.2, 1.3 or 1.4 content the specified -sourceds must be a XML file");
+          throw new ConfigurationException(
+              "For SCAP 1.2, 1.3 or 1.4 content the specified -sourceds must be a XML file");
         }
       }
     }
@@ -633,6 +820,10 @@ public class Application {
       }
       break;
     case ZIP:
+      if (cmd.getOptionValue(OPTION_AUTO) != null) {
+        throw new ConfigurationException(
+            "-auto requires an XML file, not a ZIP. Use -file or -resultfile for ZIP content.");
+      }
       if (cmd.getOptionValue(OPTION_FILE) == null && cmd.getOptionValue(OPTION_RESULT_FILE) == null
           && scapVersion != SCAPVersion.V1_1) {
         throw new ConfigurationException(
@@ -737,6 +928,95 @@ public class Application {
             + "combined file to");
       }
     }
+  }
+
+  /**
+   * Attempts to detect the SCAP version from the content file by reading the scap-version attribute
+   * from the data-stream element.
+   *
+   * @param filename
+   *          the path to the SCAP content file
+   * @return the detected SCAPVersion, or null if detection fails
+   */
+  private static SCAPVersion detectScapVersion(String filename) {
+    String version = new ScapDocumentSniffer().findSCAPVersion(filename);
+    if (version != null) {
+      SCAPVersion scapVer = SCAPVersion.getByString(version);
+      if (scapVer != null) {
+        return scapVer;
+      }
+      log.warn("Found scap-version='" + version + "' but it is not a supported SCAP version");
+    }
+    return null;
+  }
+
+  /**
+   * Checks internal version markers (@style on xccdf:Benchmark and @schematron-version on
+   * data-stream-collection) and logs a warning if they don't match the specified SCAP version. This
+   * helps users understand why validation failures occur when they modify the scap-version attribute
+   * without updating other version-specific attributes in the content.
+   *
+   * @param document
+   *          the XML document to check
+   * @param scapVersion
+   *          the specified SCAP version
+   */
+  private static void warnOnVersionMarkerMismatch(XMLDocument document, SCAPVersion scapVersion) {
+    String expectedVersion = scapVersion.getVersion();
+
+    // Check @style on xccdf:Benchmark
+    String styleXpath = "//*[local-name()='Benchmark']/@style";
+    List<Attribute> styleResults = XMLUtils.getXpathAttributes(document, styleXpath);
+    if (styleResults != null) {
+      for (Attribute attr : styleResults) {
+        String expectedStyle = "SCAP_" + expectedVersion;
+        if (!expectedStyle.equals(attr.getValue())) {
+          log.warn("Content has xccdf:Benchmark @style='" + attr.getValue() + "' but is being validated as SCAP "
+              + expectedVersion + " (expected @style='" + expectedStyle
+              + "'). Validation failures related to version-specific attributes are expected.");
+          break;
+        }
+      }
+    }
+
+    // Check @schematron-version on data-stream-collection
+    String schVerXpath = "//*[local-name()='data-stream-collection']/@schematron-version";
+    List<Attribute> schVerResults = XMLUtils.getXpathAttributes(document, schVerXpath);
+    if (schVerResults != null) {
+      for (Attribute attr : schVerResults) {
+        if (!expectedVersion.equals(attr.getValue())) {
+          log.warn("Content has data-stream-collection @schematron-version='" + attr.getValue()
+              + "' but is being validated as SCAP " + expectedVersion + " (expected @schematron-version='"
+              + expectedVersion + "'). Validation failures related to version-specific attributes are expected.");
+          break;
+        }
+      }
+    }
+  }
+
+  /**
+   * Attempts to detect the content type (SOURCE, RESULT, or COMPONENT) from the root element
+   * namespace of the given file.
+   *
+   * @param filename
+   *          the path to the SCAP content file
+   * @return the detected ContentType, or null if detection fails
+   */
+  private static ContentType detectContentType(String filename) {
+    String namespace = new ScapDocumentSniffer().findContentType(filename);
+    if (namespace != null) {
+      // Check for SCAP 1.1 content which is no longer supported
+      if (namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
+        log.error("SCAP 1.1 content is not supported.");
+        return null;
+      }
+      ContentType type = ScapDocumentSniffer.mapNamespaceToContentType(namespace);
+      if (type != null) {
+        return type;
+      }
+      log.warn("Found namespace '" + namespace + "' but could not determine content type");
+    }
+    return null;
   }
 
   /**
@@ -910,11 +1190,15 @@ public class Application {
     // check each data-stream for the specified scap version.
     for (Attribute attribute : results) {
       if (!scapVersion.getVersion().equals(attribute.getValue())) {
-        throw new SCAPException("SCAP version specified on command line '" + scapVersion.getVersion() + "' "
-            + "Does not match what was found in the specified content " + results.get(0).getName() + "='"
+        throw new SCAPException("SCAP version '" + scapVersion.getVersion() + "' "
+            + "does not match what was found in the specified content " + results.get(0).getName() + "='"
             + results.get(0).getValue() + "'");
       }
     }
+
+    // Warn if internal version markers don't match the specified SCAP version.
+    // This catches cases where a user changes scap-version but not the internal attributes.
+    warnOnVersionMarkerMismatch(XMLContentToValidate, scapVersion);
 
     // Additional SCAP content checks
     if (!contentToCheckType.equals(ContentType.COMPONENT)) {
@@ -1024,6 +1308,14 @@ public class Application {
    * @return the results of the combined assessments
    */
   protected static SCAPValAssessmentResults executeAssessments() throws SCAPException, DocumentException, IOException {
+    logRuntimeDiagnostics("executeAssessments-start");
+    if (isDiagnosticsEnabled()) {
+      log.info(
+          "SCAPVal diagnostics [executeAssessments-start]: contentType={}, scapVersion={}, scapUseCase={}, contentToCheckFilename={}, originalLocation={}",
+          contentToCheckType, scapVersion, scapUseCase, contentToCheckFilename,
+          XMLContentToValidate == null ? "<null>" : XMLContentToValidate.getOriginalLocation());
+    }
+
     // First create the AssessmentFactory to manage requirements and assessments based on target
     // content
     AssessmentFactory assessmentFactory
@@ -1033,6 +1325,11 @@ public class Application {
     ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     AssessmentExecutor<XMLDocument> assessmentExecutor = assessmentFactory.newAssessmentExecutor(executorService);
+
+    if (isDiagnosticsEnabled()) {
+      log.info("SCAPVal diagnostics [executeAssessments-start]: executorService={}, assessmentExecutor={}",
+          executorService.getClass().getName(), assessmentExecutor.getClass().getName());
+    }
 
     try {
       // The AssessmentReactor handles the execution of the assessments
@@ -1053,6 +1350,8 @@ public class Application {
         // optionally write out the final content used in validation
         XMLContentToValidate.copyTo(combinedOutput);
       }
+
+      logRuntimeDiagnostics("assessment-reactor-before-react");
 
       AssessmentResults assessmentResults = assessmentReactor.react(builder);
       if (assessmentResults == null) {
@@ -1085,10 +1384,15 @@ public class Application {
     Objects.requireNonNull(scapValAssessmentResults, "scapValAssessmentResults cannot be null.");
     Objects.requireNonNull(cmd, "cmd cannot be null.");
 
+    // Derive output filenames from the input filename when not explicitly specified
+    String inputPrefix = FileUtils.getFilenamePrefix(contentToCheckFilename);
+
     File validationResultFile;
     {
-      String fileValue
-          = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_RESULT_FILE, CLIParser.DEFAULT_VALIDATION_RESULT_FILE);
+      String fileValue = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_RESULT_FILE);
+      if (fileValue == null) {
+        fileValue = inputPrefix + "-validation-result.xml";
+      }
       validationResultFile = new File(fileValue);
       File parentDir = validationResultFile.getParentFile();
       if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
@@ -1098,8 +1402,10 @@ public class Application {
 
     File validationReportFile;
     {
-      String fileValue
-          = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE, CLIParser.DEFAULT_VALIDATION_REPORT_FILE);
+      String fileValue = cmd.getOptionValue(CLIParser.OPTION_VALIDATION_REPORT_FILE);
+      if (fileValue == null) {
+        fileValue = inputPrefix + "-validation-report.html";
+      }
       validationReportFile = new File(fileValue);
       File parentDir = validationReportFile.getParentFile();
       if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
@@ -1147,6 +1453,74 @@ public class Application {
    */
   public static void showHelp() {
     CLIParser.doShowHelp();
+  }
+
+  static boolean isDiagnosticsEnabled() {
+    String value = System.getProperty(DIAGNOSTICS_PROPERTY);
+    if (value == null || value.isEmpty()) {
+      value = System.getenv("SCAPVAL_DIAGNOSTICS");
+    }
+    return value != null
+        && ("1".equals(value) || Boolean.parseBoolean(value) || "yes".equalsIgnoreCase(value)
+            || "on".equalsIgnoreCase(value));
+  }
+
+  private static void logRuntimeDiagnostics(String stage) {
+    if (!isDiagnosticsEnabled()) {
+      return;
+    }
+
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    ClassLoader applicationClassLoader = Application.class.getClassLoader();
+    String classPath = System.getProperty("java.class.path");
+    int classPathEntryCount = classPath == null || classPath.isEmpty()
+        ? 0
+        : classPath.split(java.util.regex.Pattern.quote(File.pathSeparator)).length;
+
+    log.info(
+        "SCAPVal diagnostics [{}]: thread={}, java.version={}, java.vendor={}, java.home={}, user.dir={}, java.protocol.handler.pkgs={}, classpath.entries={}, classpath={}, JAVA_HOME={}, JDK_JAVA_OPTIONS={}, JAVA_TOOL_OPTIONS={}, SHELL={}",
+        stage, Thread.currentThread().getName(), valueOrUnset(System.getProperty("java.version")),
+        valueOrUnset(System.getProperty("java.vendor")), valueOrUnset(System.getProperty("java.home")),
+        valueOrUnset(System.getProperty("user.dir")), valueOrUnset(System.getProperty("java.protocol.handler.pkgs")),
+        classPathEntryCount, abbreviate(classPath), valueOrUnset(System.getenv("JAVA_HOME")),
+        valueOrUnset(System.getenv("JDK_JAVA_OPTIONS")), valueOrUnset(System.getenv("JAVA_TOOL_OPTIONS")),
+        valueOrUnset(System.getenv("SHELL")));
+    log.info("SCAPVal diagnostics [{}]: contextClassLoader={}, applicationClassLoader={}", stage,
+        valueOrUnset(contextClassLoader == null ? null : contextClassLoader.toString()),
+        valueOrUnset(applicationClassLoader == null ? null : applicationClassLoader.toString()));
+
+    logClasspathResource(stage, "META-INF/services/gov.nist.secauto.decima.xml.service.ResourceResolverExtension");
+    logClasspathResource(stage, "scapval-xsd/scapval-catalog.xml");
+    logClasspathResource(stage, "xsd/oasis/catalog1.1.xsd");
+    logClasspathResource(stage, "xsd/nist/scap/1.4/scap-source-data-stream_1.4.xsd");
+  }
+
+  private static void logClasspathResource(String stage, String resourcePath) {
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    ClassLoader applicationClassLoader = Application.class.getClassLoader();
+
+    URL contextResource = contextClassLoader == null ? null : contextClassLoader.getResource(resourcePath);
+    URL applicationResource = applicationClassLoader == null ? null : applicationClassLoader.getResource(resourcePath);
+
+    log.info("SCAPVal diagnostics [{}]: resource='{}', contextLoaderUrl={}, applicationLoaderUrl={}", stage,
+        resourcePath, valueOrUnset(contextResource == null ? null : contextResource.toExternalForm()),
+        valueOrUnset(applicationResource == null ? null : applicationResource.toExternalForm()));
+  }
+
+  private static String valueOrUnset(String value) {
+    return value == null || value.isEmpty() ? "<unset>" : value;
+  }
+
+  private static String abbreviate(String value) {
+    if (value == null || value.isEmpty()) {
+      return "<unset>";
+    }
+
+    final int maxLength = 512;
+    if (value.length() <= maxLength) {
+      return value;
+    }
+    return value.substring(0, maxLength) + "... <truncated, length=" + value.length() + ">";
   }
 
 }

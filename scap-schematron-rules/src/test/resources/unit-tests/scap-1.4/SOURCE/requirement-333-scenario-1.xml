@@ -24,7 +24,7 @@
     <assert-derived-requirement requirement-id="SRC-333-1" result="FAIL" />
     <!-- Also expect 284-2 to warn and 236-1 to fail because we modified the href to an invalid link -->
     <assert-derived-requirement requirement-id="SRC-284-2" result="WARNING" />
-    <assert-derived-requirement requirement-id="SRC-236-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-236-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

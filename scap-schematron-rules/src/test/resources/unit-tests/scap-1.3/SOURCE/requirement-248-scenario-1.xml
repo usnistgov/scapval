@@ -35,7 +35,7 @@
     <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-209-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-209-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-377-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>

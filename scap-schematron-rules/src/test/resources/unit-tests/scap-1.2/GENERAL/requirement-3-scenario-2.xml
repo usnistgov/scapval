@@ -6221,6 +6221,7 @@
      and A-25 to fail because duplicate xccdf:Profile @id are used-->
     <assert-derived-requirement requirement-id="SRC-10-1" result="FAIL" />
     <assert-derived-requirement requirement-id="A-25-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-3-1" result="NOT_TESTED" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

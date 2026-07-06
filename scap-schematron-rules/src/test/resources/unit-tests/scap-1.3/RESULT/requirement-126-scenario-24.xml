@@ -23,12 +23,12 @@
                                handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler"/>
     </assessments>
     <assertions>
-        <assert-derived-requirement requirement-id="RES-126-2" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-126-2" result="WARNING"/>
         <!-- 126-1 is also expected to fail since it relies on these same locations -->
         <assert-derived-requirement requirement-id="RES-126-1" result="FAIL"/>
         <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
-        <assert-derived-requirement requirement-id="RES-258-1" result="FAIL"/>
-        <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-258-1" result="WARNING"/>
+        <assert-derived-requirement requirement-id="RES-366-1" result="WARNING"/>
         <assert-remaining quantifier="ALL" result="PASS"/>
     </assertions>
 </content-unit-test>

@@ -26,6 +26,7 @@
 
 package gov.nist.secauto.scap.validation.candidate;
 
+import gov.nist.secauto.scap.validation.Application.ContentType;
 import gov.nist.secauto.scap.validation.NamespaceConstants;
 
 import org.apache.logging.log4j.LogManager;
@@ -47,8 +48,8 @@ import javax.xml.parsers.SAXParserFactory;
  * Takes an XML file and determines the content type (SCAP or XCCDF) by looking at XML namespace of
  * the root element.
  * <p>
- * For SCAP 1.2/1.3/1.4 content, can also find the SCAP use case by looking at the use-case attribute of
- * the data-stream element.
+ * For SCAP 1.2/1.3/1.4 content, can also find the SCAP use case by looking at the use-case
+ * attribute of the data-stream element.
  */
 public class ScapDocumentSniffer {
 
@@ -109,6 +110,41 @@ public class ScapDocumentSniffer {
       log.debug(String.format("%s SCAP use case is %s", filename, useCaseHandler.getUseCase()));
     }
     return useCaseHandler.getUseCase();
+  }
+
+  /**
+   * Maps a root element namespace URI to a {@link ContentType} enum value.
+   *
+   * @param namespaceUri
+   *          the namespace URI of the root element, may be null
+   * @return the detected ContentType, or null if the namespace is unrecognized
+   */
+  public static ContentType mapNamespaceToContentType(String namespaceUri) {
+    if (namespaceUri == null) {
+      return null;
+    }
+
+    // Source data stream namespaces (SCAP 1.2/1.3/1.4 share the same URI; 1.1 is distinct)
+    if (namespaceUri.equals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
+      return ContentType.SOURCE;
+    }
+
+    // Result / ARF namespace
+    if (namespaceUri.equals(NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString())) {
+      return ContentType.RESULT;
+    }
+
+    // Individual component namespaces
+    if (namespaceUri.equals(NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_XCCDF_1_2.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_OCIL_2_0.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_CPE_DICT_2.getNamespaceString())) {
+      return ContentType.COMPONENT;
+    }
+
+    return null;
   }
 
   /**
@@ -203,8 +239,8 @@ public class ScapDocumentSniffer {
   }
 
   /**
-   * Handles an XML document by searching for the SCAP 1.2/1.3/1.4 namespace, then finding the use-case
-   * attribute of the data-stream element.
+   * Handles an XML document by searching for the SCAP 1.2/1.3/1.4 namespace, then finding the
+   * use-case attribute of the data-stream element.
    */
   static class ScapUseCaseHandler
       extends DefaultHandler {

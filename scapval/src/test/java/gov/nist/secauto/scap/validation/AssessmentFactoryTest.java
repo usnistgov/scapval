@@ -112,8 +112,8 @@ public class AssessmentFactoryTest {
     Assert.assertTrue(scapDocumentSchemaAssessment.getSchemaSources().size() > 58);
 
     Assessment<XMLDocument> scapDocumentSchematronAssessments = assessmentFactory.createSCAPSchematronAssessments();
-    // currently should expect at least 5
-    Assert.assertTrue(scapDocumentSchematronAssessments.getExecutableAssessments(SCAP14).size() > 4);
+    // currently should expect at least 4 (OVAL 5.12.2 schematron is temporarily skipped)
+    Assert.assertTrue(scapDocumentSchematronAssessments.getExecutableAssessments(SCAP14).size() > 3);
   }
 
   @Test

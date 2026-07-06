@@ -18,7 +18,7 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-74-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-74-1" result="WARNING" />
     <!-- We also expect A-17 and 251-2 to fail due to the CCE value modification  -->
     <assert-derived-requirement requirement-id="A-17-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />

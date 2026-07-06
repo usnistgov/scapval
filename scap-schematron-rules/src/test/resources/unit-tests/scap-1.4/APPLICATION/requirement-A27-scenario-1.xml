@@ -50,7 +50,7 @@ This test should pass.</description>
 <assertions>
   <assert-derived-requirement requirement-id="A-27-1" result="PASS" />
   <!--The introduced CPE is just for testing purposes, expect SRC-209-1 to Fail -->
-  <assert-derived-requirement requirement-id="SRC-209-1" result="FAIL" />
+  <assert-derived-requirement requirement-id="SRC-209-1" result="WARNING" />
   <assert-remaining quantifier="ALL" result="PASS" />
 </assertions>
 </content-unit-test>

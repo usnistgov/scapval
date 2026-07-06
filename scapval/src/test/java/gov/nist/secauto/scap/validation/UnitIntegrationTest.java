@@ -36,7 +36,8 @@ import java.util.List;
 
 @RunWith(PathRunner.class)
 @PathRunner.Paths("src/test/resources/unit-tests")
-@PathRunner.Requirements(value = "classpath:requirements/scapval-scap-1.4-requirements.xml", extensions = "classpath:scapval-xsd/scapval-requirements-ext.xsd")
+@PathRunner.Requirements(value = "classpath:requirements/scapval-scap-1.4-requirements.xml",
+    extensions = "classpath:scapval-xsd/scapval-requirements-ext.xsd")
 public class UnitIntegrationTest {
   public static List<File> paths() {
     File unitTestDir = new File("src/test/resources/unit-tests/");

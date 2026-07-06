@@ -25,10 +25,10 @@
     <!-- Also expect a few others to fail due to the simple modification of use case
     to vulnerability, just to test this req (265) -->
     <assert-derived-requirement requirement-id="SRC-242-2" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-169-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-33-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-214-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-214-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

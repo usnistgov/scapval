@@ -13,6 +13,8 @@ Additionally, SCAPVal checks components and data streams against appropriate sch
 
 Stand-alone XCCDF, OVAL, and OCIL files, separate from SCAP can also be validated using -componentfile.
 
+The `-auto` option accepts any SCAP XML file or a directory of XML files and automatically detects content type (source, result, or component) and SCAP version.
+
 SCAP XML content can be signed and signatures verified as well, see usage -h for details.
 
 SCAPVal produces validation results in a report that conveys all error and warning conditions detected; results are output in both XML and HTML formats.
@@ -21,32 +23,54 @@ For a listing of the SCAP requirements this tool adheres to, refer to the files 
 
 Requires Java Runtime Environment (JRE) 11 or higher.
 If the JAVA_HOME environment variable is set, then the scapval launch script will use the version specified.
-Otherwise, it will use whatever version is available from the current working directory.
+Otherwise, it will use the java executable available on your PATH.
+On macOS and Linux/Unix, `scapval.sh` verifies that the selected Java runtime is version 11 or higher before launch and fails fast with an error if the runtime is missing, invalid, or too old.
+On Windows, `scapval.bat` verifies that the selected Java runtime is version 11 or higher before launch and fails fast with an error if the runtime is missing, invalid, or too old.
+
+Diagnostics:
+Optional diagnostics output can be enabled for troubleshooting startup and runtime issues by setting SCAPVAL_DIAGNOSTICS (or system property scapval.diagnostics) to `1`, `true`, `yes`, or `on`.
+When enabled, SCAPVal prints Java/runtime, classpath, and launch-context information.
 
 The provided scapval.bat file should be used to run the tool in Windows and the scapval.sh for macOS or Linux/Unix.
 
 ## Example Usage:
-For a 1.4 Source Data Stream running in Windows:
+The `-scapversion` parameter is optional. SCAPVal will auto-detect the SCAP version from the content if not specified.
+
+For a Source Data Stream running in Windows (version auto-detected):
+
+    `scapval.bat -file source_data_stream_collection_sample.xml`
+
+For a Source Data Stream running in macOS (version auto-detected):
+
+    `./scapval.sh -file source_data_stream_collection_sample.xml`
+
+For a Result Data Stream running in macOS (version auto-detected):
+
+    `./scapval.sh -resultfile arf-result.xml`
+
+The `-scapversion` parameter can still be specified explicitly if desired:
 
     `scapval.bat -scapversion 1.4 -file source_data_stream_collection_sample.xml`
-
-For a 1.3 Source Data Stream running in Windows:
-
-    `scapval.bat -scapversion 1.3 -file source_data_stream_collection_sample.xml`
-
-For a 1.4 Result Data Stream running in macOS::
-
-    `./scapval.sh -scapversion 1.4 -resultfile arf-result.xml`
-
-For a 1.3 Result Data Stream running in macOS::
-
     `./scapval.sh -scapversion 1.3 -resultfile arf-result.xml`
 
-For a 1.2 Source Data Stream with resolution of remote resources and verbose output running in Linux:
+Auto-detect content type (source, result, or component) and SCAP version:
 
-     `./scapval.sh -scapversion 1.2 -file datastream-12.xml -online -debug`
+    `scapval.bat -auto any-scap-file.xml`
+    `./scapval.sh -auto arf-result.xml`
 
-Results for the above are provided in validation-report.html and validation-result.xml
+Validate all XML files in a directory (auto-detect each file):
+
+    `scapval.bat -auto /path/to/scap-content/`
+    `./scapval.sh -auto /path/to/scap-content/`
+
+Note: `-batchdir` is a deprecated alias for `-auto` with a directory and will be removed in a future release.
+
+For a Source Data Stream with resolution of remote resources and verbose output running in Linux:
+
+     `./scapval.sh -file datastream.xml -online -debug`
+
+Output filenames are derived from the input filename (e.g., `my-content-validation-result.xml` and `my-content-validation-report.html`).
+Use `-valresultfile` and `-valreportfile` to override the output filenames.
 
 Usage Details:
 ----
@@ -54,12 +78,14 @@ Usage Details:
 
 Use Notes:
 ----
-Once the validation is complete, two result files will be created:
+Once the validation is complete, two result files will be created based on the input filename:
 
-  *validation-result.xml* - An XML file containing the set of requirements used
+  *\<input-filename\>-validation-result.xml* - An XML file containing the set of requirements used
       for validation, and the status of each requirement.
-  *validation-report.html* - A human-readable report based on the validations
+  *\<input-filename\>-validation-report.html* - A human-readable report based on the validations
       results.
+
+Use `-valresultfile` and `-valreportfile` to specify custom output filenames.
 
 If remote resources are defined in content, SCAPVal will attempt to resolve them when ran with the -online parameter.
 The remote content will be downloaded and automatically combined with the local content before validation begins.

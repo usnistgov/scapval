@@ -16,7 +16,7 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-207-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-207-1" result="WARNING" />
     <!-- Also expect 251-2 to fail because the reference source is modified -->
     <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />

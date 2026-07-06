@@ -45,7 +45,7 @@ public class ApplicationFunctionalTest {
   public void CompleteSourceRun() {
     try {
       new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
-              "src/test/resources/candidates/scap-14/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
+          "src/test/resources/candidates/scap-14/scap_gov.nist_USGCB-Windows-XP-firewall.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -55,7 +55,7 @@ public class ApplicationFunctionalTest {
   public void CompleteSourceRun14() {
     try {
       new Application().runCLI(new String[] { "-scapversion", "1.4", "-file",
-              "src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml" });
+          "src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }
@@ -96,6 +96,56 @@ public class ApplicationFunctionalTest {
     try {
       new Application().runCLI(new String[] { "-componentfile",
           "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5-10.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void AutoDetectSource14() {
+    try {
+      new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void AutoDetectResult14() {
+    try {
+      new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/scap-14/ARF-results.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void AutoDetectComponent() {
+    try {
+      new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5-10.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void AutoDetectDirectory() {
+    try {
+      new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/scap-14" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void BatchDirRun() {
+    try {
+      new Application().runCLI(new String[] { "-batchdir",
+          "src/test/resources/candidates/scap-14" });
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }

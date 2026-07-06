@@ -26,9 +26,9 @@
     <assert-derived-requirement requirement-id="SRC-265-1" result="PASS" />
     <!-- Also expect a few others to fail due to the simple modification of elements from the template for this test -->
     <assert-derived-requirement requirement-id="SRC-242-2" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-169-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-33-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-207-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-207-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

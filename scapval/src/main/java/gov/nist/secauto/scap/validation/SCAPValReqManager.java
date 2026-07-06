@@ -106,8 +106,7 @@ public class SCAPValReqManager {
    * 1. Individual Component Validation 2. SCAP 1.1 Contained Components 3. SCAP 1.1 Source Content 4.
    * SCAP 1.1 Result Content 5. SCAP 1.2 Contained Components 6. SCAP 1.2 Source Content 7. SCAP 1.2
    * Result Content 8. SCAP 1.3 Contained Components 9. SCAP 1.3 Source Content 10.SCAP 1.3 Result
-   * Content 11. SCAP 1.4 Contained Components 12. SCAP 1.4 Source Content 13.SCAP 1.4 Result
-   * Content
+   * Content 11. SCAP 1.4 Contained Components 12. SCAP 1.4 Source Content 13.SCAP 1.4 Result Content
    */
   public enum RequirementMappings {
 

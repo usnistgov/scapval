@@ -27,6 +27,7 @@
 package gov.nist.secauto.scap.validation.candidate;
 
 import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
+import gov.nist.secauto.scap.validation.Application.ContentType;
 import gov.nist.secauto.scap.validation.NamespaceConstants;
 import gov.nist.secauto.scap.validation.candidate.ScapDocumentSniffer;
 
@@ -112,6 +113,42 @@ public class ScapDocumentSnifferTest {
         this.sniffer.findContentType(scap13FileNoUseCase.getAbsolutePath()));
 
     assertNull(this.sniffer.findUseCase(scap13FileNoUseCase.getAbsolutePath()));
+  }
+
+  @Test
+  public void testMapNamespaceToContentType_Source() {
+    assertEquals(ContentType.SOURCE,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString()));
+    assertEquals(ContentType.SOURCE,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString()));
+  }
+
+  @Test
+  public void testMapNamespaceToContentType_Result() {
+    assertEquals(ContentType.RESULT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString()));
+    assertEquals(ContentType.RESULT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_ARF_1_1.getNamespaceString()));
+  }
+
+  @Test
+  public void testMapNamespaceToContentType_Component() {
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_XCCDF_1_1_4.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_XCCDF_1_2.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OCIL_2_0.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_CPE_DICT_2.getNamespaceString()));
+  }
+
+  @Test
+  public void testMapNamespaceToContentType_NullAndUnknown() {
+    assertNull(ScapDocumentSniffer.mapNamespaceToContentType(null));
+    assertNull(ScapDocumentSniffer.mapNamespaceToContentType("http://example.com/unknown"));
   }
 
 }

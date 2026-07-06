@@ -24,11 +24,11 @@
     <assert-derived-requirement requirement-id="SRC-331-3" result="PASS" />
     <!-- This test just swaps the template values with inventory to achieve its
          check of 331-3. This simple check breaks other SCAP rules, but its expected in this case -->
-    <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-169-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-209-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-262-1" result="WARNING" />
+    <assert-derived-requirement requirement-id="SRC-209-1" result="WARNING" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>

@@ -197,11 +197,11 @@ public enum SCAPVersion {
       return NamespaceConstants.NS_SOURCE_DS_1_1.getNamespace();
     case V1_2:
       return NamespaceConstants.NS_SOURCE_DS_1_2.getNamespace();
-      case V1_3:
-        return NamespaceConstants.NS_SOURCE_DS_1_3.getNamespace();
-      case V1_4:
-        return NamespaceConstants.NS_SOURCE_DS_1_4.getNamespace();
-      default:
+    case V1_3:
+      return NamespaceConstants.NS_SOURCE_DS_1_3.getNamespace();
+    case V1_4:
+      return NamespaceConstants.NS_SOURCE_DS_1_4.getNamespace();
+    default:
     }
     return null;
   }

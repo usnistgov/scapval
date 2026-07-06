@@ -220,12 +220,12 @@
             content="full" reported="true"/&gt;~ &lt;oval-res:definition_error content="full" reported="true"/&gt;~ &lt;oval-res:definition_not_evaluated
             content="full" reported="true"/&gt;~ &lt;oval-res:definition_not_applicable content="full" reported="true"/&gt; ~&lt;/oval-res:directives&gt;~~When
             creating the OVAL System Characteristics as defined by the &lt;oval-sc:oval_system_characteristics&gt; element, the &lt;oval-sc:collected_objects&gt;
-            and &lt;oval-sc:system_data&gt; elements SHALL be provided.
+            element SHALL be provided. The &lt;oval-sc:system_data&gt; element MAY be provided.
         </statement>
         <derived-requirements>
             <derived-requirement id="RES-181-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
                 <statement>Error if oval-res directives definitions have @content='full' or @content is not provided and oval-res:oval_system_characteristics
-                    does not have both oval-res:collected_objects and oval-res:system_data. In that case it is Single Machine Without System Characteristics.
+                    has oval-sc:system_data without oval-sc:collected_objects. The collected_objects element may exist without system_data.
                 </statement>
                 <message>''{0}''</message>
             </derived-requirement>

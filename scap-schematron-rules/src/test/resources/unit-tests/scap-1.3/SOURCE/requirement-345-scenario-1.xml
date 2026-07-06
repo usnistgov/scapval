@@ -23,14 +23,14 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-345-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-345-1" result="WARNING" />
     <!-- Also expect quite a few test to fail because we modified the id to a nonexistent reference -->
     <assert-derived-requirement requirement-id="SRC-169-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-236-2" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-72-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-251-2" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-346-1" result="FAIL" />
-    <assert-derived-requirement requirement-id="SRC-262-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-262-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-38-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
     <assert-derived-requirement requirement-id="SRC-38-3" result="FAIL" />

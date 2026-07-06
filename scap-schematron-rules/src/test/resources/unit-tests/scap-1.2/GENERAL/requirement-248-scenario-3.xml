@@ -23,7 +23,7 @@
   <assertions>
     <assert-derived-requirement requirement-id="SRC-248-2" result="FAIL" />
     <!-- Also expect 214-1 and 331-1 to fail due to the missing CVE reference -->
-    <assert-derived-requirement requirement-id="SRC-214-1" result="FAIL" />
+    <assert-derived-requirement requirement-id="SRC-214-1" result="WARNING" />
     <assert-derived-requirement requirement-id="SRC-331-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>

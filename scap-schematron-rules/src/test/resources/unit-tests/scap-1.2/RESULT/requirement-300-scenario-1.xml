@@ -24,13 +24,13 @@
 
     </assessments>
     <assertions>
-        <assert-derived-requirement requirement-id="RES-300-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-300-1" result="WARNING"/>
         <!-- Also expect a few other tests to fail since we're just removing the entire report-request for this test -->
-        <assert-derived-requirement requirement-id="A-24-1" result="FAIL"/>
-        <assert-derived-requirement requirement-id="RES-323-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="A-24-1" result="WARNING"/>
+        <assert-derived-requirement requirement-id="RES-323-1" result="WARNING"/>
         <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
         <assert-derived-requirement requirement-id="RES-258-1" result="NOT_APPLICABLE"/>
-        <assert-derived-requirement requirement-id="RES-366-1" result="FAIL"/>
+        <assert-derived-requirement requirement-id="RES-366-1" result="WARNING"/>
         <assert-remaining quantifier="ALL" result="PASS"/>
     </assertions>
 </content-unit-test>
