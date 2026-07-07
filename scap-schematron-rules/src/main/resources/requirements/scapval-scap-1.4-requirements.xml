@@ -223,8 +223,13 @@
             element SHALL be provided. The &lt;oval-sc:system_data&gt; element MAY be provided.
         </statement>
         <derived-requirements>
-            <derived-requirement id="RES-181-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>Error if oval-res directives definitions have @content='full' or @content is not provided and oval-res:oval_system_characteristics
+            <!-- RES-181-1 is intentionally SHOULD (warning) rather than MUST (error)
+                 for SCAP 1.4: an oval_system_characteristics with oval-sc:system_data
+                 but no oval-sc:collected_objects is surfaced as a warning instead of
+                 blocking validation. Reversible deviation from the SP 800-126 Rev. 4
+                 Section 4.6 SHALL language. -->
+            <derived-requirement id="RES-181-1" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>Warn if oval-res directives definitions have @content='full' or @content is not provided and oval-res:oval_system_characteristics
                     has oval-sc:system_data without oval-sc:collected_objects. The collected_objects element may exist without system_data.
                 </statement>
                 <message>''{0}''</message>
