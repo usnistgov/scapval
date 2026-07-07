@@ -62,6 +62,12 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 		</dependency>
+
+		<!-- BouncyCastle provider for signature certificate-path validation (issue #40) -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk18on</artifactId>
+		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>org.apache.santuario</groupId> -->
 		<!-- <artifactId>xmlsec</artifactId> -->
