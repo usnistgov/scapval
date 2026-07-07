@@ -17,7 +17,7 @@
     </schematron-assessment>
   </assessments>
   <assertions>
-    <assert-derived-requirement requirement-id="SRC-25-1" result="NOT_TESTED" />
+    <assert-derived-requirement requirement-id="SRC-25-1" result="FAIL" />
     <assert-remaining quantifier="ALL" result="PASS" />
   </assertions>
 </content-unit-test>
