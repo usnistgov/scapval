@@ -2437,11 +2437,22 @@
         </statement>
         <derived-requirements>
             <derived-requirement id="SRC-5-1" type="MUST" scapval-ext:check-type="SCHEMATRON">
-                <statement>The &lt;xccdf:status&gt; element SHALL have value 'draft' or 'accepted'</statement>
+                <statement>The &lt;xccdf:status&gt; element SHALL have a valid XCCDF status value: 'draft', 'accepted', 'incomplete', 'interim', or 'deprecated'.</statement>
                 <message>''{0}''</message>
             </derived-requirement>
             <derived-requirement id="SRC-5-2" type="MUST" scapval-ext:check-type="SCHEMATRON">
                 <statement>The "date" attribute of the &lt;xccdf:status&gt; element SHALL be populated with the date of the last status change.</statement>
+                <message>''{0}''</message>
+            </derived-requirement>
+            <!-- SRC-5-3 is intentionally SHOULD (warning) rather than MUST (error).
+                 SP 800-126 Section 3.2.2 requires the <xccdf:status> text value to be
+                 'draft' or 'accepted'. Other valid XCCDF status values ('incomplete',
+                 'interim', 'deprecated') are surfaced as a warning instead of failing
+                 validation, e.g. to accommodate 'sunset'/deprecated benchmarks. This is a
+                 reversible deviation from that SHALL language; genuinely invalid values
+                 remain an error via SRC-5-1. -->
+            <derived-requirement id="SRC-5-3" type="SHOULD" scapval-ext:check-type="SCHEMATRON">
+                <statement>Per SP 800-126 Section 3.2.2, the &lt;xccdf:status&gt; element SHOULD have value 'draft' or 'accepted'. Other valid XCCDF status values ('incomplete', 'interim', 'deprecated') are permitted but reported as a warning.</statement>
                 <message>''{0}''</message>
             </derived-requirement>
         </derived-requirements>

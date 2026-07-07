@@ -132,6 +132,7 @@
     <sch:rule id="scap-general-xccdf-status-rule-value-date" context="xccdf:status">
       <sch:assert id="scap-general-xccdf-status-rule-value-date-1" test="matches(normalize-space(.), '^(draft|accepted|interim|incomplete|deprecated)$')">SRC-5-1</sch:assert>
       <sch:assert id="scap-general-xccdf-status-rule-value-date-2" test="@date ne ''">SRC-5-2</sch:assert>
+      <sch:assert id="scap-general-xccdf-status-rule-value-date-3" test="normalize-space(.) eq 'draft' or normalize-space(.) eq 'accepted' or not(matches(normalize-space(.), '^(draft|accepted|interim|incomplete|deprecated)$'))">SRC-5-3</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="scap-additional-rules">
