@@ -1281,8 +1281,9 @@ public class Application {
         for (Element ovalComponent : ovalComponents) {
           OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
           if (ovalVersion == null) {
-            throw new SCAPException(
-                "Unable to find valid OVAL version in: " + XMLContentToValidate.getOriginalLocation().getPath());
+            throw new SCAPException("Unable to find a supported OVAL version in: "
+                + XMLContentToValidate.getOriginalLocation().getPath() + "; supported OVAL versions are: "
+                + OVALVersion.getSupportedVersions());
           }
         }
       }
@@ -1297,8 +1298,9 @@ public class Application {
         for (Element ovalComponent : ovalResults) {
           OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
           if (ovalVersion == null) {
-            throw new SCAPException("Unable to find valid OVAL results version in: "
-                + XMLContentToValidate.getOriginalLocation().getPath());
+            throw new SCAPException("Unable to find a supported OVAL results version in: "
+                + XMLContentToValidate.getOriginalLocation().getPath() + "; supported OVAL versions are: "
+                + OVALVersion.getSupportedVersions());
           }
         }
       }

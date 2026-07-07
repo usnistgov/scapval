@@ -70,7 +70,7 @@ public enum SCAPVersion {
   V1_4(
       "1.4",
       new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
-      OVALVersion.V5_12_2,
+      OVALVersion.V5_12_3,
       OCILVersion.V2_0,
       XccdfVersion.V1_2,
       CPEVersion.V2_3,

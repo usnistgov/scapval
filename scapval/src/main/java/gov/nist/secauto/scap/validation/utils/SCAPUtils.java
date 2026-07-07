@@ -128,6 +128,12 @@ public class SCAPUtils {
           + "()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
           + ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
       break;
+    case V1_4:
+      // SCAP 1.4 results use the same ARF 1.1 content wrapper as SCAP 1.3.
+      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and local-name"
+          + "()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
+          + ".gov/schema/asset-reporting-format/1.1' and local-name()='content']/*:oval_results";
+      break;
     default:
     }
 

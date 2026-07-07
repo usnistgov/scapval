@@ -36,6 +36,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11_1.getVersionString(), "5.11.1");
     Assert.assertEquals(OVALVersion.V5_11_2.getVersionString(), "5.11.2");
     Assert.assertEquals(OVALVersion.V5_12_2.getVersionString(), "5.12.2");
+    Assert.assertEquals(OVALVersion.V5_12_3.getVersionString(), "5.12.3");
   }
 
   @Test
@@ -44,6 +45,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11_1.getSchemaDir(), "xsd/mitre/oval/oval_5.11.1/");
     Assert.assertEquals(OVALVersion.V5_11_2.getSchemaDir(), "xsd/mitre/oval/oval_5.11.2/");
     Assert.assertEquals(OVALVersion.V5_12_2.getSchemaDir(), "xsd/mitre/oval/oval_5.12.2/");
+    Assert.assertEquals(OVALVersion.V5_12_3.getSchemaDir(), "xsd/mitre/oval/oval_5.12.3/");
   }
 
   @Test
@@ -52,6 +54,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11_1.getDefinitionSchematron(), "oval-definitions-schematron-5.11.1.sch");
     Assert.assertEquals(OVALVersion.V5_11_2.getDefinitionSchematron(), "oval-definitions-schematron-5.11.2.sch");
     Assert.assertEquals(OVALVersion.V5_12_2.getDefinitionSchematron(), "oval-definitions-schematron-5.12.2.sch");
+    Assert.assertEquals(OVALVersion.V5_12_3.getDefinitionSchematron(), "oval-definitions-schematron-5.12.3.sch");
   }
 
   @Test
@@ -60,6 +63,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(), "oval-results-schematron-5.11.1.sch");
     Assert.assertEquals(OVALVersion.V5_11_2.getResultSchematron(), "oval-results-schematron-5.11.2.sch");
     Assert.assertEquals(OVALVersion.V5_12_2.getResultSchematron(), "oval-results-schematron-5.12.2.sch");
+    Assert.assertEquals(OVALVersion.V5_12_3.getResultSchematron(), "oval-results-schematron-5.12.3.sch");
   }
 
   @Test
@@ -68,14 +72,29 @@ public class OVALVersionTest {
         "oval-system-characteristics-schematron-5.11.2.sch");
     Assert.assertEquals(OVALVersion.V5_12_2.getSystemCharacteristicsSchematron(),
         "oval-system-characteristics-schematron-5.12.2.sch");
+    Assert.assertEquals(OVALVersion.V5_12_3.getSystemCharacteristicsSchematron(),
+        "oval-system-characteristics-schematron-5.12.3.sch");
   }
 
   @Test
-  public void getByStringAccepts512Variants() throws Exception {
-    Assert.assertEquals(OVALVersion.V5_12_2, OVALVersion.getByString("5.12"));
-    Assert.assertEquals(OVALVersion.V5_12_2, OVALVersion.getByString("5.12.1"));
+  public void getByStringAcceptsOnlyConcreteVersions() throws Exception {
+    // Exact vendored versions resolve.
     Assert.assertEquals(OVALVersion.V5_12_2, OVALVersion.getByString("5.12.2"));
-    Assert.assertEquals(OVALVersion.V5_12_2, OVALVersion.getByString("5.12.x"));
+    Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString("5.12.3"));
+    // Surrounding whitespace is trimmed.
+    Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString(" 5.12.3 "));
+    // Unvendored / partial 5.12.x values are rejected (null), not silently mapped to another bundle.
+    Assert.assertNull(OVALVersion.getByString("5.12"));
+    Assert.assertNull(OVALVersion.getByString("5.12.1"));
+    Assert.assertNull(OVALVersion.getByString("5.12.4"));
+    Assert.assertNull(OVALVersion.getByString("5.12.x"));
+  }
+
+  @Test
+  public void isSchematronEnabled() throws Exception {
+    Assert.assertTrue(OVALVersion.V5_11_2.isSchematronEnabled());
+    Assert.assertFalse(OVALVersion.V5_12_2.isSchematronEnabled());
+    Assert.assertFalse(OVALVersion.V5_12_3.isSchematronEnabled());
   }
 
 }

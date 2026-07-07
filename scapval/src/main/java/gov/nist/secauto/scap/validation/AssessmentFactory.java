@@ -327,9 +327,11 @@ public class AssessmentFactory {
     Objects.requireNonNull(ovalVersion, "ovalVersion cannot be null.");
     Objects.requireNonNull(contentType, "contentType cannot be null.");
 
-    if (ovalVersion == OVALVersion.V5_12_2) {
-      // Skip 5.12.2 until the schematron rules are provided by OVAL Community
-      log.warn("Skipping OVAL 5.12.2 schematron assessments (temporary disable).");
+    if (!ovalVersion.isSchematronEnabled()) {
+      // No vetted standalone OVAL schematron rules exist for this version (the OVAL Community has
+      // not published them for the 5.12 line), so skip OVAL schematron assessments for it.
+      log.warn("Skipping OVAL {} schematron assessments; no vetted OVAL Community rules for this version.",
+          ovalVersion.getVersionString());
       return Collections.emptyList();
     }
 

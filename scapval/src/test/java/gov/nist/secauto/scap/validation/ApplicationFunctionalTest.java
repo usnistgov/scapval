@@ -92,6 +92,16 @@ public class ApplicationFunctionalTest {
   }
 
   @Test
+  public void CompleteResultRunOVAL5123() {
+    try {
+      new Application().runCLI(new String[] { "-scapversion", "1.4", "-resultfile",
+          "src/test/resources/candidates/scap-14/ARF-results-oval5123.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
   public void CompleteComponentRun() {
     try {
       new Application().runCLI(new String[] { "-componentfile",

@@ -218,6 +218,25 @@ public class SCAPFileValidationTest {
   }
 
   @Test
+  public void SCAP14SourceOVAL5123ExpectPass() throws Exception {
+    String testFile = new File(
+        new URL("classpath:src/test/resources/candidates/scap-14/source_data_stream_collection_sample-oval5123.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults
+        = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_4)
+            .useCase("CONFIGURATION").isOnline(true).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+    for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
+        .getBaseRequirementResults()) {
+      if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
+        // a SCAP 1.4 source datastream declaring embedded OVAL 5.12.3 should have no status FAIL
+        Assert.fail("Should not have had a result with FAIL.");
+      }
+    }
+  }
+
+  @Test
   public void SCAP14SourceExpectFail() throws Exception {
     boolean passed = true;
     String testFile = new File(

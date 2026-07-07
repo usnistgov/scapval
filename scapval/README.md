@@ -13,6 +13,8 @@ Additionally, SCAPVal checks components and data streams against appropriate sch
 
 Stand-alone XCCDF, OVAL, and OCIL files, separate from SCAP can also be validated using -componentfile.
 
+SCAPVal validates OVAL content offline against locally bundled OVAL Language schemas (OVAL 5.3 through 5.12.3); SCAP 1.4 validates embedded OVAL against OVAL 5.12.3. All OVAL schema references resolve to the bundled schemas through an XML catalog, so validation requires no network access. Only concrete, bundled OVAL versions are accepted: an unrecognized or unbundled OVAL schema_version (for example, a future 5.12.x patch) is reported as unsupported rather than silently validated against a different version. OVAL 6.0 is out of scope. Standalone OVAL Schematron checks for the 5.12 line are currently skipped pending vetted rules from the OVAL Community.
+
 The `-auto` option accepts any SCAP XML file or a directory of XML files and automatically detects content type (source, result, or component) and SCAP version.
 
 SCAP XML content can be signed and signatures verified as well, see usage -h for details.

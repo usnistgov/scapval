@@ -86,15 +86,27 @@ public enum OVALVersion {
           "oval-results-schematron-5.11.2.sch", "oval-system-characteristics-schematron-5.11.2.sch" }),
   V5_12_2(
       new String[] { "xsd/mitre/oval/oval_5.12.2/", "oval-definitions-schematron-5.12.2.sch",
-          "oval-results-schematron-5.12.2.sch", "oval-system-characteristics-schematron-5.12.2.sch" });
+          "oval-results-schematron-5.12.2.sch", "oval-system-characteristics-schematron-5.12.2.sch" }, false),
+  V5_12_3(
+      new String[] { "xsd/mitre/oval/oval_5.12.3/", "oval-definitions-schematron-5.12.3.sch",
+          "oval-results-schematron-5.12.3.sch", "oval-system-characteristics-schematron-5.12.3.sch" }, false);
   // V5_11_2(
   // new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
   // "oval-results-schematron-5.11.2.sch" });
 
   private String[] validationFiles;
+  // Whether vetted standalone OVAL schematron rules are available and should run for this version.
+  // The OVAL Community has not published standalone schematron for the 5.12 line, so 5.12.2 and
+  // 5.12.3 disable it; all earlier versions keep it enabled.
+  private boolean schematronEnabled;
 
   OVALVersion(String[] validationFiles) {
+    this(validationFiles, true);
+  }
+
+  OVALVersion(String[] validationFiles, boolean schematronEnabled) {
     this.validationFiles = validationFiles;
+    this.schematronEnabled = schematronEnabled;
   }
 
   /**
@@ -112,11 +124,10 @@ public enum OVALVersion {
         return version;
       }
     }
-    // Accept any 5.12.* variants (e.g., 5.12, 5.12.1, 5.12.x) by mapping them to 5.12.2 since
-    // SCAP 1.4 requires the 5.12 schema family and 5.12.2 is the newest release bundled.
-    if (normalizedVersion.startsWith("5.12")) {
-      return OVALVersion.V5_12_2;
-    }
+    // Only concrete, vendored OVAL versions are accepted. Unrecognized values -- including
+    // unvendored 5.12.x patch strings (e.g., 5.12, 5.12.1, a future 5.12.4) -- return null so
+    // callers can fail with a clear, version-specific message instead of silently validating
+    // against a different schema bundle.
     return null;
   }
 
@@ -144,6 +155,32 @@ public enum OVALVersion {
 
   public String getVersionString() {
     return this.toString().replace("_", ".").replace("V", "");
+  }
+
+  /**
+   * Indicates whether OVAL schematron assessments are enabled for this version.
+   *
+   * @return true if vetted OVAL schematron rules should run, false to skip them
+   */
+  public boolean isSchematronEnabled() {
+    return schematronEnabled;
+  }
+
+  /**
+   * Returns all OVAL versions supported by this build of SCAPVal.
+   *
+   * @return a comma-separated String of the supported OVAL versions
+   */
+  public static String getSupportedVersions() {
+    StringBuilder builder = new StringBuilder();
+    OVALVersion[] versions = values();
+    for (int i = 0; i < versions.length; i++) {
+      if (i > 0) {
+        builder.append(", ");
+      }
+      builder.append(versions[i].getVersionString());
+    }
+    return builder.toString();
   }
 
   /**

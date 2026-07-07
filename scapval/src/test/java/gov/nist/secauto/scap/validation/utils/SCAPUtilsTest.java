@@ -61,4 +61,19 @@ public class SCAPUtilsTest {
     Assert.assertEquals(OVALElements13.size(), 2);
   }
 
+  @Test
+  public void getOVALResultsFromSCAPContent() throws Exception {
+    // SCAP 1.4 result content wraps OVAL results in an ARF 1.1 content element (same as SCAP 1.3).
+    // Regression guard: before the V1_4 case existed, this returned null for SCAP 1.4 results.
+    final File resultDatastream14 = new File(
+        new URL("classpath:src/test/resources/candidates/scap-14/ARF-results.xml").getFile());
+    List<Element> ovalResults14
+        = SCAPUtils.getOVALResultsFromSCAPContent(new JDOMDocument(resultDatastream14), SCAPVersion.V1_4);
+    Assert.assertNotNull("SCAP 1.4 OVAL result extraction should not be null", ovalResults14);
+    Assert.assertFalse("SCAP 1.4 OVAL result extraction should find oval_results", ovalResults14.isEmpty());
+    for (Element ovalResult : ovalResults14) {
+      Assert.assertEquals("oval_results", ovalResult.getName());
+    }
+  }
+
 }

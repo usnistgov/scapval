@@ -86,6 +86,44 @@ public class ComponentFileValidationTest {
   }
 
   @Test
+  public void OVAL5123PassTest() throws Exception {
+    String testFile = new File(new URL(
+        "classpath:src/test/resources/candidates" + "/components/oval/oval-vulnerability-remote-code-exec-5-12-3.xml")
+            .getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+    for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
+        .getBaseRequirementResults()) {
+      if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
+        // a schema-valid OVAL 5.12.3 component should have no status FAIL
+        Assert.fail("Should not have had a result with FAIL.");
+      }
+    }
+  }
+
+  @Test
+  public void OVAL5123FailTest() throws Exception {
+    boolean passed = true;
+    String testFile = new File(new URL("classpath:src/test/resources/candidates"
+        + "/components/oval/oval-vulnerability-remote-code-exec-5-12-3-ERROR.xml").getFile()).getAbsolutePath();
+    SCAPValAssessmentResults assessmentResults = new SCAPValWrapper.Builder()
+        .submissionType(Application.ContentType.COMPONENT).submissionFileLocation(testFile).run();
+    // assure many results were generated
+    Assert.assertTrue(assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+    for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
+        .getBaseRequirementResults()) {
+      if (baseRequirementResult.getStatus().equals(ResultStatus.FAIL)) {
+        passed = false;
+      }
+    }
+    if (passed) {
+      Assert.fail("There should have been a failed assessment.");
+    }
+  }
+
+  @Test
   public void OCILPassTest() throws Exception {
     String testFile
         = new File(new URL("classpath:src/test/resources/candidates" + "/components/ocil/R2100-OCIL.xml").getFile())
