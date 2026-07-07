@@ -32,9 +32,13 @@
   
   <sch:let name="datafiles_directory" value="'datafiles'"/>
 
+  <sch:pattern id="scap-general-xccdf-description">
+    <sch:rule id="scap-general-xccdf-description-rule" context="xccdf:Benchmark | xccdf:Profile | xccdf:Value | xccdf:Group | xccdf:Rule">
+      <sch:assert id="scap-general-xccdf-description" test="exists(xccdf:description)">SRC-10-1|<sch:value-of select="concat('xccdf:', local-name(), ' ', @id)"/></sch:assert>
+    </sch:rule>
+  </sch:pattern>
   <sch:pattern id="scap-general">
     <sch:rule id="scap-general-xccdf-benchmark" context="xccdf:Benchmark">
-      <sch:assert id="scap-general-xccdf-description" test="every $m in (. union .//xccdf:Profile union .//xccdf:Value union .//xccdf:Group union .//xccdf:Rule) satisfies exists($m/xccdf:description)">SRC-10-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-lang-required" test="exists(@xml:lang)">SRC-2-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-no-check-content-check" test="not(exists(.//xccdf:check-content))">SRC-25-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
       <sch:assert id="scap-general-xccdf-benchmark-val-forbid" test="not(exists(.//xccdf:Value//xccdf:source)) and not(exists(.//xccdf:Value//xccdf:complex-value)) and not(exists(.//xccdf:Value//xccdf:complex-default)) and not(exists(.//xccdf:Value//xccdf:choices//xccdf:complex-choice))">SRC-276-1|xccdf:Benchmark <sch:value-of select="@id"/></sch:assert>
