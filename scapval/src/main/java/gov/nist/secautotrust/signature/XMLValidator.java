@@ -33,6 +33,7 @@ import gov.nist.secautotrust.signature.model.ISignatureValidationResult;
 import gov.nist.secautotrust.signer.MappedURIDereferencer;
 import gov.nist.secautotrust.util.Util;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -46,6 +47,7 @@ import java.security.KeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PublicKey;
+import java.security.Security;
 import java.security.SignatureException;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathBuilderException;
@@ -80,6 +82,18 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class XMLValidator {
+
+  // Tentative fix for usnistgov/scapval#40: the "BC" provider is requested during multi-cert
+  // certificate-path validation (buildAndVerifyCertificateChain) but was neither bundled nor
+  // registered, so -validatesignature crashed with "no such provider: BC". Registering it here
+  // (lowest preference, guarded) satisfies those lookups without affecting other providers.
+  // Unverified end to end pending reporter reproduction; see https://github.com/usnistgov/scapval/issues/40
+  static {
+    if (Security.getProvider("BC") == null) {
+      Security.addProvider(new BouncyCastleProvider());
+    }
+  }
+
   public static List<ISignatureValidationResult> validateContent(ValidateSigConfig config)
       throws TMSADException, ParserConfigurationException, IOException, SAXException, XMLSignatureException {
     // Instantiate the document to be validated

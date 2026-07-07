@@ -26,6 +26,7 @@
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
 		<version.decima>0.7.1</version.decima>
 		<version.cpe-reference-implementation>1.0.8</version.cpe-reference-implementation>
+		<version.bouncycastle>1.83</version.bouncycastle>
 		<plugin.version.swid-maven-plugin>0.6.1</plugin.version.swid-maven-plugin>
 
 		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
@@ -145,6 +146,13 @@
 				<groupId>com.sun.xml.bind</groupId>
 				<artifactId>jaxb-impl</artifactId>
 				<version>2.3.5</version>
+			</dependency>
+
+			<!-- BouncyCastle provider for signature certificate-path validation (issue #40) -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk18on</artifactId>
+				<version>${version.bouncycastle}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
