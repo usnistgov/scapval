@@ -69,6 +69,24 @@ public class ScapDocumentSnifferTest {
   }
 
   @Test
+  public void testOvalVariables() throws Exception {
+    final File ovalFile = new File(
+        new URL("classpath:src/test/resources/candidates/components/oval/oval-variables-5-12-3.xml").getFile());
+
+    assertEquals(NamespaceConstants.NS_OVAL_VAR_5.getNamespaceString(),
+        this.sniffer.findContentType(ovalFile.getAbsolutePath()));
+  }
+
+  @Test
+  public void testOvalSystemCharacteristics() throws Exception {
+    final File ovalFile = new File(new URL(
+        "classpath:src/test/resources/candidates/components/oval/oval-system-characteristics-5-12-3.xml").getFile());
+
+    assertEquals(NamespaceConstants.NS_OVAL_SC_5.getNamespaceString(),
+        this.sniffer.findContentType(ovalFile.getAbsolutePath()));
+  }
+
+  @Test
   public void testFileNotFound() {
     assertNull(this.sniffer.findContentType("foobar.txt"));
   }
@@ -139,6 +157,12 @@ public class ScapDocumentSnifferTest {
         ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_XCCDF_1_2.getNamespaceString()));
     assertEquals(ContentType.COMPONENT,
         ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OVAL_RES_5.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OVAL_SC_5.getNamespaceString()));
+    assertEquals(ContentType.COMPONENT,
+        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OVAL_VAR_5.getNamespaceString()));
     assertEquals(ContentType.COMPONENT,
         ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_OCIL_2_0.getNamespaceString()));
     assertEquals(ContentType.COMPONENT,

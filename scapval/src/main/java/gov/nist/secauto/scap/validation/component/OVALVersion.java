@@ -248,6 +248,29 @@ public enum OVALVersion {
   }
 
   /**
+   * Returns the Variables Schematron filename.
+   * <p>
+   * Returns {@code null} for every bundled version today, because the OVAL Community has not
+   * published vetted Schematron rules for OVAL variables. To enable them later, drop the
+   * {@code oval-variables-schematron-<version>.sch} file into {@code resources/rules/other/} and add
+   * its filename to the version's {@code validationFiles} array; this getter then returns it and the
+   * assessment runs with no further code change.
+   *
+   * @return the filename as a String, or null if no OVAL variables schematron is bundled for this
+   *         version
+   */
+  public String getVariablesSchematron() {
+    String variablesSchematron = null;
+    for (String validationFile : this.validationFiles) {
+      if (validationFile.contains("variables")) {
+        variablesSchematron = validationFile;
+        break;
+      }
+    }
+    return variablesSchematron;
+  }
+
+  /**
    * Returns a list of applicable OVAL schemas based on provided SCAPVersion and ContentType.
    *
    * @param scapVersion

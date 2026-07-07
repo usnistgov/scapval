@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oval_system_characteristics xmlns="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5"
+                             xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5">
+  <generator>
+    <oval:schema_version>5.12.3</oval:schema_version>
+    <oval:timestamp>2026-01-01T00:00:00</oval:timestamp>
+  </generator>
+  <system_info>
+    <os_name>Test OS</os_name>
+    <os_version>1.0</os_version>
+    <architecture>x86_64</architecture>
+    <primary_host_name>test-host</primary_host_name>
+    <interfaces/>
+  </system_info>
+</oval_system_characteristics>

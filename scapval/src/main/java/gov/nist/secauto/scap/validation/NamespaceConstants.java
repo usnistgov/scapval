@@ -41,6 +41,8 @@ public enum NamespaceConstants {
   NS_OVAL_COM_5("http://oval.mitre.org/XMLSchema/oval-common-5"),
   NS_OVAL_DEF_5("http://oval.mitre.org/XMLSchema/oval-definitions-5"),
   NS_OVAL_RES_5("http://oval.mitre.org/XMLSchema/oval-results-5"),
+  NS_OVAL_SC_5("http://oval.mitre.org/XMLSchema/oval-system-characteristics-5"),
+  NS_OVAL_VAR_5("http://oval.mitre.org/XMLSchema/oval-variables-5"),
   NS_CPE_DICT_2("http://cpe.mitre.org/dictionary/2.0"),
   NS_XLINK("http://www.w3.org/1999/xlink"),
   NS_ARF_1_1("http://scap.nist.gov/schema/asset-reporting-format/1.1");

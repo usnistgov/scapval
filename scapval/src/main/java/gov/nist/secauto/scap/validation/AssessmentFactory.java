@@ -227,8 +227,10 @@ public class AssessmentFactory {
       schemaList.add(new StreamSource("classpath:xsd/nist/ocil/2.0/ocil-2.0.xsd"));
       break;
     case OVAL_DEF:
-      // OVAL_DEF and OVAL_RES treated the same, fall through
     case OVAL_RES:
+    case OVAL_SC:
+    case OVAL_VAR:
+      // all OVAL document types share the same version-based schema set, fall through
       log.info("Discovered an OVAL file to validate");
       // OVAL schemas are handled separately based on the schema_version specified
       return createOVALSchemaAssessment(xmlContentToValidate.getJDOMDocument().getRootElement());
@@ -291,14 +293,35 @@ public class AssessmentFactory {
         assessmentGroup.add(ocilSchematronAssessment);
         break;
       case OVAL_DEF:
-        // OVAL_DEF and OVAL_RES treated the same, fall through
       case OVAL_RES:
+      case OVAL_SC:
+        // definitions, results, and system-characteristics share the OVAL schematron loader, which
+        // relies on rule @context to no-op rules that do not apply to the current root element
         Element ovalComponent = xmlContentToValidate.getJDOMDocument().getRootElement();
         OVALVersion ovalVersion = OVALVersion.getOVALVersion(ovalComponent);
         if (ovalVersion == null) {
           throw new SCAPException("Unable to locate a supported oval version via <schema_version> element.");
         }
         assessmentGroup.addAll(createOVALSchematronAssessments(ovalVersion, contentToCheckType));
+        break;
+      case OVAL_VAR:
+        // OVAL variables have their own (currently unbundled) schematron; do not reuse the
+        // definitions/results loader, whose rules do not apply to a variables root
+        Element ovalVarComponent = xmlContentToValidate.getJDOMDocument().getRootElement();
+        OVALVersion ovalVarVersion = OVALVersion.getOVALVersion(ovalVarComponent);
+        if (ovalVarVersion == null) {
+          throw new SCAPException("Unable to locate a supported oval version via <schema_version> element.");
+        }
+        String variablesSchematron = ovalVarVersion.getVariablesSchematron();
+        if (variablesSchematron != null) {
+          Schematron ovalVarSchematron
+              = Factory.newSchematron(new URL("classpath:rules/other/" + variablesSchematron));
+          assessmentGroup.add(Factory.newSchematronAssessment(ovalVarSchematron, null, schematronHandler));
+        } else {
+          // No vetted OVAL variables schematron is bundled for any version yet, so skip it
+          // (COMP-1-2 stays NOT_TESTED); this enables automatically once rules are added.
+          log.warn("Skipping OVAL variables schematron assessments; no vetted OVAL Community rules available.");
+        }
         break;
       default:
       }

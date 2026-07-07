@@ -26,6 +26,7 @@
 
 package gov.nist.secauto.scap.validation;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
@@ -106,6 +107,61 @@ public class ApplicationFunctionalTest {
     try {
       new Application().runCLI(new String[] { "-componentfile",
           "src/test/resources/candidates/components/oval/oval-vulnerability-remote-code-exec-5-10.xml" });
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void CompleteComponentRunOvalVariables() {
+    try {
+      int rc = new Application().runCLI(new String[] { "-componentfile",
+          "src/test/resources/candidates/components/oval/oval-variables-5-12-3.xml" });
+      assertEquals("A valid OVAL variables file should pass validation", 0, rc);
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void CompleteComponentRunOvalSystemCharacteristics() {
+    try {
+      int rc = new Application().runCLI(new String[] { "-componentfile",
+          "src/test/resources/candidates/components/oval/oval-system-characteristics-5-12-3.xml" });
+      assertEquals("A valid OVAL system-characteristics file should pass validation", 0, rc);
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void ComponentRunOvalVariablesErrorFails() {
+    try {
+      int rc = new Application().runCLI(new String[] { "-componentfile",
+          "src/test/resources/candidates/components/oval/oval-variables-5-12-3-ERROR.xml" });
+      assertEquals("A schema-invalid OVAL variables file should fail validation", 1, rc);
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void AutoDetectComponentOvalVariables() {
+    try {
+      int rc = new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/components/oval/oval-variables-5-12-3.xml" });
+      assertEquals("A valid OVAL variables file should pass validation via -auto", 0, rc);
+    } catch (Exception e) {
+      fail("Encountered an unexpected Exception: " + e);
+    }
+  }
+
+  @Test
+  public void AutoDetectComponentOvalSystemCharacteristics() {
+    try {
+      int rc = new Application().runCLI(new String[] { "-auto",
+          "src/test/resources/candidates/components/oval/oval-system-characteristics-5-12-3.xml" });
+      assertEquals("A valid OVAL system-characteristics file should pass validation via -auto", 0, rc);
     } catch (Exception e) {
       fail("Encountered an unexpected Exception: " + e);
     }

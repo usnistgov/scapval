@@ -492,7 +492,8 @@ public class Application {
             "SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
-        .desc("Validate an individual component file. Currently XCCDF/OVAL/OCIL is supported").hasArg().build());
+        .desc("Validate an individual component file. Currently XCCDF, OVAL (definitions, results, "
+            + "system characteristics, variables), and OCIL are supported").hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_AUTO)
         .desc("Validate an SCAP XML file or a directory of XML files with auto-detection of content type "
             + "(source, result, or component) and SCAP version")

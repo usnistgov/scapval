@@ -6,6 +6,10 @@ Version 1.4.3 Updates:
 - Standalone OVAL Schematron for the 5.12 line (5.12.2 and 5.12.3) is not run: no vetted OVAL Community
   schematron rules have been published for these versions, so these checks are intentionally skipped.
   Schema validation still applies to 5.12.x content.
+- Standalone OVAL results, system characteristics, and variables files can now be validated (via
+  -componentfile and -auto). OVAL variables files are schema validated only: no OVAL variables
+  Schematron rules are bundled for any version, so those checks are intentionally skipped (the
+  component Schematron requirement is reported as not tested) pending vetted OVAL Community rules.
 
 Version 1.4.0 Updates:
 - Updates to SCAPVal Embedded OVAL System Characteristics definitions 5.12.2:

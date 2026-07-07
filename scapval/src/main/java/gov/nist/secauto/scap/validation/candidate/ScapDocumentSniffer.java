@@ -140,6 +140,9 @@ public class ScapDocumentSniffer {
         || namespaceUri.equals(NamespaceConstants.NS_XCCDF_1_2.getNamespaceString())
         || namespaceUri.equals(NamespaceConstants.NS_OCIL_2_0.getNamespaceString())
         || namespaceUri.equals(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_OVAL_RES_5.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_OVAL_SC_5.getNamespaceString())
+        || namespaceUri.equals(NamespaceConstants.NS_OVAL_VAR_5.getNamespaceString())
         || namespaceUri.equals(NamespaceConstants.NS_CPE_DICT_2.getNamespaceString())) {
       return ContentType.COMPONENT;
     }
@@ -196,6 +199,8 @@ public class ScapDocumentSniffer {
     // collection of all recognized SCAP namespaces
     private static final String[] SCAP_URIS = { NamespaceConstants.NS_CPE_DICT_2.getNamespaceString(),
         NamespaceConstants.NS_OCIL_2_0.getNamespaceString(), NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(),
+        NamespaceConstants.NS_OVAL_RES_5.getNamespaceString(), NamespaceConstants.NS_OVAL_SC_5.getNamespaceString(),
+        NamespaceConstants.NS_OVAL_VAR_5.getNamespaceString(),
         NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString(),
         NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString(),
         NamespaceConstants.NS_SOURCE_DS_1_3.getNamespaceString(),

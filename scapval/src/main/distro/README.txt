@@ -10,7 +10,7 @@ SCAPVal validates the data stream according to one of the use cases for an SCAP-
 namely Compliance Checking, Vulnerability Scanning, Inventory Scanning, and Other.
 Checks components and data streams against appropriate schemas. Uses Schematron to perform additional checks within and across component data streams.
 
-Stand alone XCCDF, OVAL, and OCIL files, separate from SCAP can also be validated using -componentfile.
+Stand alone XCCDF, OVAL, and OCIL files, separate from SCAP can also be validated using -componentfile or -auto. Supported stand alone OVAL document types are definitions, results, system characteristics, and variables. OVAL variables files are schema validated; OVAL variables Schematron checks are skipped pending vetted rules from the OVAL Community.
 
 The -auto option accepts any SCAP XML file or a directory of XML files and automatically detects content type (source, result, or component) and SCAP version.
 
@@ -79,7 +79,9 @@ scapval <options>
                                files in a directory. Each file is
                                auto-detected for content type and SCAP version
  -componentfile <arg>          Validate an individual component file.
-                               Currently XCCDF/OVAL/OCIL is supported
+                               Currently XCCDF, OVAL (definitions,
+                               results, system characteristics,
+                               variables), and OCIL are supported
  -createsigconfig <arg>        First step to sign content, creates a
                                signing configuration file. Requires 8
                                arguments, see README.txt for details

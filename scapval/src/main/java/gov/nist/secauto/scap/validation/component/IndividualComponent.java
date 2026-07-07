@@ -40,6 +40,8 @@ public enum IndividualComponent {
   XCCDF_1_2(NamespaceConstants.NS_XCCDF_1_2.getNamespaceString(), "XCCDF 1.2"),
   OVAL_DEF(NamespaceConstants.NS_OVAL_DEF_5.getNamespaceString(), "OVAL Definitions"),
   OVAL_RES(NamespaceConstants.NS_OVAL_RES_5.getNamespaceString(), "OVAL Results"),
+  OVAL_SC(NamespaceConstants.NS_OVAL_SC_5.getNamespaceString(), "OVAL System Characteristics"),
+  OVAL_VAR(NamespaceConstants.NS_OVAL_VAR_5.getNamespaceString(), "OVAL Variables"),
   OCIL(NamespaceConstants.NS_OCIL_2_0.getNamespaceString(), "OCIL");
 
   private String namespace;

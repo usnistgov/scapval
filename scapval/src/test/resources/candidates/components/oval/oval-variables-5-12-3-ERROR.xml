@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oval_variables xmlns="http://oval.mitre.org/XMLSchema/oval-variables-5"
+                xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5">
+  <generator>
+    <oval:schema_version>5.12.3</oval:schema_version>
+    <oval:timestamp>2026-01-01T00:00:00</oval:timestamp>
+  </generator>
+  <variables>
+    <!-- ERROR: the required 'datatype' attribute is missing from this variable -->
+    <variable id="oval:com.example.test:var:1" comment="example variable">
+      <value>example</value>
+    </variable>
+  </variables>
+</oval_variables>
