@@ -137,8 +137,9 @@ public class ScapDocumentSnifferTest {
   public void testMapNamespaceToContentType_Source() {
     assertEquals(ContentType.SOURCE,
         ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString()));
-    assertEquals(ContentType.SOURCE,
-        ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString()));
+    // SCAP 1.1 support was removed - the 1.1 source namespace is intentionally unmapped so
+    // 1.1 content is rejected with a message pointing at previous SCAPVal releases
+    assertNull(ScapDocumentSniffer.mapNamespaceToContentType(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString()));
   }
 
   @Test

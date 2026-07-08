@@ -28,7 +28,6 @@ package gov.nist.secauto.scap.validation.utils;
 
 import gov.nist.secauto.scap.validation.Application;
 import gov.nist.secauto.scap.validation.ValidationNotes;
-import gov.nist.secauto.scap.validation.candidate.ZipExpander;
 import gov.nist.secauto.scap.validation.exceptions.ConfigurationException;
 
 import org.apache.commons.codec.binary.Hex;
@@ -358,26 +357,6 @@ public class FileUtils {
       }
     }
     return tempFile;
-  }
-
-  /**
-   * Attempts to delete the specified directory on JVM shutdown.
-   *
-   * @param dir
-   *          the directory to delete
-   */
-  public static void deleteDirOnExit(File dir) {
-    Objects.requireNonNull(dir, "dir can not be null.");
-
-    final ZipExpander zipExpander = new ZipExpander(1024);
-    Runtime.getRuntime().addShutdownHook(new Thread() {
-      public void run() {
-        zipExpander.deleteDirectory(dir);
-        if (dir.exists()) {
-          log.error("Problem cleaning up the extracted content: " + dir.getAbsolutePath());
-        }
-      }
-    });
   }
 
   /**

@@ -124,9 +124,10 @@ public class ScapDocumentSniffer {
       return null;
     }
 
-    // Source data stream namespaces (SCAP 1.2/1.3/1.4 share the same URI; 1.1 is distinct)
-    if (namespaceUri.equals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString())
-        || namespaceUri.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
+    // Source data stream namespace (SCAP 1.2/1.3/1.4 share the same URI)
+    // Note: the SCAP 1.1 source namespace is intentionally NOT mapped here - SCAP 1.1 support
+    // was removed and 1.1 content is rejected with a message pointing at previous releases
+    if (namespaceUri.equals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString())) {
       return ContentType.SOURCE;
     }
 

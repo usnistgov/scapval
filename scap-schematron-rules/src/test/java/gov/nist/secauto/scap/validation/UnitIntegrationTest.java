@@ -46,7 +46,7 @@ public class UnitIntegrationTest {
    * correctly applied.
    */
   private static final java.util.Set<String> VERSION_SPECIFIC_DIRS = java.util.Set.of(
-      "scap-1.1", "scap-1.2", "scap-1.3", "scap-1.4");
+      "scap-1.2", "scap-1.3", "scap-1.4");
 
   @BeforeClass
   public static void initialize() {

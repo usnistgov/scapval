@@ -6,10 +6,13 @@ SCAPVal (the Security Content Automation Protocol Validator) is a Java command-l
 that checks whether SCAP content conforms to the conventions and recommendations in
 [NIST SP 800-126 Rev.4](https://csrc.nist.gov/pubs/sp/800/126/r4/final) and its component-specification
 annex [NIST SP 800-126A Rev.4](https://csrc.nist.gov/pubs/sp/800/126/a/r4/final), with support for
-SCAP 1.1 (legacy), 1.2, 1.3, and 1.4.
+SCAP 1.2, 1.3, and 1.4.
 
 > **New here?** Jump to the [Quickstart](#3-quickstart). The bundled `README.txt` is a terse quick
 > reference; this guide is the complete walkthrough.
+
+> **SCAP 1.1 support was removed**, in line with the SCAP 1.4 final release. If you need to
+> validate SCAP 1.1 content, use a previous SCAPVal release.
 
 ## Contents
 
@@ -54,6 +57,8 @@ It then writes the findings to a machine-readable XML result and a human-readabl
   or sign content).
 - **OVAL 6.0 is out of scope.** Only the bundled OVAL 5.x versions are validated (see
   [Core concepts](#4-core-concepts)).
+- **SCAP 1.1 is not supported.** Support was removed in line with the SCAP 1.4 final release;
+  use a previous SCAPVal release to validate SCAP 1.1 content.
 
 ### How this guide relates to the other docs
 
@@ -160,37 +165,30 @@ SCAPVal validates each SCAP version against the component specification versions
 
 | SCAP | OVAL | XCCDF | OCIL | CPE | CCE | CVSS |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1.1 (legacy) | 5.8 | 1.1.4 | 2.0 | 2.2 | 5 | 2.0 |
 | 1.2 | 5.10.1 | 1.2 | 2.0 | 2.3 | 5 | 2.0 |
 | 1.3 | 5.11.2 | 1.2 | 2.0 | 2.3 | 5 | 3.0 |
 | 1.4 | 5.12.3 | 1.2 | 2.0 | 2.3 | 5 | 3.0 |
 
 The SCAP version is **auto-detected** from the content when you omit `-scapversion`. You can force
-it with `-scapversion 1.2|1.3|1.4` (or `1.1` for legacy content). If the value you pass disagrees
-with the content, SCAPVal reports the mismatch instead of guessing.
+it with `-scapversion 1.2|1.3|1.4`. If the value you pass disagrees with the content, SCAPVal
+reports the mismatch instead of guessing.
 
-> **SCAP 1.1 is legacy and only partially supported.** Validate 1.1 content with `-file` (a ZIP),
-> `-dir`, or `-resultdir` **and an explicit** `-scapversion 1.1`; a 1.1 result also requires
-> `-sourceds`. SCAP 1.1 is **not** accepted by `-auto`. See
-> [Validate SCAP 1.1 content (legacy)](#validate-scap-11-content-legacy).
+> **SCAP 1.1 support was removed**, in line with the SCAP 1.4 final release. Any attempt to
+> validate 1.1 content (`-scapversion 1.1`, ZIP input, or a detected 1.1 data stream) fails with
+> a message pointing at previous SCAPVal releases.
 
 ### Use cases
 
-A source data stream is validated for one SCAP "use case". The valid use cases depend on the
-version, and `-usecase` is **required** when validating a ZIP file or a directory of component
-files (for a single XML data stream the use case is read from the content):
-
-| SCAP | Valid `-usecase` values |
-| --- | --- |
-| 1.1 (legacy) | `CONFIGURATION`, `VULNERABILITY_XCCDF_OVAL`, `SYSTEM_INVENTORY`, `OVAL_ONLY` |
-| 1.2 / 1.3 / 1.4 | `CONFIGURATION`, `VULNERABILITY`, `INVENTORY`, `OTHER` |
+A source data stream is validated for one SCAP "use case", read from the data stream's
+`use-case` attribute. The `-usecase` option can name one explicitly; valid values are
+`CONFIGURATION`, `VULNERABILITY`, `INVENTORY`, and `OTHER`.
 
 ### Content types
 
 | Content type | How to validate it |
 | --- | --- |
-| Source data stream | `-file` (XML for 1.2/1.3/1.4, ZIP for 1.1) or `-dir` (1.1 only) |
-| Result / ARF | `-resultfile` (XML for 1.2/1.3/1.4, ZIP for 1.1) or `-resultdir` (1.1 only) |
+| Source data stream | `-file` |
+| Result / ARF | `-resultfile` |
 | Standalone component | `-componentfile` (XCCDF, OVAL, or OCIL) |
 | Any of the above, detected automatically | `-auto` (a single XML file, or a directory) |
 
@@ -198,8 +196,7 @@ files (for a single XML data stream the use case is read from the content):
 
 `-auto` accepts any SCAP XML file, or a directory of XML files, and detects both the content type
 (source, result, or component) and the SCAP version for you. Pointed at a directory it validates
-every `*.xml` file and writes a batch summary. `-auto` does not accept ZIP input and does not
-support SCAP 1.1 content.
+every `*.xml` file and writes a batch summary. `-auto` does not accept ZIP input.
 
 ### Offline vs. online
 
@@ -240,12 +237,10 @@ The content and action options below are **mutually exclusive** — supply exact
 
 | Option | Argument | Description |
 | --- | --- | --- |
-| `-file` | file | SCAP source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide when validating source files. |
-| `-resultfile` | file | SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide when validating result files. |
-| `-dir` | directory | Directory of individual component SCAP source files. SCAP 1.1 only. |
-| `-resultdir` | directory | Directory of individual component SCAP result files. SCAP 1.1 only. |
+| `-file` | file | SCAP source XML file (SCAP 1.2, 1.3, 1.4). Only provide when validating source files. |
+| `-resultfile` | file | SCAP result XML file (SCAP 1.2, 1.3, 1.4). Only provide when validating result files. |
 | `-componentfile` | file | Validate an individual component file. XCCDF, OVAL (definitions, results, system characteristics, variables), and OCIL are supported. |
-| `-auto` | file or directory | Validate an SCAP XML file or a directory of XML files, auto-detecting content type (source, result, or component) and SCAP version. SCAP 1.1 content is not supported by `-auto`. |
+| `-auto` | file or directory | Validate an SCAP XML file or a directory of XML files, auto-detecting content type (source, result, or component) and SCAP version. |
 | `-batchdir` | directory | **Deprecated** alias for `-auto` on a directory; will be removed in a future release. |
 | `-createsigconfig` | 8 args | First step to sign content: create a signing configuration file. See [Sign content](#sign-content-tmsad). |
 | `-signcontent` | file | Second step to sign content: path to the configuration file created by `-createsigconfig`. |
@@ -257,9 +252,9 @@ The content and action options below are **mutually exclusive** — supply exact
 
 | Option | Argument | Description |
 | --- | --- | --- |
-| `-scapversion` | 1.1 / 1.2 / 1.3 / 1.4 | SCAP version to validate. Auto-detected if not specified; 1.1 is legacy. |
-| `-usecase` | use case | The SCAP use case (see [Use cases](#use-cases)). Required for ZIP or directory input. |
-| `-sourceds` | file | Source data stream to include with results (in the 1.1 data stream for SCAP 1.1, or in the ARF report for 1.2/1.3/1.4). |
+| `-scapversion` | 1.2 / 1.3 / 1.4 | SCAP version to validate. Auto-detected if not specified. |
+| `-usecase` | use case | The SCAP use case (see [Use cases](#use-cases)). |
+| `-sourceds` | file | Source data stream to include with results; it will be included in the ARF report. |
 | `-combinedoutput` | file | Write a copy of the final combined content SCAPVal validates against (combined remote resources and any `-sourceds`). |
 | `-online` | (flag) | Enable download of the latest dictionaries and remote resolution of some components. |
 | `-maxsize` | MiB | Override the maximum download size for remote references (default 50 MiB). |
@@ -302,10 +297,10 @@ For SCAP 1.2/1.3/1.4 the version and use case are auto-detected.
 ./scapval.sh -resultfile my-arf-result.xml
 ```
 
-A SCAP 1.1 result additionally requires the source data stream:
+To include the source data stream with the results, add `-sourceds`:
 
 ```
-./scapval.sh -resultfile my-1.1-result.zip -scapversion 1.1 -usecase CONFIGURATION -sourceds my-source.xml
+./scapval.sh -resultfile my-arf-result.xml -sourceds my-source.xml
 ```
 
 ### Validate a standalone component
@@ -320,21 +315,6 @@ Supported standalone document types are XCCDF, OVAL (definitions, results, syste
 variables), and OCIL. For OVAL variables — and for OVAL 5.12.x content generally — the OVAL
 Schematron requirement is reported `NOT_TESTED` (see
 [Validation layers](#validation-layers-and-oval-schematron-coverage)).
-
-### Validate SCAP 1.1 content (legacy)
-
-SCAP 1.1 requires an explicit `-scapversion 1.1` and does not work with `-auto`:
-
-```
-# 1.1 source as a ZIP
-./scapval.sh -file content.zip -scapversion 1.1 -usecase CONFIGURATION
-
-# 1.1 source as a directory of component files
-./scapval.sh -dir ./components -scapversion 1.1 -usecase CONFIGURATION
-
-# 1.1 result as a directory, with the source data stream
-./scapval.sh -resultdir ./result-components -scapversion 1.1 -usecase CONFIGURATION -sourceds source.xml
-```
 
 ### Batch-validate a directory
 
@@ -546,7 +526,7 @@ SCAPVAL_DIAGNOSTICS=1 ./scapval.sh -file my-source-datastream.xml
 | "Unable to find valid OVAL version" | The content declares an OVAL `schema_version` that is not one of the bundled versions. Only concrete, bundled OVAL 5.x versions are accepted. |
 | Launch fails complaining about the Java version | The selected runtime is missing, invalid, or older than 11. Install a JRE 11+ or point `JAVA_HOME` at one. |
 | "`-usecase` must be provided" | Validating a ZIP or a directory requires `-usecase` (see [Use cases](#use-cases)). |
-| `-auto` fails on SCAP 1.1 content | `-auto` does not support SCAP 1.1. Use `-file`/`-dir`/`-resultdir` with `-scapversion 1.1`. |
+| SCAP 1.1 content is rejected | SCAP 1.1 support was removed, in line with the SCAP 1.4 final release. Use a previous SCAPVal release to validate SCAP 1.1 content. |
 | Remote references are not resolved | Remote resolution is off by default. Add `-online` (and raise `-maxsize` if downloads are large). |
 
 ### FAQ
@@ -567,7 +547,6 @@ are referenced from every result file:
 
 | File | Used for |
 | --- | --- |
-| `scapval-scap-1.1-requirements.xml` | SCAP 1.1 source and result validation. |
 | `scapval-scap-1.2-requirements.xml` | SCAP 1.2 source and result validation. |
 | `scapval-scap-1.3-requirements.xml` | SCAP 1.3 source and result validation. |
 | `scapval-scap-1.4-requirements.xml` | SCAP 1.4 source and result validation. |

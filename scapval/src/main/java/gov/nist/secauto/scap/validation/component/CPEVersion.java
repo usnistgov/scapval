@@ -31,7 +31,6 @@ package gov.nist.secauto.scap.validation.component;
  */
 public enum CPEVersion {
   // schema location, no schematrons
-  V2_2(new String[] { "classpath:xsd/nist/cpe/2.2/cpe-dictionary_2.2.xsd" }),
   V2_3(new String[] { "classpath:xsd/nist/cpe/2.3/cpe-dictionary_2.3.xsd" });
 
   private String[] validationFiles;

@@ -61,11 +61,6 @@ public class SCAPUtils {
     // the SCAP version will determine where to pull the oval components from
     String getOvalComponentXpath = "";
     switch (scapVersion) {
-    case V1_1:
-      // using the composite doc for 1.1 content, then pulling out oval components
-      getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and "
-          + "local-name()='schema_version']/ancestor-or-self::*:check-system-content/*";
-      break;
     case V1_2:
       getOvalComponentXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and "
           + "local-name()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"
@@ -114,10 +109,6 @@ public class SCAPUtils {
     // the SCAP version will determine where to pull the oval components from
     String getOvalResultsXpath = "";
     switch (scapVersion) {
-    case V1_1:
-      getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and local-name"
-          + "()='schema_version']/ancestor-or-self::*:oval_results";
-      break;
     case V1_2:
       getOvalResultsXpath = "//*[namespace-uri()='http://oval.mitre.org/XMLSchema/oval-common-5' and local-name"
           + "()='schema_version']/ancestor-or-self::*[namespace-uri()='http://scap.nist"

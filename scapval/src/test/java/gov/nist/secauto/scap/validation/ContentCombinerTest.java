@@ -57,47 +57,6 @@ public class ContentCombinerTest {
   }
 
   @Test
-  public void combineSCAP11Source() throws Exception {
-
-    final File testDir = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder").getPath());
-
-    XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, null);
-    Assert.assertNotNull(result);
-    Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
-    Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(),
-        "http://scap.nist.gov/schema/data-stream/0.2");
-    Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
-  }
-
-  @Test
-  public void combineSCAP11SourceExtraDir() throws Exception {
-
-    final File testDir
-        = new File(new URL("classpath:src/test/resources/candidates/scap-11/source-folder-extra-dir").getPath());
-
-    XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false, null);
-    Assert.assertNotNull(result);
-    Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
-    Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(),
-        "http://scap.nist.gov/schema/data-stream/0.2");
-    Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
-  }
-
-  public void combineSCAP11Result() throws Exception {
-    //
-    // final String testDir = new File(new
-    // URL("classpath:src/test/resources/candidates/scap-11/source-folder").getFile()).getAbsolutePath();
-    //
-    // XMLDocument result = ContentCombiner.combineSCAP11(testDir, "CONFIGURATION", 50, false,
-    // Application.ContentType.SOURCE);
-    // Assert.assertNotNull(result);
-    // Assert.assertEquals(result.getJDOMDocument().getRootElement().getName(), "data-stream");
-    // Assert.assertEquals(result.getJDOMDocument().getRootElement().getNamespaceURI(),
-    // "http://scap.nist.gov/schema/data-stream/0.2");
-    // Assert.assertEquals(result.getJDOMDocument().getRootElement().getChildren().size(), 6);
-  }
-
-  @Test
   public void mergeARFWithDS() throws Exception {
     final File combinedFile = new File("combinedFile.xml");
     final File arfResult = new File(

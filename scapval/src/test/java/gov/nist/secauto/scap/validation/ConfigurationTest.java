@@ -38,10 +38,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ConfigurationTest {
@@ -127,7 +132,7 @@ public class ConfigurationTest {
   public void testBadOptions3()
       throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
     new Application().parseCLI(new String[] { "-scapversion", "1.0", "-usecase", "CONFIGURATION", "-file",
-        scapTestFile.getAbsolutePath(), "-dir", scapTestFile.getAbsolutePath() });
+        scapTestFile.getAbsolutePath(), "-resultfile", scapTestFile.getAbsolutePath() });
   }
 
   @Test(expected = ParseException.class)
@@ -151,19 +156,29 @@ public class ConfigurationTest {
         .parseCLI(new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-file", "whatfile.xml" });
   }
 
-  @Test(expected = ConfigurationException.class)
+  @Test
   public void testBadOptions7()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
-    new Application().parseCLI(
-        new String[] { "-scapversion", "1.1", "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
+      throws ParseException, SCAPException, IOException, DocumentException, TMSADException {
+    // SCAP 1.1 support was removed - the error must point users at previous SCAPVal releases
+    try {
+      new Application().parseCLI(
+          new String[] { "-scapversion", "1.1", "-usecase", "CONFIGURATION", "-file", scapTestFile.getAbsolutePath() });
+      fail("Expected a ConfigurationException for -scapversion 1.1");
+    } catch (ConfigurationException e) {
+      assertTrue(e.getMessage().contains("use a previous SCAPVal release"));
+    }
   }
 
-  @Test(expected = ConfigurationException.class)
+  @Test
   public void testBadOptions8()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
-    new Application().parseCLI(new String[] { "-scapversion", "1.1",
-        // "-usecase", "CONFIGURATION",
-        "-file", scapTestFile.getAbsolutePath() });
+      throws ParseException, SCAPException, IOException, DocumentException, TMSADException {
+    // SCAP 1.1 support was removed - the error must point users at previous SCAPVal releases
+    try {
+      new Application().parseCLI(new String[] { "-scapversion", "1.1", "-file", scapTestFile.getAbsolutePath() });
+      fail("Expected a ConfigurationException for -scapversion 1.1");
+    } catch (ConfigurationException e) {
+      assertTrue(e.getMessage().contains("use a previous SCAPVal release"));
+    }
   }
 
   @Test(expected = ConfigurationException.class)
@@ -173,17 +188,30 @@ public class ConfigurationTest {
         new String[] { "-scapversion", "1.3", "-usecase", "OVAL_ONLY", "-file", scapTestFile.getAbsolutePath() });
   }
 
-  @Test(expected = ConfigurationException.class)
+  @Test
   public void testBadOptions10()
-      throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
-    new Application().parseCLI(
-        new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-dir", scapTestFile.getAbsolutePath() });
+      throws ParseException, SCAPException, IOException, DocumentException, TMSADException {
+    // ZIP input was supported only for SCAP 1.1 - the error must point users at previous releases
+    File zipFile = File.createTempFile("scapval-test-content", ".zip");
+    zipFile.deleteOnExit();
+    try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipFile))) {
+      zipOutputStream.putNextEntry(new ZipEntry("content.xml"));
+      zipOutputStream.write("<content/>".getBytes(StandardCharsets.UTF_8));
+      zipOutputStream.closeEntry();
+    }
+    try {
+      new Application().parseCLI(new String[] { "-scapversion", "1.2", "-file", zipFile.getAbsolutePath() });
+      fail("Expected a ConfigurationException for ZIP input");
+    } catch (ConfigurationException e) {
+      assertTrue(e.getMessage().contains("use a previous SCAPVal release"));
+    }
   }
 
   @Test(expected = ConfigurationException.class)
   public void testBadOptions11()
       throws ParseException, ConfigurationException, SCAPException, IOException, DocumentException, TMSADException {
-    new Application().parseCLI(new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-dir",
+    // directory input to -file is rejected; a directory of XML files requires -auto
+    new Application().parseCLI(new String[] { "-scapversion", "1.2", "-usecase", "CONFIGURATION", "-file",
         scapTestFile.getParentFile().getAbsolutePath() });
   }
 

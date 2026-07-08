@@ -102,10 +102,6 @@ public class AssessmentFactory {
       this.contentToCheckType = contentType;
       this.xmlContentToValidate = documentToValidate;
       switch (scapVersion) {
-      case V1_1:
-        this.dataStream
-            = new SCAP11DataStream(documentToValidate.getOriginalLocation().getPath(), contentType, this.scapUseCase);
-        break;
       case V1_2:
         this.dataStream = new SCAP12DataStream(documentToValidate.getOriginalLocation().getPath(), contentType);
         break;

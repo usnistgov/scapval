@@ -56,21 +56,6 @@ public class AssessmentFactoryTest {
   }
 
   @Test
-  public void createAssessmentFactory11() throws Exception {
-    XMLDocument SCAP11 = new JDOMDocument(new File(
-        new URL("classpath:src/test/resources/candidates/scap-11/combined/SCAP11CombinedContent.xml").getFile()));
-    AssessmentFactory assessmentFactory
-        = new AssessmentFactory(SCAPVersion.V1_1, "CONFIGURATION", Application.ContentType.SOURCE, SCAP11);
-    SchemaAssessment scapDocumentSchemaAssessment = assessmentFactory.createSCAPSchemaAssessment();
-    // currently should expect at least 40 schemas
-    Assert.assertTrue(scapDocumentSchemaAssessment.getSchemaSources().size() > 40);
-
-    Assessment<XMLDocument> scapDocumentSchematronAssessments = assessmentFactory.createSCAPSchematronAssessments();
-    // currently should expect at least 4
-    Assert.assertTrue(scapDocumentSchematronAssessments.getExecutableAssessments(SCAP11).size() > 3);
-  }
-
-  @Test
   public void createAssessmentFactory12() throws Exception {
     XMLDocument SCAP12 = new JDOMDocument(
         new File(new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
@@ -134,7 +119,6 @@ public class AssessmentFactoryTest {
   @Test
   public void newRequirementsManager() throws Exception {
     // make sure req manager properly loads for each SCAP version
-    checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_1), "scapval-scap-1.1-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_2), "scapval-scap-1.2-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_3), "scapval-scap-1.3-requirements.xml");
     checkRequirementsManager(SCAPValReqManager.getRequirements(SCAPVersion.V1_4), "scapval-scap-1.4-requirements.xml");

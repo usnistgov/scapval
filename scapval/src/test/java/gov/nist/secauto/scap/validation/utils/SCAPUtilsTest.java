@@ -41,12 +41,6 @@ import java.util.List;
 public class SCAPUtilsTest {
   @Test
   public void getOVALComponentsFromSCAPContent() throws Exception {
-    final File datastream11 = new File(
-        new URL("classpath:src/test/resources/candidates/scap-11/combined/SCAP11CombinedContent.xml").getFile());
-    List<Element> OVALElements11
-        = SCAPUtils.getOVALComponentsFromSCAPContent(new JDOMDocument(datastream11), SCAPVersion.V1_1);
-    Assert.assertEquals(OVALElements11.size(), 3);
-
     final File datastream12 = new File(
         new URL("classpath:src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml")
             .getFile());

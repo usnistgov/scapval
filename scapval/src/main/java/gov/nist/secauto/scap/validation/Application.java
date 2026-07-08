@@ -50,7 +50,6 @@ import gov.nist.secauto.decima.xml.document.JDOMDocument;
 import gov.nist.secauto.decima.xml.document.XMLDocument;
 import gov.nist.secauto.decima.xml.schematron.SchematronCompilationException;
 import gov.nist.secauto.scap.validation.candidate.ScapDocumentSniffer;
-import gov.nist.secauto.scap.validation.candidate.ZipExpander;
 import gov.nist.secauto.scap.validation.component.IndividualComponent;
 import gov.nist.secauto.scap.validation.component.OVALVersion;
 import gov.nist.secauto.scap.validation.exceptions.ConfigurationException;
@@ -107,9 +106,7 @@ public class Application {
 
   private static final String OPTION_COMPONENT_FILE = "componentfile";
   private static final String OPTION_COMBINED_CONTENT_OUTPUT = "combinedoutput";
-  private static final String OPTION_DIR = "dir";
   private static final String OPTION_FILE = "file";
-  private static final String OPTION_RESULT_DIR = "resultdir";
   private static final String OPTION_RESULT_FILE = "resultfile";
   private static final String OPTION_MAX_SIZE = "maxsize";
   private static final String OPTION_ONLINE = "online";
@@ -125,6 +122,10 @@ public class Application {
   public static final String OPTION_VALIDATE_SIGNATURE = "validatesignature";
   public static final String OPTION_SHOW_CERTIFICATE = "showcertificate";
   public static final String OPTION_LIST_CERTIFICATE_ALIAS = "listcertificatealias";
+
+  // SCAP 1.1 support was removed; validation of 1.1 content requires a previous SCAPVal release
+  private static final String SCAP_1_1_REMOVED_MESSAGE
+      = "SCAP 1.1 support has been removed. To validate SCAP 1.1 content, use a previous SCAPVal release.";
 
   public enum FileType {
     DIRECTORY,
@@ -476,28 +477,17 @@ public class Application {
     // required SCAP source or results content to check
     // The OptionGroup ensures only 1 of these can be set (mutually exclusive)
     OptionGroup contentToCheck = new OptionGroup();
-    contentToCheck.addOption(Option.builder(OPTION_DIR)
-        .desc("Directory of individual component SCAP files. Provide if validating SCAP 1.1 source files only").hasArg()
-        .build());
     contentToCheck.addOption(Option.builder(OPTION_FILE)
-        .desc(
-            "SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP file "
-                + "(SCAP 1.1). Only provide if validating source files")
-        .hasArg().build());
-    contentToCheck.addOption(Option.builder(OPTION_RESULT_DIR).desc(
-        "Directory of individual component SCAP " + "result files. Provide if validating SCAP 1.1 result files only")
-        .hasArg().build());
+        .desc("SCAP Source XML file (SCAP 1.2, 1.3, 1.4). Only provide if validating source files").hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_RESULT_FILE)
-        .desc(
-            "SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP file (SCAP 1.1). Only provide if validating result files")
-        .hasArg().build());
+        .desc("SCAP result XML file (SCAP 1.2, 1.3, 1.4). Only provide if validating result files").hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF, OVAL (definitions, results, "
             + "system characteristics, variables), and OCIL are supported")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_AUTO)
         .desc("Validate an SCAP XML file or a directory of XML files with auto-detection of content type "
-            + "(source, result, or component) and SCAP version. SCAP 1.1 content is not supported by -auto")
+            + "(source, result, or component) and SCAP version")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_BATCH_DIR)
         .desc("[Deprecated: use -auto instead] Validate all XML files in a directory. "
@@ -529,11 +519,12 @@ public class Application {
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
-        .desc("The SCAP version to validate (auto-detected if not specified). 1.1 (legacy), 1.2, 1.3 and 1.4 "
-            + "are supported")
+        .desc("The SCAP version to validate (auto-detected if not specified). 1.2, 1.3 and 1.4 are supported")
         .hasArg()
         .build();
     OptionEnumerationValidator scapVersionValidator = new OptionEnumerationValidator(optionScapVersion);
+    // "1.1" is accepted at parse time only so validateCLI can reject it with a clear
+    // message pointing users at previous SCAPVal releases (SCAP 1.1 support was removed)
     scapVersionValidator.addAllowedValue("1.1");
     scapVersionValidator.addAllowedValue("1.2");
     scapVersionValidator.addAllowedValue("1.3");
@@ -550,16 +541,12 @@ public class Application {
         .desc("Enable download of latest dictionaries and remote resolution of some components").hasArg(false).build();
     Option optionMaxSize = Option.builder(OPTION_MAX_SIZE)
         .desc("Overwrites the default max download size for remote references (specified in MiB)").hasArg().build();
-    Option optionSourceDS
-        = Option.builder(OPTION_SOURCE_DS)
-            .desc("Specifies the location of the source data stream to include with results. For SCAP 1.1 it will be "
-                + "included in the 1.1 Data Stream, for SCAP 1.2, 1.3 and 1.4 it will included in ARF Report")
-            .hasArg().build();
-    Option optionUseCase = Option.builder(OPTION_USECASE)
-        .desc("The SCAP use case. For 1.1 content CONFIGURATION, VULNERABILITY_XCCDF_OVAL, SYSTEM_INVENTORY, "
-            + "OVAL_ONLY For 1.2/1.3/1.4 content CONFIGURATION, VULNERABILITY, INVENTORY, OTHER This is required for "
-            + "validation of .zip files or a directory of component SCAP files")
+    Option optionSourceDS = Option.builder(OPTION_SOURCE_DS)
+        .desc("Specifies the location of the source data stream to include with results. "
+            + "It will be included in the ARF Report")
         .hasArg().build();
+    Option optionUseCase = Option.builder(OPTION_USECASE)
+        .desc("The SCAP use case. One of CONFIGURATION, VULNERABILITY, INVENTORY, OTHER").hasArg().build();
 
     CLIParser.addOption(optionDatastreamOutput).addOption(optionOnline).addOption(optionMaxSize)
         .addOption(optionSourceDS).addOption(optionUseCase);
@@ -613,15 +600,9 @@ public class Application {
 
     // gather the type of check and file type to check.
     // The OptionGroup ensures only 1 of these can be set (mutually exclusive)
-    if (cmd.getOptionValue(OPTION_DIR) != null) {
-      contentToCheckType = ContentType.SOURCE;
-      contentToCheckFilename = cmd.getOptionValue(OPTION_DIR);
-    } else if (cmd.getOptionValue(OPTION_FILE) != null) {
+    if (cmd.getOptionValue(OPTION_FILE) != null) {
       contentToCheckType = ContentType.SOURCE;
       contentToCheckFilename = cmd.getOptionValue(OPTION_FILE);
-    } else if (cmd.getOptionValue(OPTION_RESULT_DIR) != null) {
-      contentToCheckType = ContentType.RESULT;
-      contentToCheckFilename = cmd.getOptionValue(OPTION_RESULT_DIR);
     } else if (cmd.getOptionValue(OPTION_RESULT_FILE) != null) {
       contentToCheckType = ContentType.RESULT;
       contentToCheckFilename = cmd.getOptionValue(OPTION_RESULT_FILE);
@@ -739,8 +720,13 @@ public class Application {
       exit(0);
     } else {
       throw new ConfigurationException(
-          "Content to validate must be specified with -auto, -dir, -resultdir, -file, -resultfile, -componentfile or "
+          "Content to validate must be specified with -auto, -file, -resultfile, -componentfile or "
               + "for tmsad -signcontent, -validatesignature, -createsigconfig, -showcertificates, -listcertificatealias");
+    }
+
+    // SCAP 1.1 is no longer supported - point users at previous releases
+    if ("1.1".equals(cmd.getOptionValue(OPTION_SCAP_VERSION))) {
+      throw new ConfigurationException(SCAP_1_1_REMOVED_MESSAGE);
     }
 
     // get the scap version from the command line
@@ -750,6 +736,21 @@ public class Application {
     contentToCheckFile = new File(contentToCheckFilename);
     if (!contentToCheckFile.canRead()) {
       throw new ConfigurationException("Unable to read the specified content to validate: " + contentToCheckFilename);
+    }
+
+    // make sure the content specified is an XML file
+    contentToCheckFileType = FileUtils.determineSCAPFileType(contentToCheckFilename);
+
+    switch (contentToCheckFileType) {
+    case DIRECTORY:
+      throw new ConfigurationException(
+          contentToCheckFilename + " is a directory. A directory of XML files can only be validated with -auto");
+    case ZIP:
+      throw new ConfigurationException("ZIP input was supported only for SCAP 1.1. " + SCAP_1_1_REMOVED_MESSAGE);
+    case XML:
+      break;
+    default:
+      throw new ConfigurationException(contentToCheckFilename + " is not valid");
     }
 
     // For validating individual XCCDF, OVAL, and OCIL component files.
@@ -772,13 +773,6 @@ public class Application {
       }
     }
 
-    // per scapval 1.2, is SCAP 1.1 results are checked a -sourceds must be present
-    if ((cmd.getOptionValue(OPTION_RESULT_DIR) != null || cmd.getOptionValue(OPTION_RESULT_FILE) != null)
-        && cmd.getOptionValue(OPTION_SOURCE_DS) == null && scapVersion.equals(SCAPVersion.V1_1)) {
-      throw new ConfigurationException("When -resultfile or -resultdir and SCAP 1.1 is specified, the source content "
-          + "is also required with -sourceds");
-    }
-
     // if -sourceds is specified, make sure we can read it and its file type is appropriate
     if (cmd.getOptionValue(OPTION_SOURCE_DS) != null) {
       sourcedsFilename = cmd.getOptionValue(OPTION_SOURCE_DS);
@@ -787,69 +781,10 @@ public class Application {
         throw new ConfigurationException("Unable to read the -sourceds content specified: " + sourcedsFilename);
       }
       sourcedsFileType = FileUtils.determineSCAPFileType(sourcedsFilename);
-      if (scapVersion.equals(SCAPVersion.V1_1)) {
-        // 1.1 sourceds must be zip or dir
-        if (!sourcedsFileType.equals(FileType.ZIP) && !sourcedsFileType.equals(FileType.DIRECTORY)) {
-          throw new ConfigurationException(
-              "For SCAP 1.1 content the specified -sourceds must be a ZIP file or Directory");
-        }
-
-      } else {
-        // sourceds for 1.2, 1.3 and 1.4 must be a xml file
-        if (!sourcedsFileType.equals(FileType.XML)) {
-          throw new ConfigurationException(
-              "For SCAP 1.2, 1.3 or 1.4 content the specified -sourceds must be a XML file");
-        }
+      // the specified sourceds must be a xml file
+      if (!sourcedsFileType.equals(FileType.XML)) {
+        throw new ConfigurationException("The specified -sourceds must be a XML file");
       }
-    }
-
-    // make sure the content specified matches the correct arg type
-    contentToCheckFileType = FileUtils.determineSCAPFileType(contentToCheckFilename);
-
-    switch (contentToCheckFileType) {
-    case DIRECTORY:
-      if (cmd.getOptionValue(OPTION_FILE) != null || cmd.getOptionValue(OPTION_RESULT_FILE) != null
-          || cmd.getOptionValue(OPTION_COMPONENT_FILE) != null) {
-        throw new ConfigurationException(
-            contentToCheckFilename + " -resultfile is specified so it must be a file, " + "not a directory");
-      }
-      if (cmd.getOptionValue(OPTION_USECASE) == null) {
-        throw new ConfigurationException("When checking directory contents, -usecase must be provided");
-      }
-      if (!scapVersion.equals(SCAPVersion.V1_1)) {
-        throw new ConfigurationException("Directory checks are only supported with SCAP 1.1");
-      }
-      if (contentToCheckType.equals(ContentType.COMPONENT)) {
-        throw new ConfigurationException("Only -file can be used to specify individual component files to validate");
-      }
-      break;
-    case ZIP:
-      if (cmd.getOptionValue(OPTION_AUTO) != null) {
-        throw new ConfigurationException(
-            "-auto requires an XML file, not a ZIP. Use -file or -resultfile for ZIP content.");
-      }
-      if (cmd.getOptionValue(OPTION_FILE) == null && cmd.getOptionValue(OPTION_RESULT_FILE) == null
-          && scapVersion != SCAPVersion.V1_1) {
-        throw new ConfigurationException(
-            contentToCheckFilename + " is a .zip file. Only version SCAP 1.1 checks supports zip");
-      }
-      if (cmd.getOptionValue(OPTION_USECASE) == null) {
-        throw new ConfigurationException("When checking .zip file contents, -usecase must be provided");
-      }
-      if (contentToCheckType.equals(ContentType.COMPONENT)) {
-        throw new ConfigurationException("Only -file can be used to specify individual component files to validate");
-      }
-      break;
-    case XML:
-      if (scapVersion == SCAPVersion.V1_1) {
-        throw new ConfigurationException(contentToCheckFilename + " SCAP 1.1 file checks cannot be XML");
-      }
-      if (cmd.getOptionValue(OPTION_DIR) != null || cmd.getOptionValue(OPTION_RESULT_DIR) != null) {
-        throw new ConfigurationException(contentToCheckFilename + " must be a directory, not a file");
-      }
-      break;
-    default:
-      throw new ConfigurationException(contentToCheckFilename + " is not valid");
     }
 
     if (cmd.hasOption(OPTION_ONLINE)) {
@@ -910,17 +845,9 @@ public class Application {
         combinedOutput = sourcedsCombinedOuput;
       }
 
-      if (scapVersion.equals(SCAPVersion.V1_1)) {
-        // 1.1 the specified XM Lsourceds must be a zip file or dir
-        if (!FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.ZIP)
-            && !FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.DIRECTORY)) {
-          throw new ConfigurationException("-sourceds for 1.1 content must be an ZIP file or Directory");
-        }
-      } else {
-        // 1.2, 1.3 and 1.4 source ds must be an xml file
-        if (!FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.XML)) {
-          throw new ConfigurationException("-sourceds must be an .XML file containing a source-data-stream");
-        }
+      // the specified sourceds must be an xml file
+      if (!FileUtils.determineSCAPFileType(cmd.getOptionValue(OPTION_SOURCE_DS)).equals(FileType.XML)) {
+        throw new ConfigurationException("-sourceds must be an .XML file containing a source-data-stream");
       }
     }
 
@@ -1010,13 +937,12 @@ public class Application {
    *          the path to the SCAP content file
    * @return the detected ContentType, or null if detection fails
    */
-  private static ContentType detectContentType(String filename) {
+  private static ContentType detectContentType(String filename) throws SCAPException {
     String namespace = new ScapDocumentSniffer().findContentType(filename);
     if (namespace != null) {
-      // Check for SCAP 1.1 content which is no longer supported
+      // Check for SCAP 1.1 content - support was removed
       if (namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
-        log.error("SCAP 1.1 content is not supported.");
-        return null;
+        throw new SCAPException(SCAP_1_1_REMOVED_MESSAGE);
       }
       ContentType type = ScapDocumentSniffer.mapNamespaceToContentType(namespace);
       if (type != null) {
@@ -1044,7 +970,7 @@ public class Application {
 
     // All specified args should be validated now, load the SCAP doc/docs to assess
     switch (contentToCheckFileType) {
-    case XML: // xml source for 1.2,1.3 and 1.4 only
+    case XML:
       if (contentToCheckType.equals(ContentType.COMPONENT)) {
         log.info("Validating Component File: " + contentToCheckFilename + " (SHA-256: "
             + FileUtils.getFileHash(contentToCheckFile, FileUtils.DEFAULT_HASH_ALGORITHM) + ")");
@@ -1062,127 +988,6 @@ public class Application {
         // merge the XMLSourceDS with ARF
         ContentCombiner.mergeARFWithDS(XMLContentToValidate, XMLSourceDS, combinedOutput);
         XMLContentToValidate = new JDOMDocument(combinedOutput);
-      }
-      break;
-    case DIRECTORY: // only for SCAP 1.1
-      log.info("Validating Directory: " + contentToCheckFilename);
-      try {
-        // if -sourceds is specified and a result check, include the source
-        if (sourcedsFile != null && contentToCheckType.equals(ContentType.RESULT)) {
-          if (sourcedsFileType.equals(FileType.DIRECTORY)) {
-            log.info("Including -sourceds Directory: " + sourcedsFilename);
-            // create the 1.1 DS from the specified source DIR to include with the result content
-            XMLDocument sourceDSCombined
-                = ContentCombiner.combineSCAP11(sourcedsFile, scapUseCase, maxDownloadSize, isOnline, null);
-            // now include this source ds with the results
-            XMLContentToValidate = ContentCombiner.combineSCAP11(contentToCheckFile, scapUseCase, maxDownloadSize,
-                isOnline, sourceDSCombined);
-            ValidationNotes.getInstance()
-                .createValidationNote("SCAP 1.1 content was merged into single file for validation: "
-                    + XMLContentToValidate.getSystemId() + " The is a temporary file used for validation and is "
-                    + "removed after validation. If you would like to keep it for reference use the "
-                    + "-combinedoutput option.");
-          } else if (sourcedsFileType.equals(FileType.ZIP)) {
-            // the specified -sourceds will need to be extracted first
-            log.info("Including -sourceds ZIP File: " + sourcedsFile.getAbsolutePath());
-            // only for SCAP 1.1, extract the files and then essentially run as directory
-            // afterwards
-            final ZipExpander zipExpander = new ZipExpander(1024);
-            File sourceDSExtractDir = null;
-            sourceDSExtractDir = zipExpander.expand(sourcedsFile);
-            // create the 1.1 DS from the specified source ZIP to include with the result content
-            XMLDocument sourceDSCombined
-                = ContentCombiner.combineSCAP11(sourceDSExtractDir, scapUseCase, maxDownloadSize, isOnline, null);
-            // now include this source ds with the results
-            XMLContentToValidate = ContentCombiner.combineSCAP11(contentToCheckFile, scapUseCase, maxDownloadSize,
-                isOnline, sourceDSCombined);
-            ValidationNotes.getInstance()
-                .createValidationNote("SCAP 1.1 content was merged into single file for validation: "
-                    + XMLContentToValidate.getSystemId() + " The is a temporary file used for validation and is "
-                    + "removed after validation. If you would like to keep it for reference use the "
-                    + "-combinedoutput option.");
-            // clean up the extracted files on JVM exit
-            FileUtils.deleteDirOnExit(sourceDSExtractDir);
-          }
-        } else {
-          // SCAP 1.1
-          XMLContentToValidate
-              = ContentCombiner.combineSCAP11(contentToCheckFile, scapUseCase, maxDownloadSize, isOnline, null);
-          ValidationNotes.getInstance()
-              .createValidationNote("SCAP 1.1 content was merged into single file  for validation: "
-                  + XMLContentToValidate.getSystemId() + " The is a temporary file used for validation and is removed "
-                  + "after validation. If you would like to keep it for reference use the -combinedoutput option.");
-        }
-      } catch (JDOMException e) {
-        throw new IOException("Problem with the directory file contents " + e.getMessage());
-      }
-      break;
-    case ZIP: // only for SCAP 1.1, extract the files and then essentially run as directory
-      // afterwards
-      log.info("Validating ZIP File: " + contentToCheckFilename + " (SHA-256: "
-          + FileUtils.getFileHash(contentToCheckFile, FileUtils.DEFAULT_HASH_ALGORITHM) + ")");
-      final ZipExpander zipExpander = new ZipExpander(1024);
-      File extractDir = null;
-      try {
-        File contentToCheckFile = new File(contentToCheckFilename);
-        extractDir = zipExpander.expand(contentToCheckFile);
-        // if -sourceds is specified and a result check, include the source
-        if (sourcedsFile != null && contentToCheckType.equals(ContentType.RESULT)) {
-          if (sourcedsFileType.equals(FileType.DIRECTORY)) {
-            log.info("Including -sourceds Directory: " + sourcedsFilename);
-            // create the 1.1 DS from the specified source DIR to include with the result content
-            XMLDocument sourceDSCombined
-                = ContentCombiner.combineSCAP11(sourcedsFile, scapUseCase, maxDownloadSize, isOnline, null);
-            // now include this source ds with the results
-            XMLContentToValidate
-                = ContentCombiner.combineSCAP11(extractDir, scapUseCase, maxDownloadSize, isOnline, sourceDSCombined);
-            ValidationNotes.getInstance()
-                .createValidationNote("SCAP 1.1 content was merged into single file for validation: "
-                    + XMLContentToValidate.getSystemId() + " The is a temporary file used for "
-                    + "validation and is removed after validation. If you would like to keep it for "
-                    + "reference use the -combinedoutput option.");
-          } else if (sourcedsFileType.equals(FileType.ZIP)) {
-            // the specified -sourceds will need to be extracted first
-            log.info("Including -sourceds ZIP File: " + sourcedsFile.getAbsolutePath());
-            // only for SCAP 1.1, extract the files and then essentially run as directory
-            // afterwards
-            File sourceDSExtractDir = null;
-            sourceDSExtractDir = zipExpander.expand(sourcedsFile);
-            // create the 1.1 DS from the specified source ZIP to include with the result content
-            XMLDocument sourceDSCombined
-                = ContentCombiner.combineSCAP11(sourceDSExtractDir, scapUseCase, maxDownloadSize, isOnline, null);
-            // now include this source ds with the results
-            XMLContentToValidate
-                = ContentCombiner.combineSCAP11(extractDir, scapUseCase, maxDownloadSize, isOnline, sourceDSCombined);
-            ValidationNotes.getInstance()
-                .createValidationNote("SCAP 1.1 content was merged into single file for validation: "
-                    + XMLContentToValidate.getSystemId() + " The is a temporary file used for "
-                    + "validation and is removed after validation. If you would like to keep it for "
-                    + "reference use the -combinedoutput option.");
-            // clean up the extracted files on JVM exit
-            FileUtils.deleteDirOnExit(sourceDSExtractDir);
-          }
-        } else {
-          // otherwise process the content with no extra source content
-          XMLContentToValidate
-              = ContentCombiner.combineSCAP11(extractDir, scapUseCase, maxDownloadSize, isOnline, null);
-          ValidationNotes.getInstance()
-              .createValidationNote("SCAP 1.1 content was merged into single file " + "for validation: "
-                  + XMLContentToValidate.getSystemId() + " The is a "
-                  + "temporary file used for validation and is removed after validation. If "
-                  + "you would like to keep it for reference use the " + "-combinedoutput option.");
-        }
-      } catch (IOException e) {
-        throw new IOException("Problem extracting zip file " + e.getMessage());
-      } catch (JDOMException e) {
-        throw new IOException("Problem with the zip file contents " + e.getMessage());
-      } finally {
-        // The extracted files are referenced later in the in report generation process
-        // make sure the files are available until when the JVM shuts down, then clean them up
-        if (extractDir != null) {
-          final File extractedDir = extractDir.getAbsoluteFile();
-          FileUtils.deleteDirOnExit(extractedDir);
-        }
       }
       break;
     default:
@@ -1219,12 +1024,6 @@ public class Application {
       String namespace = XMLContentToValidate.getJDOMDocument().getRootElement().getNamespaceURI();
       if (contentToCheckType.equals(ContentType.SOURCE)) {
         switch (scapVersion) {
-        case V1_1:
-          if (!namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
-            throw new SCAPException("Unable to find the expected namespace for source content: "
-                + NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString());
-          }
-          break;
         case V1_2:
           if (!namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_2.getNamespaceString())) {
             throw new SCAPException("Unable to find the expected namespace for source content: "
@@ -1249,9 +1048,6 @@ public class Application {
         }
       } else if (contentToCheckType.equals(ContentType.RESULT)) {
         switch (scapVersion) {
-        case V1_1:
-          // there is no namespace for 1.1 results, only components
-          break;
         case V1_2:
           if (!namespace.equals(NamespaceConstants.NS_RESULTS_DS_1_2.getNamespaceString())) {
             throw new SCAPException("Unable to find the expected namespace for result content: "

@@ -48,7 +48,6 @@ public class SCAPValReqManager {
   private static final String REQUIREMENTS_SCHEMA = "classpath:scapval-xsd/scapval-requirements-ext.xsd";
   private static final String COMPONENTS_REQUIREMENTS
       = "classpath:requirements/scapval-individual-component-requirements.xml";
-  private static final String SCAP11_REQUIREMENTS = "classpath:requirements/scapval-scap-1.1-requirements.xml";
   private static final String SCAP12_REQUIREMENTS = "classpath:requirements/scapval-scap-1.2-requirements.xml";
   private static final String SCAP13_REQUIREMENTS = "classpath:requirements/scapval-scap-1.3-requirements.xml";
   private static final String SCAP14_REQUIREMENTS = "classpath:requirements/scapval-scap-1.4-requirements.xml";
@@ -72,9 +71,6 @@ public class SCAPValReqManager {
         requirementsManager.load(new URL(COMPONENTS_REQUIREMENTS), parser);
       } else {
         switch (scapVersion) {
-        case V1_1:
-          requirementsManager.load(new URL(SCAP11_REQUIREMENTS), parser);
-          break;
         case V1_2:
           requirementsManager.load(new URL(SCAP12_REQUIREMENTS), parser);
           break;
@@ -103,23 +99,21 @@ public class SCAPValReqManager {
    * SCAP Source/Result Schematrons, their embedded ID will be reported.
    *
    *
-   * 1. Individual Component Validation 2. SCAP 1.1 Contained Components 3. SCAP 1.1 Source Content 4.
-   * SCAP 1.1 Result Content 5. SCAP 1.2 Contained Components 6. SCAP 1.2 Source Content 7. SCAP 1.2
-   * Result Content 8. SCAP 1.3 Contained Components 9. SCAP 1.3 Source Content 10.SCAP 1.3 Result
-   * Content 11. SCAP 1.4 Contained Components 12. SCAP 1.4 Source Content 13.SCAP 1.4 Result Content
+   * 1. Individual Component Validation 2. SCAP 1.2 Contained Components 3. SCAP 1.2 Source Content 4.
+   * SCAP 1.2 Result Content 5. SCAP 1.3 Contained Components 6. SCAP 1.3 Source Content 7. SCAP 1.3
+   * Result Content 8. SCAP 1.4 Contained Components 9. SCAP 1.4 Source Content 10. SCAP 1.4 Result
+   * Content
    */
   public enum RequirementMappings {
 
     SCHEMA_VALIDATION(
         new String[] { "COMP-1-1", // Component
-            "A-10-1", "A-10-1", "A-10-1", // SCAP 1.1
             "A-10-1", "SRC-329-1", "RES-363-1", // SCAP 1.2
             "A-10-1", "SRC-329-1", "RES-363-1", // SCAP 1.3
             "A-10-1", "SRC-329-1", "RES-363-1" }), // SCAP 1.4
 
     SCHEMATRON_VALIDATION(
         new String[] { "COMP-1-2", // Component
-            "A-14-1", "A-14-1", "A-14-1", // SCAP 1.1
             "SRC-330-3", "SRC-330-1", "SRC-330-1", // SCAP 1.2
             "SRC-330-3", "SRC-330-1", "RES-363-2", // SCAP 1.3
             "SRC-330-3", "SRC-330-1", "RES-363-2" }); // SCAP 1.4
@@ -145,7 +139,7 @@ public class SCAPValReqManager {
      */
     public String getSCAPReqID(SCAPVersion scapVersion, Application.ContentType contentType) {
       switch (scapVersion) {
-      case V1_1:
+      case V1_2:
         switch (contentType) {
         case COMPONENT:
           return this.reqID[1];
@@ -156,7 +150,7 @@ public class SCAPValReqManager {
         default:
           return null;
         }
-      case V1_2:
+      case V1_3:
         switch (contentType) {
         case COMPONENT:
           return this.reqID[4];
@@ -167,7 +161,7 @@ public class SCAPValReqManager {
         default:
           return null;
         }
-      case V1_3:
+      case V1_4:
         switch (contentType) {
         case COMPONENT:
           return this.reqID[7];
@@ -175,17 +169,6 @@ public class SCAPValReqManager {
           return this.reqID[8];
         case RESULT:
           return this.reqID[9];
-        default:
-          return null;
-        }
-      case V1_4: // TODO GK Check in Rev4 for correct values
-        switch (contentType) {
-        case COMPONENT:
-          return this.reqID[10];
-        case SOURCE:
-          return this.reqID[11];
-        case RESULT:
-          return this.reqID[12];
         default:
           return null;
         }

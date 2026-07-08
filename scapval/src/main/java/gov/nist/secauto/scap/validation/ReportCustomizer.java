@@ -91,9 +91,6 @@ public class ReportCustomizer {
     // notesString += "</ul>";
     if (scapVersion != null) {
       switch (scapVersion) {
-      case V1_1:
-        scapVersionString = "1.1";
-        break;
       case V1_2:
         scapVersionString = "1.2";
         break;

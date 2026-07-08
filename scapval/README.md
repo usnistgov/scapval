@@ -7,9 +7,9 @@
 Security Content Automation Protocol Validator (SCAPVal) is a Java Command Line Application that provides information
 about whether SCAP content conforms to conventions and recommendations outlined in [NIST Special Publication 800-126 
 Rev.4],
-The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.1 (legacy), 1.2, 1.3, and 1.4
+The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.2, 1.3, and 1.4
 
-SCAP 1.1 is legacy and only partially supported: validate 1.1 content with `-file` (a ZIP), `-dir`, or `-resultdir` and an explicit `-scapversion 1.1`; it is not accepted by `-auto`.
+SCAP 1.1 support has been removed, in line with the SCAP 1.4 final release. If you need to validate SCAP 1.1 content, use a previous SCAPVal release.
 
 SCAPVal validates the data stream according to one of the use cases for an SCAP-validated tool listed in 800-126,
 namely Compliance Checking, Vulnerability Scanning, Inventory Scanning, and Other. 

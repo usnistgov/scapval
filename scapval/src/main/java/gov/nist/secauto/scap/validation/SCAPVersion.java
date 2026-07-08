@@ -40,15 +40,6 @@ import org.jdom2.Namespace;
  * XCCDF, CPE, CCE, CVSS).
  */
 public enum SCAPVersion {
-  V1_1(
-      "1.1",
-      new String[] { "CONFIGURATION", "VULNERABILITY_XCCDF_OVAL", "SYSTEM_INVENTORY", "OVAL_ONLY" },
-      OVALVersion.V5_8,
-      OCILVersion.V2_0,
-      XccdfVersion.V1_1_4,
-      CPEVersion.V2_2,
-      CCEVersion.V5,
-      CVSSVersion.V2_0),
   V1_2(
       "1.2",
       new String[] { "CONFIGURATION", "VULNERABILITY", "INVENTORY", "OTHER" },
@@ -143,25 +134,6 @@ public enum SCAPVersion {
     return this.useCases;
   }
 
-  /**
-   * Checks if a proposed usecase is valid for this particular SCAP version.
-   *
-   * @param usecase
-   *          the usecase as a String to check
-   * @return a boolean of true if this usecase is valid or false.
-   */
-  public boolean isUseCaseValid(String usecase) {
-    usecase = usecase.toUpperCase();
-    String[] cases = this.getUseCases();
-    int last = cases.length - 1;
-    for (int i = 0; i < last; i++) {
-      if (usecase.equals(cases[i])) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public OVALVersion getOvalSupportedVersion() {
     return ovalSupportedVersion;
   }
@@ -193,8 +165,6 @@ public enum SCAPVersion {
    */
   public Namespace getDSNamespace() {
     switch (this) {
-    case V1_1:
-      return NamespaceConstants.NS_SOURCE_DS_1_1.getNamespace();
     case V1_2:
       return NamespaceConstants.NS_SOURCE_DS_1_2.getNamespace();
     case V1_3:

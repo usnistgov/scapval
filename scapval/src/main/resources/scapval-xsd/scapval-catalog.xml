@@ -3,7 +3,6 @@
 		 xsi:schemaLocation="urn:oasis:names:tc:entity:xmlns:xml:catalog ../xsd/oasis/catalog1.1.xsd"  >
 	<!-- SCAP Schemas -->
 	<rewriteSystem systemIdStartString="http://scap.nist.gov/schema/data-stream/0.1" rewritePrefix="classpath:xsd/nist/scap/1.0/"/>
-	<rewriteSystem systemIdStartString="http://scap.nist.gov/schema/data-stream/0.2" rewritePrefix="classpath:xsd/nist/scap/1.1/"/>
 	<rewriteSystem systemIdStartString="http://scap.nist.gov/schema/scap/1.2/" rewritePrefix="classpath:xsd/nist/scap/1.2/"/>
 	<rewriteSystem systemIdStartString="https://scap.nist.gov/schema/scap/1.2/" rewritePrefix="classpath:xsd/nist/scap/1.2/"/>
 	<rewriteSystem systemIdStartString="http://scap.nist.gov/schema/scap/source/1.2/" rewritePrefix="classpath:xsd/nist/scap/1.2/"/>
@@ -12,7 +11,6 @@
 	<rewriteSystem systemIdStartString="https://scap.nist.gov/schema/scap/1.3/" rewritePrefix="classpath:xsd/nist/scap/1.3/"/>
 	<rewriteSystem systemIdStartString="http://scap.nist.gov/schema/scap/source/1.3/" rewritePrefix="classpath:xsd/nist/scap/1.3/"/>
 	<rewriteSystem systemIdStartString="https://scap.nist.gov/schema/scap/source/1.3/" rewritePrefix="classpath:xsd/nist/scap/1.3/"/>
-	<systemSuffix systemIdSuffix="scap-data-stream_0.2.xsd" uri="classpath:xsd/nist/scap/1.1/scap-data-stream_0.2.xsd" />
 
 	<!-- SCAP Results Related Schemas -->
 	<rewriteSystem systemIdStartString="http://scap.nist.gov/schema/asset-reporting-format/1.1" rewritePrefix="classpath:xsd/nist/asset-reporting-format/1.1"/>

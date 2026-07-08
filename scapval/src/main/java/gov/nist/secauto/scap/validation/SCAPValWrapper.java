@@ -75,7 +75,6 @@ public class SCAPValWrapper {
    */
   public static class Builder {
     private String submissionFilePath;
-    private String submissionDirPath;
     private String maxDownloadSize = "30"; // default max download size in MiB
     private String useCase;
     private String reportDirPath;
@@ -87,11 +86,6 @@ public class SCAPValWrapper {
 
     public Builder submissionFileLocation(String path) {
       submissionFilePath = path;
-      return this;
-    }
-
-    public Builder submissionDirLocation(String path) {
-      submissionDirPath = path;
       return this;
     }
 
@@ -147,23 +141,14 @@ public class SCAPValWrapper {
     public SCAPValAssessmentResults run() throws Exception {
       ArrayList<String> args = new ArrayList<>();
 
-      if (this.submissionType == null || (this.submissionFilePath == null && this.submissionDirPath == null)) {
-        throw new Exception("submissionType and submissionFilePath or submissionDirPath must be specified");
-      }
-
-      if (this.submissionFilePath != null && this.submissionDirPath != null) {
-        throw new Exception("submissionFilePath or submissionDirPath must be specified");
+      if (this.submissionType == null || this.submissionFilePath == null) {
+        throw new Exception("submissionType and submissionFilePath must be specified");
       }
 
       switch (this.submissionType) {
       case SOURCE:
-        if (submissionFilePath != null) {
-          args.add("-file");
-          args.add(submissionFilePath);
-        } else if (submissionDirPath != null) {
-          args.add("-dir");
-          args.add(submissionDirPath);
-        }
+        args.add("-file");
+        args.add(submissionFilePath);
         if (this.scapVersion == null) {
           throw new Exception("scapVersion must be specified for SOURCE or RESULT content.");
         }
@@ -200,8 +185,6 @@ public class SCAPValWrapper {
       Path filename;
       if (submissionFilePath != null) {
         filename = Paths.get(submissionFilePath).getFileName();
-      } else if (submissionDirPath != null) {
-        filename = Paths.get(submissionDirPath).getFileName();
       } else {
         filename = Paths.get("scapval");
       }
