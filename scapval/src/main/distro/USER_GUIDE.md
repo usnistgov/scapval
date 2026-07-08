@@ -87,7 +87,7 @@ Otherwise they use the `java` executable found on your `PATH`.
 
 ### Get and unpack the release
 
-1. Download `scapval-<version>-scapval.zip`.
+1. Download `scapval-<version>.zip`.
 2. Unzip it to a working directory.
 3. Change into the unzipped directory before running the commands below.
 

@@ -241,6 +241,9 @@
 							<goal>single</goal>
 						</goals>
 						<configuration>
+							<!-- Produce scapval-<version>.zip (no classifier suffix) instead of
+							     scapval-<version>-scapval.zip -->
+							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
 								<descriptor>src/assembly/bin.xml</descriptor>
 							</descriptors>
