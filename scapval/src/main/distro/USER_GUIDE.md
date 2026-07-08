@@ -8,8 +8,8 @@ that checks whether SCAP content conforms to the conventions and recommendations
 annex [NIST SP 800-126A Rev.4](https://csrc.nist.gov/pubs/sp/800/126/a/r4/final), with support for
 SCAP 1.2, 1.3, and 1.4.
 
-> **New here?** Jump to the [Quickstart](#3-quickstart). The bundled `README.txt` is a terse quick
-> reference; this guide is the complete walkthrough.
+> If you are new to SCAPVal, start with the [Quickstart](#3-quickstart). The bundled `README.txt`
+> is a short quick reference; this guide is the complete documentation.
 
 > **SCAP 1.1 support was removed**, in line with the SCAP 1.4 final release. If you need to
 > validate SCAP 1.1 content, use a previous SCAPVal release.
@@ -35,9 +35,9 @@ SCAP 1.2, 1.3, and 1.4.
 
 SCAPVal reports whether SCAP content is well-formed and conformant. It validates:
 
-- **Source data streams** — the SCAP content a tool consumes.
-- **Result content** — SCAP result data streams and Asset Reporting Format (ARF) reports.
-- **Standalone components** — individual XCCDF, OVAL, or OCIL files, separate from a full SCAP
+- **Source data streams**: the SCAP content a tool consumes.
+- **Result content**: SCAP result data streams and Asset Reporting Format (ARF) reports.
+- **Standalone components**: individual XCCDF, OVAL, or OCIL files, separate from a full SCAP
   data stream.
 
 For each input it runs three kinds of checks:
@@ -65,9 +65,9 @@ It then writes the findings to a machine-readable XML result and a human-readabl
 | Document | Purpose |
 | --- | --- |
 | `USER_GUIDE.md` (this file) | The complete user guide. |
-| `README.txt` | Terse quick reference bundled in the release: options, examples, signing workflow, changelog. |
+| `README.txt` | Short quick reference bundled in the release: options, examples, signing workflow, changelog. |
 | `NOTICE.txt` | License and third-party license notices. |
-| `scapval -h` | The authoritative, always-current list of command-line options. |
+| `scapval -h` | The current list of command-line options for the installed version. |
 
 ---
 
@@ -76,9 +76,9 @@ It then writes the findings to a machine-readable XML result and a human-readabl
 ### System requirements
 
 - **Java Runtime Environment (JRE) 11 or higher.** The launch scripts verify the Java version
-  and fail fast with a clear message if the runtime is missing, invalid, or older than 11.
-- No network access is required for validation — SCAP and OVAL schemas are bundled and resolved
-  offline. Network access is only used when you opt in with `-online`.
+  before launch and report an error if the runtime is missing, invalid, or older than 11.
+- No network access is required for validation; SCAP and OVAL schemas are bundled and resolved
+  offline. Network access is only used with the optional `-online` parameter.
 
 ### Choosing the Java runtime
 
@@ -140,11 +140,11 @@ Validate a source data stream and read the results:
 ./scapval.sh -file source_data_stream_collection_sample.xml
 ```
 
-SCAPVal auto-detects the SCAP version and content type, runs schema + Schematron validation, and
-writes two files next to where you ran the command:
+SCAPVal auto-detects the SCAP version and content type, runs schema and Schematron validation, and
+writes two files to the current working directory:
 
-- `source_data_stream_collection_sample-validation-report.html` — open this in a browser.
-- `source_data_stream_collection_sample-validation-result.xml` — the machine-readable result.
+- `source_data_stream_collection_sample-validation-report.html`: a human-readable report; open it in a browser.
+- `source_data_stream_collection_sample-validation-result.xml`: the machine-readable result.
 
 Check the outcome from the shell exit code:
 
@@ -169,13 +169,13 @@ SCAPVal validates each SCAP version against the component specification versions
 | 1.3 | 5.11.2 | 1.2 | 2.0 | 2.3 | 5 | 3.0 |
 | 1.4 | 5.12.3 | 1.2 | 2.0 | 2.3 | 5 | 3.0 |
 
-The SCAP version is **auto-detected** from the content when you omit `-scapversion`. You can force
-it with `-scapversion 1.2|1.3|1.4`. If the value you pass disagrees with the content, SCAPVal
-reports the mismatch instead of guessing.
+The SCAP version is **auto-detected** from the content when `-scapversion` is omitted. It can also
+be specified explicitly with `-scapversion 1.2|1.3|1.4`. If the specified version does not match
+the version declared in the content, SCAPVal reports an error.
 
 > **SCAP 1.1 support was removed**, in line with the SCAP 1.4 final release. Any attempt to
 > validate 1.1 content (`-scapversion 1.1`, ZIP input, or a detected 1.1 data stream) fails with
-> a message pointing at previous SCAPVal releases.
+> an error stating that a previous SCAPVal release is required.
 
 ### Use cases
 
@@ -195,24 +195,23 @@ A source data stream is validated for one SCAP "use case", read from the data st
 ### Auto-detection (`-auto`)
 
 `-auto` accepts any SCAP XML file, or a directory of XML files, and detects both the content type
-(source, result, or component) and the SCAP version for you. Pointed at a directory it validates
-every `*.xml` file and writes a batch summary. `-auto` does not accept ZIP input.
+(source, result, or component) and the SCAP version. When given a directory, it validates every
+`*.xml` file in it and writes a batch summary. `-auto` does not accept ZIP input.
 
 ### Offline vs. online
 
 - **Offline is the default.** OVAL content is validated against locally bundled OVAL Language
   schemas (OVAL 5.3 through 5.12.3); SCAP 1.4 validates embedded OVAL against OVAL 5.12.3. All
   schema references resolve to the bundled copies through an XML catalog, so no network access is
-  needed. Only concrete, bundled OVAL versions are accepted — an unrecognized `schema_version`
-  (for example a future 5.12.x patch) is reported as unsupported rather than silently validated
-  against a different version.
+  needed. Only bundled OVAL versions are accepted; an unrecognized `schema_version` (for example,
+  a future 5.12.x patch) is reported as unsupported.
 - **`-online`** enables downloading the latest CCE/CPE dictionaries and resolving remote component
   references. `-maxsize` caps the per-download size in MiB (default 50 MiB).
 
 ### Validation layers and OVAL Schematron coverage
 
 Every run performs XML schema validation and Schematron validation, plus custom Java checks.
-Two coverage caveats are worth knowing because they surface as `NOT_TESTED` results:
+Two coverage caveats surface as `NOT_TESTED` results:
 
 - **OVAL 5.12 line Schematron is intentionally skipped**, pending vetted rules from the OVAL
   Community. OVAL 5.12.2/5.12.3 content is schema-validated but its OVAL Schematron requirement is
@@ -230,8 +229,8 @@ Synopsis:
 scapval <options>
 ```
 
-The content and action options below are **mutually exclusive** — supply exactly one. Run
-`scapval -h` for the authoritative, always-current list.
+The content and action options below are **mutually exclusive**: supply exactly one. Run
+`scapval -h` for the current list.
 
 ### Content and action options (choose one)
 
@@ -272,15 +271,15 @@ The content and action options below are **mutually exclusive** — supply exact
 
 > **Note on default output names.** `-h` shows generic defaults of `validation-result.xml` /
 > `validation-report.html` for `-valresultfile` / `-valreportfile`. In practice SCAPVal derives the
-> names from the input file — `<input-prefix>-validation-result.xml` and
-> `<input-prefix>-validation-report.html` — unless you override them with these options.
+> names from the input file (`<input-prefix>-validation-result.xml` and
+> `<input-prefix>-validation-report.html`) unless they are overridden with these options.
 
 ---
 
 ## 6. Task walkthroughs
 
-Each walkthrough shows the command, the files produced, and how to tell pass from fail. Replace
-sample filenames with your own.
+Each walkthrough shows the command and the files it produces. Replace the sample filenames with
+your own.
 
 ### Validate a source data stream
 
@@ -312,7 +311,7 @@ To include the source data stream with the results, add `-sourceds`:
 ```
 
 Supported standalone document types are XCCDF, OVAL (definitions, results, system characteristics,
-variables), and OCIL. For OVAL variables — and for OVAL 5.12.x content generally — the OVAL
+variables), and OCIL. For OVAL variables, and for OVAL 5.12.x content generally, the OVAL
 Schematron requirement is reported `NOT_TESTED` (see
 [Validation layers](#validation-layers-and-oval-schematron-coverage)).
 
@@ -355,7 +354,7 @@ followed by **8 arguments, in this order**:
 5. Signature algorithm: `DSA_SHA1`, `RSA_SHA1`, or `RSA_SHA256`.
 6. A Java Keystore (JKS) file, or `MSCAPI` to use a certificate installed in Windows.
 7. The alias of the certificate used to sign.
-8. `true` or `false` — whether external references should be signed.
+8. `true` or `false`: whether external references should be signed.
 
 ```
 ./scapval.sh -createsigconfig scap-config.xml scap-data-stream.xml scap-data-stream-signed.xml \
@@ -425,12 +424,12 @@ The severity of a finding comes from two places:
 - The requirement's `type` in the requirements files: `MUST` maps to `FAIL`, `SHOULD` maps to
   `WARNING`, and `INFORMATIONAL` maps to an informational result.
 
-This is why, for example, a rule can be relaxed from an error to a warning by changing its
-requirement `type` from `MUST` to `SHOULD`.
+For example, a requirement can be relaxed from an error to a warning by changing its `type` from
+`MUST` to `SHOULD`.
 
 ### Requirement-ID prefixes
 
-Findings are grouped under derived-requirement IDs whose prefix tells you what they check:
+Findings are grouped under derived-requirement IDs. The ID prefix indicates what is checked:
 
 | Prefix | Meaning |
 | --- | --- |
@@ -440,7 +439,7 @@ Findings are grouped under derived-requirement IDs whose prefix tells you what t
 | `TOOL-*` | Tool-conformance items (usually informational / not independently checked). |
 | `COMP-1`, `COMP-1-1`, `COMP-1-2` | Standalone component: base, schema validation, and Schematron validation. |
 
-`NIST-*` and `NISTIR-*` identifiers you may see in the requirements files are citation resources,
+`NIST-*` and `NISTIR-*` identifiers that appear in the requirements files are citation resources,
 not result statuses.
 
 ### Anatomy of the result XML
@@ -478,14 +477,14 @@ A trimmed `validation-result.xml` (from a standalone OVAL definitions file with 
 ```
 
 Each `<test>` carries the failure `<message>` and a `<location>` with the `line`, `column`, and an
-`xpath` pointing at the offending element — use these to find the problem in your content.
+`xpath` pointing at the offending element. Use these to locate the problem in the content.
 
 ### The HTML report
 
 `<input-prefix>-validation-report.html` (title "SCAPVal Validation Report") presents the same
-information for people: a summary of counts by status, the arguments SCAPVal was run with, and the
-per-requirement results. Each failing requirement lists its messages with the line, column, and
-XPath of the offending element.
+information in human-readable form: a summary of counts by status, the arguments SCAPVal was run
+with, and the per-requirement results. Each failing requirement lists its messages with the line,
+column, and XPath of the offending element.
 
 ### The batch summary
 
@@ -497,11 +496,11 @@ files expand to per-failure detail with **Requirement**, **Message**, and **Loca
 
 | Exit code | Meaning |
 | --- | --- |
-| `0` | Passed — no `FAIL` results. |
+| `0` | Passed (no `FAIL` results). |
 | `1` | A validation failure occurred, or there was a configuration/content problem. |
 | `-1` | An unexpected runtime error occurred. |
 
-In batch mode the run exits `1` if any file fails. These codes make SCAPVal easy to gate on in CI
+In batch mode the run exits `1` if any file fails. These exit codes can be used to gate CI
 scripts (`if ./scapval.sh -file content.xml; then ...`).
 
 ---
@@ -525,7 +524,6 @@ SCAPVAL_DIAGNOSTICS=1 ./scapval.sh -file my-source-datastream.xml
 | `TMSADException: no such provider: BC` during signature validation | A known limitation with the BouncyCastle security provider on some environments (tracked in the project issues). |
 | "Unable to find valid OVAL version" | The content declares an OVAL `schema_version` that is not one of the bundled versions. Only concrete, bundled OVAL 5.x versions are accepted. |
 | Launch fails complaining about the Java version | The selected runtime is missing, invalid, or older than 11. Install a JRE 11+ or point `JAVA_HOME` at one. |
-| "`-usecase` must be provided" | Validating a ZIP or a directory requires `-usecase` (see [Use cases](#use-cases)). |
 | SCAP 1.1 content is rejected | SCAP 1.1 support was removed, in line with the SCAP 1.4 final release. Use a previous SCAPVal release to validate SCAP 1.1 content. |
 | Remote references are not resolved | Remote resolution is off by default. Add `-online` (and raise `-maxsize` if downloads are large). |
 
@@ -534,7 +532,7 @@ SCAPVAL_DIAGNOSTICS=1 ./scapval.sh -file my-source-datastream.xml
 - **Does SCAPVal need internet access?** No. Validation is fully offline; `-online` is opt-in only.
 - **Where do the output files go?** To the current working directory, named from the input file.
   Override with `-valresultfile` / `-valreportfile`.
-- **Why are some results `NOT_TESTED`?** Some checks are intentionally not run — most commonly OVAL
+- **Why are some results `NOT_TESTED`?** Some checks are intentionally not run, most commonly OVAL
   5.12 Schematron and OVAL variables Schematron, pending vetted community rules.
 - **How do I see the tool and supported SCAP versions?** Run `./scapval.sh -version`.
 
