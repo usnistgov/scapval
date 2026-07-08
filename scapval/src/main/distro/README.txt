@@ -4,7 +4,12 @@ Overview:
 ---------
 Security Content Automation Protocol Validator (SCAPVal) is a Java Command Line Application that provides information
 about whether SCAP content conforms to conventions and recommendations outlined in NIST Special Publication 800-126,
-The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.1, 1.2, 1.3, and 1.4
+The Technical Specification for the Security Content Automation Protocol (SCAP). With support for SCAP 1.1 (legacy), 1.2, 1.3, and 1.4
+
+SCAP 1.1 is legacy and only partially supported: validate 1.1 content with -file (a ZIP), -dir, or -resultdir and an
+explicit -scapversion 1.1; SCAP 1.1 is not accepted by -auto.
+
+For the complete user guide, see USER_GUIDE.md (bundled in this package and viewable on GitHub).
 
 SCAPVal validates the data stream according to one of the use cases for an SCAP-validated tool listed in 800-126,
 namely Compliance Checking, Vulnerability Scanning, Inventory Scanning, and Other.
@@ -66,32 +71,36 @@ Use -valresultfile and -valreportfile to override the output filenames.
 Usage Details:
 ----
 scapval <options>
+ -auto <arg>                   Validate an SCAP XML file or a directory of
+                               XML files with auto-detection of content
+                               type (source, result, or component) and
+                               SCAP version. SCAP 1.1 content is not
+                               supported by -auto
+ -batchdir <arg>               [Deprecated: use -auto instead] Validate
+                               all XML files in a directory. Each file is
+                               auto-detected for content type and SCAP
+                               version
  -combinedoutput <arg>         Creates an optional file for reference
                                containing any combined remote resources
                                processed by SCAPVal and any -sourceds Data
                                Stream specified. This file is a copy of
                                the final content SCAPVal validates
                                against.
- -auto <arg>                   Validate an SCAP XML file or directory with
-                               auto-detection of content type (source, result,
-                               or component) and SCAP version
- -batchdir <arg>               [Deprecated: use -auto] Validate all XML
-                               files in a directory. Each file is
-                               auto-detected for content type and SCAP version
  -componentfile <arg>          Validate an individual component file.
                                Currently XCCDF, OVAL (definitions,
                                results, system characteristics,
                                variables), and OCIL are supported
  -createsigconfig <arg>        First step to sign content, creates a
                                signing configuration file. Requires 8
-                               arguments, see README.txt for details
+                               arguments, see USER_GUIDE.md (or
+                               README.txt) for details
  -debug                        Enable verbose output
  -dir <arg>                    Directory of individual component SCAP
                                files. Provide if validating SCAP 1.1
                                source files only
- -file <arg>                   SCAP Source XML file (SCAP 1.2, 1.3, 1.4) or ZIP
-                               file (SCAP 1.1). Only provide if validating
-                               source files
+ -file <arg>                   SCAP Source XML file (SCAP 1.2, 1.3, 1.4)
+                               or ZIP file (SCAP 1.1). Only provide if
+                               validating source files
  -h,--help                     Display the available cli arguments
  -listcertificatealias <arg>   Lists available certificate by aliases.
                                Provide path to a Java Keystore (JKS) file,
@@ -105,12 +114,12 @@ scapval <options>
  -resultdir <arg>              Directory of individual component SCAP
                                result files. Provide if validating SCAP
                                1.1 result files only
- -resultfile <arg>             SCAP result XML file (SCAP 1.2, 1.3, 1.4) or ZIP
-                               file (SCAP 1.1). Only provide if validating
-                               result files
+ -resultfile <arg>             SCAP result XML file (SCAP 1.2, 1.3, 1.4)
+                               or ZIP file (SCAP 1.1). Only provide if
+                               validating result files
  -scapversion <arg>            The SCAP version to validate (auto-detected
-                               if not specified). 1.2, 1.3, and 1.4 are
-                               supported
+                               if not specified). 1.1 (legacy), 1.2, 1.3
+                               and 1.4 are supported
  -showcertificate <arg>        Shows a certificate. First argument is a
                                Java Keystore (JKS) file path, or specify
                                "MSCAPI" to show a certificate installed in
@@ -122,7 +131,7 @@ scapval <options>
  -sourceds <arg>               Specifies the location of the source data
                                stream to include with results. For SCAP
                                1.1 it will be included in the 1.1 Data
-                               Stream, for SCAP 1.2, 1.3, and 1.4 it will
+                               Stream, for SCAP 1.2, 1.3 and 1.4 it will
                                included in ARF Report
  -usecase <arg>                The SCAP use case. For 1.1 content
                                CONFIGURATION, VULNERABILITY_XCCDF_OVAL,
@@ -158,8 +167,8 @@ Use -valresultfile and -valreportfile to specify custom output filenames.
 
 If remote resources are defined in content, SCAPVal will attempt to resolve them when when ran with the -online parameter.
 The remote content will be downloaded and automatically combined with the local content before validation begins.
-When validating result content and the source content is specified with -source_ds, SCAPVal will combine the two before validation begins.
-SCAPVal will provide a combined content file for reference when using the -combinedcontent parameter to specify an output file location.
+When validating result content and the source content is specified with -sourceds, SCAPVal will combine the two before validation begins.
+SCAPVal will provide a combined content file for reference when using the -combinedoutput parameter to specify an output file location.
 
 As of SCAPVal 1.3.6 SCAP content signing and signature validation has be integrated from https://sourceforge.net/projects/secautotrust/
 To Sign content, a 2 step process is required:

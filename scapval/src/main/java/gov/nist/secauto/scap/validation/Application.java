@@ -158,8 +158,8 @@ public class Application {
   private static final Logger log = LogManager.getLogger(Application.class);
 
   /**
-   * Resets all mutable static state to defaults. Called at the start of each parseCLI() invocation
-   * so that recursive calls from runBatchDir() begin with a clean slate.
+   * Resets all mutable static state to defaults. Called at the start of each parseCLI() invocation so
+   * that recursive calls from runBatchDir() begin with a clean slate.
    */
   private static void resetState() {
     scapVersion = null;
@@ -493,10 +493,11 @@ public class Application {
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_COMPONENT_FILE)
         .desc("Validate an individual component file. Currently XCCDF, OVAL (definitions, results, "
-            + "system characteristics, variables), and OCIL are supported").hasArg().build());
+            + "system characteristics, variables), and OCIL are supported")
+        .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_AUTO)
         .desc("Validate an SCAP XML file or a directory of XML files with auto-detection of content type "
-            + "(source, result, or component) and SCAP version")
+            + "(source, result, or component) and SCAP version. SCAP 1.1 content is not supported by -auto")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_BATCH_DIR)
         .desc("[Deprecated: use -auto instead] Validate all XML files in a directory. "
@@ -505,7 +506,7 @@ public class Application {
 
     // Sign and Validate (TMSAD) Options
     contentToCheck.addOption(Option.builder(OPTION_CREATE_SIG_CONFIG).desc(
-        "First step to sign content, creates a signing configuration file. Requires 8 arguments, see README.txt for details")
+        "First step to sign content, creates a signing configuration file. Requires 8 arguments, see USER_GUIDE.md (or README.txt) for details")
         .hasArg().build());
     contentToCheck.addOption(Option.builder(OPTION_SIGN_CONTENT).desc(
         "Second and final step to sign content, specify path to the configuration file created in first step by -createsigconfig")
@@ -528,7 +529,9 @@ public class Application {
 
     // specified and supported SCAP version
     Option optionScapVersion = Option.builder(OPTION_SCAP_VERSION)
-        .desc("The SCAP version to validate (auto-detected if not specified). 1.2, 1.3 and 1.4 are supported").hasArg()
+        .desc("The SCAP version to validate (auto-detected if not specified). 1.1 (legacy), 1.2, 1.3 and 1.4 "
+            + "are supported")
+        .hasArg()
         .build();
     OptionEnumerationValidator scapVersionValidator = new OptionEnumerationValidator(optionScapVersion);
     scapVersionValidator.addAllowedValue("1.1");
