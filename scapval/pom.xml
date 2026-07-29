@@ -372,6 +372,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<!-- Used by DistributionLauncherIT to locate the assembled distribution -->
+					<systemPropertyVariables>
+						<project.build.directory>${project.build.directory}</project.build.directory>
+						<project.build.finalName>${project.build.finalName}</project.build.finalName>
+						<project.packaging>${project.packaging}</project.packaging>
+					</systemPropertyVariables>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
