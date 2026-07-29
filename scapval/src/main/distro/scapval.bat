@@ -88,7 +88,7 @@ echo: 1>&2
 set "JAVA_OPTS=%JAVA_OPTS% -Dscapval.diagnostics=true"
 
 :BUILD_FINAL_COMMAND
-set COMMAND="%JAVA%" %JAVA_OPTS% -jar "%~dp0scapval-1.4.2.jar"
+set COMMAND="%JAVA%" %JAVA_OPTS% -jar "%~dp0${project.build.finalName}.${project.packaging}"
 
 :COMMAND_REPEAT
   if "%~1" == "" GOTO RUN

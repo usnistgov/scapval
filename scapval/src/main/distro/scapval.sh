@@ -105,4 +105,6 @@ if diagnostics_enabled; then
 	JAVA_OPTS+=(-Dscapval.diagnostics=true)
 fi
 
-"$RUN" "${JAVA_OPTS[@]}" -jar "${project.build.finalName}.${project.packaging}" "$@"
+SCAPVAL_HOME="$(cd -- "$(dirname -- "$0")" && pwd)"
+
+"$RUN" "${JAVA_OPTS[@]}" -jar "$SCAPVAL_HOME/${project.build.finalName}.${project.packaging}" "$@"
