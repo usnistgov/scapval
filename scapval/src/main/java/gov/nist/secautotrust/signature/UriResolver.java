@@ -29,8 +29,8 @@ package gov.nist.secautotrust.signature;
 import java.io.InputStream;
 
 /**
- * An abstraction for retrieving a URI that may be stored locally instead of retrieving the URI
- * remotely.
+ * An abstraction for retrieving a URI. A locally stored copy of the content, when available, takes
+ * precedence over remote retrieval.
  */
 public interface UriResolver {
   /**

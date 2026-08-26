@@ -47,7 +47,7 @@ public class UnitIntegrationTest {
     try {
       return java.nio.file.Files.walk(unitTestDir.toPath())
           .filter(java.nio.file.Files::isRegularFile)
-          // Change: Filter by extension instead of excluding specific system files
+          // Keep only .xml files; this also skips OS metadata files such as .DS_Store
           .filter(p -> p.toString().endsWith(".xml"))
           .map(java.nio.file.Path::toFile)
           .collect(java.util.stream.Collectors.toList());

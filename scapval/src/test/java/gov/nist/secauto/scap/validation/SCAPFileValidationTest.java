@@ -39,7 +39,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class SCAPFileValidationTest {
 
@@ -175,6 +179,61 @@ public class SCAPFileValidationTest {
         Assert.fail("Should not have had a result with FAIL.");
       }
     }
+  }
+
+  @Test
+  public void SCAP14SourceUnbundledOVAL5121ExpectPass() throws Exception {
+    // Same content as SCAP14SourceOVAL5123ExpectPass, declaring an OVAL 5.12 patch level that has no
+    // schema bundle of its own. SP 800-126Ar4 approves the whole 5.12.x family, so the run must
+    // complete with no FAIL.
+    Path testFile = copyFixtureWithOvalVersion(
+        "src/test/resources/candidates/scap-14/source_data_stream_collection_sample-oval5123.xml", "5.12.3",
+        "5.12.1");
+    try {
+      SCAPValAssessmentResults assessmentResults
+          = new SCAPValWrapper.Builder().submissionType(Application.ContentType.SOURCE).scapVersion(SCAPVersion.V1_4)
+              .useCase("CONFIGURATION").isOnline(true).submissionFileLocation(testFile.toString()).run();
+      Assert.assertTrue("A source data stream declaring unbundled OVAL 5.12.1 must reach the assessment phase",
+          assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+      for (BaseRequirementResult baseRequirementResult : assessmentResults.getAssessmentResults()
+          .getBaseRequirementResults()) {
+        Assert.assertNotEquals("Unexpected FAIL for " + baseRequirementResult.getBaseRequirement().getId(),
+            ResultStatus.FAIL, baseRequirementResult.getStatus());
+      }
+    } finally {
+      Files.deleteIfExists(testFile);
+    }
+  }
+
+  @Test
+  public void SCAP14ResultUnbundledOVAL5121ProducesAssessmentResults() throws Exception {
+    Path testFile = copyFixtureWithOvalVersion("src/test/resources/candidates/scap-14/ARF-results-oval5123.xml",
+        "5.12.3", "5.12.1");
+    try {
+      SCAPValAssessmentResults assessmentResults
+          = new SCAPValWrapper.Builder().submissionType(Application.ContentType.RESULT)
+              .scapVersion(SCAPVersion.V1_4).submissionFileLocation(testFile.toString()).run();
+
+      Assert.assertTrue("An ARF containing unbundled OVAL 5.12.1 must reach the assessment phase",
+          assessmentResults.getAssessmentResults().getBaseRequirementResults().size() > 0);
+    } finally {
+      Files.deleteIfExists(testFile);
+    }
+  }
+
+  /**
+   * Copies a classpath fixture to a temp file, rewriting every {@code <oval:schema_version>} text
+   * value equal to {@code fromVersion} to {@code toVersion}. The caller deletes the copy.
+   */
+  private static Path copyFixtureWithOvalVersion(String fixture, String fromVersion, String toVersion)
+      throws IOException {
+    Path source = new File(new URL("classpath:" + fixture).getFile()).toPath();
+    String content = new String(Files.readAllBytes(source), StandardCharsets.UTF_8);
+    String modifiedContent = content.replace(">" + fromVersion + "<", ">" + toVersion + "<");
+    Assert.assertNotEquals("Fixture " + fixture + " must declare OVAL " + fromVersion, content, modifiedContent);
+    Path copy = Files.createTempFile("scapval-oval-" + toVersion + "-", ".xml");
+    Files.write(copy, modifiedContent.getBytes(StandardCharsets.UTF_8));
+    return copy;
   }
 
   @Test

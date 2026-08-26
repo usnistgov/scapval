@@ -77,17 +77,22 @@ public class OVALVersionTest {
   }
 
   @Test
-  public void getByStringAcceptsOnlyConcreteVersions() throws Exception {
-    // Exact vendored versions resolve.
+  public void getByStringResolvesBundledAndUnbundled512Versions() throws Exception {
+    // Exact bundled versions retain their own schema bundle.
     Assert.assertEquals(OVALVersion.V5_12_2, OVALVersion.getByString("5.12.2"));
     Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString("5.12.3"));
-    // Surrounding whitespace is trimmed.
+    // Unbundled numeric OVAL 5.12 patch versions use the latest compatible schema bundle.
+    Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString("5.12"));
+    Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString("5.12.1"));
+    Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString("5.12.4"));
+    Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString("5.12.999"));
+    // Surrounding whitespace is trimmed before matching.
     Assert.assertEquals(OVALVersion.V5_12_3, OVALVersion.getByString(" 5.12.3 "));
-    // Unvendored / partial 5.12.x values are rejected (null), not silently mapped to another bundle.
-    Assert.assertNull(OVALVersion.getByString("5.12"));
-    Assert.assertNull(OVALVersion.getByString("5.12.1"));
-    Assert.assertNull(OVALVersion.getByString("5.12.4"));
+    // Wildcards, malformed versions, and other unbundled families remain unsupported.
     Assert.assertNull(OVALVersion.getByString("5.12.x"));
+    Assert.assertNull(OVALVersion.getByString("5.12.1.1"));
+    Assert.assertNull(OVALVersion.getByString("5.120"));
+    Assert.assertNull(OVALVersion.getByString("5.13.1"));
   }
 
   @Test

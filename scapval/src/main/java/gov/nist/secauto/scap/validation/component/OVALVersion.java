@@ -124,10 +124,12 @@ public enum OVALVersion {
         return version;
       }
     }
-    // Only concrete, vendored OVAL versions are accepted. Unrecognized values -- including
-    // unvendored 5.12.x patch strings (e.g., 5.12, 5.12.1, a future 5.12.4) -- return null so
-    // callers can fail with a clear, version-specific message instead of silently validating
-    // against a different schema bundle.
+    // SP 800-126Ar4 permits the OVAL 5.12.x family for SCAP 1.4. Validate unbundled 5.12 patch
+    // releases against the latest compatible schema bundle included with SCAPVal. Exact bundled
+    // versions above retain their own schema bundle.
+    if (normalizedVersion.matches("5\\.12(?:\\.[0-9]+)?")) {
+      return OVALVersion.V5_12_3;
+    }
     return null;
   }
 

@@ -47,9 +47,9 @@ import java.util.zip.ZipFile;
  * the shipped Windows launcher pointed at a file absent from the distribution. Nothing in the
  * build inspected the packaged output, so the broken zip reached users.
  *
- * These checks run against the assembled distribution after the package phase and assert the
- * outcome (each launcher names a jar that is present) rather than the mechanism (a Maven
- * placeholder is present), so a changed finalName or a disabled filter is caught too.
+ * These checks run against the assembled distribution after the package phase and assert that
+ * each launcher names a jar that is present. Asserting the outcome, not the mechanism (a Maven
+ * placeholder was substituted), also catches a changed finalName or a disabled filter.
  */
 public class DistributionLauncherIT {
 
@@ -107,7 +107,7 @@ public class DistributionLauncherIT {
 
   private static void assertNamesTheDistributedJar(String launcherName, String named) {
     assertEquals(launcherName + " launches a jar whose name does not match this build."
-        + " A version literal was most likely hardcoded instead of filtered.",
+        + " A version literal was most likely hardcoded and never filtered.",
         EXPECTED_JAR, named);
     assertTrue(launcherName + " launches '" + named + "', which is not in the distribution at "
         + DISTRIBUTION.getAbsolutePath() + ". Running it would fail with"
@@ -170,7 +170,7 @@ public class DistributionLauncherIT {
         System.getProperty("os.name", "").toLowerCase().startsWith("windows"));
 
     File workingDirectory = new File(BUILD_DIRECTORY);
-    // Redirect to a file rather than a pipe so a chatty or hung run cannot deadlock the test.
+    // Redirect to a file so a chatty or hung run cannot deadlock the test on a full pipe.
     File log = File.createTempFile("scapval-version-", ".log", workingDirectory);
     log.deleteOnExit();
 
