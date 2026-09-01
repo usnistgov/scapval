@@ -362,8 +362,8 @@
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  id="win-sc_tfc_i">
         <sch:rule context="win-sc:textfilecontent_item/win-sc:instance">
-            <sch:assert test="string-length(.) = 0 or number(.) &lt; 1">
-                <sch:value-of select="../@id"/> - the value of instance must be greater than one</sch:assert>
+            <sch:assert test="string-length(.) = 0 or number(.) &gt;= 1">
+                <sch:value-of select="../@id"/> - the value of instance must be greater than or equal to one</sch:assert>
         </sch:rule>
     </sch:pattern>
     <sch:pattern xmlns:ind-sc="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent"
@@ -1072,8 +1072,8 @@
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  id="unix-sc_file_gid">
         <sch:rule context="unix-sc:file_item/unix-sc:group_id">
-            <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
-                <sch:value-of select="../@id"/> - the value of group_id must be greater than zero</sch:assert>
+            <sch:assert test="string-length(.) = 0 or number(.) &gt;= 0">
+                <sch:value-of select="../@id"/> - the value of group_id must be greater than or equal to zero</sch:assert>
         </sch:rule>
     </sch:pattern>
     <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
@@ -1082,8 +1082,8 @@
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  id="unix-sc_file_uid">
         <sch:rule context="unix-sc:file_item/unix-sc:user_id">
-            <sch:assert test="string-length(.) = 0 or number(.) &lt; 0">
-                <sch:value-of select="../@id"/> - the value of user_id must be greater than zero</sch:assert>
+            <sch:assert test="string-length(.) = 0 or number(.) &gt;= 0">
+                <sch:value-of select="../@id"/> - the value of user_id must be greater than or equal to zero</sch:assert>
         </sch:rule>
     </sch:pattern>
     <sch:pattern xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
