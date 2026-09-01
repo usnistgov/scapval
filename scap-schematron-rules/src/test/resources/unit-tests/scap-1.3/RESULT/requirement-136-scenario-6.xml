@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-unit-test xmlns="http://decima.nist.gov/xml/unit-test">
+    <requirement>136</requirement>
+    <description>IPv6 addresses with an RFC 4007 zone ID are valid</description>
+    <template xmlns="http://csrc.nist.gov/ns/decima/template/1.0"
+              xmlns:ds="http://scap.nist.gov/schema/scap/source/1.2"
+              xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+              xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" template="classpath:scap-1.3/templates/result-base.xml">
+        <replace xpath="//xccdf:target-address[1]">
+            <xccdf:target-address>fe80::1%lo0</xccdf:target-address>
+            <xccdf:target-address>fe80::1234:5678:9abc:def0%en0</xccdf:target-address>
+        </replace>
+    </template>
+    <assessments>
+        <schematron-assessment ruleset="classpath:rules/scap/result-data-stream-1.3.sch"
+                               handler-class="gov.nist.secauto.scap.validation.decima.requirements.SCAPSchematronHandler"/>
+    </assessments>
+    <assertions>
+        <assert-derived-requirement requirement-id="RES-136-2" result="PASS"/>
+        <!-- also expect RES-258-1 to fail which will result in an expected warning to the user -->
+        <assert-derived-requirement requirement-id="RES-258-1" result="WARNING"/>
+        <assert-derived-requirement requirement-id="RES-366-1" result="WARNING"/>
+        <assert-remaining quantifier="ALL" result="PASS"/>
+    </assertions>
+</content-unit-test>
