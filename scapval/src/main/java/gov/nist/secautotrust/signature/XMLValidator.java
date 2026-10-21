@@ -97,7 +97,7 @@ public class XMLValidator {
   public static List<ISignatureValidationResult> validateContent(ValidateSigConfig config)
       throws TMSADException, ParserConfigurationException, IOException, SAXException, XMLSignatureException {
     // Instantiate the document to be validated
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory dbf = SecureXml.newDocumentBuilderFactory();
     dbf.setNamespaceAware(true);
     Document doc = dbf.newDocumentBuilder().parse(config.getContent());
     HashSet<String> ids = new HashSet<String>();

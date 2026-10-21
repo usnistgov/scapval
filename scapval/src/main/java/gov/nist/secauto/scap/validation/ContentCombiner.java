@@ -306,13 +306,8 @@ public class ContentCombiner {
           log.info(ioException);
           continue;
         } catch (DocumentException e) {
-          // problem with the downloaded remote component-ref
-          String docException
-              = "There was a problem in the XML of remote component-ref with id " + idAttribute.getValue() + " and url "
-                  + remoteComponentURL + " Unable to utilize this remote component-ref. - " + e.getMessage();
-          log.info(docException);
-          ValidationNotes.getInstance().createValidationNote(docException);
-          continue;
+          // Rejected XML must not become a silently omitted component in a successful assessment.
+          throw new IllegalArgumentException("Remote component XML rejected", e);
         }
       } else {
         // did not find a file:/http:/https: prefix continue on

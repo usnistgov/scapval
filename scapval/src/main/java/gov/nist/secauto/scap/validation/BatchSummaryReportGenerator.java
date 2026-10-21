@@ -32,6 +32,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.JDOMException;
+import org.jdom2.input.sax.SAXEngine;
+import gov.nist.secauto.decima.xml.util.XMLSecurity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -221,7 +224,9 @@ public class BatchSummaryReportGenerator {
 
       File xmlResultFile = new File(outputDir, r.getXmlResultName());
       List<FailureDetail> failures = extractFailures(xmlResultFile);
-      if (failures.isEmpty()) {
+      if (failures == null) {
+        html.append("<p class=\"no-details\">XML result rejected; validation details are unavailable.</p>\n");
+      } else if (failures.isEmpty()) {
         if (!xmlResultFile.exists()) {
           html.append("<p class=\"no-details\">Validation encountered an error before results could be generated. ")
               .append("Check the console output above for details.</p>\n");
@@ -311,9 +316,14 @@ public class BatchSummaryReportGenerator {
       return failures;
     }
 
+    final SAXEngine engine;
     try {
-      SAXBuilder builder = new SAXBuilder();
-      Document doc = builder.build(xmlResultFile);
+      engine = XMLSecurity.harden(new SAXBuilder()).buildEngine();
+    } catch (JDOMException e) {
+      throw new IllegalStateException("Unable to initialize secure result parser", e);
+    }
+    try {
+      Document doc = engine.build(xmlResultFile);
       Element root = doc.getRootElement();
       Element resultsEl = root.getChild("results", RESULTS_NS);
       if (resultsEl == null) {
@@ -356,7 +366,8 @@ public class BatchSummaryReportGenerator {
         }
       }
     } catch (Exception e) {
-      log.warn("Error parsing XML result file " + xmlResultFile.getName() + ": " + e.getMessage());
+      log.warn("XML result rejected; validation details are unavailable: " + xmlResultFile.getName());
+      return null;
     }
 
     return failures;

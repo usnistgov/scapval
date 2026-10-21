@@ -266,7 +266,7 @@ public class Signature {
   private Signature(Builder builder) {
     this.id = builder.id;
 
-    documentBuilderFactory = DocumentBuilderFactory.newInstance();
+    documentBuilderFactory = SecureXml.newDocumentBuilderFactory();
     documentBuilderFactory.setNamespaceAware(true);
 
     // Need to specify the provider on xmlsec-1.5.1, otherwise the JDK
@@ -409,7 +409,7 @@ public class Signature {
       xpath.setNamespaceContext(new CustomNamespaceContext(xpathNamespaceMap));
     }
 
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory dbf = SecureXml.newDocumentBuilderFactory();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder();
     Document doc = db.parse(source);

@@ -26,6 +26,7 @@
 
 package gov.nist.secautotrust.signer;
 
+import gov.nist.secautotrust.signature.SecureXml;
 import gov.nist.secautotrust.logging.MessageBroadcaster;
 import gov.nist.secautotrust.logging.MessageBroadcasterFactory;
 import gov.nist.secautotrust.signer.config.ScapDataStreamSignerConfig;
@@ -116,7 +117,7 @@ public class ScapDataStreamSigner {
   public void createConfig(ScapDataStreamSignerConfig config) throws TransformerFactoryConfigurationError,
       ParserConfigurationException, IOException, SAXException, XPathExpressionException {
 
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory dbf = SecureXml.newDocumentBuilderFactory();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder();
 

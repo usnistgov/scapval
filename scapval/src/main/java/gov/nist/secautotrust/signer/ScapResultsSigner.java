@@ -26,6 +26,7 @@
 
 package gov.nist.secautotrust.signer;
 
+import gov.nist.secautotrust.signature.SecureXml;
 import gov.nist.secautotrust.signature.Signature;
 import gov.nist.secautotrust.signer.config.ScapResultSignerConfig;
 import gov.nist.secautotrust.util.ScapNamespaceContext;
@@ -84,7 +85,7 @@ public class ScapResultsSigner {
   // The main method that signs an ARF stream
   public static void signResultStream(ScapResultSignerConfig config)
       throws TransformerFactoryConfigurationError, Exception {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory dbf = SecureXml.newDocumentBuilderFactory();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder();
 

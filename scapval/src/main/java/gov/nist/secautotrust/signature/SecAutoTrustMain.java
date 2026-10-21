@@ -26,6 +26,7 @@
 
 package gov.nist.secautotrust.signature;
 
+import gov.nist.secauto.decima.xml.util.XMLSecurity;
 import gov.nist.secautotrust.signature.config.ValidateSigConfig;
 import gov.nist.secautotrust.signature.enums.CanonicalizationType;
 import gov.nist.secautotrust.signature.enums.HashType;
@@ -45,6 +46,7 @@ import gov.nist.secauto.trust.tmsad.config.Signs.XpathNamespacePrefixMap.Ns;
 import gov.nist.secautotrust.util.Util;
 
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.*;
@@ -72,6 +74,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.crypto.dsig.spec.XPathType;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.xpath.XPathExpressionException;
 
@@ -129,9 +132,17 @@ public class SecAutoTrustMain {
 
     JAXBContext context = JAXBContext.newInstance(Sign.class);
     Unmarshaller unmarshaller = context.createUnmarshaller();
-    unmarshaller.setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        .newSchema(new URL("classpath:tmsad/secautotrust.xsd")));
-    Signs signs = (Signs) unmarshaller.unmarshal(xmlInput);
+    SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    schemaFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+    unmarshaller.setSchema(schemaFactory.newSchema(new URL("classpath:tmsad/secautotrust.xsd")));
+    Signs signs;
+    try (InputStream input = new FileInputStream(xmlInput)) {
+      InputSource source = new InputSource(input);
+      source.setSystemId(xmlInput.toURI().toString());
+      signs = (Signs) unmarshaller.unmarshal(new SAXSource(XMLSecurity.newXMLReader(), source));
+    }
 
     File outputFile = new File(signs.getOutputFile());
     if (outputFile.exists()) {

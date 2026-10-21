@@ -27,6 +27,10 @@
 package gov.nist.secauto.scap.validation.candidate;
 
 import gov.nist.secauto.scap.validation.Application.ContentType;
+import gov.nist.secauto.decima.xml.util.XMLSecurity;
+import org.xml.sax.XMLReader;
+import java.io.FileNotFoundException;
+import javax.xml.parsers.ParserConfigurationException;
 import gov.nist.secauto.scap.validation.NamespaceConstants;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,8 +45,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Takes an XML file and determines the content type (SCAP or XCCDF) by looking at XML namespace of
@@ -161,26 +163,20 @@ public class ScapDocumentSniffer {
    */
   private void parseFile(final String filename, final DefaultHandler handler) {
 
-    final SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-    parserFactory.setValidating(false);
-    parserFactory.setNamespaceAware(true);
-
-    FileInputStream in = null;
+    final XMLReader reader;
     try {
-      final SAXParser parser = parserFactory.newSAXParser();
-      in = new FileInputStream(new File(filename));
-      final InputSource inputSource = new InputSource(in);
-      parser.parse(inputSource, handler);
-    } catch (Exception e) {
-      log.error(String.format("Unable to process %s", filename), e);
-    } finally {
-      if (in != null) {
-        try {
-          in.close();
-        } catch (IOException e) {
-          log.warn("Unable to close " + filename);
-        }
-      }
+      reader = XMLSecurity.newXMLReader();
+    } catch (ParserConfigurationException | SAXException e) {
+      throw new IllegalStateException("Unable to initialize secure SCAP XML parser", e);
+    }
+    reader.setContentHandler(handler);
+    reader.setErrorHandler(handler);
+    try (FileInputStream in = new FileInputStream(new File(filename))) {
+      reader.parse(new InputSource(in));
+    } catch (FileNotFoundException e) {
+      log.error("Unable to open candidate XML file");
+    } catch (SAXException | IOException e) {
+      throw new IllegalArgumentException("Candidate XML rejected: malformed XML or prohibited DOCTYPE", e);
     }
   }
 
