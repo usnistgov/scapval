@@ -40,7 +40,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -108,18 +107,18 @@ public class ScapResultsSigner {
       // document
       node.getParentNode().getParentNode().removeChild(node.getParentNode());
       ByteArrayOutputStream sigBAOS = new ByteArrayOutputStream();
-      TransformerFactory.newInstance().newTransformer().transform(new DOMSource(node), new StreamResult(sigBAOS));
+      XMLSecurity.newTransformerFactory().newTransformer().transform(new DOMSource(node), new StreamResult(sigBAOS));
       // Create the main reference to sign with the content of the
       // existing signature
       builder.newObject(Util.generateId("obj-cs"), new ByteArrayInputStream(sigBAOS.toByteArray()));
 
       // Marshall the document with the signature extended-info removed in
       // preparation to create the "sourceForOutput" input stream
-      TransformerFactory.newInstance().newTransformer().transform(new DOMSource(doc), new StreamResult(baos));
+      XMLSecurity.newTransformerFactory().newTransformer().transform(new DOMSource(doc), new StreamResult(baos));
     } else {
       // Else just use the ARF document passed in as the "sourceForOutput"
       // input stream
-      TransformerFactory.newInstance().newTransformer().transform(new DOMSource(doc), new StreamResult(baos));
+      XMLSecurity.newTransformerFactory().newTransformer().transform(new DOMSource(doc), new StreamResult(baos));
 
       // Create the main reference which is the ARF document excluding any
       // signature "extended-info"s, as well as the extended-infos element

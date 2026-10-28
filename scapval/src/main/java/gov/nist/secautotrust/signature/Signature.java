@@ -65,7 +65,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
@@ -377,7 +376,7 @@ public class Signature {
     signature.sign(signContext);
 
     // output the resulting document
-    Transformer trans = TransformerFactory.newInstance().newTransformer();
+    Transformer trans = XMLSecurity.newTransformerFactory().newTransformer();
 
     StreamResult result = new StreamResult(os);
     Document doc;
