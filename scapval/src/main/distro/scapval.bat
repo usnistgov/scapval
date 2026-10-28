@@ -99,9 +99,11 @@ goto COMMAND_REPEAT
 :RUN
 echo %COMMAND%
 %COMMAND%
+set "SCAPVAL_EXIT=%ERRORLEVEL%"
 
-endlocal
-@goto :EOF
+rem Return the Java exit code. Without exit /b, a caller that starts this file as its own
+rem process (cmd /c, PowerShell, Task Scheduler, CI) always sees 0.
+endlocal & exit /b %SCAPVAL_EXIT%
 
 :FAIL
 echo %~1 1>&2
