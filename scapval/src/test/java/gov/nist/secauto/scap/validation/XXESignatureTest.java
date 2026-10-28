@@ -27,7 +27,16 @@
 package gov.nist.secauto.scap.validation;
 
 import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
+import gov.nist.secautotrust.signature.KeyInfoBuilder;
 import gov.nist.secautotrust.signature.SecAutoTrustMain;
+import gov.nist.secautotrust.signature.Signature;
+import gov.nist.secautotrust.signature.XMLValidator;
+import gov.nist.secautotrust.signature.config.ValidateSigConfig;
+import gov.nist.secautotrust.signature.enums.SignatureType;
+import gov.nist.secautotrust.signer.ScapDataStreamSigner;
+import gov.nist.secautotrust.signer.ScapResultsSigner;
+import gov.nist.secautotrust.signer.config.ScapDataStreamSignerConfig;
+import gov.nist.secautotrust.signer.config.ScapResultSignerConfig;
 
 import com.sun.net.httpserver.HttpServer;
 import org.junit.After;
@@ -130,6 +139,38 @@ public class XXESignatureTest {
       File config = write(UUID.randomUUID() + ".xml", declaration
           + "<signs xmlns='http://scap.nist.gov/tmsad/input' output-file='unused'>&leaked;</signs>");
       rejected(() -> SecAutoTrustMain.sign(config.toString(), "123456", "123456"));
+    }
+  }
+
+  @Test
+  public void signingAndSignatureSitesRejectDoctypeThroughSharedFactory() throws Exception {
+    java.security.KeyPair keys = java.security.KeyPairGenerator.getInstance("RSA").generateKeyPair();
+    KeyInfoBuilder keyInfo = new KeyInfoBuilder().privateKey(keys.getPrivate()).publicKey(keys.getPublic());
+    for (String declaration : declarations()) {
+      File candidate = write(UUID.randomUUID() + ".xml", declaration + "<root>&leaked;</root>");
+      try (java.io.InputStream content = Files.newInputStream(candidate.toPath())) {
+        rejected(() -> XMLValidator.validateContent(new ValidateSigConfig.Builder().content(content)
+            .trustedPublicKey(keys.getPublic()).build()));
+      }
+      rejected(() -> ScapDataStreamSigner.getInstance().createConfig(new ScapDataStreamSignerConfig.Builder()
+          .content(candidate.toString()).sigType(SignatureType.RSA_SHA256).keystore(keystore).alias("test-alias")
+          .outputStream(new ByteArrayOutputStream()).outputFileLocation("unused").build()));
+      try (java.io.InputStream content = Files.newInputStream(candidate.toPath())) {
+        rejected(() -> ScapResultsSigner.signResultStream(new ScapResultSignerConfig.Builder().content(content)
+            .sigType(SignatureType.RSA_SHA256).keyInfo(keyInfo).outputStream(new ByteArrayOutputStream()).build()));
+      }
+      try (java.io.InputStream content = Files.newInputStream(candidate.toPath())) {
+        Signature.Builder builder = new Signature.Builder().sigType(SignatureType.RSA_SHA256).keyInfoBuilder(keyInfo)
+            .outputStream(new ByteArrayOutputStream()).sourceForOutput(content).insertXpath("/root");
+        builder.newDetachedReferenceBuilder().uri("");
+        Signature signature = builder.build();
+        rejected(signature::signContents);
+      }
+      try (java.io.InputStream content = Files.newInputStream(candidate.toPath())) {
+        Signature signature = new Signature.Builder().sigType(SignatureType.RSA_SHA256).keyInfoBuilder(keyInfo)
+            .outputStream(new ByteArrayOutputStream()).newObject("untrusted", content).build();
+        rejected(signature::signContents);
+      }
     }
   }
 
