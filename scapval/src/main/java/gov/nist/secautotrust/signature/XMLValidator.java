@@ -26,6 +26,7 @@
 
 package gov.nist.secautotrust.signature;
 
+import gov.nist.secauto.decima.xml.util.XMLSecurity;
 import gov.nist.secautotrust.signature.config.ValidateSigConfig;
 import gov.nist.secautotrust.signature.exception.TMSADException;
 import gov.nist.secautotrust.signature.model.IReferenceValidationResult;
@@ -97,8 +98,7 @@ public class XMLValidator {
   public static List<ISignatureValidationResult> validateContent(ValidateSigConfig config)
       throws TMSADException, ParserConfigurationException, IOException, SAXException, XMLSignatureException {
     // Instantiate the document to be validated
-    DocumentBuilderFactory dbf = SecureXml.newDocumentBuilderFactory();
-    dbf.setNamespaceAware(true);
+    DocumentBuilderFactory dbf = XMLSecurity.newDocumentBuilderFactory();
     Document doc = dbf.newDocumentBuilder().parse(config.getContent());
     HashSet<String> ids = new HashSet<String>();
     Util.setIdOnDOM(doc, ids);

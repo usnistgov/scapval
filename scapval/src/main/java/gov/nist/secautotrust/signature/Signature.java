@@ -26,6 +26,7 @@
 
 package gov.nist.secautotrust.signature;
 
+import gov.nist.secauto.decima.xml.util.XMLSecurity;
 import gov.nist.secautotrust.signature.enums.CanonicalizationType;
 import gov.nist.secautotrust.signature.enums.HashType;
 import gov.nist.secautotrust.signature.enums.SignatureType;
@@ -266,8 +267,7 @@ public class Signature {
   private Signature(Builder builder) {
     this.id = builder.id;
 
-    documentBuilderFactory = SecureXml.newDocumentBuilderFactory();
-    documentBuilderFactory.setNamespaceAware(true);
+    documentBuilderFactory = XMLSecurity.newDocumentBuilderFactory();
 
     // Need to specify the provider on xmlsec-1.5.1, otherwise the JDK
     // default is used, which has a bug in certain versions of Java 7
@@ -409,8 +409,7 @@ public class Signature {
       xpath.setNamespaceContext(new CustomNamespaceContext(xpathNamespaceMap));
     }
 
-    DocumentBuilderFactory dbf = SecureXml.newDocumentBuilderFactory();
-    dbf.setNamespaceAware(true);
+    DocumentBuilderFactory dbf = XMLSecurity.newDocumentBuilderFactory();
     DocumentBuilder db = dbf.newDocumentBuilder();
     Document doc = db.parse(source);
     HashSet<String> ids = new HashSet<String>();
