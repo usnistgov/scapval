@@ -27,12 +27,12 @@
 package gov.nist.secauto.scap.validation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import gov.nist.secauto.decima.core.classpath.ClasspathHandler;
-import gov.nist.secauto.scap.validation.exceptions.ConfigurationException;
 import gov.nist.secauto.scap.validation.exceptions.SCAPException;
 
 import org.junit.BeforeClass;
@@ -45,6 +45,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -61,11 +62,22 @@ public class AutoDetectRejectionTest {
   public void rejectsAutoNonXmlWithContentError() throws Exception {
     File candidate = write("bad.xml", "not XML");
     SCAPException rejection = assertRejected("-auto", candidate.getAbsolutePath());
-    assertEquals("Unable to auto-detect the content type of: " + candidate.getAbsolutePath()
-        + ". The file does not appear to be SCAP source, result, or component content."
-        + " Use -file, -resultfile, or -componentfile to specify the content type explicitly.",
-        rejection.getMessage());
-    assertNotNull(rejection.getCause());
+    assertUnreadableXml(candidate, rejection, 1);
+    assertTrue(rejection.getMessage(), rejection.getMessage().contains("(line 1,"));
+  }
+
+  @Test
+  public void rejectsAutoTruncatedDataStream() throws Exception {
+    File candidate = writeTruncatedDataStream();
+    assertUnreadableXml(candidate, assertRejected("-auto", candidate.getAbsolutePath()), 2);
+  }
+
+  @Test
+  public void rejectsAutoMismatchedTag() throws Exception {
+    File candidate = write("mismatched.xml",
+        "<data-stream-collection xmlns='http://scap.nist.gov/schema/scap/source/1.2'>\n"
+            + "<data-stream scap-version='1.4' use-case='CONFIGURATION'></bad>");
+    assertUnreadableXml(candidate, assertRejected("-auto", candidate.getAbsolutePath()), 2);
   }
 
   @Test
@@ -80,15 +92,22 @@ public class AutoDetectRejectionTest {
 
   @Test
   public void rejectsFileNonXmlWithoutExplicitVersion() throws Exception {
-    // Same message as before the parser hardening: the version cannot be read, so ask for it.
     File candidate = write("bad.xml", "not XML");
-    try {
-      new Application().runCLI(new String[] { "-file", candidate.getAbsolutePath() });
-      fail("Candidate must be rejected with a configuration error");
-    } catch (ConfigurationException e) {
-      assertEquals("-scapversion could not be determined from the content. Please specify it explicitly.",
-          e.getMessage());
-    }
+    SCAPException rejection = assertRejected("-file", candidate.getAbsolutePath());
+    assertUnreadableXml(candidate, rejection, 1);
+    assertTrue(rejection.getMessage(), rejection.getMessage().contains("(line 1,"));
+  }
+
+  @Test
+  public void rejectsFileTruncatedWithoutExplicitVersion() throws Exception {
+    File candidate = writeTruncatedDataStream();
+    assertUnreadableXml(candidate, assertRejected("-file", candidate.getAbsolutePath()), 2);
+  }
+
+  @Test
+  public void rejectsResultFileTruncatedWithoutExplicitVersion() throws Exception {
+    File candidate = writeTruncatedDataStream();
+    assertUnreadableXml(candidate, assertRejected("-resultfile", candidate.getAbsolutePath()), 2);
   }
 
   @Test
@@ -113,13 +132,32 @@ public class AutoDetectRejectionTest {
       assertTrue("CLI must finish", process.waitFor(120, TimeUnit.SECONDS));
       String log = Files.readString(console.toPath());
       assertEquals(log, 1, process.exitValue());
-      assertTrue(log, log.contains("Unable to auto-detect the content type"));
+      assertTrue(log, log.contains("could not be read as XML"));
     } finally {
       if (process.isAlive()) {
         process.destroyForcibly();
         process.waitFor();
       }
     }
+  }
+
+  private void assertUnreadableXml(File candidate, SCAPException rejection, int minimumLine) {
+    String message = rejection.getMessage();
+    assertTrue(message, message.startsWith("\"" + candidate.getAbsolutePath() + "\" could not be read as XML:"));
+    assertFalse(message, message.contains("Unable to auto-detect"));
+    assertFalse(message, message.contains("DOCTYPE"));
+    Matcher location = Pattern.compile("\\(line (\\d+), column -?\\d+\\)\\.$").matcher(message);
+    assertTrue(message, location.find());
+    assertTrue(message, Integer.parseInt(location.group(1)) >= minimumLine);
+    assertNotNull(rejection.getCause());
+  }
+
+  private File writeTruncatedDataStream() throws Exception {
+    byte[] content = Files.readAllBytes(new File(
+        "src/test/resources/candidates/scap-13/source_data_stream_collection_sample.xml").toPath());
+    File candidate = temporaryFolder.newFile("truncated.xml");
+    Files.write(candidate.toPath(), Arrays.copyOf(content, content.length / 2));
+    return candidate;
   }
 
   private File write(String name, String content) throws Exception {
