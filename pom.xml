@@ -26,7 +26,7 @@
 		<version.scap-schematron-rules>${project.version}</version.scap-schematron-rules>
 		<version.decima>0.7.2-SNAPSHOT</version.decima>
 		<version.cpe-reference-implementation>1.0.8</version.cpe-reference-implementation>
-		<version.bouncycastle>1.83</version.bouncycastle>
+		<version.bouncycastle>1.86</version.bouncycastle>
 		<plugin.version.swid-maven-plugin>0.6.1</plugin.version.swid-maven-plugin>
 
 		<!--Ignore unknown javadoc tags in create-file-list-mojo javadoc comments -->
@@ -92,7 +92,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.13.1</version>
+				<version>4.13.2</version>
 			</dependency>
 
 			<dependency>
@@ -126,7 +126,7 @@
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
-				<version>1.9</version>
+				<version>1.23.0</version>
 			</dependency>
 
 			<!-- secautotrust dependencies below -->
