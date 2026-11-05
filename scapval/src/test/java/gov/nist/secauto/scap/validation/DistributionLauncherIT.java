@@ -151,6 +151,53 @@ public class DistributionLauncherIT {
     }
   }
 
+  /**
+   * Without an explicit exit /b, a caller that starts scapval.bat as its own process (cmd /c,
+   * PowerShell, Task Scheduler, CI) sees exit 0 even when validation fails. Only callers that use
+   * "call" saw the Java exit code. Found on Windows 11 with the 1.4.3-rc5 distribution.
+   */
+  @Test
+  public void batLauncherReturnsTheJavaExitCode() throws IOException {
+    String content = read(BAT);
+    assertTrue(BAT + " must save the Java exit code right after running the command.",
+        content.contains("%COMMAND%\r\nset \"SCAPVAL_EXIT=%ERRORLEVEL%\"\r\n"));
+    assertTrue(BAT + " must return the saved exit code with exit /b.",
+        content.contains("endlocal & exit /b %SCAPVAL_EXIT%"));
+  }
+
+  @Test
+  public void batLauncherReportsFailureToCmdCaller() throws IOException, InterruptedException {
+    Assume.assumeTrue("scapval.bat can only be executed on Windows",
+        System.getProperty("os.name", "").toLowerCase().startsWith("windows"));
+
+    File workingDirectory = new File(BUILD_DIRECTORY);
+    File candidate = File.createTempFile("scapval-doctype-", ".xml", workingDirectory);
+    candidate.deleteOnExit();
+    Files.write(candidate.toPath(),
+        "<!DOCTYPE r [<!ENTITY a \"b\">]><r>&a;</r>".getBytes(StandardCharsets.UTF_8));
+    File log = File.createTempFile("scapval-bat-", ".log", workingDirectory);
+    log.deleteOnExit();
+
+    Process process = new ProcessBuilder("cmd.exe", "/c", launcher(BAT).getAbsolutePath(), "-file",
+        candidate.getAbsolutePath(), "-scapversion", "1.2")
+        .directory(workingDirectory)
+        .redirectErrorStream(true)
+        .redirectOutput(log)
+        .start();
+
+    boolean finished;
+    try {
+      finished = process.waitFor(5, TimeUnit.MINUTES);
+    } finally {
+      process.destroyForcibly();
+    }
+
+    String output = new String(Files.readAllBytes(log.toPath()), StandardCharsets.UTF_8);
+    assertTrue("scapval.bat did not finish within 5 minutes. Output:\n" + output, finished);
+    assertTrue("cmd /c scapval.bat reported success for a rejected file. Output:\n" + output,
+        process.exitValue() != 0);
+  }
+
   @Test
   public void archiveContainsTheLauncherTargetJar() throws IOException {
     assertTrue("Distribution archive not found at " + ARCHIVE.getAbsolutePath(), ARCHIVE.isFile());
