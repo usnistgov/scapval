@@ -617,10 +617,7 @@ public class Application {
       }
       contentToCheckType = detectContentType(contentToCheckFilename);
       if (contentToCheckType == null) {
-        throw new SCAPException(
-            "Unable to auto-detect the content type of: " + contentToCheckFilename
-                + ". The file does not appear to be SCAP source, result, or component content."
-                + " Use -file, -resultfile, or -componentfile to specify the content type explicitly.");
+        throw new SCAPException(autoDetectMessage(contentToCheckFilename));
       }
       log.info("Content type auto-detected: " + contentToCheckType);
     }
@@ -869,8 +866,19 @@ public class Application {
    *          the path to the SCAP content file
    * @return the detected SCAPVersion, or null if detection fails
    */
-  private static SCAPVersion detectScapVersion(String filename) {
-    String version = new ScapDocumentSniffer().findSCAPVersion(filename);
+  private static SCAPVersion detectScapVersion(String filename) throws SCAPException {
+    String version;
+    try {
+      version = new ScapDocumentSniffer().findSCAPVersion(filename);
+    } catch (IllegalArgumentException e) {
+      if (isDoctypeRejection(e)) {
+        SCAPException rejection = new SCAPException(doctypeMessage(filename));
+        rejection.initCause(e);
+        throw rejection;
+      }
+      // Malformed XML: no version found, so the caller asks for -scapversion as it did before.
+      return null;
+    }
     if (version != null) {
       SCAPVersion scapVer = SCAPVersion.getByString(version);
       if (scapVer != null) {
@@ -938,7 +946,15 @@ public class Application {
    * @return the detected ContentType, or null if detection fails
    */
   private static ContentType detectContentType(String filename) throws SCAPException {
-    String namespace = new ScapDocumentSniffer().findContentType(filename);
+    String namespace;
+    try {
+      namespace = new ScapDocumentSniffer().findContentType(filename);
+    } catch (IllegalArgumentException e) {
+      SCAPException rejection
+          = new SCAPException(isDoctypeRejection(e) ? doctypeMessage(filename) : autoDetectMessage(filename));
+      rejection.initCause(e);
+      throw rejection;
+    }
     if (namespace != null) {
       // Check for SCAP 1.1 content - support was removed
       if (namespace.equals(NamespaceConstants.NS_SOURCE_DS_1_1.getNamespaceString())) {
@@ -951,6 +967,27 @@ public class Application {
       log.warn("Found namespace '" + namespace + "' but could not determine content type");
     }
     return null;
+  }
+
+  private static boolean isDoctypeRejection(Exception exception) {
+    // The sniffer's wrapper mentions DOCTYPE for every rejection. Inspect the parser's causes
+    // to distinguish a prohibited declaration from ordinary malformed XML.
+    for (Throwable cause = exception.getCause(); cause != null; cause = cause.getCause()) {
+      if (cause.getMessage() != null && cause.getMessage().contains("DOCTYPE")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static String doctypeMessage(String filename) {
+    return "\"" + filename + "\" was rejected: DOCTYPE declarations are not allowed in SCAP content.";
+  }
+
+  private static String autoDetectMessage(String filename) {
+    return "Unable to auto-detect the content type of: " + filename
+        + ". The file does not appear to be SCAP source, result, or component content."
+        + " Use -file, -resultfile, or -componentfile to specify the content type explicitly.";
   }
 
   /**
