@@ -97,8 +97,8 @@ public class AssessmentFactoryTest {
     Assert.assertTrue(scapDocumentSchemaAssessment.getSchemaSources().size() > 58);
 
     Assessment<XMLDocument> scapDocumentSchematronAssessments = assessmentFactory.createSCAPSchematronAssessments();
-    // currently should expect at least 4 (OVAL 5.12.3 schematron is skipped for SCAP 1.4)
-    Assert.assertTrue(scapDocumentSchematronAssessments.getExecutableAssessments(SCAP14).size() > 3);
+    // Four SCAP rulesets plus OVAL definitions and system characteristics.
+    Assert.assertEquals(6, scapDocumentSchematronAssessments.getExecutableAssessments(SCAP14).size());
   }
 
   @Test

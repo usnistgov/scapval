@@ -53,7 +53,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11.getDefinitionSchematron(), "oval-definitions-schematron-5.11.sch");
     Assert.assertEquals(OVALVersion.V5_11_1.getDefinitionSchematron(), "oval-definitions-schematron-5.11.1.sch");
     Assert.assertEquals(OVALVersion.V5_11_2.getDefinitionSchematron(), "oval-definitions-schematron-5.11.2.sch");
-    Assert.assertEquals(OVALVersion.V5_12_2.getDefinitionSchematron(), "oval-definitions-schematron-5.12.2.sch");
+    Assert.assertEquals(OVALVersion.V5_12_2.getDefinitionSchematron(), "oval-definitions-schematron-5.12.3.sch");
     Assert.assertEquals(OVALVersion.V5_12_3.getDefinitionSchematron(), "oval-definitions-schematron-5.12.3.sch");
   }
 
@@ -62,7 +62,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11.getResultSchematron(), "oval-results-schematron-5.11.sch");
     Assert.assertEquals(OVALVersion.V5_11_1.getResultSchematron(), "oval-results-schematron-5.11.1.sch");
     Assert.assertEquals(OVALVersion.V5_11_2.getResultSchematron(), "oval-results-schematron-5.11.2.sch");
-    Assert.assertEquals(OVALVersion.V5_12_2.getResultSchematron(), "oval-results-schematron-5.12.2.sch");
+    Assert.assertEquals(OVALVersion.V5_12_2.getResultSchematron(), "oval-results-schematron-5.12.3.sch");
     Assert.assertEquals(OVALVersion.V5_12_3.getResultSchematron(), "oval-results-schematron-5.12.3.sch");
   }
 
@@ -71,7 +71,7 @@ public class OVALVersionTest {
     Assert.assertEquals(OVALVersion.V5_11_2.getSystemCharacteristicsSchematron(),
         "oval-system-characteristics-schematron-5.11.2.sch");
     Assert.assertEquals(OVALVersion.V5_12_2.getSystemCharacteristicsSchematron(),
-        "oval-system-characteristics-schematron-5.12.2.sch");
+        "oval-system-characteristics-schematron-5.12.3.sch");
     Assert.assertEquals(OVALVersion.V5_12_3.getSystemCharacteristicsSchematron(),
         "oval-system-characteristics-schematron-5.12.3.sch");
   }
@@ -93,13 +93,6 @@ public class OVALVersionTest {
     Assert.assertNull(OVALVersion.getByString("5.12.1.1"));
     Assert.assertNull(OVALVersion.getByString("5.120"));
     Assert.assertNull(OVALVersion.getByString("5.13.1"));
-  }
-
-  @Test
-  public void isSchematronEnabled() throws Exception {
-    Assert.assertTrue(OVALVersion.V5_11_2.isSchematronEnabled());
-    Assert.assertFalse(OVALVersion.V5_12_2.isSchematronEnabled());
-    Assert.assertFalse(OVALVersion.V5_12_3.isSchematronEnabled());
   }
 
 }
