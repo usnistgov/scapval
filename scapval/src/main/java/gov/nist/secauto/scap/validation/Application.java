@@ -75,6 +75,7 @@ import org.jdom2.Attribute;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -871,13 +872,10 @@ public class Application {
     try {
       version = new ScapDocumentSniffer().findSCAPVersion(filename);
     } catch (IllegalArgumentException e) {
-      if (isDoctypeRejection(e)) {
-        SCAPException rejection = new SCAPException(doctypeMessage(filename));
-        rejection.initCause(e);
-        throw rejection;
-      }
-      // Malformed XML: no version found, so the caller asks for -scapversion as it did before.
-      return null;
+      SCAPException rejection = new SCAPException(
+          isDoctypeRejection(e) ? doctypeMessage(filename) : unreadableXmlMessage(filename, e));
+      rejection.initCause(e);
+      throw rejection;
     }
     if (version != null) {
       SCAPVersion scapVer = SCAPVersion.getByString(version);
@@ -950,8 +948,8 @@ public class Application {
     try {
       namespace = new ScapDocumentSniffer().findContentType(filename);
     } catch (IllegalArgumentException e) {
-      SCAPException rejection
-          = new SCAPException(isDoctypeRejection(e) ? doctypeMessage(filename) : autoDetectMessage(filename));
+      SCAPException rejection = new SCAPException(
+          isDoctypeRejection(e) ? doctypeMessage(filename) : unreadableXmlMessage(filename, e));
       rejection.initCause(e);
       throw rejection;
     }
@@ -978,6 +976,21 @@ public class Application {
       }
     }
     return false;
+  }
+
+  private static String unreadableXmlMessage(String filename, Exception rejection) {
+    Throwable deepestCause = rejection;
+    for (Throwable cause = rejection; cause != null; cause = cause.getCause()) {
+      if (cause instanceof SAXParseException) {
+        SAXParseException parseException = (SAXParseException) cause;
+        String location = parseException.getLineNumber() > 0
+            ? " (line " + parseException.getLineNumber() + ", column " + parseException.getColumnNumber() + ")"
+            : "";
+        return "\"" + filename + "\" could not be read as XML: " + parseException.getMessage() + location + ".";
+      }
+      deepestCause = cause;
+    }
+    return "\"" + filename + "\" could not be read as XML: " + deepestCause.getMessage() + ".";
   }
 
   private static String doctypeMessage(String filename) {
