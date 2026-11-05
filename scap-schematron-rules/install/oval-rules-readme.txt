@@ -1,11 +1,27 @@
-To validate OVAL content, SCAP uses OVAL Definition Schematron schemas that have been modified to use XPath 1.0 instead of XPath 2.0.
+To validate OVAL content, SCAP uses OVAL Definition Schematron schemas modified for XPath 1.0.
 To use XPath 1.0, the queryBinding="xslt2" attributes were removed from the root element of the schematron schemas.
 The modification was made to avoid an XPath exception in the floor() function when the current element being processed is not a node.
 Version 1.4.3 Updates:
 - Added OVAL 5.12.3 schemas; SCAP 1.4 now validates embedded OVAL against OVAL 5.12.3.
-- Standalone OVAL Schematron for the 5.12 line (5.12.2 and 5.12.3) is not run: no vetted OVAL Community
-  schematron rules have been published for these versions, so these checks are intentionally skipped.
-  Schema validation still applies to 5.12.x content.
+- OVAL 5.12.x runs the OVAL 5.12.3 Schematron for definitions, results, and system characteristics.
+  OVAL 5.12.2 retains its own schema bundle and uses the same 5.12.3 rules.
+- Rule source: https://github.com/OVAL-Community/OVAL, branch
+  dnp-fix-and-add-schematron-validation, commit 519e307125ce6be8dffa49f59ea5dbcf0a0d8b64.
+  This commit contains annotation fixes pending upstream review; it precedes an OVAL release.
+- Regenerate from the SCAPVAL repository root with Python 3 and lxml:
+  python3 scap-schematron-rules/tools/generate_oval_schematron.py \
+    <oval-checkout> 519e307125ce6be8dffa49f59ea5dbcf0a0d8b64
+  The generator requires a clean checkout at the expected commit. It applies
+  tools/ExtractSchFromXSD.xsl to each real schema path, follows imports, and merges sorted inputs:
+  oval-schemas/*-definitions-schema.xsd, oval-schemas/*-system-characteristics-schema.xsd,
+  and oval-schemas/oval-results-schema.xsd. Canonical pattern text removes duplicates;
+  conflicting non-empty pattern ids and namespace prefixes stop generation.
+- Generated files omit queryBinding for XPath 1.0, replace /oval-res:oval_results with
+  ancestor-or-self::oval-res:oval_results in results assert tests, and drop pattern
+  oval_schema_version_core_matches_platforms. Results rule contexts remain unchanged.
+  The upstream class_directives[@class = ./@class] predicate remains unchanged.
+  Headers record the repository, commit, and generator; output uses LF and has no timestamps.
+- Deprecation reports are INFORMATIONAL. Failed asserts are FAIL.
 - Standalone OVAL results, system characteristics, and variables files can now be validated (via
   -componentfile and -auto). OVAL variables files are schema validated only: no OVAL variables
   Schematron rules are bundled for any version, so those checks are intentionally skipped (the

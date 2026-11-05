@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oval-def:oval_definitions
+    xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+    xmlns:apple-ios-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#apple_ios">
+    <oval-def:objects>
+        <apple-ios-def:profile_object id="oval:org.example:obj:1">
+            <apple-ios-def:uuid>example-profile</apple-ios-def:uuid>
+            <oval-def:filter>oval:org.example:ste:1</oval-def:filter>
+        </apple-ios-def:profile_object>
+    </oval-def:objects>
+    <oval-def:states>
+        <apple-ios-def:profile_state id="oval:org.example:ste:1"/>
+    </oval-def:states>
+</oval-def:oval_definitions>

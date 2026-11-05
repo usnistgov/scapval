@@ -85,28 +85,19 @@ public enum OVALVersion {
       new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
           "oval-results-schematron-5.11.2.sch", "oval-system-characteristics-schematron-5.11.2.sch" }),
   V5_12_2(
-      new String[] { "xsd/mitre/oval/oval_5.12.2/", "oval-definitions-schematron-5.12.2.sch",
-          "oval-results-schematron-5.12.2.sch", "oval-system-characteristics-schematron-5.12.2.sch" }, false),
+      new String[] { "xsd/mitre/oval/oval_5.12.2/", "oval-definitions-schematron-5.12.3.sch",
+          "oval-results-schematron-5.12.3.sch", "oval-system-characteristics-schematron-5.12.3.sch" }),
   V5_12_3(
       new String[] { "xsd/mitre/oval/oval_5.12.3/", "oval-definitions-schematron-5.12.3.sch",
-          "oval-results-schematron-5.12.3.sch", "oval-system-characteristics-schematron-5.12.3.sch" }, false);
+          "oval-results-schematron-5.12.3.sch", "oval-system-characteristics-schematron-5.12.3.sch" });
   // V5_11_2(
   // new String[] { "xsd/mitre/oval/oval_5.11.2/", "oval-definitions-schematron-5.11.2.sch",
   // "oval-results-schematron-5.11.2.sch" });
 
   private String[] validationFiles;
-  // Whether vetted standalone OVAL schematron rules are available and should run for this version.
-  // The OVAL Community has not published standalone schematron for the 5.12 line, so 5.12.2 and
-  // 5.12.3 disable it; all earlier versions keep it enabled.
-  private boolean schematronEnabled;
 
   OVALVersion(String[] validationFiles) {
-    this(validationFiles, true);
-  }
-
-  OVALVersion(String[] validationFiles, boolean schematronEnabled) {
     this.validationFiles = validationFiles;
-    this.schematronEnabled = schematronEnabled;
   }
 
   /**
@@ -157,15 +148,6 @@ public enum OVALVersion {
 
   public String getVersionString() {
     return this.toString().replace("_", ".").replace("V", "");
-  }
-
-  /**
-   * Indicates whether OVAL schematron assessments are enabled for this version.
-   *
-   * @return true if vetted OVAL schematron rules should run, false to skip them
-   */
-  public boolean isSchematronEnabled() {
-    return schematronEnabled;
   }
 
   /**

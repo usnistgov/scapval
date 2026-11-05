@@ -53,7 +53,6 @@ import org.jdom2.Element;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -345,14 +344,6 @@ public class AssessmentFactory {
       Application.ContentType contentType) {
     Objects.requireNonNull(ovalVersion, "ovalVersion cannot be null.");
     Objects.requireNonNull(contentType, "contentType cannot be null.");
-
-    if (!ovalVersion.isSchematronEnabled()) {
-      // No vetted standalone OVAL schematron rules exist for this version (the OVAL Community has
-      // not published them for the 5.12 line), so skip OVAL schematron assessments for it.
-      log.warn("Skipping OVAL {} schematron assessments; no vetted OVAL Community rules for this version.",
-          ovalVersion.getVersionString());
-      return Collections.emptyList();
-    }
 
     List<Assessment<XMLDocument>> ovalComponentAssessments = new LinkedList<>();
     SchematronCompiler schematronCompiler = null;

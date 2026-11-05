@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oval-def:oval_definitions
+    xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+    xmlns:ind-def="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent">
+    <oval-def:objects>
+        <ind-def:variable_object id="oval:org.example:obj:1">
+            <ind-def:var_ref>oval:org.example:var:missing</ind-def:var_ref>
+        </ind-def:variable_object>
+    </oval-def:objects>
+</oval-def:oval_definitions>
