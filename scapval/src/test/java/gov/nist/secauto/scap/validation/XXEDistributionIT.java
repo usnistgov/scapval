@@ -94,9 +94,9 @@ public class XXEDistributionIT {
     assertTrue(decima.length > 0);
     for (File jar : decima) {
       assertTrue("All packaged decima modules must use the integrated coordinate: " + jar,
-          jar.getName().endsWith("-0.7.2-SNAPSHOT.jar"));
+          jar.getName().endsWith("-0.7.2.jar"));
     }
-    File xmlJar = new File(distribution, "lib/decima-xml-0.7.2-SNAPSHOT.jar");
+    File xmlJar = new File(distribution, "lib/decima-xml-0.7.2.jar");
     File integratedXml = new File(XMLSecurity.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     org.junit.Assert.assertArrayEquals("The archive must contain the exact integrated Maven artifact",
         Files.readAllBytes(integratedXml.toPath()), Files.readAllBytes(xmlJar.toPath()));
@@ -107,7 +107,7 @@ public class XXEDistributionIT {
     File archive = new File(System.getProperty("project.build.directory"),
         System.getProperty("project.build.finalName") + ".zip");
     try (ZipFile zip = new ZipFile(archive)) {
-      assertNotNull(zip.getEntry("lib/decima-xml-0.7.2-SNAPSHOT.jar"));
+      assertNotNull(zip.getEntry("lib/decima-xml-0.7.2.jar"));
       assertFalse(zip.stream().anyMatch(entry -> entry.getName().matches(".*decima-.*-0\\.7\\.1\\.jar")));
     }
     File candidate = write("probe.xml", "<!DOCTYPE root [<!ENTITY leak 'harmless'>]><root>&leak;</root>");
@@ -124,7 +124,7 @@ public class XXEDistributionIT {
     public static void main(String[] args) throws Exception {
       File origin = new File(XMLSecurity.class.getProtectionDomain().getCodeSource().getLocation().toURI());
       if (!origin.getCanonicalPath().startsWith(args[0] + File.separator)
-          || !origin.getName().equals("decima-xml-0.7.2-SNAPSHOT.jar")) {
+          || !origin.getName().equals("decima-xml-0.7.2.jar")) {
         throw new AssertionError("Unexpected XML security class origin: " + origin);
       }
       try {
