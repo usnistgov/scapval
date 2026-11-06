@@ -44,6 +44,7 @@ This will build scapval and once complete will be ready for use in */scapval/tar
 ## Feedback:
 
 Please send tool defects reports, enhancement requests, and any other related comments by email to scap@nist.gov.
+
 [NIST Special Publication 800-126 Rev.4]:https://csrc.nist.gov/pubs/sp/800/126/r4/final
 [NIST Special Publication 800-126A Rev.4]:https://csrc.nist.gov/pubs/sp/800/126/a/r4/final
 [License Information]:https://github.com/usnistgov/scapval/blob/master/scapval/src/main/distro/NOTICE.txt
